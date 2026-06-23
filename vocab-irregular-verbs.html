@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Irregular Verbs — Elina's English Space</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --indigo:  #4f46e5;
+      --rose:    #f43f5e;
+      --emerald: #10b981;
+      --amber:   #f59e0b;
+      --violet:  #8b5cf6;
+      --dark:    #0f172a;
+      --bg:      #f1f5f9;
+      --card:    #ffffff;
+      --text:    #0f172a;
+      --muted:   #64748b;
+      --border:  #e2e8f0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding-bottom: 110px;
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%);
+      padding: 40px 24px 56px;
+      position: relative;
+    }
+    .hero-dots {
+      position: absolute; inset: 0; pointer-events: none;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.08) 1px, transparent 1px);
+      background-size: 28px 28px;
+    }
+    .hero-wave { display: block; width: 100%; line-height: 0; background: var(--bg); }
+    .hero-wave svg { display: block; width: 100%; }
+    .hero-inner { position: relative; z-index: 1; }
+    .hero-back {
+      display: inline-flex; align-items: center; gap: 6px;
+      color: rgba(255,255,255,0.55); font-size: 13px; font-weight: 600;
+      text-decoration: none; margin-bottom: 20px; transition: color 0.2s;
+    }
+    .hero-back:hover { color: #fff; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.18);
+      color: rgba(255,255,255,0.9); font-size: 12px; font-weight: 600;
+      padding: 5px 14px; border-radius: 100px; margin-bottom: 16px;
+    }
+    .hero h1 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(24px, 5vw, 38px);
+      font-weight: 800; color: #fff; letter-spacing: -0.5px; margin-bottom: 6px;
+    }
+    .hero p { color: rgba(255,255,255,0.55); font-size: 15px; }
+
+    .hero-stats {
+      display: flex; gap: 10px; margin-top: 18px; flex-wrap: wrap;
+    }
+    .hero-stat {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 100px; padding: 6px 16px;
+      color: #fff; font-size: 13px; font-weight: 600;
+    }
+    .hero-stat.green { color: #34d399; border-color: rgba(52,211,153,0.3); background: rgba(52,211,153,0.1); }
+
+    /* ─── LAYOUT ─── */
+    .page { max-width: 700px; margin: 0 auto; padding: 0 20px; }
+    .section-gap { margin-top: 24px; }
+
+    /* ─── MODE TABS ─── */
+    .mode-tabs {
+      display: flex; gap: 8px; margin-bottom: 24px;
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      border-radius: 14px; padding: 6px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+    }
+    .mode-tab {
+      flex: 1; padding: 10px 6px;
+      border: none; border-radius: 10px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px; font-weight: 600;
+      cursor: pointer; transition: all 0.2s;
+      background: transparent; color: var(--muted);
+    }
+    .mode-tab.active { background: var(--dark); color: #fff; }
+
+    /* ─── STATS ROW ─── */
+    .stats-row { display: flex; gap: 10px; margin-bottom: 24px; flex-wrap: wrap; }
+    .stat-pill {
+      background: var(--card); border: 1.5px solid var(--border);
+      border-radius: 12px; padding: 10px 16px;
+      flex: 1; min-width: 80px; text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .stat-pill .sp-num {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 20px; font-weight: 800;
+    }
+    .stat-pill .sp-lbl { font-size: 11px; color: var(--muted); font-weight: 600; margin-top: 1px; }
+    .sp-total .sp-num { color: var(--indigo); }
+    .sp-known .sp-num { color: var(--emerald); }
+    .sp-left  .sp-num { color: var(--amber); }
+
+    /* ─── FILTER CHIPS ─── */
+    .filter-row {
+      display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px;
+    }
+    .filter-chip {
+      padding: 6px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 100px; background: var(--card);
+      font-size: 12px; font-weight: 600; color: var(--muted);
+      cursor: pointer; transition: all 0.15s;
+    }
+    .filter-chip:hover { border-color: #a5b4fc; color: var(--indigo); }
+    .filter-chip.active {
+      background: var(--dark); border-color: var(--dark); color: #fff;
+    }
+
+    /* ─────────────────────────────────
+       FLASHCARD MODE
+    ───────────────────────────────── */
+    #modeFlash { display: block; }
+    #modeTest, #modeList { display: none; }
+
+    .card-counter {
+      text-align: center; font-size: 13px;
+      color: var(--muted); font-weight: 600; margin-bottom: 12px;
+    }
+    .card-progress {
+      background: var(--border); border-radius: 100px;
+      height: 5px; margin-bottom: 22px; overflow: hidden;
+    }
+    .card-progress-fill {
+      height: 100%; border-radius: 100px;
+      background: linear-gradient(90deg, #6366f1, #8b5cf6);
+      transition: width 0.4s ease;
+    }
+
+    .flashcard-wrap { perspective: 1000px; height: 240px; margin-bottom: 20px; }
+    .flashcard {
+      width: 100%; height: 100%; position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.5s ease; cursor: pointer;
+    }
+    .flashcard.flipped { transform: rotateY(180deg); }
+
+    .card-face {
+      position: absolute; inset: 0; border-radius: 22px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 24px; backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+    .card-front {
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+    }
+    .card-back {
+      background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+      transform: rotateY(180deg);
+    }
+
+    .cf-hint {
+      font-size: 11px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 10px;
+    }
+    .cf-v1 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(28px, 6vw, 40px); font-weight: 800;
+      color: var(--text); margin-bottom: 6px;
+    }
+    .cf-ru { font-size: 14px; color: var(--muted); }
+    .cf-tap {
+      position: absolute; bottom: 14px;
+      font-size: 11px; color: #94a3b8; font-weight: 600;
+    }
+
+    .cb-forms {
+      display: flex; gap: 16px; align-items: center; margin-bottom: 10px;
+    }
+    .cb-form { text-align: center; }
+    .cb-form-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 1px;
+      text-transform: uppercase; color: rgba(255,255,255,0.45); margin-bottom: 4px;
+    }
+    .cb-form-word {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(18px, 4vw, 26px); font-weight: 800; color: #fff;
+    }
+    .cb-sep { font-size: 20px; color: rgba(255,255,255,0.2); }
+    .cb-ru { font-size: 13px; color: rgba(255,255,255,0.6); margin-top: 4px; }
+
+    .verdict-row { display: flex; gap: 12px; margin-bottom: 20px; }
+    .verdict-btn {
+      flex: 1; padding: 14px; border: none; border-radius: 14px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 15px; font-weight: 700;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .verdict-btn:hover:not(:disabled) { transform: translateY(-1px); }
+    .btn-no  { background: #fee2e2; color: #991b1b; }
+    .btn-yes { background: #d1fae5; color: #065f46; }
+    .verdict-btn:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
+
+    .finish-screen {
+      display: none; text-align: center;
+      background: var(--card); border-radius: 22px;
+      border: 1.5px solid var(--border);
+      padding: 36px 24px; margin-bottom: 20px;
+    }
+    .finish-screen.show { display: block; }
+    .finish-screen .fs-emoji { font-size: 48px; margin-bottom: 10px; }
+    .finish-screen h2 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 22px; font-weight: 800; margin-bottom: 6px;
+    }
+    .finish-screen p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+    .restart-btn {
+      width: 100%; background: var(--dark); color: #fff;
+      border: none; border-radius: 14px; padding: 16px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 15px; font-weight: 700;
+      cursor: pointer; transition: all 0.2s; margin-bottom: 16px;
+    }
+    .restart-btn:hover { opacity: 0.9; }
+
+    /* ─────────────────────────────────
+       TEST MODE
+    ───────────────────────────────── */
+    .test-q {
+      background: var(--card); border: 1.5px solid var(--border);
+      border-radius: 22px; padding: 22px 20px; margin-bottom: 14px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+    }
+    .tq-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 6px;
+    }
+    .tq-prompt {
+      font-size: 13px; color: var(--muted); margin-bottom: 6px;
+    }
+    .tq-word {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 22px; font-weight: 800; margin-bottom: 14px;
+      color: var(--text);
+    }
+    .tq-word em { color: var(--indigo); font-style: normal; }
+    .tq-options { display: flex; flex-direction: column; gap: 8px; }
+    .tq-opt {
+      background: #f8faff; border: 1.5px solid var(--border);
+      border-radius: 12px; padding: 11px 14px;
+      font-size: 14px; cursor: pointer; transition: all 0.15s;
+      text-align: left; color: var(--text);
+      display: flex; align-items: center; gap: 10px;
+      font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600;
+    }
+    .tq-opt:hover:not(:disabled) { border-color: #a5b4fc; background: #eef2ff; }
+    .tq-opt.correct  { border-color: var(--emerald); background: #d1fae5; color: #065f46; }
+    .tq-opt.wrong    { border-color: var(--rose); background: #fee2e2; color: #991b1b; }
+    .tq-opt.reveal   { border-color: var(--emerald); background: #d1fae5; color: #065f46; }
+    .tq-opt:disabled { cursor: default; }
+    .tq-dot {
+      width: 18px; height: 18px; border-radius: 50%;
+      border: 2px solid var(--border); flex-shrink: 0; transition: all 0.15s;
+    }
+    .tq-opt.selected .tq-dot { border-color: var(--indigo); background: var(--indigo); }
+    .tq-opt.correct .tq-dot  { border-color: var(--emerald); background: var(--emerald); }
+    .tq-opt.wrong .tq-dot    { border-color: var(--rose); background: var(--rose); }
+    .tq-opt.reveal .tq-dot   { border-color: var(--emerald); background: var(--emerald); }
+
+    .test-check-btn {
+      width: 100%;
+      background: linear-gradient(135deg, #1e1b4b, #4f46e5);
+      color: #fff; border: none; border-radius: 14px; padding: 16px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 16px; font-weight: 700;
+      cursor: pointer; transition: all 0.2s; margin-bottom: 16px;
+    }
+    .test-check-btn:hover { opacity: 0.92; transform: translateY(-1px); }
+
+    .test-result {
+      display: none; background: linear-gradient(135deg, #10b981, #059669);
+      border-radius: 18px; padding: 20px; text-align: center;
+      color: #fff; margin-bottom: 20px;
+    }
+    .test-result.show { display: block; }
+    .test-result .tr-score {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 28px; font-weight: 800;
+    }
+    .test-result p { font-size: 14px; opacity: 0.9; margin-top: 4px; }
+
+    /* ─────────────────────────────────
+       LIST MODE
+    ───────────────────────────────── */
+    .word-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+    .verb-row {
+      background: var(--card); border: 1.5px solid var(--border);
+      border-radius: 14px; padding: 12px 16px;
+      display: flex; align-items: center; gap: 12px;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+    }
+    .vr-forms { flex: 1; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+    .vr-v1 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 15px; font-weight: 800; color: var(--indigo); min-width: 80px; }
+    .vr-v2 { font-size: 13px; font-weight: 600; color: var(--text); min-width: 80px; }
+    .vr-v3 { font-size: 13px; color: var(--muted); min-width: 80px; }
+    .vr-ru { font-size: 12px; color: var(--muted); }
+    .know-toggle {
+      width: 34px; height: 34px; border-radius: 50%;
+      border: 2px solid var(--border);
+      background: var(--bg); cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px; transition: all 0.2s; flex-shrink: 0;
+    }
+    .know-toggle.known { background: #d1fae5; border-color: var(--emerald); }
+
+    /* search */
+    .search-wrap {
+      position: relative; margin-bottom: 14px;
+    }
+    .search-input {
+      width: 100%;
+      background: var(--card); border: 1.5px solid var(--border);
+      border-radius: 12px; padding: 12px 16px 12px 40px;
+      font-family: 'Inter', sans-serif; font-size: 14px; color: var(--text);
+      outline: none; transition: border-color 0.2s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .search-input:focus { border-color: var(--indigo); }
+    .search-icon {
+      position: absolute; left: 14px; top: 50%;
+      transform: translateY(-50%);
+      font-size: 16px; pointer-events: none;
+    }
+
+    /* ─── NAV ─── */
+    .nav-pill {
+      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+      background: #0f172a; border-radius: 100px;
+      padding: 12px 24px; display: flex; gap: 4px;
+      box-shadow: 0 8px 32px rgba(15,23,42,0.3);
+      z-index: 900; white-space: nowrap;
+    }
+    .nav-pill a {
+      color: rgba(255,255,255,0.6); font-size: 12px; font-weight: 600;
+      text-decoration: none; padding: 6px 14px;
+      border-radius: 100px; transition: all 0.2s;
+    }
+    .nav-pill a:hover, .nav-pill a.active { background: var(--indigo); color: #fff; }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-dots"></div>
+  <div class="page hero-inner">
+    <a href="./vocabulary-hub.html" class="hero-back">← Vocabulary Hub</a>
+    <div class="hero-badge">📌 Irregular Verbs</div>
+    <h1>Неправильные глаголы</h1>
+    <p>A2–B1 · 50 глаголов · V1 / V2 / V3</p>
+    <div class="hero-stats">
+      <div class="hero-stat">📚 50 глаголов</div>
+      <div class="hero-stat green">✅ <span id="heroKnown">0</span> знаю</div>
+    </div>
+  </div>
+</div>
+<div class="hero-wave">
+  <svg viewBox="0 0 1440 56" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"
+       style="background: linear-gradient(135deg, #1e1b4b, #312e81)">
+    <path d="M0,56 C360,0 1080,0 1440,56 L1440,56 L0,56 Z" fill="#f1f5f9"/>
+  </svg>
+</div>
+
+<div class="page">
+  <div class="section-gap"></div>
+
+  <!-- MODE TABS -->
+  <div class="mode-tabs">
+    <button class="mode-tab active" onclick="switchMode('flash', this)">🃏 Карточки</button>
+    <button class="mode-tab" onclick="switchMode('test', this)">✏️ Тест</button>
+    <button class="mode-tab" onclick="switchMode('list', this)">📋 Список</button>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-row">
+    <div class="stat-pill sp-total">
+      <div class="sp-num">50</div>
+      <div class="sp-lbl">Всего</div>
+    </div>
+    <div class="stat-pill sp-known">
+      <div class="sp-num" id="statKnown">0</div>
+      <div class="sp-lbl">Знаю</div>
+    </div>
+    <div class="stat-pill sp-left">
+      <div class="sp-num" id="statLeft">50</div>
+      <div class="sp-lbl">Учу</div>
+    </div>
+  </div>
+
+  <!-- ════════════════════
+       FLASHCARD MODE
+  ════════════════════ -->
+  <div id="modeFlash">
+
+    <!-- Filter chips -->
+    <div class="filter-row">
+      <button class="filter-chip active" onclick="setFilter('all', this)">Все 50</button>
+      <button class="filter-chip" onclick="setFilter('unknown', this)">Не знаю</button>
+      <button class="filter-chip" onclick="setFilter('known', this)">Знаю ✅</button>
+    </div>
+
+    <div class="card-counter" id="cardCounter">1 / 50</div>
+    <div class="card-progress">
+      <div class="card-progress-fill" id="cardProgressFill" style="width:0%"></div>
+    </div>
+
+    <div class="flashcard-wrap">
+      <div class="flashcard" id="flashcard" onclick="flipCard()">
+        <div class="card-face card-front">
+          <div class="cf-hint">Нажми чтобы увидеть формы</div>
+          <div class="cf-v1" id="cfV1">be</div>
+          <div class="cf-ru" id="cfRu">быть</div>
+          <div class="cf-tap">👆 нажми</div>
+        </div>
+        <div class="card-face card-back">
+          <div class="cb-forms">
+            <div class="cb-form">
+              <div class="cb-form-label">V1</div>
+              <div class="cb-form-word" id="cbV1">be</div>
+            </div>
+            <div class="cb-sep">→</div>
+            <div class="cb-form">
+              <div class="cb-form-label">V2</div>
+              <div class="cb-form-word" id="cbV2">was/were</div>
+            </div>
+            <div class="cb-sep">→</div>
+            <div class="cb-form">
+              <div class="cb-form-label">V3</div>
+              <div class="cb-form-word" id="cbV3">been</div>
+            </div>
+          </div>
+          <div class="cb-ru" id="cbRu">быть</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="verdict-row">
+      <button class="verdict-btn btn-no"  id="btnNo"  onclick="verdict(false)" disabled>❌ Не знаю</button>
+      <button class="verdict-btn btn-yes" id="btnYes" onclick="verdict(true)"  disabled>✅ Знаю</button>
+    </div>
+
+    <div class="finish-screen" id="finishScreen">
+      <div class="fs-emoji">🎉</div>
+      <h2 id="fsTitle">Раунд завершён!</h2>
+      <p id="fsText"></p>
+      <br>
+      <button class="restart-btn" onclick="restartFlash()">🔄 Повторить незнакомые</button>
+    </div>
+  </div>
+
+  <!-- ════════════════════
+       TEST MODE
+  ════════════════════ -->
+  <div id="modeTest">
+    <!-- type selector -->
+    <div class="filter-row" id="testTypeRow">
+      <button class="filter-chip active" onclick="setTestType('v2', this)">V1 → V2</button>
+      <button class="filter-chip" onclick="setTestType('v3', this)">V1 → V3</button>
+      <button class="filter-chip" onclick="setTestType('ru', this)">RU → V1</button>
+    </div>
+    <div id="testQuestions"></div>
+    <button class="test-check-btn" id="testCheckBtn" onclick="checkTest()">Проверить</button>
+    <div class="test-result" id="testResult">
+      <div class="tr-score" id="testScore"></div>
+      <p id="testText"></p>
+    </div>
+    <button class="restart-btn" onclick="buildTest()">🔄 Новый тест</button>
+  </div>
+
+  <!-- ════════════════════
+       LIST MODE
+  ════════════════════ -->
+  <div id="modeList">
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input class="search-input" id="searchInput" placeholder="Найти глагол…" oninput="filterList()">
+    </div>
+    <div class="word-list" id="verbList"></div>
+  </div>
+
+</div><!-- /.page -->
+
+<!-- NAV -->
+<div class="nav-pill">
+  <a href="./index.html">🏠 Home</a>
+  <a href="./homework.html">📝 HW</a>
+  <a href="./vocabulary-hub.html" class="active">💥 Vocab</a>
+</div>
+
+<script>
+// ════════════════════════════════
+//  DATA
+// ════════════════════════════════
+const VERBS = [
+  ['be',         'was/were', 'been',       'быть'],
+  ['become',     'became',   'become',     'становиться'],
+  ['begin',      'began',    'begun',      'начинать'],
+  ['break',      'broke',    'broken',     'ломать'],
+  ['bring',      'brought',  'brought',    'приносить'],
+  ['build',      'built',    'built',      'строить'],
+  ['buy',        'bought',   'bought',     'покупать'],
+  ['catch',      'caught',   'caught',     'ловить'],
+  ['choose',     'chose',    'chosen',     'выбирать'],
+  ['come',       'came',     'come',       'приходить'],
+  ['do',         'did',      'done',       'делать'],
+  ['drink',      'drank',    'drunk',      'пить'],
+  ['drive',      'drove',    'driven',     'водить'],
+  ['eat',        'ate',      'eaten',      'есть'],
+  ['fall',       'fell',     'fallen',     'падать'],
+  ['feel',       'felt',     'felt',       'чувствовать'],
+  ['find',       'found',    'found',      'находить'],
+  ['fly',        'flew',     'flown',      'летать'],
+  ['forget',     'forgot',   'forgotten',  'забывать'],
+  ['get',        'got',      'got',        'получать'],
+  ['give',       'gave',     'given',      'давать'],
+  ['go',         'went',     'gone',       'идти'],
+  ['have',       'had',      'had',        'иметь'],
+  ['hear',       'heard',    'heard',      'слышать'],
+  ['keep',       'kept',     'kept',       'хранить'],
+  ['know',       'knew',     'known',      'знать'],
+  ['leave',      'left',     'left',       'уходить'],
+  ['lose',       'lost',     'lost',       'терять'],
+  ['make',       'made',     'made',       'делать/создавать'],
+  ['meet',       'met',      'met',        'встречать'],
+  ['pay',        'paid',     'paid',       'платить'],
+  ['put',        'put',      'put',        'класть'],
+  ['read',       'read',     'read',       'читать'],
+  ['run',        'ran',      'run',        'бежать'],
+  ['say',        'said',     'said',       'говорить'],
+  ['see',        'saw',      'seen',       'видеть'],
+  ['sell',       'sold',     'sold',       'продавать'],
+  ['send',       'sent',     'sent',       'отправлять'],
+  ['sit',        'sat',      'sat',        'сидеть'],
+  ['sleep',      'slept',    'slept',      'спать'],
+  ['speak',      'spoke',    'spoken',     'говорить'],
+  ['spend',      'spent',    'spent',      'тратить'],
+  ['stand',      'stood',    'stood',      'стоять'],
+  ['swim',       'swam',     'swum',       'плавать'],
+  ['take',       'took',     'taken',      'брать'],
+  ['tell',       'told',     'told',       'рассказывать'],
+  ['think',      'thought',  'thought',    'думать'],
+  ['understand', 'understood','understood','понимать'],
+  ['wear',       'wore',     'worn',       'носить'],
+  ['write',      'wrote',    'written',    'писать'],
+];
+
+// ════════════════════════════════
+//  KNOWN STATE
+// ════════════════════════════════
+const LS_KEY = 'elina_vocab_verbs_known';
+const known  = new Set(JSON.parse(localStorage.getItem(LS_KEY) || '[]'));
+
+function saveKnown() { localStorage.setItem(LS_KEY, JSON.stringify([...known])); }
+
+function updateStats() {
+  const k = known.size;
+  document.getElementById('statKnown').textContent = k;
+  document.getElementById('statLeft').textContent  = VERBS.length - k;
+  document.getElementById('heroKnown').textContent = k;
+}
+updateStats();
+
+// ════════════════════════════════
+//  FLASHCARD
+// ════════════════════════════════
+let deck = [], cardIdx = 0, isFlipped = false, currentFilter = 'all';
+
+function buildDeck(filter) {
+  currentFilter = filter || currentFilter;
+  if (currentFilter === 'known')   deck = VERBS.filter(v => known.has(v[0]));
+  else if (currentFilter === 'unknown') deck = VERBS.filter(v => !known.has(v[0]));
+  else deck = [...VERBS];
+  // unknowns first
+  deck.sort((a,b) => (known.has(a[0]) ? 1 : 0) - (known.has(b[0]) ? 1 : 0));
+  cardIdx = 0;
+}
+
+function showCard(idx) {
+  if (idx >= deck.length) { showFinish(); return; }
+  const [v1,v2,v3,ru] = deck[idx];
+  document.getElementById('cfV1').textContent  = v1;
+  document.getElementById('cfRu').textContent  = ru;
+  document.getElementById('cbV1').textContent  = v1;
+  document.getElementById('cbV2').textContent  = v2;
+  document.getElementById('cbV3').textContent  = v3;
+  document.getElementById('cbRu').textContent  = ru;
+  document.getElementById('cardCounter').textContent = `${idx+1} / ${deck.length}`;
+  document.getElementById('cardProgressFill').style.width = `${((idx+1)/deck.length)*100}%`;
+
+  const fc = document.getElementById('flashcard');
+  fc.classList.remove('flipped');
+  isFlipped = false;
+  document.getElementById('btnNo').disabled  = true;
+  document.getElementById('btnYes').disabled = true;
+}
+
+function flipCard() {
+  const fc = document.getElementById('flashcard');
+  fc.classList.toggle('flipped');
+  isFlipped = !isFlipped;
+  document.getElementById('btnNo').disabled  = !isFlipped;
+  document.getElementById('btnYes').disabled = !isFlipped;
+}
+
+function verdict(isKnown) {
+  const v = deck[cardIdx];
+  if (isKnown) known.add(v[0]); else known.delete(v[0]);
+  saveKnown(); updateStats();
+  cardIdx++;
+  showCard(cardIdx);
+}
+
+function showFinish() {
+  document.getElementById('flashcard').parentElement.style.display = 'none';
+  document.querySelector('.card-counter').style.display = 'none';
+  document.querySelector('.card-progress').style.display = 'none';
+  document.querySelector('.verdict-row').style.display = 'none';
+  const unknownCount = VERBS.filter(v => !known.has(v[0])).length;
+  const fs = document.getElementById('finishScreen');
+  fs.classList.add('show');
+  document.getElementById('fsTitle').textContent =
+    unknownCount === 0 ? '🏆 Все глаголы знаешь!' : `${known.size} из ${VERBS.length} глаголов знаешь`;
+  document.getElementById('fsText').textContent =
+    unknownCount === 0
+      ? 'Отлично! Попробуй тест, чтобы проверить себя.'
+      : `Ещё ${unknownCount} глаголов стоит повторить. Нажми кнопку ниже!`;
+}
+
+function restartFlash() {
+  document.getElementById('flashcard').parentElement.style.display = '';
+  document.querySelector('.card-counter').style.display = '';
+  document.querySelector('.card-progress').style.display = '';
+  document.querySelector('.verdict-row').style.display = '';
+  document.getElementById('finishScreen').classList.remove('show');
+  buildDeck();
+  showCard(0);
+}
+
+function setFilter(filter, btn) {
+  document.querySelectorAll('#modeFlash .filter-chip').forEach(c => c.classList.remove('active'));
+  btn.classList.add('active');
+  buildDeck(filter);
+  restartFlash();
+}
+
+// ════════════════════════════════
+//  TEST
+// ════════════════════════════════
+let testType = 'v2';
+
+function setTestType(type, btn) {
+  testType = type;
+  document.querySelectorAll('#testTypeRow .filter-chip').forEach(c => c.classList.remove('active'));
+  btn.classList.add('active');
+  buildTest();
+}
+
+function shuffle(arr) { return [...arr].sort(() => Math.random() - 0.5); }
+
+function buildTest() {
+  document.getElementById('testResult').classList.remove('show');
+  const container = document.getElementById('testQuestions');
+  container.innerHTML = '';
+  // pick 10 random verbs
+  const sample = shuffle(VERBS).slice(0, 10);
+
+  sample.forEach((verb, i) => {
+    const [v1,v2,v3,ru] = verb;
+    let questionWord, correctAnswer, prompt;
+    if (testType === 'v2')      { questionWord = v1; correctAnswer = v2; prompt = `Какая форма V2 (Past Simple)?`; }
+    else if (testType === 'v3') { questionWord = v1; correctAnswer = v3; prompt = `Какая форма V3 (Past Participle)?`; }
+    else                        { questionWord = ru; correctAnswer = v1; prompt = `Переведи на английский (V1):`; }
+
+    const wrongPool = VERBS.filter(v => v[0] !== v1);
+    const wrongs = shuffle(wrongPool).slice(0, 3).map(v =>
+      testType === 'v2' ? v[1] : testType === 'v3' ? v[2] : v[0]
+    );
+    const options = shuffle([correctAnswer, ...wrongs]);
+
+    const div = document.createElement('div');
+    div.className = 'test-q';
+    div.innerHTML = `
+      <div class="tq-label">Вопрос ${i+1} / 10</div>
+      <div class="tq-prompt">${prompt}</div>
+      <div class="tq-word">${questionWord}</div>
+      <div class="tq-options">
+        ${options.map(opt => `
+          <button class="tq-opt" data-correct="${opt === correctAnswer}"
+            onclick="selectOpt(this)">
+            <div class="tq-dot"></div>${opt}
+          </button>`).join('')}
+      </div>`;
+    container.appendChild(div);
+  });
+}
+
+function selectOpt(btn) {
+  const opts = btn.closest('.tq-options').querySelectorAll('.tq-opt');
+  if ([...opts].some(o => o.classList.contains('correct') || o.classList.contains('wrong'))) return;
+  opts.forEach(o => o.classList.remove('selected'));
+  btn.classList.add('selected');
+}
+
+function checkTest() {
+  let score = 0;
+  document.querySelectorAll('.test-q').forEach(q => {
+    const opts = q.querySelectorAll('.tq-opt');
+    const sel  = q.querySelector('.tq-opt.selected');
+    opts.forEach(o => {
+      o.disabled = true;
+      if (o.dataset.correct === 'true') {
+        if (o === sel) { o.classList.add('correct'); score++; }
+        else o.classList.add('reveal');
+      } else if (o === sel) o.classList.add('wrong');
+    });
+  });
+  const pct = Math.round((score / 10) * 100);
+  const res = document.getElementById('testResult');
+  document.getElementById('testScore').textContent = `${score} / 10 (${pct}%)`;
+  document.getElementById('testText').textContent  =
+    pct >= 90 ? '🏆 Отлично! Глаголы в памяти.' :
+    pct >= 70 ? '👍 Хорошо, повтори пару глаголов.' :
+    '💪 Вернись к карточкам и повтори!';
+  res.classList.add('show');
+  res.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+// ════════════════════════════════
+//  LIST
+// ════════════════════════════════
+function buildList(query) {
+  const container = document.getElementById('verbList');
+  container.innerHTML = '';
+  const q = (query || '').toLowerCase();
+  const filtered = VERBS.filter(([v1,v2,v3,ru]) =>
+    !q || v1.includes(q) || v2.includes(q) || v3.includes(q) || ru.includes(q)
+  );
+  if (!filtered.length) {
+    container.innerHTML = '<p style="text-align:center;color:var(--muted);font-size:14px;padding:20px">Ничего не найдено</p>';
+    return;
+  }
+  filtered.forEach(([v1,v2,v3,ru]) => {
+    const isKnown = known.has(v1);
+    const div = document.createElement('div');
+    div.className = 'verb-row';
+    div.innerHTML = `
+      <div class="vr-forms">
+        <div class="vr-v1">${v1}</div>
+        <div class="vr-v2">${v2}</div>
+        <div class="vr-v3">${v3}</div>
+        <div class="vr-ru">${ru}</div>
+      </div>
+      <button class="know-toggle ${isKnown ? 'known' : ''}"
+        onclick="toggleKnown(this,'${v1}')">
+        ${isKnown ? '✅' : '○'}
+      </button>`;
+    container.appendChild(div);
+  });
+}
+
+function filterList() {
+  buildList(document.getElementById('searchInput').value);
+}
+
+function toggleKnown(btn, v1) {
+  if (known.has(v1)) { known.delete(v1); btn.classList.remove('known'); btn.textContent = '○'; }
+  else               { known.add(v1);    btn.classList.add('known');    btn.textContent = '✅'; }
+  saveKnown(); updateStats();
+}
+
+// ════════════════════════════════
+//  MODE SWITCHER
+// ════════════════════════════════
+function switchMode(mode, tabBtn) {
+  document.querySelectorAll('.mode-tab').forEach(t => t.classList.remove('active'));
+  tabBtn.classList.add('active');
+  document.getElementById('modeFlash').style.display = mode === 'flash' ? 'block' : 'none';
+  document.getElementById('modeTest').style.display  = mode === 'test'  ? 'block' : 'none';
+  document.getElementById('modeList').style.display  = mode === 'list'  ? 'block' : 'none';
+  if (mode === 'test') buildTest();
+  if (mode === 'list') buildList();
+}
+
+// ── INIT ──
+buildDeck();
+showCard(0);
+</script>
+</body>
+</html>

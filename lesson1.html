@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lesson 1 — Elina's English Space</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --indigo:       #4f46e5;
+      --indigo-light: #6366f1;
+      --rose:         #f43f5e;
+      --emerald:      #10b981;
+      --amber:        #f59e0b;
+      --violet:       #8b5cf6;
+      --dark:         #0f172a;
+      --bg:           #f1f5f9;
+      --card:         #ffffff;
+      --text:         #0f172a;
+      --muted:        #64748b;
+      --border:       #e2e8f0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding-bottom: 100px;
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      background: linear-gradient(135deg, #0ea5e9 0%, #6366f1 50%, #8b5cf6 100%);
+      padding: 40px 24px 56px;
+      position: relative;
+    }
+    .hero-dots {
+      position: absolute; inset: 0; pointer-events: none;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.15) 1px, transparent 1px);
+      background-size: 28px 28px;
+    }
+    .hero-wave { display: block; width: 100%; line-height: 0; background: var(--bg); }
+    .hero-wave svg { display: block; width: 100%; }
+    .hero-inner { position: relative; z-index: 1; }
+
+    .hero-back {
+      display: inline-flex; align-items: center; gap: 6px;
+      color: rgba(255,255,255,0.75); font-size: 13px; font-weight: 600;
+      text-decoration: none; margin-bottom: 20px; transition: color 0.2s;
+    }
+    .hero-back:hover { color: #fff; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: #fff; font-size: 12px; font-weight: 600;
+      padding: 5px 14px; border-radius: 100px; margin-bottom: 16px;
+    }
+    .hero h1 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(24px, 5vw, 38px);
+      font-weight: 800; color: #fff;
+      letter-spacing: -0.5px; margin-bottom: 6px;
+    }
+    .hero p { color: rgba(255,255,255,0.75); font-size: 15px; }
+
+    .score-counter {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 100px; padding: 8px 18px;
+      margin-top: 16px;
+    }
+    .score-counter span {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 20px; font-weight: 800; color: #fff;
+    }
+    .score-counter p { font-size: 12px; color: rgba(255,255,255,0.8); margin: 0; }
+
+    /* ─── LAYOUT ─── */
+    .page { max-width: 700px; margin: 0 auto; padding: 0 20px; }
+
+    /* ─── SECTION ─── */
+    .ex-block {
+      background: var(--card);
+      border-radius: 22px;
+      border: 1.5px solid var(--border);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+      padding: 24px 22px;
+      margin-bottom: 20px;
+    }
+    .ex-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 6px;
+    }
+    .ex-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 16px; font-weight: 700; margin-bottom: 18px;
+      line-height: 1.4;
+    }
+
+    /* ─── EX 1: Cross out ─── */
+    .cross-group { margin-bottom: 14px; }
+    .cross-group .cg-num {
+      font-size: 13px; font-weight: 600; color: var(--muted);
+      margin-bottom: 6px;
+    }
+    .cross-group .cg-text { font-size: 14px; color: var(--text); line-height: 1.6; }
+    .word-btn {
+      display: inline-block;
+      background: #f1f5f9;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      padding: 2px 9px;
+      font-size: 14px; font-style: italic;
+      cursor: pointer; transition: all 0.15s;
+      color: var(--text);
+      user-select: none;
+    }
+    .word-btn:hover { border-color: var(--indigo-light); background: #ede9fe; }
+    .word-btn.crossed {
+      background: #fee2e2;
+      border-color: #fca5a5;
+      color: #991b1b;
+      text-decoration: line-through;
+    }
+    .word-btn.correct-cross {
+      background: #d1fae5;
+      border-color: #6ee7b7;
+      color: #065f46;
+      text-decoration: line-through;
+    }
+    .word-btn.wrong-cross {
+      background: #fee2e2;
+      border-color: #fca5a5;
+      color: #991b1b;
+      text-decoration: line-through;
+    }
+    .word-btn.should-cross {
+      background: #d1fae5;
+      border-color: #6ee7b7;
+      color: #065f46;
+      text-decoration: line-through;
+    }
+
+    /* ─── EX 4: Fill-in ─── */
+    .dialogue-line {
+      display: flex; gap: 10px; align-items: flex-start;
+      margin-bottom: 12px; font-size: 14px; line-height: 1.6;
+    }
+    .dl-speaker {
+      font-weight: 700; font-size: 13px;
+      flex-shrink: 0; width: 24px; color: var(--indigo);
+    }
+    .dl-text { flex: 1; }
+    .fill-input {
+      display: inline-block;
+      border: none; border-bottom: 2px solid var(--border);
+      background: transparent;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px; color: var(--text);
+      width: 110px; padding: 0 4px 2px;
+      outline: none; transition: border-color 0.2s;
+      vertical-align: bottom;
+    }
+    .fill-input:focus { border-color: var(--indigo); }
+    .fill-input.correct { border-color: var(--emerald); color: #065f46; background: #f0fdf4; border-radius: 4px 4px 0 0; }
+    .fill-input.wrong   { border-color: var(--rose);    color: #9f1239; background: #fff1f2; border-radius: 4px 4px 0 0; }
+    .hint-text { font-size: 12px; color: var(--muted); margin-left: 4px; }
+    .correct-answer {
+      display: none; font-size: 12px;
+      color: var(--emerald); font-weight: 600;
+      margin-top: 2px;
+    }
+    .correct-answer.show { display: block; }
+
+    /* ─── EX 5: Quiz ─── */
+    .quiz-q { margin-bottom: 20px; }
+    .quiz-q .qq-text {
+      font-size: 14px; line-height: 1.6;
+      margin-bottom: 10px;
+    }
+    .qq-text .choice {
+      display: inline-flex; gap: 0;
+    }
+    .choice-btn {
+      background: #f1f5f9;
+      border: 1.5px solid var(--border);
+      border-radius: 8px; padding: 2px 10px;
+      font-size: 14px; font-style: italic;
+      cursor: pointer; transition: all 0.15s;
+      margin: 0 3px; color: var(--text);
+    }
+    .choice-btn:hover { border-color: var(--indigo-light); background: #ede9fe; }
+    .choice-btn.selected { background: #ede9fe; border-color: var(--indigo); color: var(--indigo); font-weight: 600; }
+    .choice-btn.correct-sel { background: #d1fae5; border-color: #6ee7b7; color: #065f46; font-weight: 600; }
+    .choice-btn.wrong-sel   { background: #fee2e2; border-color: #fca5a5; color: #991b1b; }
+    .choice-btn.reveal-correct { background: #d1fae5; border-color: #6ee7b7; color: #065f46; font-weight: 600; }
+
+    .qq-options { display: flex; flex-direction: column; gap: 8px; }
+    .opt-btn {
+      display: flex; align-items: center; gap: 10px;
+      background: #f8faff;
+      border: 1.5px solid var(--border);
+      border-radius: 12px; padding: 10px 14px;
+      font-size: 14px; cursor: pointer; transition: all 0.15s;
+      text-align: left; color: var(--text);
+    }
+    .opt-btn:hover { border-color: var(--indigo-light); background: #ede9fe; }
+    .opt-btn.selected { background: #ede9fe; border-color: var(--indigo); }
+    .opt-btn.correct-opt { background: #d1fae5; border-color: #6ee7b7; color: #065f46; }
+    .opt-btn.wrong-opt   { background: #fee2e2; border-color: #fca5a5; color: #991b1b; }
+    .opt-btn.reveal-opt  { background: #d1fae5; border-color: #6ee7b7; color: #065f46; }
+    .opt-dot {
+      width: 20px; height: 20px; border-radius: 50%;
+      border: 2px solid var(--border);
+      flex-shrink: 0; transition: all 0.15s;
+    }
+    .opt-btn.selected .opt-dot { border-color: var(--indigo); background: var(--indigo); }
+    .opt-btn.correct-opt .opt-dot { border-color: var(--emerald); background: var(--emerald); }
+    .opt-btn.wrong-opt .opt-dot   { border-color: var(--rose); background: var(--rose); }
+    .opt-btn.reveal-opt .opt-dot  { border-color: var(--emerald); background: var(--emerald); }
+
+    /* ─── CHECK BUTTON ─── */
+    .check-btn {
+      width: 100%;
+      background: linear-gradient(135deg, #4f46e5, #7c3aed);
+      color: #fff;
+      border: none; border-radius: 14px;
+      padding: 16px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 16px; font-weight: 700;
+      cursor: pointer; transition: all 0.2s;
+      margin-top: 20px;
+    }
+    .check-btn:hover { opacity: 0.92; transform: translateY(-1px); }
+    .check-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+    /* ─── SUBMIT BUTTON ─── */
+    .submit-btn {
+      width: 100%;
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: #fff;
+      border: none; border-radius: 14px;
+      padding: 18px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 17px; font-weight: 700;
+      cursor: pointer; transition: all 0.2s;
+      margin-bottom: 20px;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+    }
+    .submit-btn:hover { opacity: 0.92; transform: translateY(-1px); }
+    .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+    /* ─── RESULT BANNER ─── */
+    .result-banner {
+      display: none;
+      background: linear-gradient(135deg, #10b981, #059669);
+      border-radius: 18px; padding: 22px;
+      margin-bottom: 20px; text-align: center;
+      color: #fff;
+    }
+    .result-banner.show { display: block; }
+    .result-banner .rb-emoji { font-size: 36px; margin-bottom: 6px; }
+    .result-banner .rb-score {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 28px; font-weight: 800;
+    }
+    .result-banner .rb-text { font-size: 14px; opacity: 0.9; margin-top: 4px; }
+
+    /* ─── VOCAB STRIP ─── */
+    .vocab-strip {
+      background: var(--card);
+      border-radius: 18px;
+      border: 1.5px solid var(--border);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+      padding: 18px 22px;
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .vs-left { display: flex; align-items: center; gap: 10px; font-size: 14px; }
+    .vs-left strong { font-weight: 700; }
+    .vs-link {
+      font-size: 13px; font-weight: 700; color: var(--rose);
+      text-decoration: none;
+      display: flex; align-items: center; gap: 4px;
+      transition: gap 0.2s;
+    }
+    .vs-link:hover { gap: 8px; }
+
+    /* ─── NAV ─── */
+    .nav-pill {
+      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+      background: #0f172a; border-radius: 100px;
+      padding: 12px 24px; display: flex; gap: 4px;
+      box-shadow: 0 8px 32px rgba(15,23,42,0.3);
+      z-index: 900; white-space: nowrap;
+    }
+    .nav-pill a {
+      color: rgba(255,255,255,0.6);
+      font-size: 12px; font-weight: 600;
+      text-decoration: none; padding: 6px 14px;
+      border-radius: 100px; transition: all 0.2s;
+    }
+    .nav-pill a:hover, .nav-pill a.active {
+      background: var(--indigo); color: #fff;
+    }
+
+    .section-gap { margin-top: 28px; }
+    .divider { height: 1px; background: var(--border); margin: 18px 0; }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-dots"></div>
+  <div class="page hero-inner">
+    <a href="./homework.html" class="hero-back">← К заданиям</a>
+    <div class="hero-badge">📝 Lesson 1</div>
+    <h1>First Class</h1>
+    <p>Unit 1 · Outcomes Intermediate</p>
+    <div class="score-counter">
+      <div>
+        <span id="liveScore">0</span>
+        <p>правильных ответов</p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="hero-wave">
+  <svg viewBox="0 0 1440 56" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"
+       style="background: linear-gradient(135deg, #0ea5e9, #6366f1)">
+    <path d="M0,56 C360,0 1080,0 1440,56 L1440,56 L0,56 Z" fill="#f1f5f9"/>
+  </svg>
+</div>
+
+<div class="page">
+
+  <!-- ═══ EXERCISE 1 ═══ -->
+  <div class="section-gap"></div>
+  <div class="ex-block">
+    <div class="ex-label">Exercise 1 · Vocabulary</div>
+    <div class="ex-title">Зачеркни одно слово в каждой группе, которое не подходит по смыслу</div>
+
+    <div class="cross-group">
+      <div class="cg-num">1. My friend Lukas is from</div>
+      <div class="cg-text">
+        <span class="word-btn" data-group="1" data-word="Germany" onclick="toggleCross(this)">Germany</span> /
+        <span class="word-btn" data-group="1" data-word="Arabic" onclick="toggleCross(this)">Arabic</span> /
+        <span class="word-btn" data-group="1" data-word="Japan" onclick="toggleCross(this)">Japan</span>
+      </div>
+    </div>
+    <div class="cross-group">
+      <div class="cg-num">2. My sister's a</div>
+      <div class="cg-text">
+        <span class="word-btn" data-group="2" data-word="translator" onclick="toggleCross(this)">translator</span> /
+        <span class="word-btn" data-group="2" data-word="civil servant" onclick="toggleCross(this)">civil servant</span> /
+        <span class="word-btn" data-group="2" data-word="engineer" onclick="toggleCross(this)">engineer</span>
+      </div>
+    </div>
+    <div class="cross-group">
+      <div class="cg-num">3. My mum works in a</div>
+      <div class="cg-text">
+        <span class="word-btn" data-group="3" data-word="warehouse" onclick="toggleCross(this)">warehouse</span> /
+        <span class="word-btn" data-group="3" data-word="office" onclick="toggleCross(this)">office</span> /
+        <span class="word-btn" data-group="3" data-word="university" onclick="toggleCross(this)">university</span>
+      </div>
+    </div>
+    <div class="cross-group">
+      <div class="cg-num">4. My brother speaks good Spanish and a bit of</div>
+      <div class="cg-text">
+        <span class="word-btn" data-group="4" data-word="Portuguese" onclick="toggleCross(this)">Portuguese</span> /
+        <span class="word-btn" data-group="4" data-word="Russian" onclick="toggleCross(this)">Russian</span> /
+        <span class="word-btn" data-group="4" data-word="Poland" onclick="toggleCross(this)">Poland</span>
+      </div>
+    </div>
+    <div class="cross-group">
+      <div class="cg-num">5. I'm doing a degree in</div>
+      <div class="cg-text">
+        <span class="word-btn" data-group="5" data-word="Lawyer" onclick="toggleCross(this)">Lawyer</span> /
+        <span class="word-btn" data-group="5" data-word="Economics" onclick="toggleCross(this)">Economics</span> /
+        <span class="word-btn" data-group="5" data-word="Medicine" onclick="toggleCross(this)">Medicine</span>
+      </div>
+    </div>
+    <div class="cross-group">
+      <div class="cg-num">6. My family are all really into</div>
+      <div class="cg-text">
+        <span class="word-btn" data-group="6" data-word="reading" onclick="toggleCross(this)">reading</span> /
+        <span class="word-btn" data-group="6" data-word="sport" onclick="toggleCross(this)">sport</span> /
+        <span class="word-btn" data-group="6" data-word="cook" onclick="toggleCross(this)">cook</span>
+      </div>
+    </div>
+    <div class="cross-group">
+      <div class="cg-num">7. I am</div>
+      <div class="cg-text">
+        <span class="word-btn" data-group="7" data-word="an only children" onclick="toggleCross(this)">an only children</span> /
+        <span class="word-btn" data-group="7" data-word="the youngest of four kids" onclick="toggleCross(this)">the youngest of four kids</span> /
+        <span class="word-btn" data-group="7" data-word="a twin" onclick="toggleCross(this)">a twin</span>
+      </div>
+    </div>
+    <div class="cross-group">
+      <div class="cg-num">8. My uncle is</div>
+      <div class="cg-text">
+        <span class="word-btn" data-group="8" data-word="single" onclick="toggleCross(this)">single</span> /
+        <span class="word-btn" data-group="8" data-word="married" onclick="toggleCross(this)">married</span> /
+        <span class="word-btn" data-group="8" data-word="separate" onclick="toggleCross(this)">separate</span>
+      </div>
+    </div>
+
+    <button class="check-btn" id="checkBtn1" onclick="checkEx1()">Проверить упражнение 1</button>
+  </div>
+
+  <!-- ═══ EXERCISE 4 ═══ -->
+  <div class="ex-block">
+    <div class="ex-label">Exercise 4 · Grammar — Auxiliary verbs</div>
+    <div class="ex-title">Заполни пропуски — вставь правильную форму глагола в скобках</div>
+
+    <div class="dialogue-line">
+      <span class="dl-speaker">N:</span>
+      <span class="dl-text">Well, what <input class="fill-input" id="f1" placeholder="1…" autocomplete="off"> a typical class <input class="fill-input" id="f1b" placeholder="…" autocomplete="off"> ? <span class="hint-text">(involve)</span>
+        <div class="correct-answer" id="ca1">✓ does … involve</div>
+      </span>
+    </div>
+    <div class="dialogue-line">
+      <span class="dl-speaker">N:</span>
+      <span class="dl-text">So how many students <input class="fill-input" id="f2" placeholder="2…" autocomplete="off"> there in a class? <span class="hint-text">(be)</span>
+        <div class="correct-answer" id="ca2">✓ are</div>
+      </span>
+    </div>
+    <div class="dialogue-line">
+      <span class="dl-speaker">N:</span>
+      <span class="dl-text">And where <input class="fill-input" id="f3" placeholder="3…" autocomplete="off"> they <input class="fill-input" id="f3b" placeholder="…" autocomplete="off"> ? <span class="hint-text">(come from)</span>
+        <div class="correct-answer" id="ca3">✓ do … come from</div>
+      </span>
+    </div>
+    <div class="dialogue-line">
+      <span class="dl-speaker">N:</span>
+      <span class="dl-text">And how long <input class="fill-input" id="f4" placeholder="4…" autocomplete="off"> each class <input class="fill-input" id="f4b" placeholder="…" autocomplete="off"> ? <span class="hint-text">(last)</span>
+        <div class="correct-answer" id="ca4">✓ does … last</div>
+      </span>
+    </div>
+    <div class="dialogue-line">
+      <span class="dl-speaker">N:</span>
+      <span class="dl-text">How <input class="fill-input" id="f5" placeholder="5…" autocomplete="off"> you <input class="fill-input" id="f5b" placeholder="…" autocomplete="off"> on a student's level? <span class="hint-text">(decide)</span>
+        <div class="correct-answer" id="ca5">✓ do … decide</div>
+      </span>
+    </div>
+    <div class="dialogue-line">
+      <span class="dl-speaker">N:</span>
+      <span class="dl-text">What qualifications <input class="fill-input" id="f6" placeholder="6…" autocomplete="off"> the teachers <input class="fill-input" id="f6b" placeholder="…" autocomplete="off"> ? <span class="hint-text">(have)</span>
+        <div class="correct-answer" id="ca6">✓ do … have</div>
+      </span>
+    </div>
+    <div class="dialogue-line">
+      <span class="dl-speaker">N:</span>
+      <span class="dl-text">Which ones <input class="fill-input" id="f7" placeholder="7…" autocomplete="off"> you <input class="fill-input" id="f7b" placeholder="…" autocomplete="off"> in the next course? <span class="hint-text">(go / use)</span>
+        <div class="correct-answer" id="ca7">✓ are going to use / will you use</div>
+      </span>
+    </div>
+    <div class="dialogue-line">
+      <span class="dl-speaker">N:</span>
+      <span class="dl-text">How much <input class="fill-input" id="f8" placeholder="8…" autocomplete="off"> the course <input class="fill-input" id="f8b" placeholder="…" autocomplete="off"> ? <span class="hint-text">(cost)</span>
+        <div class="correct-answer" id="ca8">✓ does … cost</div>
+      </span>
+    </div>
+
+    <button class="check-btn" id="checkBtn4" onclick="checkEx4()">Проверить упражнение 4</button>
+  </div>
+
+  <!-- ═══ EXERCISE 5 ═══ -->
+  <div class="ex-block">
+    <div class="ex-label">Exercise 5 · Languages Quiz</div>
+    <div class="ex-title">Выбери правильные слова в курсиве, затем выбери правильный ответ</div>
+
+    <!-- Q1 -->
+    <div class="quiz-q">
+      <div class="qq-text">
+        1. <span class="choice">
+          <button class="choice-btn" data-q="q1w" data-correct="false" onclick="pickChoice(this,'q1w','q1wh')">Which</button> /
+          <button class="choice-btn" data-q="q1wh" data-correct="true" onclick="pickChoice(this,'q1wh','q1w')">What</button>
+        </span> language
+        <span class="choice">
+          <button class="choice-btn" data-q="q1du" data-correct="false" onclick="pickChoice(this,'q1du','q1us')">does use</button> /
+          <button class="choice-btn" data-q="q1us" data-correct="true" onclick="pickChoice(this,'q1us','q1du')">uses</button>
+        </span> the Cyrillic alphabet?
+      </div>
+      <div class="qq-options">
+        <button class="opt-btn" data-q="5a" data-correct="false" onclick="pickOpt(this,'5a','5b','5c')"><div class="opt-dot"></div>Polish</button>
+        <button class="opt-btn" data-q="5b" data-correct="true"  onclick="pickOpt(this,'5a','5b','5c')"><div class="opt-dot"></div>Russian</button>
+        <button class="opt-btn" data-q="5c" data-correct="false" onclick="pickOpt(this,'5a','5b','5c')"><div class="opt-dot"></div>French</button>
+      </div>
+    </div>
+    <div class="divider"></div>
+
+    <!-- Q2 -->
+    <div class="quiz-q">
+      <div class="qq-text">
+        2. How
+        <span class="choice">
+          <button class="choice-btn" data-q="q2m" data-correct="true" onclick="pickChoice(this,'q2m','q2mc')">many</button> /
+          <button class="choice-btn" data-q="q2mc" data-correct="false" onclick="pickChoice(this,'q2mc','q2m')">much</button>
+        </span> living languages
+        <span class="choice">
+          <button class="choice-btn" data-q="q2ex" data-correct="true" onclick="pickChoice(this,'q2ex','q2de')">exist</button> /
+          <button class="choice-btn" data-q="q2de" data-correct="false" onclick="pickChoice(this,'q2de','q2ex')">do exist</button>
+        </span> in the world today?
+      </div>
+      <div class="qq-options">
+        <button class="opt-btn" data-q="6a" data-correct="true"  onclick="pickOpt(this,'6a','6b','6c')"><div class="opt-dot"></div>about 6,000</button>
+        <button class="opt-btn" data-q="6b" data-correct="false" onclick="pickOpt(this,'6a','6b','6c')"><div class="opt-dot"></div>about 600</button>
+        <button class="opt-btn" data-q="6c" data-correct="false" onclick="pickOpt(this,'6a','6b','6c')"><div class="opt-dot"></div>about 60</button>
+      </div>
+    </div>
+    <div class="divider"></div>
+
+    <!-- Q3 -->
+    <div class="quiz-q">
+      <div class="qq-text">
+        3.
+        <span class="choice">
+          <button class="choice-btn" data-q="q3w" data-correct="false" onclick="pickChoice(this,'q3w','q3h')">Why</button> /
+          <button class="choice-btn" data-q="q3h" data-correct="true" onclick="pickChoice(this,'q3h','q3w')">How</button>
+        </span> do you
+        <span class="choice">
+          <button class="choice-btn" data-q="q3wr" data-correct="true" onclick="pickChoice(this,'q3wr','q3wi')">write</button> /
+          <button class="choice-btn" data-q="q3wi" data-correct="false" onclick="pickChoice(this,'q3wi','q3wr')">writing</button>
+        </span> Hebrew and Arabic?
+      </div>
+      <div class="qq-options">
+        <button class="opt-btn" data-q="7a" data-correct="false" onclick="pickOpt(this,'7a','7b','7c')"><div class="opt-dot"></div>from left to right</button>
+        <button class="opt-btn" data-q="7b" data-correct="true"  onclick="pickOpt(this,'7a','7b','7c')"><div class="opt-dot"></div>from right to left</button>
+        <button class="opt-btn" data-q="7c" data-correct="false" onclick="pickOpt(this,'7a','7b','7c')"><div class="opt-dot"></div>from top to bottom</button>
+      </div>
+    </div>
+    <div class="divider"></div>
+
+    <!-- Q4 -->
+    <div class="quiz-q">
+      <div class="qq-text">
+        4.
+        <span class="choice">
+          <button class="choice-btn" data-q="q4wh" data-correct="false" onclick="pickChoice(this,'q4wh','q4whr')">When</button> /
+          <button class="choice-btn" data-q="q4whr" data-correct="true" onclick="pickChoice(this,'q4whr','q4wh')">Where</button>
+        </span> does the word 'alphabet' originally
+        <span class="choice">
+          <button class="choice-btn" data-q="q4co" data-correct="false" onclick="pickChoice(this,'q4co','q4cm')">comes</button> /
+          <button class="choice-btn" data-q="q4cm" data-correct="true" onclick="pickChoice(this,'q4cm','q4co')">come</button>
+        </span> from?
+      </div>
+      <div class="qq-options">
+        <button class="opt-btn" data-q="8a" data-correct="false" onclick="pickOpt(this,'8a','8b','8c')"><div class="opt-dot"></div>Egyptian hieroglyphics</button>
+        <button class="opt-btn" data-q="8b" data-correct="false" onclick="pickOpt(this,'8a','8b','8c')"><div class="opt-dot"></div>the name of the first dictionary writer</button>
+        <button class="opt-btn" data-q="8c" data-correct="true"  onclick="pickOpt(this,'8a','8b','8c')"><div class="opt-dot"></div>the first two letters of the Greek alphabet</button>
+      </div>
+    </div>
+    <div class="divider"></div>
+
+    <!-- Q5 -->
+    <div class="quiz-q">
+      <div class="qq-text">
+        5.
+        <span class="choice">
+          <button class="choice-btn" data-q="q5wh" data-correct="true" onclick="pickChoice(this,'q5wh','q5hw')">What</button> /
+          <button class="choice-btn" data-q="q5hw" data-correct="false" onclick="pickChoice(this,'q5hw','q5wh')">How</button>
+        </span> percentage of the Internet
+        <span class="choice">
+          <button class="choice-btn" data-q="q5is" data-correct="true" onclick="pickChoice(this,'q5is','q5ar')">is</button> /
+          <button class="choice-btn" data-q="q5ar" data-correct="false" onclick="pickChoice(this,'q5ar','q5is')">are</button>
+        </span> in English?
+      </div>
+      <div class="qq-options">
+        <button class="opt-btn" data-q="9a" data-correct="false" onclick="pickOpt(this,'9a','9b','9c')"><div class="opt-dot"></div>56 per cent</button>
+        <button class="opt-btn" data-q="9b" data-correct="true"  onclick="pickOpt(this,'9a','9b','9c')"><div class="opt-dot"></div>86 per cent</button>
+        <button class="opt-btn" data-q="9c" data-correct="false" onclick="pickOpt(this,'9a','9b','9c')"><div class="opt-dot"></div>99 per cent</button>
+      </div>
+    </div>
+    <div class="divider"></div>
+
+    <!-- Q6 -->
+    <div class="quiz-q">
+      <div class="qq-text">
+        6.
+        <span class="choice">
+          <button class="choice-btn" data-q="q6wt" data-correct="false" onclick="pickChoice(this,'q6wt','q6wh')">What</button> /
+          <button class="choice-btn" data-q="q6wh" data-correct="true" onclick="pickChoice(this,'q6wh','q6wt')">Who</button>
+        </span>
+        <span class="choice">
+          <button class="choice-btn" data-q="q6dc" data-correct="false" onclick="pickChoice(this,'q6dc','q6cr')">did create</button> /
+          <button class="choice-btn" data-q="q6cr" data-correct="true" onclick="pickChoice(this,'q6cr','q6dc')">created</button>
+        </span> the first computer programming language?
+      </div>
+      <div class="qq-options">
+        <button class="opt-btn" data-q="10a" data-correct="false" onclick="pickOpt(this,'10a','10b','10c')"><div class="opt-dot"></div>an American businessman</button>
+        <button class="opt-btn" data-q="10b" data-correct="false" onclick="pickOpt(this,'10a','10b','10c')"><div class="opt-dot"></div>a German engineer</button>
+        <button class="opt-btn" data-q="10c" data-correct="true"  onclick="pickOpt(this,'10a','10b','10c')"><div class="opt-dot"></div>a British academic</button>
+      </div>
+    </div>
+
+    <button class="check-btn" id="checkBtn5" onclick="checkEx5()">Проверить упражнение 5</button>
+  </div>
+
+  <!-- RESULT BANNER -->
+  <div class="result-banner" id="resultBanner">
+    <div class="rb-emoji" id="rbEmoji">🎉</div>
+    <div class="rb-score" id="rbScore"></div>
+    <div class="rb-text" id="rbText"></div>
+  </div>
+
+  <!-- SUBMIT -->
+  <button class="submit-btn" id="submitBtn" onclick="submitHomework()">
+    🚀 Проверить и отправить
+  </button>
+
+  <!-- VOCAB STRIP -->
+  <div class="vocab-strip">
+    <div class="vs-left">💬 <div><strong>Лексика к уроку:</strong> Languages &amp; People</div></div>
+    <a href="./vocab-languages.html" class="vs-link">Тренировать →</a>
+  </div>
+
+</div><!-- /.page -->
+
+<!-- NAV -->
+<div class="nav-pill">
+  <a href="./index.html">🏠 Home</a>
+  <a href="./homework.html" class="active">📝 HW</a>
+  <a href="./vocabulary-hub.html">💥 Vocab</a>
+</div>
+
+<script>
+  const SB_URL  = 'https://epbjohhpsvcslcbbcytg.supabase.co/rest/v1';
+  const SB_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVwYmpvaGhwc3Zjc2xjYmJjeXRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIxMjU2NzAsImV4cCI6MjA5NzcwMTY3MH0.MMfkWzczZZe6irkqdl6OCPaKjiWiORmcToc6og8bupA';
+  const TG_TOKEN = '8781955044:AAEq6X5Re3D6j8KaD2nhCG3NrA6I6R7dqMg';
+  const TG_CHAT  = '1003844097755';
+
+  // ── correct answers ──
+  const EX1_ANSWERS = {
+    '1': 'Arabic',       // language, not country
+    '2': null,           // all are jobs — trick: actually all correct, none to cross
+    // let's define properly:
+  };
+
+  // Ex1 correct words to cross out (one per group)
+  const EX1_CORRECT = {
+    '1': 'Arabic',            // not a country
+    '2': null,                // all are jobs — workbook says all possible, so no cross needed
+    '3': null,                // all are workplaces
+    '4': 'Poland',            // country, not language
+    '5': 'Lawyer',            // not an academic subject (it's a job title)
+    '6': 'cook',              // not a gerund/noun like reading/sport
+    '7': 'an only children',  // wrong grammar — should be "an only child"
+    '8': 'separate',          // wrong form — should be "separated"
+  };
+
+  // All 3 groups for ex1 have correct cross — group 2 & 3 have none (all valid)
+  const EX1_REAL = {
+    '1': 'Arabic',
+    '4': 'Poland',
+    '5': 'Lawyer',
+    '6': 'cook',
+    '7': 'an only children',
+    '8': 'separate',
+  };
+
+  let ex1Checked = false, ex4Checked = false, ex5Checked = false;
+  let ex1Score = 0, ex4Score = 0, ex5Score = 0;
+  let totalCorrect = 0;
+  const TOTAL_POINTS = 22; // ex1:6 + ex4:8 + ex5:8(choices)+6(answers)=22 approx
+
+  // ── Ex1 logic ──
+  function toggleCross(btn) {
+    if (ex1Checked) return;
+    const group = btn.dataset.group;
+    // uncheck others in same group
+    document.querySelectorAll(`.word-btn[data-group="${group}"]`).forEach(b => {
+      if (b !== btn) b.classList.remove('crossed');
+    });
+    btn.classList.toggle('crossed');
+  }
+
+  function checkEx1() {
+    ex1Score = 0;
+    let errors = [];
+
+    // groups 2, 3 — no wrong word (trick: all are valid)
+    // We'll only score groups that have a definite answer
+    const scoredGroups = ['1','4','5','6','7','8'];
+
+    scoredGroups.forEach(g => {
+      const correct = EX1_REAL[g];
+      const crossed = document.querySelector(`.word-btn[data-group="${g}"].crossed`);
+      if (crossed) {
+        if (crossed.dataset.word === correct) {
+          crossed.classList.remove('crossed');
+          crossed.classList.add('correct-cross');
+          ex1Score++;
+        } else {
+          crossed.classList.remove('crossed');
+          crossed.classList.add('wrong-cross');
+          // show correct
+          const correctBtn = document.querySelector(`.word-btn[data-group="${g}"][data-word="${correct}"]`);
+          if (correctBtn) correctBtn.classList.add('should-cross');
+          errors.push(`Группа ${g}: нужно зачеркнуть "${correct}", ты выбрала "${crossed.dataset.word}"`);
+        }
+      } else {
+        // nothing crossed — show correct
+        const correctBtn = document.querySelector(`.word-btn[data-group="${g}"][data-word="${correct}"]`);
+        if (correctBtn) correctBtn.classList.add('should-cross');
+        errors.push(`Группа ${g}: нужно зачеркнуть "${correct}"`);
+      }
+    });
+
+    // groups 2, 3 — no cross needed, give point if nothing crossed
+    ['2','3'].forEach(g => {
+      const crossed = document.querySelector(`.word-btn[data-group="${g}"].crossed`);
+      if (!crossed) ex1Score++;
+    });
+
+    ex1Checked = true;
+    document.getElementById('checkBtn1').disabled = true;
+    document.getElementById('checkBtn1').textContent = `✓ Проверено — ${ex1Score}/8`;
+    updateLiveScore();
+    window._ex1Errors = errors;
+  }
+
+  // ── Ex4 logic ──
+  const EX4 = [
+    { ids: ['f1','f1b'], answers: ['does','involve'], ca: 'ca1' },
+    { ids: ['f2'],       answers: ['are'],            ca: 'ca2' },
+    { ids: ['f3','f3b'], answers: ['do','come from'], ca: 'ca3' },
+    { ids: ['f4','f4b'], answers: ['does','last'],    ca: 'ca4' },
+    { ids: ['f5','f5b'], answers: ['do','decide'],    ca: 'ca5' },
+    { ids: ['f6','f6b'], answers: ['do','have'],      ca: 'ca6' },
+    { ids: ['f7','f7b'], answers: ['will|are going to','use'], ca: 'ca7' },
+    { ids: ['f8','f8b'], answers: ['does','cost'],    ca: 'ca8' },
+  ];
+
+  function checkEx4() {
+    ex4Score = 0;
+    let errors = [];
+    EX4.forEach((item, i) => {
+      let rowCorrect = true;
+      item.ids.forEach((id, j) => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        const val = el.value.trim().toLowerCase();
+        const expected = item.answers[j].toLowerCase();
+        const ok = expected.split('|').some(e => val === e || val.includes(e));
+        if (ok) {
+          el.classList.add('correct');
+        } else {
+          el.classList.add('wrong');
+          rowCorrect = false;
+        }
+      });
+      if (rowCorrect) {
+        ex4Score++;
+        document.getElementById(item.ca).classList.add('show');
+      } else {
+        document.getElementById(item.ca).classList.add('show');
+        errors.push(`Вопрос ${i+1} (упр.4): правильный ответ — ${document.getElementById(item.ca).textContent.replace('✓ ','')}`);
+      }
+    });
+    ex4Checked = true;
+    document.getElementById('checkBtn4').disabled = true;
+    document.getElementById('checkBtn4').textContent = `✓ Проверено — ${ex4Score}/8`;
+    updateLiveScore();
+    window._ex4Errors = errors;
+  }
+
+  // ── Ex5 logic ──
+  const choiceState = {}; // key: btn data-q, value: selected element
+  const optState    = {};
+
+  function pickChoice(btn, myKey, otherKey) {
+    if (ex5Checked) return;
+    document.querySelector(`[data-q="${myKey}"]`).classList.add('selected');
+    document.querySelector(`[data-q="${otherKey}"]`).classList.remove('selected');
+    choiceState[myKey] = true;
+    choiceState[otherKey] = false;
+  }
+
+  function pickOpt(btn, ...keys) {
+    if (ex5Checked) return;
+    keys.forEach(k => document.querySelector(`[data-q="${k}"]`).classList.remove('selected'));
+    btn.classList.add('selected');
+    keys.forEach(k => { optState[k] = false; });
+    optState[btn.dataset.q] = true;
+  }
+
+  function checkEx5() {
+    ex5Score = 0;
+    let errors = [];
+
+    // Check all choice buttons
+    document.querySelectorAll('.choice-btn').forEach(btn => {
+      const isCorrect = btn.dataset.correct === 'true';
+      const isSelected = btn.classList.contains('selected');
+      if (isSelected && isCorrect) {
+        btn.classList.remove('selected');
+        btn.classList.add('correct-sel');
+        ex5Score++;
+      } else if (isSelected && !isCorrect) {
+        btn.classList.remove('selected');
+        btn.classList.add('wrong-sel');
+      } else if (!isSelected && isCorrect) {
+        btn.classList.add('reveal-correct');
+      }
+    });
+
+    // Check all option buttons
+    document.querySelectorAll('.opt-btn').forEach(btn => {
+      const isCorrect = btn.dataset.correct === 'true';
+      const isSelected = btn.classList.contains('selected');
+      if (isSelected && isCorrect) {
+        btn.classList.remove('selected');
+        btn.classList.add('correct-opt');
+        ex5Score++;
+      } else if (isSelected && !isCorrect) {
+        btn.classList.remove('selected');
+        btn.classList.add('wrong-opt');
+      } else if (!isSelected && isCorrect) {
+        btn.classList.add('reveal-opt');
+      }
+    });
+
+    ex5Checked = true;
+    document.getElementById('checkBtn5').disabled = true;
+    document.getElementById('checkBtn5').textContent = `✓ Проверено — ${ex5Score}/18`;
+    updateLiveScore();
+    window._ex5Errors = errors;
+  }
+
+  function updateLiveScore() {
+    totalCorrect = ex1Score + ex4Score + ex5Score;
+    document.getElementById('liveScore').textContent = totalCorrect;
+  }
+
+  // ── Submit ──
+  async function submitHomework() {
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.textContent = '⏳ Отправляю…';
+
+    // run checks if not done
+    if (!ex1Checked) checkEx1();
+    if (!ex4Checked) checkEx4();
+    if (!ex5Checked) checkEx5();
+
+    const total = ex1Score + ex4Score + ex5Score;
+    const max   = 8 + 8 + 18;
+    const score = `${total}/${max}`;
+
+    // collect errors
+    const allErrors = [
+      ...(window._ex1Errors || []),
+      ...(window._ex4Errors || []),
+      ...(window._ex5Errors || []),
+    ];
+
+    // show banner
+    const banner = document.getElementById('resultBanner');
+    const pct = Math.round((total / max) * 100);
+    let emoji = pct >= 85 ? '🏆' : pct >= 70 ? '🌟' : pct >= 50 ? '👍' : '💪';
+    let text  = pct >= 85 ? 'Отличная работа!' : pct >= 70 ? 'Хороший результат!' : pct >= 50 ? 'Неплохо, но есть над чем поработать' : 'Не сдавайся — давай разберём ошибки!';
+    document.getElementById('rbEmoji').textContent  = emoji;
+    document.getElementById('rbScore').textContent  = `${total} / ${max} (${pct}%)`;
+    document.getElementById('rbText').textContent   = text;
+    banner.classList.add('show');
+    banner.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+    // Supabase upsert
+    try {
+      await fetch(`${SB_URL}/progress`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': SB_KEY,
+          'Authorization': `Bearer ${SB_KEY}`,
+          'Prefer': 'resolution=merge-duplicates,return=minimal'
+        },
+        body: JSON.stringify({
+          student: 'elina',
+          hw1_score: score,
+          hw1_done: true,
+          updated_at: new Date().toISOString()
+        })
+      });
+      localStorage.setItem('elina_hw1_score', score);
+    } catch(e) {}
+
+    // Telegram report
+    let tgText = `📝 *Elina — Lesson 1 · First Class*\n`;
+    tgText += `Результат: *${score}* (${pct}%)\n\n`;
+    if (allErrors.length > 0) {
+      tgText += `❌ *Ошибки:*\n`;
+      allErrors.forEach(e => { tgText += `• ${e}\n`; });
+    } else {
+      tgText += `✅ Все ответы верны!`;
+    }
+
+    try {
+      await fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          chat_id: TG_CHAT,
+          text: tgText,
+          parse_mode: 'Markdown'
+        })
+      });
+    } catch(e) {}
+
+    btn.textContent = '✅ Отправлено!';
+  }
+</script>
+</body>
+</html>

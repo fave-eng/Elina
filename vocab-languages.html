@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vocab — Languages & People · Elina</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --indigo:  #4f46e5;
+      --rose:    #f43f5e;
+      --emerald: #10b981;
+      --amber:   #f59e0b;
+      --violet:  #8b5cf6;
+      --dark:    #0f172a;
+      --bg:      #f1f5f9;
+      --card:    #ffffff;
+      --text:    #0f172a;
+      --muted:   #64748b;
+      --border:  #e2e8f0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding-bottom: 110px;
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      background: linear-gradient(135deg, #f43f5e 0%, #ec4899 50%, #8b5cf6 100%);
+      padding: 40px 24px 56px;
+      position: relative;
+    }
+    .hero-dots {
+      position: absolute; inset: 0; pointer-events: none;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.15) 1px, transparent 1px);
+      background-size: 28px 28px;
+    }
+    .hero-wave { display: block; width: 100%; line-height: 0; background: var(--bg); }
+    .hero-wave svg { display: block; width: 100%; }
+    .hero-inner { position: relative; z-index: 1; }
+    .hero-back {
+      display: inline-flex; align-items: center; gap: 6px;
+      color: rgba(255,255,255,0.75); font-size: 13px; font-weight: 600;
+      text-decoration: none; margin-bottom: 20px; transition: color 0.2s;
+    }
+    .hero-back:hover { color: #fff; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: #fff; font-size: 12px; font-weight: 600;
+      padding: 5px 14px; border-radius: 100px; margin-bottom: 16px;
+    }
+    .hero h1 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(24px, 5vw, 38px);
+      font-weight: 800; color: #fff; letter-spacing: -0.5px; margin-bottom: 6px;
+    }
+    .hero p { color: rgba(255,255,255,0.8); font-size: 15px; }
+
+    /* ─── LAYOUT ─── */
+    .page { max-width: 700px; margin: 0 auto; padding: 0 20px; }
+
+    /* ─── MODE TABS ─── */
+    .mode-tabs {
+      display: flex; gap: 8px;
+      margin-top: 24px; margin-bottom: 24px;
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      border-radius: 14px; padding: 6px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+    }
+    .mode-tab {
+      flex: 1; padding: 10px 6px;
+      border: none; border-radius: 10px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px; font-weight: 600;
+      cursor: pointer; transition: all 0.2s;
+      background: transparent; color: var(--muted);
+    }
+    .mode-tab.active {
+      background: var(--dark); color: #fff;
+    }
+
+    /* ─── STATS ROW ─── */
+    .stats-row {
+      display: flex; gap: 10px; margin-bottom: 24px; flex-wrap: wrap;
+    }
+    .stat-pill {
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      border-radius: 12px; padding: 10px 16px;
+      flex: 1; min-width: 80px; text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .stat-pill .sp-num {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 20px; font-weight: 800;
+    }
+    .stat-pill .sp-lbl { font-size: 11px; color: var(--muted); font-weight: 600; margin-top: 1px; }
+    .sp-total .sp-num  { color: var(--indigo); }
+    .sp-known .sp-num  { color: var(--emerald); }
+    .sp-left  .sp-num  { color: var(--amber); }
+
+    /* ─────────────────────────────────
+       MODE 1: FLASHCARDS
+    ───────────────────────────────── */
+    #modeFlash { display: block; }
+    #modeTest, #modeList { display: none; }
+
+    .card-counter {
+      text-align: center; font-size: 13px;
+      color: var(--muted); font-weight: 600; margin-bottom: 16px;
+    }
+    .card-progress {
+      background: var(--border); border-radius: 100px;
+      height: 5px; margin-bottom: 24px; overflow: hidden;
+    }
+    .card-progress-fill {
+      height: 100%; border-radius: 100px;
+      background: linear-gradient(90deg, #f43f5e, #8b5cf6);
+      transition: width 0.4s ease;
+    }
+
+    /* The card itself */
+    .flashcard-wrap {
+      perspective: 1000px;
+      height: 260px; margin-bottom: 20px;
+    }
+    .flashcard {
+      width: 100%; height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.5s ease;
+      cursor: pointer;
+    }
+    .flashcard.flipped { transform: rotateY(180deg); }
+
+    .card-face {
+      position: absolute; inset: 0;
+      border-radius: 22px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 28px 24px;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+    .card-front {
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+    }
+    .card-back {
+      background: linear-gradient(135deg, #f43f5e 0%, #8b5cf6 100%);
+      transform: rotateY(180deg);
+    }
+
+    .card-front .cf-hint {
+      font-size: 11px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 14px;
+    }
+    .card-front .cf-word {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(22px, 5vw, 32px); font-weight: 800;
+      color: var(--text); text-align: center; line-height: 1.2;
+      margin-bottom: 10px;
+    }
+    .card-front .cf-example {
+      font-size: 13px; color: var(--muted);
+      text-align: center; line-height: 1.5; font-style: italic;
+    }
+    .card-front .cf-tap {
+      position: absolute; bottom: 16px;
+      font-size: 11px; color: #94a3b8; font-weight: 600;
+    }
+
+    .card-back .cb-trans {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(20px, 5vw, 28px); font-weight: 800;
+      color: #fff; text-align: center; margin-bottom: 12px;
+    }
+    .card-back .cb-example {
+      font-size: 13px; color: rgba(255,255,255,0.85);
+      text-align: center; line-height: 1.5; font-style: italic;
+    }
+    .card-back .cb-category {
+      position: absolute; top: 16px; right: 16px;
+      font-size: 10px; font-weight: 700; letter-spacing: 1px;
+      text-transform: uppercase; color: rgba(255,255,255,0.6);
+    }
+
+    /* verdict buttons */
+    .verdict-row {
+      display: flex; gap: 12px; margin-bottom: 20px;
+    }
+    .verdict-btn {
+      flex: 1; padding: 14px;
+      border: none; border-radius: 14px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 15px; font-weight: 700;
+      cursor: pointer; transition: all 0.2s;
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+    }
+    .verdict-btn:hover { transform: translateY(-1px); }
+    .btn-no  { background: #fee2e2; color: #991b1b; }
+    .btn-yes { background: #d1fae5; color: #065f46; }
+    .verdict-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+    .restart-btn {
+      width: 100%;
+      background: var(--dark); color: #fff;
+      border: none; border-radius: 14px; padding: 16px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 15px; font-weight: 700;
+      cursor: pointer; transition: all 0.2s; margin-bottom: 16px;
+    }
+    .restart-btn:hover { opacity: 0.9; }
+
+    .finish-screen {
+      display: none; text-align: center;
+      background: var(--card); border-radius: 22px;
+      border: 1.5px solid var(--border);
+      padding: 36px 24px; margin-bottom: 20px;
+    }
+    .finish-screen.show { display: block; }
+    .finish-screen .fs-emoji { font-size: 48px; margin-bottom: 10px; }
+    .finish-screen h2 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 22px; font-weight: 800; margin-bottom: 6px;
+    }
+    .finish-screen p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+    /* ─────────────────────────────────
+       MODE 2: TEST (multiple choice)
+    ───────────────────────────────── */
+    .test-q {
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      border-radius: 22px;
+      padding: 24px 22px; margin-bottom: 16px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+    }
+    .tq-num {
+      font-size: 11px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 8px;
+    }
+    .tq-word {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 20px; font-weight: 800; margin-bottom: 16px;
+    }
+    .tq-options { display: flex; flex-direction: column; gap: 8px; }
+    .tq-opt {
+      background: #f8faff;
+      border: 1.5px solid var(--border);
+      border-radius: 12px; padding: 12px 16px;
+      font-size: 14px; cursor: pointer; transition: all 0.15s;
+      text-align: left; color: var(--text);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .tq-opt:hover:not(:disabled) { border-color: #a5b4fc; background: #eef2ff; }
+    .tq-opt.selected  { border-color: var(--indigo); background: #eef2ff; color: var(--indigo); }
+    .tq-opt.correct   { border-color: var(--emerald); background: #d1fae5; color: #065f46; font-weight: 600; }
+    .tq-opt.wrong     { border-color: var(--rose); background: #fee2e2; color: #991b1b; }
+    .tq-opt.reveal    { border-color: var(--emerald); background: #d1fae5; color: #065f46; font-weight: 600; }
+    .tq-opt:disabled  { cursor: default; }
+    .tq-dot {
+      width: 18px; height: 18px; border-radius: 50%;
+      border: 2px solid var(--border); flex-shrink: 0; transition: all 0.15s;
+    }
+    .tq-opt.selected .tq-dot  { border-color: var(--indigo); background: var(--indigo); }
+    .tq-opt.correct .tq-dot   { border-color: var(--emerald); background: var(--emerald); }
+    .tq-opt.wrong .tq-dot     { border-color: var(--rose); background: var(--rose); }
+    .tq-opt.reveal .tq-dot    { border-color: var(--emerald); background: var(--emerald); }
+
+    .test-check-btn {
+      width: 100%;
+      background: linear-gradient(135deg, #4f46e5, #7c3aed);
+      color: #fff; border: none; border-radius: 14px; padding: 16px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 16px; font-weight: 700;
+      cursor: pointer; transition: all 0.2s; margin-bottom: 20px;
+    }
+    .test-check-btn:hover { opacity: 0.92; transform: translateY(-1px); }
+    .test-result {
+      display: none; background: linear-gradient(135deg, #10b981, #059669);
+      border-radius: 18px; padding: 20px; text-align: center;
+      color: #fff; margin-bottom: 20px;
+    }
+    .test-result.show { display: block; }
+    .test-result .tr-score {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 28px; font-weight: 800;
+    }
+    .test-result p { font-size: 14px; opacity: 0.9; margin-top: 4px; }
+
+    /* ─────────────────────────────────
+       MODE 3: LIST
+    ───────────────────────────────── */
+    .word-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+    .word-row {
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      border-radius: 14px; padding: 14px 18px;
+      display: flex; align-items: flex-start; gap: 14px;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+    }
+    .wr-left { flex: 1; min-width: 0; }
+    .wr-eng {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 15px; font-weight: 700; margin-bottom: 2px;
+    }
+    .wr-cat {
+      font-size: 10px; font-weight: 700; letter-spacing: 1px;
+      text-transform: uppercase; padding: 2px 7px; border-radius: 6px;
+      display: inline-block; margin-bottom: 4px;
+    }
+    .cat-people  { background: #ede9fe; color: #5b21b6; }
+    .cat-lang    { background: #fce7f3; color: #9d174d; }
+    .cat-grammar { background: #e0f2fe; color: #075985; }
+    .wr-ru  { font-size: 13px; color: var(--muted); margin-bottom: 3px; }
+    .wr-ex  { font-size: 12px; color: #94a3b8; font-style: italic; line-height: 1.5; }
+    .wr-right { flex-shrink: 0; }
+    .know-toggle {
+      width: 36px; height: 36px; border-radius: 50%;
+      border: 2px solid var(--border);
+      background: var(--bg); cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; transition: all 0.2s;
+    }
+    .know-toggle.known { background: #d1fae5; border-color: var(--emerald); }
+
+    /* ─── NAV ─── */
+    .nav-pill {
+      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+      background: #0f172a; border-radius: 100px;
+      padding: 12px 24px; display: flex; gap: 4px;
+      box-shadow: 0 8px 32px rgba(15,23,42,0.3);
+      z-index: 900; white-space: nowrap;
+    }
+    .nav-pill a {
+      color: rgba(255,255,255,0.6);
+      font-size: 12px; font-weight: 600;
+      text-decoration: none; padding: 6px 14px;
+      border-radius: 100px; transition: all 0.2s;
+    }
+    .nav-pill a:hover, .nav-pill a.active {
+      background: var(--indigo); color: #fff;
+    }
+
+    .section-gap { margin-top: 24px; }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-dots"></div>
+  <div class="page hero-inner">
+    <a href="./lesson1.html" class="hero-back">← К уроку 1</a>
+    <div class="hero-badge">💬 Vocabulary · Lesson 1</div>
+    <h1>Languages & People</h1>
+    <p>14 слов из домашней работы · Unit 1 First Class</p>
+  </div>
+</div>
+<div class="hero-wave">
+  <svg viewBox="0 0 1440 56" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"
+       style="background: linear-gradient(135deg, #f43f5e, #8b5cf6)">
+    <path d="M0,56 C360,0 1080,0 1440,56 L1440,56 L0,56 Z" fill="#f1f5f9"/>
+  </svg>
+</div>
+
+<div class="page">
+  <div class="section-gap"></div>
+
+  <!-- MODE TABS -->
+  <div class="mode-tabs">
+    <button class="mode-tab active" onclick="switchMode('flash', this)">🃏 Карточки</button>
+    <button class="mode-tab" onclick="switchMode('test', this)">✏️ Тест</button>
+    <button class="mode-tab" onclick="switchMode('list', this)">📋 Список</button>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-row">
+    <div class="stat-pill sp-total">
+      <div class="sp-num">14</div>
+      <div class="sp-lbl">Всего слов</div>
+    </div>
+    <div class="stat-pill sp-known">
+      <div class="sp-num" id="statKnown">0</div>
+      <div class="sp-lbl">Знаю</div>
+    </div>
+    <div class="stat-pill sp-left">
+      <div class="sp-num" id="statLeft">14</div>
+      <div class="sp-lbl">Учу</div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════
+       MODE 1: FLASHCARDS
+  ════════════════════════════════ -->
+  <div id="modeFlash">
+    <div class="card-counter" id="cardCounter">1 / 14</div>
+    <div class="card-progress">
+      <div class="card-progress-fill" id="cardProgressFill" style="width:0%"></div>
+    </div>
+
+    <div class="flashcard-wrap">
+      <div class="flashcard" id="flashcard" onclick="flipCard()">
+        <!-- FRONT -->
+        <div class="card-face card-front">
+          <div class="cf-hint">Нажми чтобы перевернуть</div>
+          <div class="cf-word" id="cfWord">civil servant</div>
+          <div class="cf-example" id="cfExample">"My sister's a civil servant — she works for the government."</div>
+          <div class="cf-tap">👆 нажми</div>
+        </div>
+        <!-- BACK -->
+        <div class="card-face card-back">
+          <div class="cb-category" id="cbCat">ЛЮДИ</div>
+          <div class="cb-trans" id="cbTrans">государственный служащий</div>
+          <div class="cb-example" id="cbEx">"My sister's a civil servant — she works for the government."</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="verdict-row">
+      <button class="verdict-btn btn-no" id="btnNo" onclick="verdict(false)" disabled>❌ Не знаю</button>
+      <button class="verdict-btn btn-yes" id="btnYes" onclick="verdict(true)" disabled>✅ Знаю</button>
+    </div>
+
+    <!-- Finish screen (hidden until done) -->
+    <div class="finish-screen" id="finishScreen">
+      <div class="fs-emoji">🎉</div>
+      <h2 id="fsTitle">Раунд завершён!</h2>
+      <p id="fsText">Загрузка...</p>
+      <br>
+      <button class="restart-btn" onclick="restartFlash()">🔄 Повторить незнакомые</button>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════
+       MODE 2: TEST
+  ════════════════════════════════ -->
+  <div id="modeTest">
+    <div id="testQuestions"></div>
+    <button class="test-check-btn" onclick="checkTest()">Проверить тест</button>
+    <div class="test-result" id="testResult">
+      <div class="tr-score" id="testScore"></div>
+      <p id="testText"></p>
+    </div>
+    <button class="restart-btn" onclick="buildTest()">🔄 Новый тест</button>
+  </div>
+
+  <!-- ═══════════════════════════════
+       MODE 3: LIST
+  ════════════════════════════════ -->
+  <div id="modeList">
+    <div class="word-list" id="wordList"></div>
+  </div>
+
+</div><!-- /.page -->
+
+<!-- NAV -->
+<div class="nav-pill">
+  <a href="./index.html">🏠 Home</a>
+  <a href="./homework.html" class="active">📝 HW</a>
+  <a href="./vocabulary-hub.html">💥 Vocab</a>
+</div>
+
+<script>
+// ════════════════════════════════════════
+//  VOCABULARY — из домашней работы Урок 1
+//  Только сложные/важные слова
+// ════════════════════════════════════════
+const WORDS = [
+  // ЛЮДИ (Upражнение 1)
+  {
+    eng: 'a civil servant',
+    ru:  'государственный служащий',
+    cat: 'people',
+    catLabel: 'ЛЮДИ',
+    ex: '"My sister\'s a civil servant — she works for the government."',
+  },
+  {
+    eng: 'a translator',
+    ru:  'переводчик',
+    cat: 'people',
+    catLabel: 'ЛЮДИ',
+    ex: '"He works as a translator — he speaks five languages."',
+  },
+  {
+    eng: 'a warehouse',
+    ru:  'склад',
+    cat: 'people',
+    catLabel: 'ЛЮДИ',
+    ex: '"My dad works in a warehouse on the outskirts of the city."',
+  },
+  {
+    eng: 'doing a degree in',
+    ru:  'учиться на … (специальность)',
+    cat: 'people',
+    catLabel: 'ЛЮДИ',
+    ex: '"She\'s doing a degree in Economics at university."',
+  },
+  {
+    eng: 'the youngest of four kids',
+    ru:  'самый младший из четырёх детей',
+    cat: 'people',
+    catLabel: 'ЛЮДИ',
+    ex: '"I\'m the youngest of four kids — my siblings are much older."',
+  },
+  {
+    eng: 'an only child',
+    ru:  'единственный ребёнок',
+    cat: 'people',
+    catLabel: 'ЛЮДИ',
+    ex: '"She\'s an only child, so she got all the attention growing up."',
+  },
+  {
+    eng: 'a twin',
+    ru:  'близнец',
+    cat: 'people',
+    catLabel: 'ЛЮДИ',
+    ex: '"I have a twin sister — people always confuse us."',
+  },
+  // ЯЗЫКИ (Упражнение 4 + Unit 1 учебника)
+  {
+    eng: 'qualifications',
+    ru:  'квалификация, дипломы',
+    cat: 'lang',
+    catLabel: 'ЯЗЫКИ',
+    ex: '"What qualifications do the teachers have?"',
+  },
+  {
+    eng: 'involve',
+    ru:  'включать в себя, подразумевать',
+    cat: 'lang',
+    catLabel: 'ЯЗЫКИ',
+    ex: '"What does a typical class involve? — Lots of speaking practice."',
+  },
+  {
+    eng: 'nationality',
+    ru:  'национальность, гражданство',
+    cat: 'lang',
+    catLabel: 'ЯЗЫКИ',
+    ex: '"We have about 30 different nationalities in our classes."',
+  },
+  // QUIZ (Упражнение 5)
+  {
+    eng: 'the Cyrillic alphabet',
+    ru:  'кириллический алфавит',
+    cat: 'grammar',
+    catLabel: 'QUIZ',
+    ex: '"Russian uses the Cyrillic alphabet, not the Latin one."',
+  },
+  {
+    eng: 'originally',
+    ru:  'первоначально, изначально',
+    cat: 'grammar',
+    catLabel: 'QUIZ',
+    ex: '"Where does the word \'alphabet\' originally come from?"',
+  },
+  {
+    eng: 'percentage',
+    ru:  'процент, доля',
+    cat: 'grammar',
+    catLabel: 'QUIZ',
+    ex: '"What percentage of the Internet is in English? — 86 per cent."',
+  },
+  {
+    eng: 'a programming language',
+    ru:  'язык программирования',
+    cat: 'grammar',
+    catLabel: 'QUIZ',
+    ex: '"Who created the first computer programming language?"',
+  },
+];
+
+const CAT_CLASS = { people: 'cat-people', lang: 'cat-lang', grammar: 'cat-grammar' };
+
+// ── KNOWN STATE ──
+const known = new Set(JSON.parse(localStorage.getItem('elina_vocab_l1_known') || '[]'));
+function saveKnown() { localStorage.setItem('elina_vocab_l1_known', JSON.stringify([...known])); }
+function updateStats() {
+  document.getElementById('statKnown').textContent = known.size;
+  document.getElementById('statLeft').textContent  = WORDS.length - known.size;
+}
+updateStats();
+
+// ════════════════════
+//  FLASHCARDS
+// ════════════════════
+let deck = [], cardIdx = 0, isFlipped = false;
+
+function buildDeck() {
+  // unknowns first, then known
+  deck = [...WORDS].sort((a,b) => {
+    const ak = known.has(a.eng) ? 1 : 0;
+    const bk = known.has(b.eng) ? 1 : 0;
+    return ak - bk;
+  });
+  cardIdx = 0;
+}
+
+function showCard(idx) {
+  const w = deck[idx];
+  document.getElementById('cfWord').textContent    = w.eng;
+  document.getElementById('cfExample').textContent = w.ex;
+  document.getElementById('cbTrans').textContent   = w.ru;
+  document.getElementById('cbEx').textContent      = w.ex;
+  document.getElementById('cbCat').textContent     = w.catLabel;
+  document.getElementById('cardCounter').textContent = `${idx+1} / ${deck.length}`;
+  document.getElementById('cardProgressFill').style.width = `${((idx+1)/deck.length)*100}%`;
+
+  // reset flip
+  const fc = document.getElementById('flashcard');
+  fc.classList.remove('flipped');
+  isFlipped = false;
+
+  document.getElementById('btnNo').disabled  = true;
+  document.getElementById('btnYes').disabled = true;
+}
+
+function flipCard() {
+  const fc = document.getElementById('flashcard');
+  fc.classList.toggle('flipped');
+  isFlipped = !isFlipped;
+  if (isFlipped) {
+    document.getElementById('btnNo').disabled  = false;
+    document.getElementById('btnYes').disabled = false;
+  } else {
+    document.getElementById('btnNo').disabled  = true;
+    document.getElementById('btnYes').disabled = true;
+  }
+}
+
+function verdict(isKnown) {
+  const w = deck[cardIdx];
+  if (isKnown) { known.add(w.eng); }
+  else { known.delete(w.eng); }
+  saveKnown();
+  updateStats();
+
+  cardIdx++;
+  if (cardIdx >= deck.length) {
+    showFinish();
+  } else {
+    showCard(cardIdx);
+  }
+}
+
+function showFinish() {
+  document.getElementById('flashcard').style.display = 'none';
+  document.querySelector('.card-counter').style.display = 'none';
+  document.querySelector('.card-progress').style.display = 'none';
+  document.querySelector('.verdict-row').style.display = 'none';
+
+  const unknownCount = WORDS.filter(w => !known.has(w.eng)).length;
+  const fs = document.getElementById('finishScreen');
+  fs.classList.add('show');
+  document.getElementById('fsTitle').textContent =
+    unknownCount === 0 ? '🏆 Все слова знаешь!' : `${known.size} из ${WORDS.length} слов знаешь`;
+  document.getElementById('fsText').textContent =
+    unknownCount === 0
+      ? 'Отлично! Попробуй тест, чтобы проверить себя.'
+      : `Ещё ${unknownCount} слов стоит повторить. Нажми кнопку ниже!`;
+}
+
+function restartFlash() {
+  document.getElementById('flashcard').style.display = '';
+  document.querySelector('.card-counter').style.display = '';
+  document.querySelector('.card-progress').style.display = '';
+  document.querySelector('.verdict-row').style.display = '';
+  document.getElementById('finishScreen').classList.remove('show');
+  buildDeck();
+  showCard(0);
+}
+
+// ════════════════════
+//  TEST MODE
+// ════════════════════
+function shuffle(arr) { return [...arr].sort(() => Math.random() - 0.5); }
+
+function buildTest() {
+  document.getElementById('testResult').classList.remove('show');
+  const container = document.getElementById('testQuestions');
+  container.innerHTML = '';
+  const shuffled = shuffle(WORDS);
+
+  shuffled.forEach((w, i) => {
+    // 3 wrong options from other words
+    const others = shuffle(WORDS.filter(x => x.eng !== w.eng)).slice(0, 3).map(x => x.ru);
+    const options = shuffle([w.ru, ...others]);
+
+    const div = document.createElement('div');
+    div.className = 'test-q';
+    div.innerHTML = `
+      <div class="tq-num">Вопрос ${i+1}</div>
+      <div class="tq-word">${w.eng}</div>
+      <div class="tq-options">
+        ${options.map(opt => `
+          <button class="tq-opt" data-correct="${opt === w.ru}"
+            onclick="selectTestOpt(this, '${w.eng}')">
+            <div class="tq-dot"></div>${opt}
+          </button>`).join('')}
+      </div>`;
+    container.appendChild(div);
+  });
+}
+
+function selectTestOpt(btn, wordEng) {
+  const opts = btn.closest('.tq-options').querySelectorAll('.tq-opt');
+  if ([...opts].some(o => o.classList.contains('correct') || o.classList.contains('wrong'))) return;
+  opts.forEach(o => o.classList.remove('selected'));
+  btn.classList.add('selected');
+}
+
+function checkTest() {
+  let score = 0;
+  const questions = document.querySelectorAll('.test-q');
+  questions.forEach(q => {
+    const opts = q.querySelectorAll('.tq-opt');
+    const selected = q.querySelector('.tq-opt.selected');
+    opts.forEach(o => {
+      o.disabled = true;
+      if (o.dataset.correct === 'true') {
+        if (o === selected) { o.classList.add('correct'); score++; }
+        else { o.classList.add('reveal'); }
+      } else if (o === selected) {
+        o.classList.add('wrong');
+      }
+    });
+  });
+  const total = questions.length;
+  const pct   = Math.round((score / total) * 100);
+  const res   = document.getElementById('testResult');
+  document.getElementById('testScore').textContent = `${score} / ${total} (${pct}%)`;
+  document.getElementById('testText').textContent  =
+    pct >= 85 ? '🏆 Отлично! Слова в памяти.' :
+    pct >= 65 ? '👍 Хорошо, но пара слов ещё нужна практика.' :
+    '💪 Повтори карточки ещё раз!';
+  res.classList.add('show');
+  res.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+// ════════════════════
+//  LIST MODE
+// ════════════════════
+function buildList() {
+  const container = document.getElementById('wordList');
+  container.innerHTML = '';
+  WORDS.forEach(w => {
+    const isKnown = known.has(w.eng);
+    const div = document.createElement('div');
+    div.className = 'word-row';
+    div.innerHTML = `
+      <div class="wr-left">
+        <div class="wr-cat ${CAT_CLASS[w.cat]}">${w.catLabel}</div>
+        <div class="wr-eng">${w.eng}</div>
+        <div class="wr-ru">${w.ru}</div>
+        <div class="wr-ex">${w.ex}</div>
+      </div>
+      <div class="wr-right">
+        <button class="know-toggle ${isKnown ? 'known' : ''}"
+          onclick="toggleKnown(this, '${w.eng}')">
+          ${isKnown ? '✅' : '○'}
+        </button>
+      </div>`;
+    container.appendChild(div);
+  });
+}
+
+function toggleKnown(btn, eng) {
+  if (known.has(eng)) {
+    known.delete(eng);
+    btn.classList.remove('known');
+    btn.textContent = '○';
+  } else {
+    known.add(eng);
+    btn.classList.add('known');
+    btn.textContent = '✅';
+  }
+  saveKnown();
+  updateStats();
+}
+
+// ════════════════════
+//  MODE SWITCHER
+// ════════════════════
+function switchMode(mode, tabBtn) {
+  document.querySelectorAll('.mode-tab').forEach(t => t.classList.remove('active'));
+  tabBtn.classList.add('active');
+
+  document.getElementById('modeFlash').style.display = mode === 'flash' ? 'block' : 'none';
+  document.getElementById('modeTest').style.display  = mode === 'test'  ? 'block' : 'none';
+  document.getElementById('modeList').style.display  = mode === 'list'  ? 'block' : 'none';
+
+  if (mode === 'test') buildTest();
+  if (mode === 'list') buildList();
+}
+
+// ── INIT ──
+buildDeck();
+showCard(0);
+</script>
+</body>
+</html>

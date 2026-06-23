@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Homework — Elina's English Space</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --indigo:       #4f46e5;
+      --indigo-light: #6366f1;
+      --rose:         #f43f5e;
+      --emerald:      #10b981;
+      --amber:        #f59e0b;
+      --violet:       #8b5cf6;
+      --sky:          #0ea5e9;
+      --dark:         #0f172a;
+      --bg:           #f1f5f9;
+      --card:         #ffffff;
+      --text:         #0f172a;
+      --muted:        #64748b;
+      --border:       #e2e8f0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding-bottom: 100px;
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #a855f7 100%);
+      padding: 40px 24px 56px;
+      position: relative;
+    }
+    .hero-dots {
+      position: absolute; inset: 0; pointer-events: none;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.15) 1px, transparent 1px);
+      background-size: 28px 28px;
+    }
+    .hero-wave {
+      display: block; width: 100%; line-height: 0;
+      background: var(--bg);
+    }
+    .hero-wave svg { display: block; width: 100%; }
+
+    .hero-inner { position: relative; z-index: 1; }
+    .hero-back {
+      display: inline-flex; align-items: center; gap: 6px;
+      color: rgba(255,255,255,0.75); font-size: 13px; font-weight: 600;
+      text-decoration: none; margin-bottom: 20px;
+      transition: color 0.2s;
+    }
+    .hero-back:hover { color: #fff; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: #fff; font-size: 12px; font-weight: 600;
+      padding: 5px 14px; border-radius: 100px;
+      margin-bottom: 16px;
+    }
+    .hero h1 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(26px, 5vw, 40px);
+      font-weight: 800; color: #fff;
+      letter-spacing: -0.5px; margin-bottom: 8px;
+    }
+    .hero p { color: rgba(255,255,255,0.75); font-size: 15px; }
+    .progress-bar-wrap {
+      background: rgba(255,255,255,0.15);
+      border-radius: 100px; height: 6px;
+      margin-top: 18px; max-width: 340px; overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%; background: #fff;
+      border-radius: 100px; transition: width 0.8s ease;
+    }
+    .progress-label {
+      color: rgba(255,255,255,0.8);
+      font-size: 12px; font-weight: 600; margin-top: 6px;
+    }
+
+    /* ─── LAYOUT ─── */
+    .page { max-width: 700px; margin: 0 auto; padding: 0 20px; }
+
+    /* ─── STATS ─── */
+    .stats-row {
+      display: flex; gap: 12px;
+      margin-top: 24px; margin-bottom: 32px;
+      flex-wrap: wrap;
+    }
+    .stat-chip {
+      background: var(--card);
+      border-radius: 20px;
+      border: 1.5px solid var(--border);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+      padding: 14px 20px;
+      flex: 1; min-width: 90px; text-align: center;
+    }
+    .stat-chip .sc-num {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 24px; font-weight: 800;
+    }
+    .stat-chip .sc-lbl { font-size: 11px; color: var(--muted); font-weight: 600; margin-top: 2px; }
+    .chip-done  .sc-num { color: var(--emerald); }
+    .chip-total .sc-num { color: var(--indigo); }
+    .chip-pct   .sc-num { color: var(--amber); }
+
+    /* ─── SECTION LABEL ─── */
+    .section-title {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: var(--muted); margin: 28px 0 14px;
+    }
+
+    /* ─── LESSON CARD ─── */
+    .lesson-card {
+      background: var(--card);
+      border-radius: 18px;
+      border: 1.5px solid var(--border);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+      margin-bottom: 14px;
+      overflow: hidden;
+      transition: all 0.2s;
+    }
+    .lesson-card.active:hover {
+      border-color: var(--indigo-light);
+      box-shadow: 0 8px 28px rgba(79,70,229,0.1);
+      transform: translateY(-2px);
+    }
+    .lesson-card.locked { opacity: 0.55; }
+
+    .lc-main {
+      padding: 20px 22px;
+      display: flex; align-items: center; gap: 16px;
+    }
+    .lc-num {
+      width: 44px; height: 44px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 17px; font-weight: 800; flex-shrink: 0;
+    }
+    .num-done   { background: #d1fae5; color: #065f46; }
+    .num-active { background: linear-gradient(135deg, #4f46e5, #7c3aed); color: #fff; }
+    .num-locked { background: #f1f5f9; color: #94a3b8; }
+
+    .lc-info { flex: 1; min-width: 0; }
+    .lc-lesson-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 1px;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 3px;
+    }
+    .lc-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 16px; font-weight: 700; margin-bottom: 4px;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .lc-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .lc-pill {
+      font-size: 11px; font-weight: 700;
+      padding: 3px 10px; border-radius: 100px;
+    }
+    .pill-done    { background: #d1fae5; color: #065f46; }
+    .pill-current { background: #ede9fe; color: #5b21b6; }
+    .pill-locked  { background: #f1f5f9; color: #94a3b8; }
+    .lc-score { font-size: 12px; color: var(--muted); }
+
+    .lc-arrow {
+      font-size: 20px; color: var(--indigo);
+      opacity: 0; transition: opacity 0.2s;
+    }
+    .lesson-card.active:hover .lc-arrow { opacity: 1; }
+    .lesson-card.locked .lc-arrow { display: none; }
+
+    /* vocab strip */
+    .lc-vocab-strip {
+      border-top: 1px solid var(--border);
+      padding: 10px 22px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: #fafbff;
+    }
+    .lvs-left {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 13px; color: var(--muted);
+    }
+    .lvs-left span { font-weight: 600; color: var(--text); }
+    .lvs-link {
+      font-size: 12px; font-weight: 700; color: var(--rose);
+      text-decoration: none;
+      display: flex; align-items: center; gap: 4px;
+      transition: gap 0.2s;
+    }
+    .lvs-link:hover { gap: 8px; }
+
+    .locked-strip {
+      border-top: 1px solid var(--border);
+      padding: 10px 22px;
+      background: #f8fafc;
+      font-size: 12px; color: #94a3b8;
+      display: flex; align-items: center; gap: 6px;
+    }
+
+    /* ─── NAV ─── */
+    .nav-pill {
+      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+      background: #0f172a; border-radius: 100px;
+      padding: 12px 24px; display: flex; gap: 4px;
+      box-shadow: 0 8px 32px rgba(15,23,42,0.3);
+      z-index: 900; white-space: nowrap;
+    }
+    .nav-pill a {
+      color: rgba(255,255,255,0.6);
+      font-size: 12px; font-weight: 600;
+      text-decoration: none; padding: 6px 14px;
+      border-radius: 100px; transition: all 0.2s;
+    }
+    .nav-pill a:hover, .nav-pill a.active {
+      background: var(--indigo); color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-dots"></div>
+  <div class="page hero-inner">
+    <a href="./index.html" class="hero-back">← На главную</a>
+    <div class="hero-badge">📝 Homework Board</div>
+    <h1>Домашние задания</h1>
+    <p>Выполняй и отслеживай прогресс по каждому уроку</p>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill" id="heroProgress" style="width:0%"></div>
+    </div>
+    <div class="progress-label" id="heroLabel">0 из 1 выполнено</div>
+  </div>
+</div>
+<div class="hero-wave">
+  <svg viewBox="0 0 1440 56" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"
+       style="background: linear-gradient(135deg, #4f46e5, #7c3aed)">
+    <path d="M0,56 C360,0 1080,0 1440,56 L1440,56 L0,56 Z" fill="#f1f5f9"/>
+  </svg>
+</div>
+
+<div class="page">
+
+  <!-- STATS -->
+  <div class="stats-row">
+    <div class="stat-chip chip-done">
+      <div class="sc-num" id="statDone">0</div>
+      <div class="sc-lbl">Выполнено</div>
+    </div>
+    <div class="stat-chip chip-total">
+      <div class="sc-num" id="statTotal">1</div>
+      <div class="sc-lbl">Всего уроков</div>
+    </div>
+    <div class="stat-chip chip-pct">
+      <div class="sc-num" id="statPct">0%</div>
+      <div class="sc-lbl">Прогресс</div>
+    </div>
+  </div>
+
+  <!-- DONE SECTION (shown only when ≥1 done) -->
+  <div id="sectionDone" style="display:none">
+    <div class="section-title">✅ Выполнено</div>
+  </div>
+
+  <!-- LESSON 1 -->
+  <div class="lesson-card active" id="card-1">
+    <a href="./lesson1.html" style="text-decoration:none; color:inherit;">
+      <div class="lc-main">
+        <div class="lc-num" id="num-1">1</div>
+        <div class="lc-info">
+          <div class="lc-lesson-label">Lesson 1</div>
+          <div class="lc-title">First Class — Nice to Meet You</div>
+          <div class="lc-meta">
+            <span class="lc-pill" id="pill-1">📝 Выполнить</span>
+            <span class="lc-score" id="score-1"></span>
+          </div>
+        </div>
+        <div class="lc-arrow">→</div>
+      </div>
+    </a>
+    <div class="lc-vocab-strip">
+      <div class="lvs-left">💬 <span>Лексика к уроку:</span> Languages & People</div>
+      <a href="./vocab-languages.html" class="lvs-link">Тренировать <span>→</span></a>
+    </div>
+  </div>
+
+  <!-- UPCOMING -->
+  <div class="section-title" id="sectionUpcoming">🔒 Предстоящие</div>
+
+  <!-- LESSON 2 -->
+  <div class="lesson-card locked">
+    <div class="lc-main">
+      <div class="lc-num num-locked">2</div>
+      <div class="lc-info">
+        <div class="lc-lesson-label">Lesson 2</div>
+        <div class="lc-title">Coming soon…</div>
+        <div class="lc-meta"><span class="lc-pill pill-locked">🔒 Скоро</span></div>
+      </div>
+    </div>
+    <div class="locked-strip">🔒 Задание появится после урока 2</div>
+  </div>
+
+  <!-- LESSON 3 -->
+  <div class="lesson-card locked">
+    <div class="lc-main">
+      <div class="lc-num num-locked">3</div>
+      <div class="lc-info">
+        <div class="lc-lesson-label">Lesson 3</div>
+        <div class="lc-title">Coming soon…</div>
+        <div class="lc-meta"><span class="lc-pill pill-locked">🔒 Скоро</span></div>
+      </div>
+    </div>
+    <div class="locked-strip">🔒 Задание появится после урока 3</div>
+  </div>
+
+  <!-- LESSON 4 -->
+  <div class="lesson-card locked">
+    <div class="lc-main">
+      <div class="lc-num num-locked">4</div>
+      <div class="lc-info">
+        <div class="lc-lesson-label">Lesson 4</div>
+        <div class="lc-title">Coming soon…</div>
+        <div class="lc-meta"><span class="lc-pill pill-locked">🔒 Скоро</span></div>
+      </div>
+    </div>
+    <div class="locked-strip">🔒 Задание появится после урока 4</div>
+  </div>
+
+  <!-- LESSON 5 -->
+  <div class="lesson-card locked">
+    <div class="lc-main">
+      <div class="lc-num num-locked">5</div>
+      <div class="lc-info">
+        <div class="lc-lesson-label">Lesson 5</div>
+        <div class="lc-title">Coming soon…</div>
+        <div class="lc-meta"><span class="lc-pill pill-locked">🔒 Скоро</span></div>
+      </div>
+    </div>
+    <div class="locked-strip">🔒 Задание появится после урока 5</div>
+  </div>
+
+</div><!-- /.page -->
+
+<!-- NAV -->
+<div class="nav-pill">
+  <a href="./index.html">🏠 Home</a>
+  <a href="./homework.html" class="active">📝 HW</a>
+  <a href="./vocabulary-hub.html">💥 Vocab</a>
+</div>
+
+<script>
+  const SB_URL = 'https://epbjohhpsvcslcbbcytg.supabase.co/rest/v1';
+  const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVwYmpvaGhwc3Zjc2xjYmJjeXRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIxMjU2NzAsImV4cCI6MjA5NzcwMTY3MH0.MMfkWzczZZe6irkqdl6OCPaKjiWiORmcToc6og8bupA';
+
+  const TOTAL = 1;
+
+  window.addEventListener('load', async () => {
+    let hw1Score = null;
+
+    // 1. Try Supabase first
+    try {
+      const r = await fetch(
+        `${SB_URL}/progress?student=eq.elina&select=hw1_score`,
+        { headers: { 'apikey': SB_KEY, 'Authorization': `Bearer ${SB_KEY}` } }
+      );
+      const data = await r.json();
+      if (data && data[0]) {
+        const d = data[0];
+        if (d.hw1_score && d.hw1_score !== '' && d.hw1_score !== '0/0') {
+          hw1Score = d.hw1_score;
+          localStorage.setItem('elina_hw1_score', hw1Score);
+        }
+      }
+    } catch(e) {}
+
+    // 2. Fallback to localStorage
+    if (!hw1Score) {
+      const ls = localStorage.getItem('elina_hw1_score');
+      if (ls && ls !== '' && ls !== '0/0') hw1Score = ls;
+    }
+
+    const isDone = !!hw1Score;
+
+    // ── Update card 1 ──
+    const num1  = document.getElementById('num-1');
+    const pill1 = document.getElementById('pill-1');
+    const sc1   = document.getElementById('score-1');
+
+    if (isDone) {
+      num1.className  = 'lc-num num-done';
+      num1.textContent = '✓';
+      pill1.className  = 'lc-pill pill-done';
+      pill1.textContent = '✅ Сдано';
+      sc1.textContent  = 'Результат: ' + hw1Score;
+      document.getElementById('sectionDone').style.display = '';
+    } else {
+      num1.className  = 'lc-num num-active';
+      num1.textContent = '1';
+      pill1.className  = 'lc-pill pill-current';
+      pill1.textContent = '📝 Выполнить';
+    }
+
+    // ── Counters ──
+    const done = isDone ? 1 : 0;
+    const pct  = Math.round((done / TOTAL) * 100);
+
+    document.getElementById('statDone').textContent        = done;
+    document.getElementById('statTotal').textContent       = TOTAL;
+    document.getElementById('statPct').textContent         = pct + '%';
+    document.getElementById('heroProgress').style.width    = pct + '%';
+    document.getElementById('heroLabel').textContent       = `${done} из ${TOTAL} выполнено`;
+  });
+</script>
+</body>
+</html>
