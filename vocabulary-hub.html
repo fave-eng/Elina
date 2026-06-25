@@ -529,70 +529,84 @@
 </div>
 
 <script>
+  const SB_URL  = 'https://epbjohhpsvcslcbbcytg.supabase.co/rest/v1';
+  const SB_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVwYmpvaGhwc3Zjc2xjYmJjeXRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIxMjU2NzAsImV4cCI6MjA5NzcwMTY3MH0.MMfkWzczZZe6irkqdl6OCPaKjiWiORmcToc6og8bupA';
+
   const L1_TOTAL    = 14;
   const VERBS_TOTAL = 50;
   const GRAND_TOTAL = L1_TOTAL + VERBS_TOTAL; // 64
 
-  window.addEventListener('load', () => {
-    const l1Known    = JSON.parse(localStorage.getItem('elina_vocab_l1_known')    || '[]');
-    const verbsKnown = JSON.parse(localStorage.getItem('elina_vocab_verbs_known') || '[]');
+  window.addEventListener('load', async () => {
+    // 1. Сразу показываем из localStorage
+    const lsL1    = JSON.parse(localStorage.getItem('elina_vocab_l1_known')    || '[]').length;
+    const lsVerbs = JSON.parse(localStorage.getItem('elina_vocab_verbs_known') || '[]').length;
+    applyTracker(lsL1, lsVerbs);
 
-    const l1K    = l1Known.length;
-    const verbsK = verbsKnown.length;
-    const totalK = l1K + verbsK;
+    // 2. Обновляем из Supabase (берём максимум)
+    try {
+      const r = await fetch(
+        `${SB_URL}/progress?student=eq.elina&select=l1_known,verbs_known`,
+        { headers: { 'apikey': SB_KEY, 'Authorization': `Bearer ${SB_KEY}` } }
+      );
+      const data = await r.json();
+      if (data && data[0]) {
+        const sbL1    = data[0].l1_known    || 0;
+        const sbVerbs = data[0].verbs_known || 0;
+        const l1K    = Math.max(lsL1, sbL1);
+        const verbsK = Math.max(lsVerbs, sbVerbs);
+        applyTracker(l1K, verbsK);
+      }
+    } catch(e) {}
+  });
 
+  function applyTracker(l1K, verbsK) {
+    const totalK   = l1K + verbsK;
     const l1Pct    = Math.round((l1K    / L1_TOTAL)    * 100);
     const verbsPct = Math.round((verbsK / VERBS_TOTAL)  * 100);
     const totalPct = Math.round((totalK / GRAND_TOTAL)  * 100);
 
-    // ── Hero pills ──
+    // Hero
     document.getElementById('heroTotalNum').textContent = GRAND_TOTAL;
     document.getElementById('heroKnownNum').textContent = totalK;
 
-    // ── Topic cards progress bars ──
+    // Topic cards
     document.getElementById('bar-l1').style.width    = l1Pct    + '%';
     document.getElementById('pct-l1').textContent    = l1Pct    + '%';
     document.getElementById('bar-verbs').style.width = verbsPct + '%';
     document.getElementById('pct-verbs').textContent = verbsPct + '%';
 
-    // ── TRACKER: ring ──
-    const circumference = 2 * Math.PI * 36; // 226.2
+    // Ring
+    const circumference = 2 * Math.PI * 36;
     const offset = circumference - (totalPct / 100) * circumference;
     const ring = document.getElementById('ringFill');
     ring.style.strokeDasharray  = circumference;
-    ring.style.strokeDashoffset = circumference; // start at 0
+    ring.style.strokeDashoffset = circumference;
     setTimeout(() => { ring.style.strokeDashoffset = offset; }, 100);
     document.getElementById('ringPct').textContent = totalPct + '%';
 
-    // ── TRACKER: numbers ──
+    // Numbers
     document.getElementById('tnTotal').textContent = GRAND_TOTAL;
     document.getElementById('tnKnown').textContent = totalK;
     document.getElementById('tnLeft').textContent  = GRAND_TOTAL - totalK;
 
-    // ── TRACKER: per-topic bars ──
-    document.getElementById('tt-l1-bar').style.width    = l1Pct    + '%';
-    document.getElementById('tt-l1-nums').textContent   = `${l1K} / ${L1_TOTAL}`;
-    document.getElementById('tt-verbs-bar').style.width = verbsPct + '%';
+    // Per-topic bars
+    document.getElementById('tt-l1-bar').style.width     = l1Pct    + '%';
+    document.getElementById('tt-l1-nums').textContent    = `${l1K} / ${L1_TOTAL}`;
+    document.getElementById('tt-verbs-bar').style.width  = verbsPct + '%';
     document.getElementById('tt-verbs-nums').textContent = `${verbsK} / ${VERBS_TOTAL}`;
 
-    // ── TRACKER: milestones ──
-    const milestones = [
-      { id: 'ms10', threshold: 10 },
-      { id: 'ms25', threshold: 25 },
-      { id: 'ms50', threshold: 50 },
-      { id: 'ms64', threshold: 64 },
-    ];
-    milestones.forEach(m => {
-      if (totalK >= m.threshold) {
-        document.getElementById(m.id).classList.add('reached');
-      }
+    // Milestones
+    [{ id:'ms10',threshold:10},{ id:'ms25',threshold:25},
+     { id:'ms50',threshold:50},{ id:'ms64',threshold:64}]
+    .forEach(m => {
+      document.getElementById(m.id).classList.toggle('reached', totalK >= m.threshold);
     });
 
-    // ── updated timestamp ──
+    // Timestamp
     const now = new Date();
     document.getElementById('trackerUpdated').textContent =
       `${now.getHours()}:${String(now.getMinutes()).padStart(2,'0')}`;
-  });
+  }
 </script>
 </body>
 </html>
