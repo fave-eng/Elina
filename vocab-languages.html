@@ -584,8 +584,28 @@ const WORDS = [
 const CAT_CLASS = { people: 'cat-people', lang: 'cat-lang', grammar: 'cat-grammar' };
 
 // ── KNOWN STATE ──
+const SB_URL = 'https://epbjohhpsvcslcbbcytg.supabase.co/rest/v1';
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVwYmpvaGhwc3Zjc2xjYmJjeXRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIxMjU2NzAsImV4cCI6MjA5NzcwMTY3MH0.MMfkWzczZZe6irkqdl6OCPaKjiWiORmcToc6og8bupA';
+
 const known = new Set(JSON.parse(localStorage.getItem('elina_vocab_l1_known') || '[]'));
-function saveKnown() { localStorage.setItem('elina_vocab_l1_known', JSON.stringify([...known])); }
+function saveKnown() {
+  localStorage.setItem('elina_vocab_l1_known', JSON.stringify([...known]));
+  // sync to Supabase
+  fetch(`${SB_URL}/progress`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'apikey': SB_KEY,
+      'Authorization': `Bearer ${SB_KEY}`,
+      'Prefer': 'resolution=merge-duplicates,return=minimal'
+    },
+    body: JSON.stringify({
+      student: 'elina',
+      l1_known: known.size,
+      updated_at: new Date().toISOString()
+    })
+  }).catch(() => {});
+}
 function updateStats() {
   document.getElementById('statKnown').textContent = known.size;
   document.getElementById('statLeft').textContent  = WORDS.length - known.size;
