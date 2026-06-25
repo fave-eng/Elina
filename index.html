@@ -964,6 +964,18 @@
   // ── Load from Supabase ──
   window.addEventListener('load', async () => {
     renderVerbs();
+
+    // localStorage fallback (всегда читаем)
+    const lsL1    = JSON.parse(localStorage.getItem('elina_vocab_l1_known')    || '[]').length;
+    const lsVerbs = JSON.parse(localStorage.getItem('elina_vocab_verbs_known') || '[]').length;
+    const lsHw1   = localStorage.getItem('elina_hw1_score');
+    let hwDone      = lsHw1 ? 1 : 0;
+    let wordsLearned = lsL1 + lsVerbs;
+
+    // применяем сразу из localStorage
+    _applyStats(hwDone, wordsLearned);
+
+    // Supabase — перезаписываем если данные там свежее
     try {
       const r = await fetch(
         `${SB_URL}/progress?student=eq.elina&select=*`,
@@ -972,20 +984,27 @@
       const data = await r.json();
       if (data && data[0]) {
         const d = data[0];
-        // hw done count
-        const hwDone = [d.hw1_score, d.hw2_score, d.hw3_score, d.hw4_score, d.hw5_score]
+        // hw count
+        hwDone = [d.hw1_score, d.hw2_score, d.hw3_score, d.hw4_score, d.hw5_score]
           .filter(s => s && s !== '' && s !== '0/0').length;
-        const wordsLearned = (d.words_learned || 0) + (d.languages_learned || 0) + (d.verbs_learned || 0);
-
-        document.getElementById('statHw').textContent = hwDone;
-        document.getElementById('statWords').textContent = wordsLearned;
-        document.getElementById('hwProgressLabel').textContent = `${hwDone} / ${TOTAL_HW} выполнено`;
-        document.getElementById('wordsProgressLabel').textContent = `${wordsLearned} / ${TOTAL_WORDS} слов`;
-        document.getElementById('hwBar').style.width = Math.min(100, (hwDone / TOTAL_HW) * 100) + '%';
-        document.getElementById('wordsBar').style.width = Math.min(100, (wordsLearned / TOTAL_WORDS) * 100) + '%';
+        // words: берём максимум из SB и localStorage
+        const sbL1    = d.l1_known    || 0;
+        const sbVerbs = d.verbs_known || 0;
+        wordsLearned  = Math.max(lsL1, sbL1) + Math.max(lsVerbs, sbVerbs);
+        _applyStats(hwDone, wordsLearned);
       }
     } catch(e) {}
   });
+
+  function _applyStats(hwDone, wordsLearned) {
+    const TOTAL_WORDS = 64; // 14 + 50
+    document.getElementById('statHw').textContent          = hwDone;
+    document.getElementById('statWords').textContent       = wordsLearned;
+    document.getElementById('hwProgressLabel').textContent = `${hwDone} / ${TOTAL_HW} выполнено`;
+    document.getElementById('wordsProgressLabel').textContent = `${wordsLearned} / ${TOTAL_WORDS} слов`;
+    document.getElementById('hwBar').style.width    = Math.min(100, (hwDone / TOTAL_HW) * 100) + '%';
+    document.getElementById('wordsBar').style.width = Math.min(100, (wordsLearned / TOTAL_WORDS) * 100) + '%';
+  }
 </script>
 </body>
 </html>
