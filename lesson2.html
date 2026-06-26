@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lesson 2 — Elina's English Space</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --indigo: #4f46e5; --indigo-light: #6366f1;
+      --rose: #f43f5e; --emerald: #10b981;
+      --amber: #f59e0b; --violet: #8b5cf6;
+      --sky: #0ea5e9; --dark: #0f172a;
+      --bg: #f1f5f9; --card: #ffffff;
+      --text: #0f172a; --muted: #64748b; --border: #e2e8f0;
+    }
+    body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; padding-bottom:100px; }
+
+    /* HERO */
+    .hero { background:linear-gradient(135deg,#0ea5e9 0%,#6366f1 50%,#8b5cf6 100%); padding:40px 24px 56px; position:relative; }
+    .hero-dots { position:absolute; inset:0; pointer-events:none; background-image:radial-gradient(circle,rgba(255,255,255,0.15) 1px,transparent 1px); background-size:28px 28px; }
+    .hero-wave { display:block; width:100%; line-height:0; background:var(--bg); }
+    .hero-wave svg { display:block; width:100%; }
+    .hero-inner { position:relative; z-index:1; }
+    .hero-back { display:inline-flex; align-items:center; gap:6px; color:rgba(255,255,255,0.75); font-size:13px; font-weight:600; text-decoration:none; margin-bottom:20px; transition:color 0.2s; }
+    .hero-back:hover { color:#fff; }
+    .hero-badge { display:inline-flex; align-items:center; gap:8px; background:rgba(255,255,255,0.18); border:1px solid rgba(255,255,255,0.3); color:#fff; font-size:12px; font-weight:600; padding:5px 14px; border-radius:100px; margin-bottom:16px; }
+    .hero h1 { font-family:'Plus Jakarta Sans',sans-serif; font-size:clamp(22px,5vw,36px); font-weight:800; color:#fff; letter-spacing:-0.5px; margin-bottom:6px; }
+    .hero p { color:rgba(255,255,255,0.75); font-size:15px; }
+    .score-counter { display:inline-flex; align-items:center; gap:10px; background:rgba(255,255,255,0.15); border:1px solid rgba(255,255,255,0.25); border-radius:100px; padding:8px 18px; margin-top:16px; }
+    .score-counter span { font-family:'Plus Jakarta Sans',sans-serif; font-size:20px; font-weight:800; color:#fff; }
+    .score-counter p { font-size:12px; color:rgba(255,255,255,0.8); margin:0; }
+
+    /* LAYOUT */
+    .page { max-width:700px; margin:0 auto; padding:0 20px; }
+    .section-gap { margin-top:28px; }
+
+    /* EXERCISE BLOCK */
+    .ex-block { background:var(--card); border-radius:22px; border:1.5px solid var(--border); box-shadow:0 2px 12px rgba(0,0,0,0.05); padding:24px 22px; margin-bottom:20px; }
+    .ex-label { font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--muted); margin-bottom:6px; }
+    .ex-title { font-family:'Plus Jakarta Sans',sans-serif; font-size:16px; font-weight:700; margin-bottom:18px; line-height:1.4; }
+
+    /* TEXT BLOCK */
+    .article-box { background:#f8faff; border:1.5px solid #c7d2fe; border-radius:16px; padding:20px 20px; margin-bottom:18px; }
+    .article-box .art-title { font-family:'Plus Jakarta Sans',sans-serif; font-size:15px; font-weight:800; color:var(--indigo); margin-bottom:4px; }
+    .article-box .art-sub { font-size:12px; color:var(--muted); margin-bottom:14px; }
+    .article-box p { font-size:13px; line-height:1.75; color:var(--text); margin-bottom:10px; }
+    .article-box p:last-child { margin-bottom:0; }
+    .art-key { font-weight:700; color:var(--indigo); font-style:normal; }
+
+    /* PREDICTION ITEMS (Ex 4) */
+    .pred-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:14px; }
+    .pred-card { background:var(--bg); border:1.5px solid var(--border); border-radius:14px; padding:12px 16px; cursor:pointer; transition:all 0.15s; }
+    .pred-card:hover { border-color:var(--indigo-light); background:#ede9fe; }
+    .pred-card.selected { background:#ede9fe; border-color:var(--indigo); }
+    .pred-card .pc-word { font-family:'Plus Jakarta Sans',sans-serif; font-size:15px; font-weight:800; color:var(--text); }
+    .pred-card .pc-hint { font-size:12px; color:var(--muted); margin-top:3px; }
+    .pred-input { width:100%; border:none; border-bottom:2px solid var(--border); background:transparent; font-family:'Inter',sans-serif; font-size:14px; color:var(--text); padding:4px 4px 6px; outline:none; transition:border-color 0.2s; }
+    .pred-input:focus { border-color:var(--indigo); }
+
+    /* MATCHING (Ex 5) */
+    .match-row { display:flex; align-items:flex-start; gap:12px; margin-bottom:12px; }
+    .match-letter { width:28px; height:28px; border-radius:8px; background:var(--indigo); color:#fff; font-size:12px; font-weight:800; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:2px; }
+    .match-text { flex:1; font-size:14px; line-height:1.5; color:var(--text); }
+    .match-select { border:1.5px solid var(--border); border-radius:10px; padding:7px 10px; font-family:'Inter',sans-serif; font-size:13px; color:var(--text); background:var(--card); outline:none; cursor:pointer; transition:border-color 0.2s; min-width:120px; }
+    .match-select:focus { border-color:var(--indigo); }
+    .match-select.correct { border-color:var(--emerald); background:#ecfdf5; color:#065f46; }
+    .match-select.wrong   { border-color:var(--rose); background:#fff1f2; color:#9f1239; }
+
+    /* TRUE/FALSE (Ex 6) */
+    .tf-row { margin-bottom:14px; }
+    .tf-stmt { font-size:14px; line-height:1.6; color:var(--text); margin-bottom:8px; }
+    .tf-stmt span { font-weight:600; color:var(--muted); margin-right:4px; }
+    .tf-options { display:flex; gap:8px; }
+    .tf-btn { flex:1; padding:9px 6px; border:1.5px solid var(--border); border-radius:10px; font-size:13px; font-weight:700; cursor:pointer; transition:all 0.15s; background:var(--bg); color:var(--muted); }
+    .tf-btn:hover { border-color:var(--indigo-light); color:var(--indigo); background:#ede9fe; }
+    .tf-btn.selected { background:#ede9fe; border-color:var(--indigo); color:var(--indigo); }
+    .tf-btn.correct  { background:#d1fae5; border-color:#6ee7b7; color:#065f46; }
+    .tf-btn.wrong    { background:#fee2e2; border-color:#fca5a5; color:#991b1b; }
+    .tf-btn.reveal   { background:#d1fae5; border-color:#6ee7b7; color:#065f46; }
+    .tf-btn:disabled { cursor:default; }
+
+    /* WORD FIND (Ex 8) */
+    .word-find-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:14px; }
+    .wf-card { background:var(--bg); border:1.5px solid var(--border); border-radius:12px; padding:12px 14px; }
+    .wf-word { font-family:'Plus Jakarta Sans',sans-serif; font-size:15px; font-weight:800; color:var(--indigo); margin-bottom:4px; }
+    .wf-ru { font-size:12px; color:var(--muted); }
+    .wf-ex { font-size:12px; color:#94a3b8; font-style:italic; margin-top:4px; line-height:1.4; }
+
+    /* FILL BLANKS (Ex 9) */
+    .fill-row { margin-bottom:14px; font-size:14px; line-height:1.7; color:var(--text); }
+    .fill-row .frow-num { font-weight:700; color:var(--muted); margin-right:6px; }
+    .fill-input { display:inline-block; border:none; border-bottom:2px solid var(--border); background:transparent; font-family:'Inter',sans-serif; font-size:14px; color:var(--text); width:120px; padding:0 4px 2px; outline:none; transition:border-color 0.2s; vertical-align:bottom; }
+    .fill-input:focus { border-color:var(--indigo); }
+    .fill-input.correct { border-color:var(--emerald); color:#065f46; background:#f0fdf4; border-radius:4px 4px 0 0; }
+    .fill-input.wrong   { border-color:var(--rose); color:#9f1239; background:#fff1f2; border-radius:4px 4px 0 0; }
+    .correct-answer { display:none; font-size:12px; color:var(--emerald); font-weight:600; margin-top:2px; }
+    .correct-answer.show { display:block; }
+
+    /* READING Qs */
+    .rq-row { margin-bottom:16px; }
+    .rq-q { font-size:14px; font-weight:600; color:var(--text); margin-bottom:6px; line-height:1.5; }
+    .rq-q span { font-weight:800; color:var(--indigo); margin-right:4px; }
+    .rq-textarea { width:100%; border:1.5px solid var(--border); border-radius:12px; padding:10px 14px; font-family:'Inter',sans-serif; font-size:14px; color:var(--text); background:var(--bg); resize:none; outline:none; transition:border-color 0.2s; line-height:1.6; min-height:72px; }
+    .rq-textarea:focus { border-color:var(--indigo); background:var(--card); }
+    .rq-hint { font-size:11px; color:var(--muted); margin-top:4px; font-style:italic; }
+
+    /* SPEAKING (Ex 7) */
+    .speaking-q { background:#f5f3ff; border:1.5px solid #c4b5fd; border-radius:14px; padding:14px 16px; margin-bottom:10px; }
+    .sq-text { font-size:14px; line-height:1.6; color:#3b0764; }
+    .sq-rate { display:flex; gap:8px; margin-top:10px; align-items:center; }
+    .sq-rate-label { font-size:12px; color:var(--muted); font-weight:600; flex-shrink:0; }
+    .star-btn { font-size:20px; cursor:pointer; opacity:0.3; transition:opacity 0.15s; background:none; border:none; padding:0; }
+    .star-btn.lit { opacity:1; }
+
+    /* CHECK BTN */
+    .check-btn { width:100%; background:linear-gradient(135deg,#4f46e5,#7c3aed); color:#fff; border:none; border-radius:14px; padding:16px; font-family:'Plus Jakarta Sans',sans-serif; font-size:16px; font-weight:700; cursor:pointer; transition:all 0.2s; margin-top:16px; }
+    .check-btn:hover { opacity:0.92; transform:translateY(-1px); }
+    .check-btn:disabled { opacity:0.6; cursor:not-allowed; transform:none; }
+
+    /* SUBMIT */
+    .submit-btn { width:100%; background:linear-gradient(135deg,#10b981,#059669); color:#fff; border:none; border-radius:14px; padding:18px; font-family:'Plus Jakarta Sans',sans-serif; font-size:17px; font-weight:700; cursor:pointer; transition:all 0.2s; margin-bottom:20px; display:flex; align-items:center; justify-content:center; gap:10px; }
+    .submit-btn:hover { opacity:0.92; transform:translateY(-1px); }
+    .submit-btn:disabled { opacity:0.6; cursor:not-allowed; transform:none; }
+
+    /* RESULT */
+    .result-banner { display:none; background:linear-gradient(135deg,#10b981,#059669); border-radius:18px; padding:22px; margin-bottom:20px; text-align:center; color:#fff; }
+    .result-banner.show { display:block; }
+    .rb-emoji { font-size:36px; margin-bottom:6px; }
+    .rb-score { font-family:'Plus Jakarta Sans',sans-serif; font-size:28px; font-weight:800; }
+    .rb-text { font-size:14px; opacity:0.9; margin-top:4px; }
+
+    /* NAV */
+    .nav-pill { position:fixed; bottom:24px; left:50%; transform:translateX(-50%); background:#0f172a; border-radius:100px; padding:12px 24px; display:flex; gap:4px; box-shadow:0 8px 32px rgba(15,23,42,0.3); z-index:900; white-space:nowrap; }
+    .nav-pill a { color:rgba(255,255,255,0.6); font-size:12px; font-weight:600; text-decoration:none; padding:6px 14px; border-radius:100px; transition:all 0.2s; }
+    .nav-pill a:hover, .nav-pill a.active { background:var(--indigo); color:#fff; }
+
+    .divider { height:1px; background:var(--border); margin:16px 0; }
+    .info-box { background:#fffbeb; border:1.5px solid #fcd34d; border-radius:12px; padding:12px 16px; font-size:13px; color:#78350f; line-height:1.6; margin-bottom:14px; display:flex; gap:8px; }
+  
+    /* ─── WORD BOX ─── */
+    .word-box { background:#f5f3ff; border:1.5px solid #c4b5fd; border-radius:14px; padding:14px 16px; margin-bottom:18px; }
+    .wb-label { font-size:11px; font-weight:700; color:#5b21b6; letter-spacing:1px; text-transform:uppercase; margin-bottom:8px; }
+    .wb-chips { display:flex; flex-wrap:wrap; gap:7px; }
+    .wb-chip { background:#ede9fe; border:1.5px solid #c4b5fd; color:#5b21b6; font-size:13px; font-weight:600; padding:4px 12px; border-radius:20px; }
+
+    /* ─── SENTENCE BLOCK ─── */
+    .sent-block { background:var(--bg); border-radius:14px; padding:14px 16px; margin-bottom:10px; display:flex; gap:12px; align-items:flex-start; }
+    .sent-num { font-family:'Plus Jakarta Sans',sans-serif; font-size:15px; font-weight:800; color:var(--muted); flex-shrink:0; width:20px; margin-top:2px; }
+    .sent-body { flex:1; font-size:14px; line-height:1.7; color:var(--text); }
+    .underlined { text-decoration:underline; text-decoration-style:dotted; font-weight:600; color:var(--indigo); }
+    .sent-inputs { margin-top:10px; display:flex; flex-direction:column; gap:8px; }
+    .si-row { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+    .si-label { font-size:12px; color:var(--muted); font-weight:600; flex-shrink:0; }
+    .sent-select { border:1.5px solid var(--border); border-radius:10px; padding:7px 10px; font-family:'Inter',sans-serif; font-size:13px; color:var(--text); background:var(--card); outline:none; cursor:pointer; transition:border-color 0.2s; }
+    .sent-select:focus { border-color:var(--indigo); }
+    .sent-select.correct { border-color:var(--emerald); background:#ecfdf5; color:#065f46; }
+    .sent-select.wrong   { border-color:var(--rose); background:#fff1f2; color:#9f1239; }
+
+    /* ─── WORD TYPE ─── */
+    .wordtype-grid { display:flex; flex-direction:column; gap:10px; margin-bottom:14px; }
+    .wt-row { background:var(--bg); border-radius:12px; padding:12px 14px; display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+    .wt-num { font-family:'Plus Jakarta Sans',sans-serif; font-size:14px; font-weight:800; color:var(--muted); width:20px; flex-shrink:0; }
+    .wt-word { font-family:'Plus Jakarta Sans',sans-serif; font-size:15px; font-weight:700; color:var(--indigo); min-width:100px; }
+    .wt-opts { display:flex; gap:6px; flex-wrap:wrap; }
+    .wt-btn { border:1.5px solid var(--border); border-radius:8px; padding:6px 12px; font-size:12px; font-weight:600; cursor:pointer; transition:all 0.15s; background:var(--card); color:var(--muted); }
+    .wt-btn:hover { border-color:#a5b4fc; color:var(--indigo); background:#eef2ff; }
+    .wt-btn.selected { background:#ede9fe; border-color:var(--indigo); color:var(--indigo); }
+    .wt-btn.correct  { background:#d1fae5; border-color:#6ee7b7; color:#065f46; }
+    .wt-btn.wrong    { background:#fee2e2; border-color:#fca5a5; color:#991b1b; }
+    .wt-btn.reveal   { background:#d1fae5; border-color:#6ee7b7; color:#065f46; }
+    .wt-btn:disabled { cursor:default; }
+
+    /* ─── SUB-EXERCISE LABEL ─── */
+    .subex-label { font-size:12px; font-weight:700; color:var(--indigo); letter-spacing:0.5px; text-transform:uppercase; margin-bottom:10px; margin-top:4px; display:flex; align-items:center; gap:6px; }
+    .divider { height:1px; background:var(--border); margin:18px 0; }
+    .info-box { background:#fffbeb; border:1.5px solid #fcd34d; border-radius:12px; padding:12px 16px; font-size:13px; color:#78350f; line-height:1.6; margin-bottom:14px; display:flex; gap:8px; }
+
+    /* ─── OPPOSITES ─── */
+    .opp-grid { display:flex; flex-direction:column; gap:8px; margin-bottom:4px; }
+    .opp-row { display:flex; align-items:center; gap:10px; background:var(--bg); border-radius:10px; padding:10px 14px; flex-wrap:wrap; }
+    .opp-word { font-size:14px; font-weight:600; color:var(--text); min-width:130px; }
+    .opp-btn { border:1.5px solid var(--border); border-radius:8px; padding:6px 14px; font-size:13px; font-weight:600; cursor:pointer; transition:all 0.15s; background:var(--card); color:var(--muted); }
+    .opp-btn:hover { border-color:#a5b4fc; color:var(--indigo); background:#eef2ff; }
+    .opp-btn.selected { background:#ede9fe; border-color:var(--indigo); color:var(--indigo); }
+    .opp-btn.correct  { background:#d1fae5; border-color:#6ee7b7; color:#065f46; }
+    .opp-btn.wrong    { background:#fee2e2; border-color:#fca5a5; color:#991b1b; }
+    .opp-btn.reveal   { background:#d1fae5; border-color:#6ee7b7; color:#065f46; }
+    .opp-btn:disabled { cursor:default; }
+
+    /* ─── MAKE / DO ─── */
+    .makedo-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:4px; }
+    .makedo-row { background:var(--bg); border-radius:10px; padding:10px 12px; display:flex; align-items:center; gap:8px; }
+    .md-word { font-size:13px; font-weight:600; color:var(--text); flex:1; }
+    .md-btn { border:1.5px solid var(--border); border-radius:8px; padding:5px 12px; font-size:12px; font-weight:700; cursor:pointer; transition:all 0.15s; background:var(--card); color:var(--muted); }
+    .md-btn:hover { border-color:#a5b4fc; color:var(--indigo); background:#eef2ff; }
+    .md-btn.selected { background:#ede9fe; border-color:var(--indigo); color:var(--indigo); }
+    .md-btn.correct  { background:#d1fae5; border-color:#6ee7b7; color:#065f46; }
+    .md-btn.wrong    { background:#fee2e2; border-color:#fca5a5; color:#991b1b; }
+    .md-btn.reveal   { background:#d1fae5; border-color:#6ee7b7; color:#065f46; }
+    .md-btn:disabled { cursor:default; }
+
+    /* ─── PREPOSITIONS ─── */
+    .prep-grid { display:flex; flex-direction:column; gap:8px; margin-bottom:4px; }
+    .prep-row { display:flex; align-items:center; gap:8px; background:var(--bg); border-radius:10px; padding:10px 14px; flex-wrap:wrap; }
+    .prep-text { font-size:14px; font-weight:600; color:var(--text); }
+    .prep-select { border:1.5px solid var(--border); border-radius:8px; padding:6px 10px; font-family:'Inter',sans-serif; font-size:13px; color:var(--text); background:var(--card); outline:none; cursor:pointer; }
+    .prep-select.correct { border-color:var(--emerald); background:#ecfdf5; color:#065f46; }
+    .prep-select.wrong   { border-color:var(--rose); background:#fff1f2; color:#9f1239; }
+
+    /* ─── STRESS ─── */
+    .stress-grid { display:flex; flex-direction:column; gap:8px; margin-bottom:4px; }
+    .stress-row { background:var(--bg); border-radius:10px; padding:10px 14px; display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+    .str-word { font-family:'Plus Jakarta Sans',sans-serif; font-size:14px; font-weight:700; color:var(--text); min-width:100px; }
+    .str-opts { display:flex; gap:6px; flex-wrap:wrap; }
+    .str-btn { border:1.5px solid var(--border); border-radius:8px; padding:6px 12px; font-size:12px; font-weight:600; cursor:pointer; transition:all 0.15s; background:var(--card); color:var(--muted); font-family:'Inter',sans-serif; }
+    .str-btn:hover { border-color:#a5b4fc; color:var(--indigo); background:#eef2ff; }
+    .str-btn.selected { background:#ede9fe; border-color:var(--indigo); color:var(--indigo); }
+    .str-btn.correct  { background:#d1fae5; border-color:#6ee7b7; color:#065f46; }
+    .str-btn.wrong    { background:#fee2e2; border-color:#fca5a5; color:#991b1b; }
+    .str-btn.reveal   { background:#d1fae5; border-color:#6ee7b7; color:#065f46; }
+    .str-btn:disabled { cursor:default; }
+
+    /* ─── SILENT ─── */
+    .silent-grid { display:flex; flex-direction:column; gap:8px; margin-bottom:4px; }
+    .silent-row { background:var(--bg); border-radius:10px; padding:10px 14px; display:flex; align-items:center; gap:12px; }
+    .sil-word { font-family:'Plus Jakarta Sans',sans-serif; font-size:15px; font-weight:700; color:var(--text); min-width:100px; }
+    .sil-hint { font-size:12px; font-weight:600; }
+
+    /* ─── MULTIPLE CHOICE ─── */
+    .mc-block { margin-bottom:18px; }
+    .mc-q { font-size:14px; font-weight:600; color:var(--text); margin-bottom:8px; line-height:1.5; }
+    .mc-opts { display:flex; flex-direction:column; gap:6px; }
+    .mc-btn { background:var(--bg); border:1.5px solid var(--border); border-radius:12px; padding:11px 14px; font-size:14px; cursor:pointer; transition:all 0.15s; text-align:left; color:var(--text); display:flex; align-items:center; gap:10px; }
+    .mc-btn:hover { border-color:#a5b4fc; background:#eef2ff; }
+    .mc-btn.selected { background:#ede9fe; border-color:var(--indigo); }
+    .mc-btn.correct  { background:#d1fae5; border-color:#6ee7b7; color:#065f46; font-weight:600; }
+    .mc-btn.wrong    { background:#fee2e2; border-color:#fca5a5; color:#991b1b; }
+    .mc-btn.reveal   { background:#d1fae5; border-color:#6ee7b7; color:#065f46; font-weight:600; }
+    .mc-btn:disabled { cursor:default; }
+    .mc-letter { width:22px; height:22px; border-radius:6px; background:var(--indigo); color:#fff; font-size:11px; font-weight:800; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+    .mc-btn.correct .mc-letter  { background:var(--emerald); }
+    .mc-btn.wrong .mc-letter    { background:var(--rose); }
+    .mc-btn.reveal .mc-letter   { background:var(--emerald); }
+
+    /* ─── SUBMIT / RESULT ─── */
+    .check-btn { width:100%; background:linear-gradient(135deg,#4f46e5,#7c3aed); color:#fff; border:none; border-radius:14px; padding:16px; font-family:'Plus Jakarta Sans',sans-serif; font-size:16px; font-weight:700; cursor:pointer; transition:all 0.2s; margin-top:16px; }
+    .check-btn:hover { opacity:0.92; transform:translateY(-1px); }
+    .check-btn:disabled { opacity:0.6; cursor:not-allowed; transform:none; }
+    .submit-btn { width:100%; background:linear-gradient(135deg,#10b981,#059669); color:#fff; border:none; border-radius:14px; padding:18px; font-family:'Plus Jakarta Sans',sans-serif; font-size:17px; font-weight:700; cursor:pointer; transition:all 0.2s; margin-bottom:20px; display:flex; align-items:center; justify-content:center; gap:10px; }
+    .submit-btn:hover { opacity:0.92; transform:translateY(-1px); }
+    .submit-btn:disabled { opacity:0.6; cursor:not-allowed; transform:none; }
+    .result-banner { display:none; background:linear-gradient(135deg,#10b981,#059669); border-radius:18px; padding:22px; margin-bottom:20px; text-align:center; color:#fff; }
+    .result-banner.show { display:block; }
+    .rb-emoji { font-size:36px; margin-bottom:6px; }
+    .rb-score { font-family:'Plus Jakarta Sans',sans-serif; font-size:28px; font-weight:800; }
+    .rb-text  { font-size:14px; opacity:0.9; margin-top:4px; }
+    .nav-pill { position:fixed; bottom:24px; left:50%; transform:translateX(-50%); background:#0f172a; border-radius:100px; padding:12px 24px; display:flex; gap:4px; box-shadow:0 8px 32px rgba(15,23,42,0.3); z-index:900; white-space:nowrap; }
+    .nav-pill a { color:rgba(255,255,255,0.6); font-size:12px; font-weight:600; text-decoration:none; padding:6px 14px; border-radius:100px; transition:all 0.2s; }
+    .nav-pill a:hover, .nav-pill a.active { background:var(--indigo); color:#fff; }
+
+  </style>
+</head>
+<body>
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-dots"></div>
+  <div class="page hero-inner">
+    <a href="./homework.html" class="hero-back">← К заданиям</a>
+    <div class="hero-badge">📝 Lesson 2</div>
+    <h1>Talking About Languages</h1>
+    <p>Unit 1 · Vocabulary + Listening · Outcomes Workbook p.6</p>
+    <div class="score-counter">
+      <div>
+        <span id="liveScore">0</span>
+        <p>правильных ответов</p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="hero-wave">
+  <svg viewBox="0 0 1440 56" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"
+       style="background:linear-gradient(135deg,#0ea5e9,#6366f1)">
+    <path d="M0,56 C360,0 1080,0 1440,56 L1440,56 L0,56 Z" fill="#f1f5f9"/>
+  </svg>
+</div>
+
+<div class="page">
+<div class="section-gap"></div>
+
+<!-- ══════════════════════════════════
+     EX 1 — Replace underlined words
+════════════════════════════════════ -->
+<div class="ex-block">
+  <div class="ex-label">Exercise 1 · Vocabulary</div>
+  <div class="ex-title">Замени подчёркнутые слова/фразы подходящим выражением из боксa</div>
+
+  <div class="word-box">
+    <div class="wb-label">Слова для замены:</div>
+    <div class="wb-chips">
+      <span class="wb-chip">get by</span>
+      <span class="wb-chip">fluently</span>
+      <span class="wb-chip">express</span>
+      <span class="wb-chip">mastering</span>
+      <span class="wb-chip">my accent</span>
+      <span class="wb-chip">accurate</span>
+      <span class="wb-chip">picked it up</span>
+      <span class="wb-chip">struggled</span>
+    </div>
+  </div>
+
+  <div class="sent-block">
+    <div class="sent-num">1.</div>
+    <div class="sent-body">
+      At first I really <span class="underlined">had problems</span> speaking French at work. No-one understood <span class="underlined">the way I said things</span>.
+      <div class="sent-inputs">
+        <div class="si-row">
+          <span class="si-label">«had problems» →</span>
+          <select class="sent-select" id="s1a" data-correct="struggled">
+            <option value="">— выбери —</option>
+            <option>get by</option><option>fluently</option><option>express</option>
+            <option>mastering</option><option>my accent</option><option>accurate</option>
+            <option>picked it up</option><option>struggled</option>
+          </select>
+        </div>
+        <div class="si-row">
+          <span class="si-label">«the way I said things» →</span>
+          <select class="sent-select" id="s1b" data-correct="my accent">
+            <option value="">— выбери —</option>
+            <option>get by</option><option>fluently</option><option>express</option>
+            <option>mastering</option><option>my accent</option><option>accurate</option>
+            <option>picked it up</option><option>struggled</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sent-block">
+    <div class="sent-num">2.</div>
+    <div class="sent-body">
+      It's hard to be <span class="underlined">correct</span> all the time. Getting <span class="underlined">complete knowledge of</span> a language can take years.
+      <div class="sent-inputs">
+        <div class="si-row">
+          <span class="si-label">«correct» →</span>
+          <select class="sent-select" id="s2a" data-correct="accurate">
+            <option value="">— выбери —</option>
+            <option>get by</option><option>fluently</option><option>express</option>
+            <option>mastering</option><option>my accent</option><option>accurate</option>
+            <option>picked it up</option><option>struggled</option>
+          </select>
+        </div>
+        <div class="si-row">
+          <span class="si-label">«complete knowledge of» →</span>
+          <select class="sent-select" id="s2b" data-correct="mastering">
+            <option value="">— выбери —</option>
+            <option>get by</option><option>fluently</option><option>express</option>
+            <option>mastering</option><option>my accent</option><option>accurate</option>
+            <option>picked it up</option><option>struggled</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sent-block">
+    <div class="sent-num">3.</div>
+    <div class="sent-body">
+      I'm not brilliant at German, but I can <span class="underlined">survive in the language</span> in most everyday situations.
+      <div class="sent-inputs">
+        <div class="si-row">
+          <span class="si-label">«survive in the language» →</span>
+          <select class="sent-select" id="s3" data-correct="get by">
+            <option value="">— выбери —</option>
+            <option>get by</option><option>fluently</option><option>express</option>
+            <option>mastering</option><option>my accent</option><option>accurate</option>
+            <option>picked it up</option><option>struggled</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sent-block">
+    <div class="sent-num">4.</div>
+    <div class="sent-body">
+      I'm pretty good at Japanese now. I <span class="underlined">learnt it without formal lessons</span> by living in Kyoto for about 10 years.
+      <div class="sent-inputs">
+        <div class="si-row">
+          <span class="si-label">«learnt it without formal lessons» →</span>
+          <select class="sent-select" id="s4" data-correct="picked it up">
+            <option value="">— выбери —</option>
+            <option>get by</option><option>fluently</option><option>express</option>
+            <option>mastering</option><option>my accent</option><option>accurate</option>
+            <option>picked it up</option><option>struggled</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sent-block">
+    <div class="sent-num">5.</div>
+    <div class="sent-body">
+      I haven't been studying Italian for very long, so it's hard to <span class="underlined">get across</span> what I want to say sometimes.
+      <div class="sent-inputs">
+        <div class="si-row">
+          <span class="si-label">«get across» →</span>
+          <select class="sent-select" id="s5" data-correct="express">
+            <option value="">— выбери —</option>
+            <option>get by</option><option>fluently</option><option>express</option>
+            <option>mastering</option><option>my accent</option><option>accurate</option>
+            <option>picked it up</option><option>struggled</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sent-block" style="margin-bottom:0">
+    <div class="sent-num">6.</div>
+    <div class="sent-body">
+      I was born in Greece but I went to an international school, so I speak English <span class="underlined">very well</span>.
+      <div class="sent-inputs">
+        <div class="si-row">
+          <span class="si-label">«very well» →</span>
+          <select class="sent-select" id="s6" data-correct="fluently">
+            <option value="">— выбери —</option>
+            <option>get by</option><option>fluently</option><option>express</option>
+            <option>mastering</option><option>my accent</option><option>accurate</option>
+            <option>picked it up</option><option>struggled</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button class="check-btn" id="checkBtn1" onclick="checkEx1()">Проверить упражнение 1</button>
+</div>
+
+<!-- ══════════════════════════════════
+     EX 2 — Word types
+════════════════════════════════════ -->
+<div class="ex-block">
+  <div class="ex-label">Exercise 2 · Grammar Awareness</div>
+  <div class="ex-title">Определи тип каждого подчёркнутого слова в тексте</div>
+
+  <div class="article-box" style="margin-bottom:18px">
+    <p>I've just <span class="art-key">¹taken up</span> painting at our local art college. To be honest, I'm no Van Gogh. Doing anything <span class="art-key">²for</span> the first time is <span class="art-key">³hard</span> and people always want to do <span class="art-key">⁴well</span>. But my <span class="art-key">⁵advice</span> is to concentrate on the activity. What I <span class="art-key">⁶mean</span> is, enjoy what <span class="art-key">⁷you</span> are doing and don't worry about the end result. And never compare yourself with anyone else. There will always be those <span class="art-key">⁸annoyingly</span> talented people who can <span class="art-key">⁹take</span> on any new challenge and succeed. Ignore them.</p>
+  </div>
+
+  <div class="wordtype-grid">
+    <div class="wt-row" id="wt1">
+      <span class="wt-num">1</span>
+      <span class="wt-word">taken up</span>
+      <div class="wt-opts">
+        <button class="wt-btn" data-q="wt1" data-val="phrasal verb" data-correct="true" onclick="pickWT(this)">phrasal verb</button>
+        <button class="wt-btn" data-q="wt1" data-val="adjective" data-correct="false" onclick="pickWT(this)">adjective</button>
+        <button class="wt-btn" data-q="wt1" data-val="adverb" data-correct="false" onclick="pickWT(this)">adverb</button>
+        <button class="wt-btn" data-q="wt1" data-val="preposition" data-correct="false" onclick="pickWT(this)">preposition</button>
+      </div>
+    </div>
+    <div class="wt-row" id="wt2">
+      <span class="wt-num">2</span>
+      <span class="wt-word">for</span>
+      <div class="wt-opts">
+        <button class="wt-btn" data-q="wt2" data-val="phrasal verb" data-correct="false" onclick="pickWT(this)">phrasal verb</button>
+        <button class="wt-btn" data-q="wt2" data-val="adjective" data-correct="false" onclick="pickWT(this)">adjective</button>
+        <button class="wt-btn" data-q="wt2" data-val="adverb" data-correct="false" onclick="pickWT(this)">adverb</button>
+        <button class="wt-btn" data-q="wt2" data-val="preposition" data-correct="true" onclick="pickWT(this)">preposition</button>
+      </div>
+    </div>
+    <div class="wt-row" id="wt3">
+      <span class="wt-num">3</span>
+      <span class="wt-word">hard</span>
+      <div class="wt-opts">
+        <button class="wt-btn" data-q="wt3" data-val="phrasal verb" data-correct="false" onclick="pickWT(this)">phrasal verb</button>
+        <button class="wt-btn" data-q="wt3" data-val="adjective" data-correct="true" onclick="pickWT(this)">adjective</button>
+        <button class="wt-btn" data-q="wt3" data-val="adverb" data-correct="false" onclick="pickWT(this)">adverb</button>
+        <button class="wt-btn" data-q="wt3" data-val="preposition" data-correct="false" onclick="pickWT(this)">preposition</button>
+      </div>
+    </div>
+    <div class="wt-row" id="wt4">
+      <span class="wt-num">4</span>
+      <span class="wt-word">well</span>
+      <div class="wt-opts">
+        <button class="wt-btn" data-q="wt4" data-val="phrasal verb" data-correct="false" onclick="pickWT(this)">phrasal verb</button>
+        <button class="wt-btn" data-q="wt4" data-val="adjective" data-correct="false" onclick="pickWT(this)">adjective</button>
+        <button class="wt-btn" data-q="wt4" data-val="adverb" data-correct="true" onclick="pickWT(this)">adverb</button>
+        <button class="wt-btn" data-q="wt4" data-val="preposition" data-correct="false" onclick="pickWT(this)">preposition</button>
+      </div>
+    </div>
+    <div class="wt-row" id="wt5">
+      <span class="wt-num">5</span>
+      <span class="wt-word">advice</span>
+      <div class="wt-opts">
+        <button class="wt-btn" data-q="wt5" data-val="noun" data-correct="true" onclick="pickWT(this)">noun</button>
+        <button class="wt-btn" data-q="wt5" data-val="adjective" data-correct="false" onclick="pickWT(this)">adjective</button>
+        <button class="wt-btn" data-q="wt5" data-val="adverb" data-correct="false" onclick="pickWT(this)">adverb</button>
+        <button class="wt-btn" data-q="wt5" data-val="preposition" data-correct="false" onclick="pickWT(this)">preposition</button>
+      </div>
+    </div>
+    <div class="wt-row" id="wt6">
+      <span class="wt-num">6</span>
+      <span class="wt-word">mean</span>
+      <div class="wt-opts">
+        <button class="wt-btn" data-q="wt6" data-val="phrasal verb" data-correct="false" onclick="pickWT(this)">phrasal verb</button>
+        <button class="wt-btn" data-q="wt6" data-val="noun" data-correct="false" onclick="pickWT(this)">noun</button>
+        <button class="wt-btn" data-q="wt6" data-val="verb" data-correct="true" onclick="pickWT(this)">verb</button>
+        <button class="wt-btn" data-q="wt6" data-val="preposition" data-correct="false" onclick="pickWT(this)">preposition</button>
+      </div>
+    </div>
+    <div class="wt-row" id="wt7">
+      <span class="wt-num">7</span>
+      <span class="wt-word">you</span>
+      <div class="wt-opts">
+        <button class="wt-btn" data-q="wt7" data-val="noun" data-correct="false" onclick="pickWT(this)">noun</button>
+        <button class="wt-btn" data-q="wt7" data-val="pronoun" data-correct="true" onclick="pickWT(this)">pronoun</button>
+        <button class="wt-btn" data-q="wt7" data-val="adverb" data-correct="false" onclick="pickWT(this)">adverb</button>
+        <button class="wt-btn" data-q="wt7" data-val="adjective" data-correct="false" onclick="pickWT(this)">adjective</button>
+      </div>
+    </div>
+    <div class="wt-row" id="wt8">
+      <span class="wt-num">8</span>
+      <span class="wt-word">annoyingly</span>
+      <div class="wt-opts">
+        <button class="wt-btn" data-q="wt8" data-val="verb" data-correct="false" onclick="pickWT(this)">verb</button>
+        <button class="wt-btn" data-q="wt8" data-val="adjective" data-correct="false" onclick="pickWT(this)">adjective</button>
+        <button class="wt-btn" data-q="wt8" data-val="adverb" data-correct="true" onclick="pickWT(this)">adverb</button>
+        <button class="wt-btn" data-q="wt8" data-val="preposition" data-correct="false" onclick="pickWT(this)">preposition</button>
+      </div>
+    </div>
+    <div class="wt-row" id="wt9">
+      <span class="wt-num">9</span>
+      <span class="wt-word">take</span>
+      <div class="wt-opts">
+        <button class="wt-btn" data-q="wt9" data-val="phrasal verb" data-correct="false" onclick="pickWT(this)">phrasal verb</button>
+        <button class="wt-btn" data-q="wt9" data-val="noun" data-correct="false" onclick="pickWT(this)">noun</button>
+        <button class="wt-btn" data-q="wt9" data-val="verb" data-correct="true" onclick="pickWT(this)">verb</button>
+        <button class="wt-btn" data-q="wt9" data-val="adjective" data-correct="false" onclick="pickWT(this)">adjective</button>
+      </div>
+    </div>
+  </div>
+
+  <button class="check-btn" id="checkBtn2" onclick="checkEx2()">Проверить упражнение 2</button>
+</div>
+
+<!-- ══════════════════════════════════
+     EX 3 — Knowledge check
+════════════════════════════════════ -->
+<div class="ex-block">
+  <div class="ex-label">Exercise 3 · Language Knowledge</div>
+  <div class="ex-title">Ответь на 5 вопросов о языке</div>
+
+  <!-- 3.1 Opposites -->
+  <div class="subex-label">3.1 Opposites — выбери правильный антоним</div>
+  <div class="opp-grid">
+    <div class="opp-row">
+      <span class="opp-word">easy →</span>
+      <button class="opp-btn" data-q="opp1" data-correct="true" onclick="pickOpp(this,'opp1')">hard</button>
+      <button class="opp-btn" data-q="opp1" data-correct="false" onclick="pickOpp(this,'opp1')">hardly</button>
+    </div>
+    <div class="opp-row">
+      <span class="opp-word">slowly →</span>
+      <button class="opp-btn" data-q="opp2" data-correct="false" onclick="pickOpp(this,'opp2')">fastly</button>
+      <button class="opp-btn" data-q="opp2" data-correct="true" onclick="pickOpp(this,'opp2')">fast</button>
+    </div>
+    <div class="opp-row">
+      <span class="opp-word">fluent →</span>
+      <button class="opp-btn" data-q="opp3" data-correct="true" onclick="pickOpp(this,'opp3')">not very fluent</button>
+      <button class="opp-btn" data-q="opp3" data-correct="false" onclick="pickOpp(this,'opp3')">unfluent</button>
+    </div>
+    <div class="opp-row">
+      <span class="opp-word">a minor mistake →</span>
+      <button class="opp-btn" data-q="opp4" data-correct="true" onclick="pickOpp(this,'opp4')">a serious mistake</button>
+      <button class="opp-btn" data-q="opp4" data-correct="false" onclick="pickOpp(this,'opp4')">a large mistake</button>
+    </div>
+    <div class="opp-row">
+      <span class="opp-word">good progress →</span>
+      <button class="opp-btn" data-q="opp5" data-correct="true" onclick="pickOpp(this,'opp5')">slow progress</button>
+      <button class="opp-btn" data-q="opp5" data-correct="false" onclick="pickOpp(this,'opp5')">bad progress</button>
+    </div>
+    <div class="opp-row">
+      <span class="opp-word">a basic level →</span>
+      <button class="opp-btn" data-q="opp6" data-correct="true" onclick="pickOpp(this,'opp6')">a high level</button>
+      <button class="opp-btn" data-q="opp6" data-correct="false" onclick="pickOpp(this,'opp6')">a tall level</button>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- 3.2 Make or Do -->
+  <div class="subex-label">3.2 Make or Do? — выбери правильный глагол</div>
+  <div class="makedo-grid">
+    <div class="makedo-row">
+      <span class="md-word">a mistake</span>
+      <button class="md-btn" data-q="md1" data-val="make" data-correct="true" onclick="pickMD(this,'md1')">make</button>
+      <button class="md-btn" data-q="md1" data-val="do" data-correct="false" onclick="pickMD(this,'md1')">do</button>
+    </div>
+    <div class="makedo-row">
+      <span class="md-word">an exercise</span>
+      <button class="md-btn" data-q="md2" data-val="make" data-correct="false" onclick="pickMD(this,'md2')">make</button>
+      <button class="md-btn" data-q="md2" data-val="do" data-correct="true" onclick="pickMD(this,'md2')">do</button>
+    </div>
+    <div class="makedo-row">
+      <span class="md-word">progress</span>
+      <button class="md-btn" data-q="md3" data-val="make" data-correct="true" onclick="pickMD(this,'md3')">make</button>
+      <button class="md-btn" data-q="md3" data-val="do" data-correct="false" onclick="pickMD(this,'md3')">do</button>
+    </div>
+    <div class="makedo-row">
+      <span class="md-word">your homework</span>
+      <button class="md-btn" data-q="md4" data-val="make" data-correct="false" onclick="pickMD(this,'md4')">make</button>
+      <button class="md-btn" data-q="md4" data-val="do" data-correct="true" onclick="pickMD(this,'md4')">do</button>
+    </div>
+    <div class="makedo-row">
+      <span class="md-word">a course</span>
+      <button class="md-btn" data-q="md5" data-val="make" data-correct="false" onclick="pickMD(this,'md5')">make</button>
+      <button class="md-btn" data-q="md5" data-val="do" data-correct="true" onclick="pickMD(this,'md5')">do</button>
+    </div>
+    <div class="makedo-row">
+      <span class="md-word">a fool of yourself</span>
+      <button class="md-btn" data-q="md6" data-val="make" data-correct="true" onclick="pickMD(this,'md6')">make</button>
+      <button class="md-btn" data-q="md6" data-val="do" data-correct="false" onclick="pickMD(this,'md6')">do</button>
+    </div>
+    <div class="makedo-row">
+      <span class="md-word">a good job</span>
+      <button class="md-btn" data-q="md7" data-val="make" data-correct="false" onclick="pickMD(this,'md7')">make</button>
+      <button class="md-btn" data-q="md7" data-val="do" data-correct="true" onclick="pickMD(this,'md7')">do</button>
+    </div>
+    <div class="makedo-row">
+      <span class="md-word">an effort</span>
+      <button class="md-btn" data-q="md8" data-val="make" data-correct="true" onclick="pickMD(this,'md8')">make</button>
+      <button class="md-btn" data-q="md8" data-val="do" data-correct="false" onclick="pickMD(this,'md8')">do</button>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- 3.3 Prepositions -->
+  <div class="subex-label">3.3 Prepositions — вставь нужный предлог</div>
+  <div class="prep-grid">
+    <div class="prep-row">
+      <span class="prep-text">worry</span>
+      <select class="prep-select" id="prep1" data-correct="about">
+        <option value="">—</option>
+        <option>about</option><option>on</option><option>with</option><option>for</option>
+      </select>
+      <span class="prep-text">your progress</span>
+    </div>
+    <div class="prep-row">
+      <span class="prep-text">rely</span>
+      <select class="prep-select" id="prep2" data-correct="on">
+        <option value="">—</option>
+        <option>about</option><option>on</option><option>with</option><option>for</option>
+      </select>
+      <span class="prep-text">your best friend</span>
+    </div>
+    <div class="prep-row">
+      <span class="prep-text">concentrate</span>
+      <select class="prep-select" id="prep3" data-correct="on">
+        <option value="">—</option>
+        <option>about</option><option>on</option><option>with</option><option>for</option>
+      </select>
+      <span class="prep-text">work</span>
+    </div>
+    <div class="prep-row">
+      <span class="prep-text">deal</span>
+      <select class="prep-select" id="prep4" data-correct="with">
+        <option value="">—</option>
+        <option>about</option><option>on</option><option>with</option><option>for</option>
+      </select>
+      <span class="prep-text">a problem</span>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- 3.4 Word stress -->
+  <div class="subex-label">3.4 Word stress — где ударение?</div>
+  <div class="info-box"><span>💡</span><span>Выбери слог с ударением. Пример: «mo-ti-VA-tion» → 3-й слог</span></div>
+  <div class="stress-grid">
+    <div class="stress-row">
+      <span class="str-word">evidence</span>
+      <div class="str-opts">
+        <button class="str-btn" data-q="str1" data-correct="true" onclick="pickStr(this,'str1')">EV-i-dence</button>
+        <button class="str-btn" data-q="str1" data-correct="false" onclick="pickStr(this,'str1')">ev-I-dence</button>
+        <button class="str-btn" data-q="str1" data-correct="false" onclick="pickStr(this,'str1')">ev-i-DENCE</button>
+      </div>
+    </div>
+    <div class="stress-row">
+      <span class="str-word">motivation</span>
+      <div class="str-opts">
+        <button class="str-btn" data-q="str2" data-correct="false" onclick="pickStr(this,'str2')">MO-ti-va-tion</button>
+        <button class="str-btn" data-q="str2" data-correct="false" onclick="pickStr(this,'str2')">mo-TI-va-tion</button>
+        <button class="str-btn" data-q="str2" data-correct="true" onclick="pickStr(this,'str2')">mo-ti-VA-tion</button>
+      </div>
+    </div>
+    <div class="stress-row">
+      <span class="str-word">environment</span>
+      <div class="str-opts">
+        <button class="str-btn" data-q="str3" data-correct="false" onclick="pickStr(this,'str3')">EN-vi-ron-ment</button>
+        <button class="str-btn" data-q="str3" data-correct="true" onclick="pickStr(this,'str3')">en-VI-ron-ment</button>
+        <button class="str-btn" data-q="str3" data-correct="false" onclick="pickStr(this,'str3')">en-vi-RON-ment</button>
+      </div>
+    </div>
+    <div class="stress-row">
+      <span class="str-word">bilingual</span>
+      <div class="str-opts">
+        <button class="str-btn" data-q="str4" data-correct="false" onclick="pickStr(this,'str4')">BI-lin-gual</button>
+        <button class="str-btn" data-q="str4" data-correct="true" onclick="pickStr(this,'str4')">bi-LIN-gual</button>
+        <button class="str-btn" data-q="str4" data-correct="false" onclick="pickStr(this,'str4')">bi-lin-GUAL</button>
+      </div>
+    </div>
+    <div class="stress-row">
+      <span class="str-word">embarrassed</span>
+      <div class="str-opts">
+        <button class="str-btn" data-q="str5" data-correct="false" onclick="pickStr(this,'str5')">EM-bar-rassed</button>
+        <button class="str-btn" data-q="str5" data-correct="true" onclick="pickStr(this,'str5')">em-BAR-rassed</button>
+        <button class="str-btn" data-q="str5" data-correct="false" onclick="pickStr(this,'str5')">em-bar-RASSED</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- 3.5 Silent letters -->
+  <div class="subex-label">3.5 Silent letters — что общего у этих слов?</div>
+  <div class="info-box"><span>🤫</span><span>В каждом из этих слов есть <b>непроизносимая буква</b>. Найди её!</span></div>
+  <div class="silent-grid">
+    <div class="silent-row">
+      <span class="sil-word">honest</span>
+      <select class="prep-select" id="sil1" data-correct="h">
+        <option value="">буква?</option>
+        <option>h</option><option>o</option><option>n</option><option>e</option>
+      </select>
+      <span class="sil-hint" id="silh1"></span>
+    </div>
+    <div class="silent-row">
+      <span class="sil-word">knowledge</span>
+      <select class="prep-select" id="sil2" data-correct="k">
+        <option value="">буква?</option>
+        <option>k</option><option>n</option><option>o</option><option>w</option>
+      </select>
+      <span class="sil-hint" id="silh2"></span>
+    </div>
+    <div class="silent-row">
+      <span class="sil-word">write</span>
+      <select class="prep-select" id="sil3" data-correct="w">
+        <option value="">буква?</option>
+        <option>w</option><option>r</option><option>i</option><option>e</option>
+      </select>
+      <span class="sil-hint" id="silh3"></span>
+    </div>
+    <div class="silent-row">
+      <span class="sil-word">foreign</span>
+      <select class="prep-select" id="sil4" data-correct="g">
+        <option value="">буква?</option>
+        <option>f</option><option>o</option><option>g</option><option>n</option>
+      </select>
+      <span class="sil-hint" id="silh4"></span>
+    </div>
+  </div>
+
+  <button class="check-btn" id="checkBtn3" onclick="checkEx3()">Проверить упражнение 3</button>
+</div>
+
+<!-- ══════════════════════════════════
+     EX 4 — Listening
+════════════════════════════════════ -->
+<div class="ex-block">
+  <div class="ex-label">Exercise 4 · Listening — Track 1.1</div>
+  <div class="ex-title">Послушай трек 1.1. Trisha и Andy говорят о перемене в жизни Triши. Выбери правильный ответ.</div>
+  <div class="info-box" style="margin-bottom:18px"><span>🎧</span><span>Преподаватель отправит тебе трек. Прослушай и выбери ответы ниже.</span></div>
+
+  <div class="mc-block">
+    <div class="mc-q">1. What course has Trisha decided to go on?</div>
+    <div class="mc-opts">
+      <button class="mc-btn" data-q="mc1" data-val="a" data-correct="false" onclick="pickMC(this,'mc1')"><span class="mc-letter">a</span>a foreign language</button>
+      <button class="mc-btn" data-q="mc1" data-val="b" data-correct="false" onclick="pickMC(this,'mc1')"><span class="mc-letter">b</span>knitting</button>
+      <button class="mc-btn" data-q="mc1" data-val="c" data-correct="true" onclick="pickMC(this,'mc1')"><span class="mc-letter">c</span>building skills</button>
+    </div>
+  </div>
+  <div class="mc-block">
+    <div class="mc-q">2. What is Andy's reaction to her news?</div>
+    <div class="mc-opts">
+      <button class="mc-btn" data-q="mc2" data-val="a" data-correct="false" onclick="pickMC(this,'mc2')"><span class="mc-letter">a</span>He's impressed.</button>
+      <button class="mc-btn" data-q="mc2" data-val="b" data-correct="false" onclick="pickMC(this,'mc2')"><span class="mc-letter">b</span>He wants to try something new too.</button>
+      <button class="mc-btn" data-q="mc2" data-val="c" data-correct="true" onclick="pickMC(this,'mc2')"><span class="mc-letter">c</span>He criticises her.</button>
+    </div>
+  </div>
+  <div class="mc-block">
+    <div class="mc-q">3. What was the problem at the first class?</div>
+    <div class="mc-opts">
+      <button class="mc-btn" data-q="mc3" data-val="a" data-correct="false" onclick="pickMC(this,'mc3')"><span class="mc-letter">a</span>All the other students were men.</button>
+      <button class="mc-btn" data-q="mc3" data-val="b" data-correct="false" onclick="pickMC(this,'mc3')"><span class="mc-letter">b</span>Trisha didn't know the answer to a question.</button>
+      <button class="mc-btn" data-q="mc3" data-val="c" data-correct="true" onclick="pickMC(this,'mc3')"><span class="mc-letter">c</span>Trisha said something silly.</button>
+    </div>
+  </div>
+  <div class="mc-block">
+    <div class="mc-q">4. What will Trisha do in the first term?</div>
+    <div class="mc-opts">
+      <button class="mc-btn" data-q="mc4" data-val="a" data-correct="false" onclick="pickMC(this,'mc4')"><span class="mc-letter">a</span>whatever she likes</button>
+      <button class="mc-btn" data-q="mc4" data-val="b" data-correct="true" onclick="pickMC(this,'mc4')"><span class="mc-letter">b</span>general skills</button>
+      <button class="mc-btn" data-q="mc4" data-val="c" data-correct="false" onclick="pickMC(this,'mc4')"><span class="mc-letter">c</span>bricklaying</button>
+    </div>
+  </div>
+  <div class="mc-block" style="margin-bottom:0">
+    <div class="mc-q">5. Trisha thinks her new job will be</div>
+    <div class="mc-opts">
+      <button class="mc-btn" data-q="mc5" data-val="a" data-correct="false" onclick="pickMC(this,'mc5')"><span class="mc-letter">a</span>well paid</button>
+      <button class="mc-btn" data-q="mc5" data-val="b" data-correct="true" onclick="pickMC(this,'mc5')"><span class="mc-letter">b</span>interesting</button>
+      <button class="mc-btn" data-q="mc5" data-val="c" data-correct="false" onclick="pickMC(this,'mc5')"><span class="mc-letter">c</span>hard work</button>
+    </div>
+  </div>
+
+  <button class="check-btn" id="checkBtn4" onclick="checkEx4()">Проверить упражнение 4</button>
+</div>
+
+<!-- RESULT + SUBMIT -->
+<div class="result-banner" id="resultBanner">
+  <div class="rb-emoji" id="rbEmoji">🎉</div>
+  <div class="rb-score" id="rbScore"></div>
+  <div class="rb-text" id="rbText"></div>
+</div>
+
+<button class="submit-btn" id="submitBtn" onclick="submitHomework()">
+  🚀 Проверить и отправить
+</button>
+
+<!-- VOCAB LINK -->
+<div style="background:var(--card);border-radius:18px;border:1.5px solid var(--border);padding:18px 20px;display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;box-shadow:0 2px 12px rgba(0,0,0,0.05)">
+  <div style="display:flex;align-items:center;gap:10px;font-size:14px">
+    💬 <div><strong>Лексика к уроку:</strong> Talking About Languages</div>
+  </div>
+  <a href="./vocab-lesson2.html" style="font-size:13px;font-weight:700;color:var(--rose);text-decoration:none;display:flex;align-items:center;gap:4px">Тренировать →</a>
+</div>
+
+</div><!-- /.page -->
+
+<!-- NAV -->
+<div class="nav-pill">
+  <a href="./index.html">🏠 Home</a>
+  <a href="./homework.html" class="active">📝 HW</a>
+  <a href="./vocabulary-hub.html">💥 Vocab</a>
+</div>
+
+<script>
+  const SB_URL   = 'https://epbjohhpsvcslcbbcytg.supabase.co/rest/v1';
+  const SB_KEY   = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVwYmpvaGhwc3Zjc2xjYmJjeXRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIxMjU2NzAsImV4cCI6MjA5NzcwMTY3MH0.MMfkWzczZZe6irkqdl6OCPaKjiWiORmcToc6og8bupA';
+  const TG_TOKEN = '8781955044:AAEq6X5Re3D6j8KaD2nhCG3NrA6I6R7dqMg';
+  const TG_CHAT  = '-1001003844097755';
+
+  let ex1Score=0,ex2Score=0,ex3Score=0,ex4Score=0;
+  let ex1Checked=false,ex2Checked=false,ex3Checked=false,ex4Checked=false;
+  let ex1Errors=[],ex2Errors=[],ex3Errors=[],ex4Errors=[];
+
+  function updateLive() {
+    document.getElementById('liveScore').textContent = ex1Score+ex2Score+ex3Score+ex4Score;
+  }
+
+  // ── EX 1 ──
+  function checkEx1() {
+    ex1Score=0; ex1Errors=[];
+    const items = ['s1a','s1b','s2a','s2b','s3','s4','s5','s6'];
+    items.forEach(id => {
+      const el = document.getElementById(id); if(!el) return;
+      el.disabled = true;
+      if(el.value === el.dataset.correct) { el.classList.add('correct'); ex1Score++; }
+      else { el.classList.add('wrong'); ex1Errors.push(`Упр.1 (${id}): правильно «${el.dataset.correct}», выбрала «${el.value||'ничего'}»`); }
+    });
+    ex1Checked=true;
+    document.getElementById('checkBtn1').disabled=true;
+    document.getElementById('checkBtn1').textContent=`✓ Проверено — ${ex1Score}/8`;
+    updateLive();
+  }
+
+  // ── EX 2 ── pick + check
+  function pickWT(btn) {
+    if(btn.disabled) return;
+    const q=btn.dataset.q;
+    document.querySelectorAll(`.wt-btn[data-q="${q}"]`).forEach(b=>b.classList.remove('selected'));
+    btn.classList.add('selected');
+  }
+  function checkEx2() {
+    ex2Score=0; ex2Errors=[];
+    for(let i=1;i<=9;i++) {
+      const q=`wt${i}`;
+      const btns=document.querySelectorAll(`.wt-btn[data-q="${q}"]`);
+      const sel=[...btns].find(b=>b.classList.contains('selected'));
+      btns.forEach(b=>{
+        b.disabled=true;
+        if(b.dataset.correct==='true') { if(b===sel){b.classList.add('correct');ex2Score++;} else b.classList.add('reveal'); }
+        else if(b===sel) b.classList.add('wrong');
+      });
+      if(!sel||sel.dataset.correct!=='true') {
+        const correct=[...btns].find(b=>b.dataset.correct==='true');
+        ex2Errors.push(`Упр.2 (${i}): правильно «${correct?.dataset.val||'?'}»`);
+      }
+    }
+    ex2Checked=true;
+    document.getElementById('checkBtn2').disabled=true;
+    document.getElementById('checkBtn2').textContent=`✓ Проверено — ${ex2Score}/9`;
+    updateLive();
+  }
+
+  // ── EX 3 ── pick helpers
+  function pickOpp(btn,q) {
+    if(btn.disabled) return;
+    document.querySelectorAll(`.opp-btn[data-q="${q}"]`).forEach(b=>b.classList.remove('selected'));
+    btn.classList.add('selected');
+  }
+  function pickMD(btn,q) {
+    if(btn.disabled) return;
+    document.querySelectorAll(`.md-btn[data-q="${q}"]`).forEach(b=>b.classList.remove('selected'));
+    btn.classList.add('selected');
+  }
+  function pickStr(btn,q) {
+    if(btn.disabled) return;
+    document.querySelectorAll(`.str-btn[data-q="${q}"]`).forEach(b=>b.classList.remove('selected'));
+    btn.classList.add('selected');
+  }
+
+  function checkGroup(selector,scoreRef) {
+    let s=0, errs=[];
+    document.querySelectorAll(selector).forEach(btn=>{
+      const q=btn.dataset.q; if(!q) return;
+      const all=document.querySelectorAll(`${selector}[data-q="${q}"]`);
+      if([...all].some(b=>b.disabled)) return; // already checked
+      const sel=[...all].find(b=>b.classList.contains('selected'));
+      all.forEach(b=>{
+        b.disabled=true;
+        if(b.dataset.correct==='true'){if(b===sel){b.classList.add('correct');s++;}else b.classList.add('reveal');}
+        else if(b===sel) b.classList.add('wrong');
+      });
+      if(!sel||sel.dataset.correct!=='true') errs.push(q);
+    });
+    return {s,errs};
+  }
+
+  function checkEx3() {
+    ex3Score=0; ex3Errors=[];
+    // 3.1 opposites
+    const r1=checkGroup('.opp-btn');
+    ex3Score+=r1.s; r1.errs.forEach(q=>ex3Errors.push(`Упр.3.1 (${q})`));
+    // 3.2 make/do
+    const r2=checkGroup('.md-btn');
+    ex3Score+=r2.s; r2.errs.forEach(q=>ex3Errors.push(`Упр.3.2 (${q})`));
+    // 3.3 prepositions
+    ['prep1','prep2','prep3','prep4'].forEach(id=>{
+      const el=document.getElementById(id); el.disabled=true;
+      if(el.value===el.dataset.correct){el.classList.add('correct');ex3Score++;}
+      else{el.classList.add('wrong');ex3Errors.push(`Упр.3.3 (${id}): правильно «${el.dataset.correct}»`);}
+    });
+    // 3.4 stress
+    const r4=checkGroup('.str-btn');
+    ex3Score+=r4.s; r4.errs.forEach(q=>ex3Errors.push(`Упр.3.4 (${q})`));
+    // 3.5 silent
+    const silAnswers={sil1:'h',sil2:'k',sil3:'w',sil4:'g'};
+    const silWords={sil1:'honest',sil2:'knowledge',sil3:'write',sil4:'foreign'};
+    Object.entries(silAnswers).forEach(([id,correct])=>{
+      const el=document.getElementById(id); el.disabled=true;
+      const hint=document.getElementById('silh'+id.slice(-1));
+      if(el.value===correct){
+        el.classList.add('correct'); ex3Score++;
+        if(hint){hint.textContent=`✓ «${correct}» не произносится`; hint.style.color='#059669';}
+      } else {
+        el.classList.add('wrong');
+        if(hint){hint.textContent=`→ «${correct}» не произносится`; hint.style.color='#dc2626';}
+        ex3Errors.push(`Упр.3.5 (${silWords[id]}): немая буква — «${correct}»`);
+      }
+    });
+    ex3Checked=true;
+    document.getElementById('checkBtn3').disabled=true;
+    const maxEx3=6+8+4+5+4; // opp+md+prep+stress+silent = 27
+    document.getElementById('checkBtn3').textContent=`✓ Проверено — ${ex3Score}/${maxEx3}`;
+    updateLive();
+  }
+
+  // ── EX 4 Listening ──
+  function pickMC(btn,q) {
+    if(btn.disabled) return;
+    document.querySelectorAll(`.mc-btn[data-q="${q}"]`).forEach(b=>b.classList.remove('selected'));
+    btn.classList.add('selected');
+  }
+  function checkEx4() {
+    ex4Score=0; ex4Errors=[];
+    for(let i=1;i<=5;i++) {
+      const q=`mc${i}`;
+      const btns=document.querySelectorAll(`.mc-btn[data-q="${q}"]`);
+      const sel=[...btns].find(b=>b.classList.contains('selected'));
+      btns.forEach(b=>{
+        b.disabled=true;
+        if(b.dataset.correct==='true'){if(b===sel){b.classList.add('correct');ex4Score++;}else b.classList.add('reveal');}
+        else if(b===sel) b.classList.add('wrong');
+      });
+      if(!sel||sel.dataset.correct!=='true') ex4Errors.push(`Упр.4 (вопрос ${i})`);
+    }
+    ex4Checked=true;
+    document.getElementById('checkBtn4').disabled=true;
+    document.getElementById('checkBtn4').textContent=`✓ Проверено — ${ex4Score}/5`;
+    updateLive();
+  }
+
+  // ── SUBMIT ──
+  async function submitHomework() {
+    const btn=document.getElementById('submitBtn');
+    btn.disabled=true; btn.textContent='⏳ Отправляю…';
+    if(!ex1Checked) checkEx1();
+    if(!ex2Checked) checkEx2();
+    if(!ex3Checked) checkEx3();
+    if(!ex4Checked) checkEx4();
+
+    const total=ex1Score+ex2Score+ex3Score+ex4Score;
+    const max=8+9+27+5; // 49
+    const score=`${total}/${max}`;
+    const pct=Math.round((total/max)*100);
+
+    const banner=document.getElementById('resultBanner');
+    const emoji=pct>=85?'🏆':pct>=70?'🌟':pct>=50?'👍':'💪';
+    const text=pct>=85?'Отличная работа!':pct>=70?'Хороший результат!':pct>=50?'Неплохо, есть над чем поработать!':'Не сдавайся — разберём на уроке!';
+    document.getElementById('rbEmoji').textContent=emoji;
+    document.getElementById('rbScore').textContent=`${total} / ${max} (${pct}%)`;
+    document.getElementById('rbText').textContent=text;
+    banner.classList.add('show');
+    banner.scrollIntoView({behavior:'smooth',block:'center'});
+
+    // Supabase
+    try {
+      await fetch(`${SB_URL}/progress`,{
+        method:'POST',
+        headers:{'Content-Type':'application/json','apikey':SB_KEY,'Authorization':`Bearer ${SB_KEY}`,'Prefer':'resolution=merge-duplicates,return=minimal'},
+        body:JSON.stringify({student:'elina',hw2_score:score,hw2_done:true,updated_at:new Date().toISOString()})
+      });
+      localStorage.setItem('elina_hw2_score',score);
+    } catch(e){}
+
+    // Telegram
+    const allErrors=[...ex1Errors,...ex2Errors,...ex3Errors,...ex4Errors];
+    let tg=`📝 *Elina — Lesson 2 · Talking About Languages*\n`;
+    tg+=`Результат: *${score}* (${pct}%)\n`;
+    tg+=`Упр.1: ${ex1Score}/8 · Упр.2: ${ex2Score}/9 · Упр.3: ${ex3Score}/27 · Упр.4 (Listening): ${ex4Score}/5\n\n`;
+    if(allErrors.length>0){
+      tg+=`❌ *Ошибки:*\n`;
+      allErrors.slice(0,15).forEach(e=>{tg+=`• ${e}\n`;});
+    } else { tg+=`✅ Все ответы верны!`; }
+    try {
+      await fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`,{
+        method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({chat_id:TG_CHAT,text:tg,parse_mode:'Markdown'})
+      });
+    } catch(e){}
+    btn.textContent='✅ Отправлено!';
+  }
+</script>
+</body>
+</html>

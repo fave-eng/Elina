@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vocab — Lesson 2 · Elina</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --indigo:#4f46e5; --rose:#f43f5e; --emerald:#10b981;
+      --amber:#f59e0b; --violet:#8b5cf6; --sky:#0ea5e9;
+      --dark:#0f172a; --bg:#f1f5f9; --card:#ffffff;
+      --text:#0f172a; --muted:#64748b; --border:#e2e8f0;
+    }
+    body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; padding-bottom:110px; }
+
+    .hero { background:linear-gradient(135deg,#10b981 0%,#0ea5e9 60%,#6366f1 100%); padding:40px 24px 56px; position:relative; }
+    .hero-dots { position:absolute; inset:0; pointer-events:none; background-image:radial-gradient(circle,rgba(255,255,255,0.15) 1px,transparent 1px); background-size:28px 28px; }
+    .hero-wave { display:block; width:100%; line-height:0; background:var(--bg); }
+    .hero-wave svg { display:block; width:100%; }
+    .hero-inner { position:relative; z-index:1; }
+    .hero-back { display:inline-flex; align-items:center; gap:6px; color:rgba(255,255,255,0.75); font-size:13px; font-weight:600; text-decoration:none; margin-bottom:20px; transition:color 0.2s; }
+    .hero-back:hover { color:#fff; }
+    .hero-badge { display:inline-flex; align-items:center; gap:8px; background:rgba(255,255,255,0.18); border:1px solid rgba(255,255,255,0.3); color:#fff; font-size:12px; font-weight:600; padding:5px 14px; border-radius:100px; margin-bottom:16px; }
+    .hero h1 { font-family:'Plus Jakarta Sans',sans-serif; font-size:clamp(24px,5vw,38px); font-weight:800; color:#fff; letter-spacing:-0.5px; margin-bottom:6px; }
+    .hero p { color:rgba(255,255,255,0.8); font-size:15px; }
+    .hero-stats { display:flex; gap:10px; margin-top:18px; flex-wrap:wrap; }
+    .hero-stat { background:rgba(255,255,255,0.18); border:1px solid rgba(255,255,255,0.25); border-radius:100px; padding:6px 16px; color:#fff; font-size:13px; font-weight:600; }
+    .hero-stat.green { color:#34d399; border-color:rgba(52,211,153,0.3); background:rgba(52,211,153,0.1); }
+
+    .page { max-width:700px; margin:0 auto; padding:0 20px; }
+    .section-gap { margin-top:24px; }
+
+    .mode-tabs { display:flex; gap:8px; margin-bottom:24px; background:var(--card); border:1.5px solid var(--border); border-radius:14px; padding:6px; box-shadow:0 2px 12px rgba(0,0,0,0.05); }
+    .mode-tab { flex:1; padding:10px 6px; border:none; border-radius:10px; font-family:'Inter',sans-serif; font-size:13px; font-weight:600; cursor:pointer; transition:all 0.2s; background:transparent; color:var(--muted); }
+    .mode-tab.active { background:var(--dark); color:#fff; }
+
+    .stats-row { display:flex; gap:10px; margin-bottom:24px; flex-wrap:wrap; }
+    .stat-pill { background:var(--card); border:1.5px solid var(--border); border-radius:12px; padding:10px 16px; flex:1; min-width:80px; text-align:center; box-shadow:0 2px 8px rgba(0,0,0,0.04); }
+    .stat-pill .sp-num { font-family:'Plus Jakarta Sans',sans-serif; font-size:20px; font-weight:800; }
+    .stat-pill .sp-lbl { font-size:11px; color:var(--muted); font-weight:600; margin-top:1px; }
+    .sp-total .sp-num { color:var(--indigo); }
+    .sp-known .sp-num { color:var(--emerald); }
+    .sp-left  .sp-num { color:var(--amber); }
+
+    /* FLASHCARD */
+    #modeFlash{display:block}#modeTest,#modeList{display:none}
+    .card-counter{text-align:center;font-size:13px;color:var(--muted);font-weight:600;margin-bottom:12px}
+    .card-progress{background:var(--border);border-radius:100px;height:5px;margin-bottom:22px;overflow:hidden}
+    .card-progress-fill{height:100%;border-radius:100px;background:linear-gradient(90deg,#10b981,#6366f1);transition:width 0.4s ease}
+    .flashcard-wrap{perspective:1000px;height:250px;margin-bottom:20px}
+    .flashcard{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform 0.5s ease;cursor:pointer}
+    .flashcard.flipped{transform:rotateY(180deg)}
+    .card-face{position:absolute;inset:0;border-radius:22px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+    .card-front{background:var(--card);border:1.5px solid var(--border);box-shadow:0 4px 20px rgba(0,0,0,0.07)}
+    .card-back{background:linear-gradient(135deg,#10b981 0%,#0ea5e9 60%,#6366f1 100%);transform:rotateY(180deg)}
+    .cf-hint{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+    .cf-word{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(18px,5vw,30px);font-weight:800;color:var(--text);margin-bottom:6px;text-align:center;line-height:1.2}
+    .cf-cat{font-size:11px;font-weight:700;color:var(--muted);margin-bottom:6px}
+    .cf-ex{font-size:13px;color:var(--muted);font-style:italic;text-align:center;line-height:1.5}
+    .cf-tap{position:absolute;bottom:14px;font-size:11px;color:#94a3b8;font-weight:600}
+    .cb-trans{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(16px,4vw,24px);font-weight:800;color:#fff;text-align:center;margin-bottom:8px;line-height:1.2}
+    .cb-ex{font-size:13px;color:rgba(255,255,255,0.8);text-align:center;font-style:italic;line-height:1.5}
+    .cb-cat{position:absolute;top:14px;right:14px;font-size:10px;font-weight:700;color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:1px}
+    .verdict-row{display:flex;gap:12px;margin-bottom:20px}
+    .verdict-btn{flex:1;padding:14px;border:none;border-radius:14px;font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:all 0.2s}
+    .verdict-btn:hover:not(:disabled){transform:translateY(-1px)}
+    .btn-no{background:#fee2e2;color:#991b1b}
+    .btn-yes{background:#d1fae5;color:#065f46}
+    .verdict-btn:disabled{opacity:0.35;cursor:not-allowed;transform:none}
+    .finish-screen{display:none;text-align:center;background:var(--card);border-radius:22px;border:1.5px solid var(--border);padding:36px 24px;margin-bottom:20px}
+    .finish-screen.show{display:block}
+    .finish-screen .fs-emoji{font-size:48px;margin-bottom:10px}
+    .finish-screen h2{font-family:'Plus Jakarta Sans',sans-serif;font-size:22px;font-weight:800;margin-bottom:6px}
+    .finish-screen p{font-size:14px;color:var(--muted);line-height:1.6}
+    .restart-btn{width:100%;background:var(--dark);color:#fff;border:none;border-radius:14px;padding:16px;font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:all 0.2s;margin-bottom:16px}
+    .restart-btn:hover{opacity:0.9}
+
+    /* FILTER */
+    .filter-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+    .filter-chip{padding:6px 14px;border:1.5px solid var(--border);border-radius:100px;background:var(--card);font-size:12px;font-weight:600;color:var(--muted);cursor:pointer;transition:all 0.15s}
+    .filter-chip:hover{border-color:#a5b4fc;color:var(--indigo)}
+    .filter-chip.active{background:var(--dark);border-color:var(--dark);color:#fff}
+
+    /* TEST */
+    .test-q{background:var(--card);border:1.5px solid var(--border);border-radius:22px;padding:22px 20px;margin-bottom:14px;box-shadow:0 2px 12px rgba(0,0,0,0.05)}
+    .tq-num{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+    .tq-word{font-family:'Plus Jakarta Sans',sans-serif;font-size:20px;font-weight:800;margin-bottom:4px}
+    .tq-cat{font-size:11px;color:var(--muted);margin-bottom:10px}
+    .tq-options{display:flex;flex-direction:column;gap:8px}
+    .tq-opt{background:#f8faff;border:1.5px solid var(--border);border-radius:12px;padding:11px 14px;font-size:14px;cursor:pointer;transition:all 0.15s;text-align:left;color:var(--text);display:flex;align-items:center;gap:10px}
+    .tq-opt:hover:not(:disabled){border-color:#a5b4fc;background:#eef2ff}
+    .tq-opt.correct{border-color:var(--emerald);background:#d1fae5;color:#065f46}
+    .tq-opt.wrong{border-color:var(--rose);background:#fee2e2;color:#991b1b}
+    .tq-opt.reveal{border-color:var(--emerald);background:#d1fae5;color:#065f46}
+    .tq-opt:disabled{cursor:default}
+    .tq-dot{width:18px;height:18px;border-radius:50%;border:2px solid var(--border);flex-shrink:0;transition:all 0.15s}
+    .tq-opt.selected .tq-dot{border-color:var(--indigo);background:var(--indigo)}
+    .tq-opt.correct .tq-dot{border-color:var(--emerald);background:var(--emerald)}
+    .tq-opt.wrong .tq-dot{border-color:var(--rose);background:var(--rose)}
+    .tq-opt.reveal .tq-dot{border-color:var(--emerald);background:var(--emerald)}
+    .test-check-btn{width:100%;background:linear-gradient(135deg,#10b981,#0ea5e9);color:#fff;border:none;border-radius:14px;padding:16px;font-family:'Plus Jakarta Sans',sans-serif;font-size:16px;font-weight:700;cursor:pointer;transition:all 0.2s;margin-bottom:16px}
+    .test-check-btn:hover{opacity:0.92;transform:translateY(-1px)}
+    .test-result{display:none;background:linear-gradient(135deg,#10b981,#059669);border-radius:18px;padding:20px;text-align:center;color:#fff;margin-bottom:20px}
+    .test-result.show{display:block}
+    .test-result .tr-score{font-family:'Plus Jakarta Sans',sans-serif;font-size:28px;font-weight:800}
+    .test-result p{font-size:14px;opacity:0.9;margin-top:4px}
+
+    /* LIST */
+    .word-list{display:flex;flex-direction:column;gap:8px;margin-bottom:20px}
+    .word-row{background:var(--card);border:1.5px solid var(--border);border-radius:14px;padding:13px 16px;display:flex;align-items:flex-start;gap:12px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+    .wr-left{flex:1;min-width:0}
+    .wr-cat{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:2px 7px;border-radius:6px;display:inline-block;margin-bottom:4px}
+    .cat-phrasal{background:#d1fae5;color:#065f46}
+    .cat-lang{background:#e0f2fe;color:#075985}
+    .cat-gram{background:#ede9fe;color:#5b21b6}
+    .wr-eng{font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;font-weight:700;margin-bottom:2px}
+    .wr-ru{font-size:13px;color:var(--muted);margin-bottom:3px}
+    .wr-ex{font-size:12px;color:#94a3b8;font-style:italic;line-height:1.5}
+    .know-toggle{width:34px;height:34px;border-radius:50%;border:2px solid var(--border);background:var(--bg);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;transition:all 0.2s;flex-shrink:0}
+    .know-toggle.known{background:#d1fae5;border-color:var(--emerald)}
+
+    /* NAV */
+    .nav-pill{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#0f172a;border-radius:100px;padding:12px 24px;display:flex;gap:4px;box-shadow:0 8px 32px rgba(15,23,42,0.3);z-index:900;white-space:nowrap}
+    .nav-pill a{color:rgba(255,255,255,0.6);font-size:12px;font-weight:600;text-decoration:none;padding:6px 14px;border-radius:100px;transition:all 0.2s}
+    .nav-pill a:hover,.nav-pill a.active{background:var(--indigo);color:#fff}
+  </style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-dots"></div>
+  <div class="page hero-inner">
+    <a href="./lesson2.html" class="hero-back">← К уроку 2</a>
+    <div class="hero-badge">💬 Vocabulary · Lesson 2</div>
+    <h1>Talking About Languages</h1>
+    <p>12 слов из упражнений 1–3 · Lesson 2</p>
+    <div class="hero-stats">
+      <div class="hero-stat">📚 12 слов</div>
+      <div class="hero-stat green">✅ <span id="heroKnown">0</span> знаю</div>
+    </div>
+  </div>
+</div>
+<div class="hero-wave">
+  <svg viewBox="0 0 1440 56" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"
+       style="background:linear-gradient(135deg,#10b981,#0ea5e9,#6366f1)">
+    <path d="M0,56 C360,0 1080,0 1440,56 L1440,56 L0,56 Z" fill="#f1f5f9"/>
+  </svg>
+</div>
+
+<div class="page">
+<div class="section-gap"></div>
+
+<div class="mode-tabs">
+  <button class="mode-tab active" onclick="switchMode('flash',this)">🃏 Карточки</button>
+  <button class="mode-tab" onclick="switchMode('test',this)">✏️ Тест</button>
+  <button class="mode-tab" onclick="switchMode('list',this)">📋 Список</button>
+</div>
+
+<div class="stats-row">
+  <div class="stat-pill sp-total"><div class="sp-num">12</div><div class="sp-lbl">Всего слов</div></div>
+  <div class="stat-pill sp-known"><div class="sp-num" id="statKnown">0</div><div class="sp-lbl">Знаю</div></div>
+  <div class="stat-pill sp-left"><div class="sp-num" id="statLeft">12</div><div class="sp-lbl">Учу</div></div>
+</div>
+
+<!-- FLASH -->
+<div id="modeFlash">
+  <div class="filter-row">
+    <button class="filter-chip active" onclick="setFilter('all',this)">Все 12</button>
+    <button class="filter-chip" onclick="setFilter('unknown',this)">Не знаю</button>
+    <button class="filter-chip" onclick="setFilter('known',this)">Знаю ✅</button>
+  </div>
+  <div class="card-counter" id="cardCounter">1 / 12</div>
+  <div class="card-progress"><div class="card-progress-fill" id="cardProgressFill" style="width:0%"></div></div>
+  <div class="flashcard-wrap">
+    <div class="flashcard" id="flashcard" onclick="flipCard()">
+      <div class="card-face card-front">
+        <div class="cf-hint">Нажми чтобы перевернуть</div>
+        <div class="cf-word" id="cfWord"></div>
+        <div class="cf-cat" id="cfCat"></div>
+        <div class="cf-ex" id="cfEx"></div>
+        <div class="cf-tap">👆 нажми</div>
+      </div>
+      <div class="card-face card-back">
+        <div class="cb-cat" id="cbCat"></div>
+        <div class="cb-trans" id="cbTrans"></div>
+        <div class="cb-ex" id="cbEx"></div>
+      </div>
+    </div>
+  </div>
+  <div class="verdict-row">
+    <button class="verdict-btn btn-no"  id="btnNo"  onclick="verdict(false)" disabled>❌ Не знаю</button>
+    <button class="verdict-btn btn-yes" id="btnYes" onclick="verdict(true)"  disabled>✅ Знаю</button>
+  </div>
+  <div class="finish-screen" id="finishScreen">
+    <div class="fs-emoji">🎉</div>
+    <h2 id="fsTitle">Раунд завершён!</h2>
+    <p id="fsText"></p><br>
+    <button class="restart-btn" onclick="restartFlash()">🔄 Повторить незнакомые</button>
+  </div>
+</div>
+
+<!-- TEST -->
+<div id="modeTest">
+  <div id="testQuestions"></div>
+  <button class="test-check-btn" onclick="checkTest()">Проверить тест</button>
+  <div class="test-result" id="testResult">
+    <div class="tr-score" id="testScore"></div>
+    <p id="testText"></p>
+  </div>
+  <button class="restart-btn" onclick="buildTest()">🔄 Новый тест</button>
+</div>
+
+<!-- LIST -->
+<div id="modeList">
+  <div class="word-list" id="wordList"></div>
+</div>
+
+</div>
+
+<div class="nav-pill">
+  <a href="./index.html">🏠 Home</a>
+  <a href="./homework.html" class="active">📝 HW</a>
+  <a href="./vocabulary-hub.html">💥 Vocab</a>
+</div>
+
+<script>
+const SB_URL = 'https://epbjohhpsvcslcbbcytg.supabase.co/rest/v1';
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVwYmpvaGhwc3Zjc2xjYmJjeXRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIxMjU2NzAsImV4cCI6MjA5NzcwMTY3MH0.MMfkWzczZZe6irkqdl6OCPaKjiWiORmcToc6og8bupA';
+const LS_KEY = 'elina_vocab_l2_known';
+
+const WORDS = [
+  // Упр. 1 — замена слов
+  { eng:'get by',       ru:'обходиться, справляться на базовом уровне', cat:'phrasal', catLabel:'PHRASAL VERB', ex:'"I\'m not brilliant at German, but I can get by in everyday situations."' },
+  { eng:'fluently',     ru:'бегло, свободно',                           cat:'lang',    catLabel:'VOCAB',        ex:'"I was born in Greece but I speak English fluently."' },
+  { eng:'to express',   ru:'выражать (мысли, чувства)',                 cat:'lang',    catLabel:'VOCAB',        ex:'"It\'s hard to express what I want to say in Italian sometimes."' },
+  { eng:'mastering',    ru:'освоение / мастерское владение',            cat:'lang',    catLabel:'VOCAB',        ex:'"Getting complete knowledge of a language can take years — mastering it is even harder."' },
+  { eng:'my accent',    ru:'мой акцент',                                cat:'lang',    catLabel:'VOCAB',        ex:'"No-one understood the way I said things — my accent was too strong."' },
+  { eng:'accurate',     ru:'точный, верный, без ошибок',               cat:'lang',    catLabel:'VOCAB',        ex:'"It\'s hard to be accurate all the time when speaking a foreign language."' },
+  { eng:'picked it up', ru:'усвоил(а) (язык) непроизвольно / без уроков', cat:'phrasal', catLabel:'PHRASAL VERB', ex:'"I picked up Japanese by living in Kyoto for 10 years — no formal lessons."' },
+  { eng:'struggled',    ru:'с трудом справлялся(ась), испытывал(а) трудности', cat:'lang', catLabel:'VOCAB', ex:'"At first I really struggled speaking French at work."' },
+  // Упр. 3 — полезные слова
+  { eng:'to concentrate on',  ru:'сосредоточиться на, концентрироваться', cat:'gram', catLabel:'PREP. VERB', ex:'"My advice is to concentrate on the activity, not the result."' },
+  { eng:'to rely on',         ru:'полагаться на, доверять',              cat:'gram',    catLabel:'PREP. VERB', ex:'"You can always rely on your best friend for support."' },
+  { eng:'bilingual',          ru:'двуязычный',                           cat:'lang',    catLabel:'VOCAB',        ex:'"I grew up bilingual — my mum spoke Spanish and my dad spoke French."' },
+  { eng:'embarrassed',        ru:'смущённый, которому неловко',         cat:'lang',    catLabel:'VOCAB',        ex:'"I\'m a bit embarrassed to speak sometimes because I know I have a strong accent."' },
+];
+
+const CAT_CLASS = { phrasal:'cat-phrasal', lang:'cat-lang', gram:'cat-gram' };
+const known = new Set(JSON.parse(localStorage.getItem(LS_KEY)||'[]'));
+
+function saveKnown(){
+  localStorage.setItem(LS_KEY, JSON.stringify([...known]));
+  fetch(`${SB_URL}/progress`,{
+    method:'POST',
+    headers:{'Content-Type':'application/json','apikey':SB_KEY,'Authorization':`Bearer ${SB_KEY}`,'Prefer':'resolution=merge-duplicates,return=minimal'},
+    body:JSON.stringify({student:'elina',l2_known:known.size,updated_at:new Date().toISOString()})
+  }).catch(()=>{});
+}
+function updateStats(){
+  const k=known.size;
+  document.getElementById('statKnown').textContent=k;
+  document.getElementById('statLeft').textContent=WORDS.length-k;
+  document.getElementById('heroKnown').textContent=k;
+}
+updateStats();
+
+// ── FLASHCARD ──
+let deck=[],cardIdx=0,isFlipped=false,currentFilter='all';
+function buildDeck(filter){
+  currentFilter=filter||currentFilter;
+  if(currentFilter==='known') deck=WORDS.filter(w=>known.has(w.eng));
+  else if(currentFilter==='unknown') deck=WORDS.filter(w=>!known.has(w.eng));
+  else deck=[...WORDS];
+  deck.sort((a,b)=>(known.has(a.eng)?1:0)-(known.has(b.eng)?1:0));
+  cardIdx=0;
+}
+function showCard(idx){
+  if(idx>=deck.length){showFinish();return;}
+  const w=deck[idx];
+  document.getElementById('cfWord').textContent=w.eng;
+  document.getElementById('cfCat').textContent=w.catLabel;
+  document.getElementById('cfEx').textContent=w.ex;
+  document.getElementById('cbTrans').textContent=w.ru;
+  document.getElementById('cbEx').textContent=w.ex;
+  document.getElementById('cbCat').textContent=w.catLabel;
+  document.getElementById('cardCounter').textContent=`${idx+1} / ${deck.length}`;
+  document.getElementById('cardProgressFill').style.width=`${((idx+1)/deck.length)*100}%`;
+  const fc=document.getElementById('flashcard');
+  fc.classList.remove('flipped'); isFlipped=false;
+  document.getElementById('btnNo').disabled=true;
+  document.getElementById('btnYes').disabled=true;
+}
+function flipCard(){
+  document.getElementById('flashcard').classList.toggle('flipped');
+  isFlipped=!isFlipped;
+  document.getElementById('btnNo').disabled=!isFlipped;
+  document.getElementById('btnYes').disabled=!isFlipped;
+}
+function verdict(isKnown){
+  const w=deck[cardIdx];
+  if(isKnown) known.add(w.eng); else known.delete(w.eng);
+  saveKnown(); updateStats(); cardIdx++; showCard(cardIdx);
+}
+function showFinish(){
+  document.getElementById('flashcard').parentElement.style.display='none';
+  document.querySelector('.card-counter').style.display='none';
+  document.querySelector('.card-progress').style.display='none';
+  document.querySelector('.verdict-row').style.display='none';
+  const u=WORDS.filter(w=>!known.has(w.eng)).length;
+  const fs=document.getElementById('finishScreen'); fs.classList.add('show');
+  document.getElementById('fsTitle').textContent=u===0?'🏆 Все слова знаешь!':`${known.size} из ${WORDS.length} знаешь`;
+  document.getElementById('fsText').textContent=u===0?'Отлично! Попробуй тест.':(`Ещё ${u} слов стоит повторить.`);
+}
+function restartFlash(){
+  document.getElementById('flashcard').parentElement.style.display='';
+  document.querySelector('.card-counter').style.display='';
+  document.querySelector('.card-progress').style.display='';
+  document.querySelector('.verdict-row').style.display='';
+  document.getElementById('finishScreen').classList.remove('show');
+  buildDeck(); showCard(0);
+}
+function setFilter(f,btn){
+  document.querySelectorAll('.filter-chip').forEach(c=>c.classList.remove('active'));
+  btn.classList.add('active'); buildDeck(f); restartFlash();
+}
+
+// ── TEST ──
+function shuffle(a){return [...a].sort(()=>Math.random()-0.5);}
+function buildTest(){
+  document.getElementById('testResult').classList.remove('show');
+  const container=document.getElementById('testQuestions'); container.innerHTML='';
+  shuffle(WORDS).forEach((w,i)=>{
+    const others=shuffle(WORDS.filter(x=>x.eng!==w.eng)).slice(0,3).map(x=>x.ru);
+    const opts=shuffle([w.ru,...others]);
+    const div=document.createElement('div'); div.className='test-q';
+    div.innerHTML=`<div class="tq-num">Вопрос ${i+1} / ${WORDS.length}</div>
+      <div class="tq-word">${w.eng}</div>
+      <div class="tq-cat">${w.catLabel}</div>
+      <div class="tq-options">${opts.map(o=>`
+        <button class="tq-opt" data-correct="${o===w.ru}" onclick="selectOpt(this)">
+          <div class="tq-dot"></div>${o}
+        </button>`).join('')}</div>`;
+    container.appendChild(div);
+  });
+}
+function selectOpt(btn){
+  const opts=btn.closest('.tq-options').querySelectorAll('.tq-opt');
+  if([...opts].some(o=>o.classList.contains('correct')||o.classList.contains('wrong'))) return;
+  opts.forEach(o=>o.classList.remove('selected')); btn.classList.add('selected');
+}
+function checkTest(){
+  let score=0;
+  document.querySelectorAll('.test-q').forEach(q=>{
+    const opts=q.querySelectorAll('.tq-opt'),sel=q.querySelector('.tq-opt.selected');
+    opts.forEach(o=>{o.disabled=true;
+      if(o.dataset.correct==='true'){if(o===sel){o.classList.add('correct');score++;}else o.classList.add('reveal');}
+      else if(o===sel) o.classList.add('wrong');
+    });
+  });
+  const total=WORDS.length,pct=Math.round((score/total)*100);
+  const res=document.getElementById('testResult');
+  document.getElementById('testScore').textContent=`${score} / ${total} (${pct}%)`;
+  document.getElementById('testText').textContent=pct>=90?'🏆 Отлично!':pct>=70?'👍 Хорошо!':'💪 Вернись к карточкам!';
+  res.classList.add('show'); res.scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+// ── LIST ──
+function buildList(){
+  const c=document.getElementById('wordList'); c.innerHTML='';
+  WORDS.forEach(w=>{
+    const k=known.has(w.eng),div=document.createElement('div'); div.className='word-row';
+    div.innerHTML=`<div class="wr-left">
+      <div class="wr-cat ${CAT_CLASS[w.cat]}">${w.catLabel}</div>
+      <div class="wr-eng">${w.eng}</div>
+      <div class="wr-ru">${w.ru}</div>
+      <div class="wr-ex">${w.ex}</div>
+    </div>
+    <button class="know-toggle ${k?'known':''}" onclick="toggleKnown(this,'${w.eng.replace(/'/g,"\\'")}')">
+      ${k?'✅':'○'}
+    </button>`;
+    c.appendChild(div);
+  });
+}
+function toggleKnown(btn,eng){
+  if(known.has(eng)){known.delete(eng);btn.classList.remove('known');btn.textContent='○';}
+  else{known.add(eng);btn.classList.add('known');btn.textContent='✅';}
+  saveKnown(); updateStats();
+}
+
+// ── SWITCH ──
+function switchMode(mode,tab){
+  document.querySelectorAll('.mode-tab').forEach(t=>t.classList.remove('active')); tab.classList.add('active');
+  document.getElementById('modeFlash').style.display=mode==='flash'?'block':'none';
+  document.getElementById('modeTest').style.display=mode==='test'?'block':'none';
+  document.getElementById('modeList').style.display=mode==='list'?'block':'none';
+  if(mode==='test') buildTest();
+  if(mode==='list') buildList();
+}
+
+buildDeck(); showCard(0);
+</script>
+</body>
+</html>
