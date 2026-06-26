@@ -849,7 +849,48 @@
   const SB_URL   = 'https://epbjohhpsvcslcbbcytg.supabase.co/rest/v1';
   const SB_KEY   = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVwYmpvaGhwc3Zjc2xjYmJjeXRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIxMjU2NzAsImV4cCI6MjA5NzcwMTY3MH0.MMfkWzczZZe6irkqdl6OCPaKjiWiORmcToc6og8bupA';
   const TG_TOKEN = '8781955044:AAEq6X5Re3D6j8KaD2nhCG3NrA6I6R7dqMg';
-  const TG_CHAT  = '-1001003844097755';
+  const TG_CHAT  = '-1003844097755';
+
+  // ── Блокировка если ДЗ уже сдано ──
+  async function checkAlreadyDone() {
+    let score = null;
+    try {
+      const r = await fetch(`${SB_URL}/progress?student=eq.elina&select=hw2_score`, {
+        headers: { 'apikey': SB_KEY, 'Authorization': `Bearer ${SB_KEY}` }
+      });
+      const d = await r.json();
+      if (d && d[0] && d[0].hw2_score) score = d[0].hw2_score;
+    } catch(e) {}
+    if (!score) score = localStorage.getItem('elina_hw2_score');
+    if (score) lockAll(score);
+  }
+
+  function lockAll(score) {
+    const banner = document.getElementById('resultBanner');
+    const parts  = score.split('/');
+    const got    = parseInt(parts[0]) || 0;
+    const max    = parseInt(parts[1]) || 49;
+    const pct    = Math.round((got / max) * 100);
+    const emoji  = pct >= 85 ? '🏆' : pct >= 70 ? '🌟' : pct >= 50 ? '👍' : '💪';
+    document.getElementById('rbEmoji').textContent = emoji;
+    document.getElementById('rbScore').textContent = score + ' — уже сдано';
+    document.getElementById('rbText').textContent  = 'Это задание уже выполнено. Результат сохранён ✅';
+    banner.classList.add('show');
+
+    // Блокируем всё интерактивное
+    document.querySelectorAll('.check-btn, .submit-btn').forEach(b => {
+      b.disabled = true;
+      if (b.classList.contains('submit-btn')) b.textContent = '✅ Уже отправлено';
+    });
+    document.querySelectorAll('.sent-select, .wt-btn, .opp-btn, .md-btn, .prep-select, .str-btn, .mc-btn').forEach(el => {
+      el.disabled = true;
+      el.style.pointerEvents = 'none';
+    });
+    document.getElementById('liveScore').textContent = parts[0] || '—';
+    setTimeout(() => banner.scrollIntoView({ behavior: 'smooth', block: 'center' }), 300);
+  }
+
+  window.addEventListener('load', checkAlreadyDone);
 
   let ex1Score=0,ex2Score=0,ex3Score=0,ex4Score=0;
   let ex1Checked=false,ex2Checked=false,ex3Checked=false,ex4Checked=false;
@@ -1025,17 +1066,7 @@
     banner.classList.add('show');
     banner.scrollIntoView({behavior:'smooth',block:'center'});
 
-    // Supabase
-    try {
-      await fetch(`${SB_URL}/progress`,{
-        method:'POST',
-        headers:{'Content-Type':'application/json','apikey':SB_KEY,'Authorization':`Bearer ${SB_KEY}`,'Prefer':'resolution=merge-duplicates,return=minimal'},
-        body:JSON.stringify({student:'elina',hw2_score:score,hw2_done:true,updated_at:new Date().toISOString()})
-      });
-      localStorage.setItem('elina_hw2_score',score);
-    } catch(e){}
-
-    // Telegram
+    // Telegram — сообщение готовим сразу
     const allErrors=[...ex1Errors,...ex2Errors,...ex3Errors,...ex4Errors];
     let tg=`📝 *Elina — Lesson 2 · Talking About Languages*\n`;
     tg+=`Результат: *${score}* (${pct}%)\n`;
@@ -1044,12 +1075,21 @@
       tg+=`❌ *Ошибки:*\n`;
       allErrors.slice(0,15).forEach(e=>{tg+=`• ${e}\n`;});
     } else { tg+=`✅ Все ответы верны!`; }
-    try {
-      await fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`,{
-        method:'POST',headers:{'Content-Type':'application/json'},
+
+    // Supabase + Telegram параллельно, независимо
+    localStorage.setItem('elina_hw2_score', score);
+    await Promise.allSettled([
+      fetch(`${SB_URL}/progress`,{
+        method:'POST',
+        headers:{'Content-Type':'application/json','apikey':SB_KEY,'Authorization':`Bearer ${SB_KEY}`,'Prefer':'resolution=merge-duplicates,return=minimal'},
+        body:JSON.stringify({student:'elina',hw2_score:score,hw2_done:true,updated_at:new Date().toISOString()})
+      }),
+      fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`,{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
         body:JSON.stringify({chat_id:TG_CHAT,text:tg,parse_mode:'Markdown'})
-      });
-    } catch(e){}
+      })
+    ]);
     btn.textContent='✅ Отправлено!';
   }
 </script>
