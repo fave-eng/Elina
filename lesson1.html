@@ -634,7 +634,50 @@
   const SB_URL  = 'https://epbjohhpsvcslcbbcytg.supabase.co/rest/v1';
   const SB_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVwYmpvaGhwc3Zjc2xjYmJjeXRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIxMjU2NzAsImV4cCI6MjA5NzcwMTY3MH0.MMfkWzczZZe6irkqdl6OCPaKjiWiORmcToc6og8bupA';
   const TG_TOKEN = '8781955044:AAEq6X5Re3D6j8KaD2nhCG3NrA6I6R7dqMg';
-  const TG_CHAT  = '-1001003844097755';
+  const TG_CHAT  = '-1003844097755';
+
+  // ── Блокировка если ДЗ уже сдано ──
+  async function checkAlreadyDone() {
+    let score = null;
+    try {
+      const r = await fetch(`${SB_URL}/progress?student=eq.elina&select=hw1_score`, {
+        headers: { 'apikey': SB_KEY, 'Authorization': `Bearer ${SB_KEY}` }
+      });
+      const d = await r.json();
+      if (d && d[0] && d[0].hw1_score) score = d[0].hw1_score;
+    } catch(e) {}
+    if (!score) score = localStorage.getItem('elina_hw1_score');
+    if (score) lockAll(score);
+  }
+
+  function lockAll(score) {
+    // Показываем результат
+    const banner = document.getElementById('resultBanner');
+    const pct = Math.round((parseInt(score) / parseInt(score.split('/')[1])) * 100) || 0;
+    const emoji = pct >= 85 ? '🏆' : pct >= 70 ? '🌟' : pct >= 50 ? '👍' : '💪';
+    document.getElementById('rbEmoji').textContent  = emoji;
+    document.getElementById('rbScore').textContent  = score + ' — уже сдано';
+    document.getElementById('rbText').textContent   = 'Это задание уже выполнено. Результат сохранён ✅';
+    banner.classList.add('show');
+
+    // Блокируем кнопки
+    document.querySelectorAll('.check-btn, .submit-btn').forEach(b => {
+      b.disabled = true;
+      b.textContent = b.classList.contains('submit-btn') ? '✅ Уже отправлено' : b.textContent;
+    });
+    // Блокируем все интерактивные элементы
+    document.querySelectorAll('.word-btn, .fill-input, .choice-btn, .opt-btn').forEach(el => {
+      el.disabled = true;
+      el.style.pointerEvents = 'none';
+    });
+    // Обновляем счётчик в hero
+    document.getElementById('liveScore').textContent = score.split('/')[0] || '—';
+
+    // Прокручиваем к результату
+    setTimeout(() => banner.scrollIntoView({ behavior: 'smooth', block: 'center' }), 300);
+  }
+
+  window.addEventListener('load', checkAlreadyDone);
 
   // ── correct answers ──
   const EX1_ANSWERS = {
@@ -872,9 +915,20 @@
     banner.classList.add('show');
     banner.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
-    // Supabase upsert
-    try {
-      await fetch(`${SB_URL}/progress`, {
+    // Telegram — сообщение готовим сразу
+    let tgText = `📝 *Elina — Lesson 1 · First Class*\n`;
+    tgText += `Результат: *${score}* (${pct}%)\n\n`;
+    if (allErrors.length > 0) {
+      tgText += `❌ *Ошибки:*\n`;
+      allErrors.forEach(e => { tgText += `• ${e}\n`; });
+    } else {
+      tgText += `✅ Все ответы верны!`;
+    }
+
+    // Supabase + Telegram параллельно, независимо
+    localStorage.setItem('elina_hw1_score', score);
+    await Promise.allSettled([
+      fetch(`${SB_URL}/progress`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -888,22 +942,8 @@
           hw1_done: true,
           updated_at: new Date().toISOString()
         })
-      });
-      localStorage.setItem('elina_hw1_score', score);
-    } catch(e) {}
-
-    // Telegram report
-    let tgText = `📝 *Elina — Lesson 1 · First Class*\n`;
-    tgText += `Результат: *${score}* (${pct}%)\n\n`;
-    if (allErrors.length > 0) {
-      tgText += `❌ *Ошибки:*\n`;
-      allErrors.forEach(e => { tgText += `• ${e}\n`; });
-    } else {
-      tgText += `✅ Все ответы верны!`;
-    }
-
-    try {
-      await fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`, {
+      }),
+      fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -911,8 +951,8 @@
           text: tgText,
           parse_mode: 'Markdown'
         })
-      });
-    } catch(e) {}
+      })
+    ]);
 
     btn.textContent = '✅ Отправлено!';
   }
