@@ -387,7 +387,7 @@
       <div class="tracker-nums">
         <div class="tn-row">
           <span class="tn-label">Всего слов</span>
-          <span class="tn-val" id="tnTotal">64</span>
+          <span class="tn-val" id="tnTotal">76</span>
         </div>
         <div class="tn-row">
           <span class="tn-label">Знаю</span>
@@ -395,7 +395,7 @@
         </div>
         <div class="tn-row">
           <span class="tn-label">Учу</span>
-          <span class="tn-val amber" id="tnLeft">64</span>
+          <span class="tn-val amber" id="tnLeft">76</span>
         </div>
       </div>
     </div>
@@ -408,6 +408,13 @@
           <span class="tt-nums" id="tt-l1-nums">0 / 14</span>
         </div>
         <div class="tt-bar"><div class="tt-fill fill-rose" id="tt-l1-bar" style="width:0%"></div></div>
+      </div>
+      <div class="tt-row">
+        <div class="tt-head">
+          <span class="tt-name">🗣️ Talking About Languages</span>
+          <span class="tt-nums" id="tt-l2-nums">0 / 12</span>
+        </div>
+        <div class="tt-bar"><div class="tt-fill fill-rose" id="tt-l2-bar" style="width:0%"></div></div>
       </div>
       <div class="tt-row">
         <div class="tt-head">
@@ -432,7 +439,7 @@
         <div class="ms-icon">🔥</div>
         <div class="ms-label">50 слов</div>
       </div>
-      <div class="milestone" id="ms64">
+      <div class="milestone" id="ms76">
         <div class="ms-icon">🏆</div>
         <div class="ms-label">Все!</div>
       </div>
@@ -455,6 +462,25 @@
             <div class="vc-progress-fill" id="bar-l1" style="width:0%"></div>
           </div>
           <span class="vc-pct" id="pct-l1">0%</span>
+        </div>
+      </div>
+      <div class="vc-arrow">→</div>
+    </div>
+  </a>
+
+  <!-- Lesson 2 -->
+  <a href="./vocab-lesson2.html" class="vocab-card active">
+    <div class="vc-main">
+      <div class="vc-icon icon-active">🗣️</div>
+      <div class="vc-info">
+        <div class="vc-lesson">Lesson 2</div>
+        <div class="vc-title">Talking About Languages</div>
+        <div class="vc-meta">
+          <span class="vc-count" id="count-l2">12 слов</span>
+          <div class="vc-progress-bar">
+            <div class="vc-progress-fill" id="bar-l2" style="width:0%"></div>
+          </div>
+          <span class="vc-pct" id="pct-l2">0%</span>
         </div>
       </div>
       <div class="vc-arrow">→</div>
@@ -487,22 +513,8 @@
     <div class="tip-icon">💡</div>
     <div class="tip-text">
       <strong>Новые темы появятся после каждого урока</strong>
-      После урока 2 откроется следующий словарный блок — просто продолжай заниматься!
+      После урока 3 откроется следующий словарный блок — просто продолжай заниматься!
     </div>
-  </div>
-
-  <div class="vocab-card locked">
-    <div class="vc-main">
-      <div class="vc-icon icon-locked">🔒</div>
-      <div class="vc-info">
-        <div class="vc-lesson">Lesson 2</div>
-        <div class="vc-title">Coming soon…</div>
-        <div class="vc-meta">
-          <span class="vc-count">— слов</span>
-        </div>
-      </div>
-    </div>
-    <div class="vc-locked-strip">🔒 Откроется после урока 2</div>
   </div>
 
   <div class="vocab-card locked">
@@ -519,6 +531,21 @@
     <div class="vc-locked-strip">🔒 Откроется после урока 3</div>
   </div>
 
+  <div class="vocab-card locked">
+    <div class="vc-main">
+      <div class="vc-icon icon-locked">🔒</div>
+      <div class="vc-info">
+        <div class="vc-lesson">Lesson 4</div>
+        <div class="vc-title">Coming soon…</div>
+        <div class="vc-meta">
+          <span class="vc-count">— слов</span>
+        </div>
+      </div>
+    </div>
+    <div class="vc-locked-strip">🔒 Откроется после урока 4</div>
+  </div>
+  </div>
+
 </div><!-- /.page -->
 
 <!-- NAV -->
@@ -533,35 +560,37 @@
   const SB_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVwYmpvaGhwc3Zjc2xjYmJjeXRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIxMjU2NzAsImV4cCI6MjA5NzcwMTY3MH0.MMfkWzczZZe6irkqdl6OCPaKjiWiORmcToc6og8bupA';
 
   const L1_TOTAL    = 14;
+  const L2_TOTAL    = 12;
   const VERBS_TOTAL = 50;
-  const GRAND_TOTAL = L1_TOTAL + VERBS_TOTAL; // 64
+  const GRAND_TOTAL = L1_TOTAL + L2_TOTAL + VERBS_TOTAL; // 76
 
   window.addEventListener('load', async () => {
     // 1. Сразу показываем из localStorage
     const lsL1    = JSON.parse(localStorage.getItem('elina_vocab_l1_known')    || '[]').length;
+    const lsL2    = JSON.parse(localStorage.getItem('elina_vocab_l2_known')    || '[]').length;
     const lsVerbs = JSON.parse(localStorage.getItem('elina_vocab_verbs_known') || '[]').length;
-    applyTracker(lsL1, lsVerbs);
+    applyTracker(lsL1, lsL2, lsVerbs);
 
     // 2. Обновляем из Supabase (берём максимум)
     try {
       const r = await fetch(
-        `${SB_URL}/progress?student=eq.elina&select=l1_known,verbs_known`,
+        `${SB_URL}/progress?student=eq.elina&select=l1_known,l2_known,verbs_known`,
         { headers: { 'apikey': SB_KEY, 'Authorization': `Bearer ${SB_KEY}` } }
       );
       const data = await r.json();
       if (data && data[0]) {
-        const sbL1    = data[0].l1_known    || 0;
-        const sbVerbs = data[0].verbs_known || 0;
-        const l1K    = Math.max(lsL1, sbL1);
-        const verbsK = Math.max(lsVerbs, sbVerbs);
-        applyTracker(l1K, verbsK);
+        const l1K    = Math.max(lsL1,    data[0].l1_known    || 0);
+        const l2K    = Math.max(lsL2,    data[0].l2_known    || 0);
+        const verbsK = Math.max(lsVerbs, data[0].verbs_known || 0);
+        applyTracker(l1K, l2K, verbsK);
       }
     } catch(e) {}
   });
 
-  function applyTracker(l1K, verbsK) {
-    const totalK   = l1K + verbsK;
+  function applyTracker(l1K, l2K, verbsK) {
+    const totalK   = l1K + l2K + verbsK;
     const l1Pct    = Math.round((l1K    / L1_TOTAL)    * 100);
+    const l2Pct    = Math.round((l2K    / L2_TOTAL)    * 100);
     const verbsPct = Math.round((verbsK / VERBS_TOTAL)  * 100);
     const totalPct = Math.round((totalK / GRAND_TOTAL)  * 100);
 
@@ -572,6 +601,8 @@
     // Topic cards
     document.getElementById('bar-l1').style.width    = l1Pct    + '%';
     document.getElementById('pct-l1').textContent    = l1Pct    + '%';
+    document.getElementById('bar-l2').style.width    = l2Pct    + '%';
+    document.getElementById('pct-l2').textContent    = l2Pct    + '%';
     document.getElementById('bar-verbs').style.width = verbsPct + '%';
     document.getElementById('pct-verbs').textContent = verbsPct + '%';
 
@@ -592,14 +623,17 @@
     // Per-topic bars
     document.getElementById('tt-l1-bar').style.width     = l1Pct    + '%';
     document.getElementById('tt-l1-nums').textContent    = `${l1K} / ${L1_TOTAL}`;
+    document.getElementById('tt-l2-bar').style.width     = l2Pct    + '%';
+    document.getElementById('tt-l2-nums').textContent    = `${l2K} / ${L2_TOTAL}`;
     document.getElementById('tt-verbs-bar').style.width  = verbsPct + '%';
     document.getElementById('tt-verbs-nums').textContent = `${verbsK} / ${VERBS_TOTAL}`;
 
     // Milestones
     [{ id:'ms10',threshold:10},{ id:'ms25',threshold:25},
-     { id:'ms50',threshold:50},{ id:'ms64',threshold:64}]
+     { id:'ms50',threshold:50},{ id:'ms76',threshold:76}]
     .forEach(m => {
-      document.getElementById(m.id).classList.toggle('reached', totalK >= m.threshold);
+      const el = document.getElementById(m.id);
+      if (el) el.classList.toggle('reached', totalK >= m.threshold);
     });
 
     // Timestamp
