@@ -276,7 +276,7 @@
       <div class="lc-main">
         <div class="lc-num" id="num-1">1</div>
         <div class="lc-info">
-          <div class="lc-lesson-label">Lesson 1</div>
+          <div class="lc-lesson-label">Lesson 1A</div>
           <div class="lc-title">First Class — Nice to Meet You</div>
           <div class="lc-meta">
             <span class="lc-pill" id="pill-1">📝 Выполнить</span>
@@ -289,6 +289,28 @@
     <div class="lc-vocab-strip">
       <div class="lvs-left">💬 <span>Лексика к уроку:</span> Languages & People</div>
       <a href="./vocab-languages.html" class="lvs-link">Тренировать <span>→</span></a>
+    </div>
+  </div>
+
+  <!-- LESSON 1B -->
+  <div class="lesson-card active" id="card-1b">
+    <a href="./lesson2.html" style="text-decoration:none; color:inherit;">
+      <div class="lc-main">
+        <div class="lc-num" id="num-1b">2</div>
+        <div class="lc-info">
+          <div class="lc-lesson-label">Lesson 2</div>
+          <div class="lc-title">Talking About Languages</div>
+          <div class="lc-meta">
+            <span class="lc-pill" id="pill-1b">📝 Выполнить</span>
+            <span class="lc-score" id="score-1b"></span>
+          </div>
+        </div>
+        <div class="lc-arrow">→</div>
+      </div>
+    </a>
+    <div class="lc-vocab-strip">
+      <div class="lvs-left">💬 <span>Лексика к уроку:</span> Talking About Languages</div>
+      <a href="./vocab-lesson2.html" class="lvs-link">Тренировать <span>→</span></a>
     </div>
   </div>
 
@@ -359,64 +381,61 @@
 <script>
   const SB_URL = 'https://epbjohhpsvcslcbbcytg.supabase.co/rest/v1';
   const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVwYmpvaGhwc3Zjc2xjYmJjeXRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIxMjU2NzAsImV4cCI6MjA5NzcwMTY3MH0.MMfkWzczZZe6irkqdl6OCPaKjiWiORmcToc6og8bupA';
+  const TOTAL = 2;
 
-  const TOTAL = 1;
+  function applyCard(numId, pillId, scoreId, isDone, score, lessonNum) {
+    const num  = document.getElementById(numId);
+    const pill = document.getElementById(pillId);
+    const sc   = document.getElementById(scoreId);
+    if (isDone) {
+      num.className   = 'lc-num num-done';
+      num.textContent = '✓';
+      pill.className  = 'lc-pill pill-done';
+      pill.textContent = '✅ Сдано';
+      sc.textContent  = 'Результат: ' + score;
+    } else {
+      num.className   = 'lc-num num-active';
+      num.textContent = lessonNum;
+      pill.className  = 'lc-pill pill-current';
+      pill.textContent = '📝 Выполнить';
+    }
+  }
 
   window.addEventListener('load', async () => {
-    let hw1Score = null;
+    let hw1Score = null, hw2Score = null;
 
-    // 1. Try Supabase first
+    // Supabase
     try {
       const r = await fetch(
-        `${SB_URL}/progress?student=eq.elina&select=hw1_score`,
+        `${SB_URL}/progress?student=eq.elina&select=hw1_score,hw2_score`,
         { headers: { 'apikey': SB_KEY, 'Authorization': `Bearer ${SB_KEY}` } }
       );
       const data = await r.json();
       if (data && data[0]) {
         const d = data[0];
-        if (d.hw1_score && d.hw1_score !== '' && d.hw1_score !== '0/0') {
-          hw1Score = d.hw1_score;
-          localStorage.setItem('elina_hw1_score', hw1Score);
-        }
+        if (d.hw1_score) { hw1Score = d.hw1_score; localStorage.setItem('elina_hw1_score', hw1Score); }
+        if (d.hw2_score) { hw2Score = d.hw2_score; localStorage.setItem('elina_hw2_score', hw2Score); }
       }
     } catch(e) {}
 
-    // 2. Fallback to localStorage
-    if (!hw1Score) {
-      const ls = localStorage.getItem('elina_hw1_score');
-      if (ls && ls !== '' && ls !== '0/0') hw1Score = ls;
-    }
+    // localStorage fallback
+    if (!hw1Score) { const ls = localStorage.getItem('elina_hw1_score'); if (ls) hw1Score = ls; }
+    if (!hw2Score) { const ls = localStorage.getItem('elina_hw2_score'); if (ls) hw2Score = ls; }
 
-    const isDone = !!hw1Score;
+    const done1 = !!hw1Score, done2 = !!hw2Score;
 
-    // ── Update card 1 ──
-    const num1  = document.getElementById('num-1');
-    const pill1 = document.getElementById('pill-1');
-    const sc1   = document.getElementById('score-1');
+    applyCard('num-1',  'pill-1',  'score-1',  done1, hw1Score, '1');
+    applyCard('num-1b', 'pill-1b', 'score-1b', done2, hw2Score, '2');
 
-    if (isDone) {
-      num1.className  = 'lc-num num-done';
-      num1.textContent = '✓';
-      pill1.className  = 'lc-pill pill-done';
-      pill1.textContent = '✅ Сдано';
-      sc1.textContent  = 'Результат: ' + hw1Score;
-      document.getElementById('sectionDone').style.display = '';
-    } else {
-      num1.className  = 'lc-num num-active';
-      num1.textContent = '1';
-      pill1.className  = 'lc-pill pill-current';
-      pill1.textContent = '📝 Выполнить';
-    }
+    if (done1 || done2) document.getElementById('sectionDone').style.display = '';
 
-    // ── Counters ──
-    const done = isDone ? 1 : 0;
+    const done = (done1 ? 1 : 0) + (done2 ? 1 : 0);
     const pct  = Math.round((done / TOTAL) * 100);
-
-    document.getElementById('statDone').textContent        = done;
-    document.getElementById('statTotal').textContent       = TOTAL;
-    document.getElementById('statPct').textContent         = pct + '%';
-    document.getElementById('heroProgress').style.width    = pct + '%';
-    document.getElementById('heroLabel').textContent       = `${done} из ${TOTAL} выполнено`;
+    document.getElementById('statDone').textContent     = done;
+    document.getElementById('statTotal').textContent    = TOTAL;
+    document.getElementById('statPct').textContent      = pct + '%';
+    document.getElementById('heroProgress').style.width = pct + '%';
+    document.getElementById('heroLabel').textContent    = `${done} из ${TOTAL} выполнено`;
   });
 </script>
 </body>
