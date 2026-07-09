@@ -210,19 +210,25 @@ function catInfo(cat){ return CATEGORIES[cat]; }
 function badgeHTML(cat){ const c=catInfo(cat); return `${c.emoji} ${c.short}`; }
 function escapeAttr(s){ return String(s).replace(/'/g,"&#39;").replace(/"/g,'&quot;'); }
 
-function saveToSupabase(){
+async function saveToSupabase(){
   const known = WORDS.filter(w=>getStatus(w.eng)===2).length;
   const learning = WORDS.filter(w=>getStatus(w.eng)===1).length;
   const total = WORDS.length;
   const percent = Math.round((known/total)*100);
   const answers = { statuses: statusMap, review: reviewWords, known, learning, total };
 
-  // 1) Сохраняем прогресс словаря в общую таблицу progress, чтобы Vocabulary Hub считал автоматически.
-  fetch(`${SB_URL}/progress?on_conflict=student`,{
-    method:'POST',
-    headers:{'Content-Type':'application/json','apikey':SB_KEY,'Authorization':`Bearer ${SB_KEY}`,'Prefer':'resolution=merge-duplicates,return=minimal'},
-    body:JSON.stringify({student:'elina',l3_known:known,updated_at:new Date().toISOString()})
-  }).catch(()=>{});
+  // 1) Сохраняем прогресс словаря в общую таблицу progress, чтобы Hub и главная считали автоматически.
+  try {
+    const read = await fetch(`${SB_URL}/progress?student=eq.elina&select=vocab_progress`, { headers:{'apikey':SB_KEY,'Authorization':`Bearer ${SB_KEY}`} });
+    const rows = await read.json();
+    const current = (rows && rows[0] && rows[0].vocab_progress) || {};
+    const vocab_progress = { ...current, '3': { known, total, percent, updated_at:new Date().toISOString() } };
+    await fetch(`${SB_URL}/progress?on_conflict=student`,{
+      method:'POST',
+      headers:{'Content-Type':'application/json','apikey':SB_KEY,'Authorization':`Bearer ${SB_KEY}`,'Prefer':'resolution=merge-duplicates,return=minimal'},
+      body:JSON.stringify({student:'elina',l3_known:known,vocab_progress,updated_at:new Date().toISOString()})
+    });
+  } catch(e) {}
 
   // 2) Оставляем подробный лог в homework_results, если он уже используется для отчётов.
   fetch(`${SB_URL}/homework_results`,{
