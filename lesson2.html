@@ -900,6 +900,67 @@
     document.getElementById('liveScore').textContent = ex1Score+ex2Score+ex3Score+ex4Score;
   }
 
+  function cleanText(el) {
+    return (el?.textContent || '').replace(/^[a-z]\s*/i, '').replace(/\s+/g, ' ').trim();
+  }
+
+  function cleanText(el) {
+    return (el?.textContent || '')
+      .replace(/^[a-z]\s*/i, '')
+      .replace(/\s+/g, ' ')
+      .trim() || 'ничего';
+  }
+
+  function selectedText(sel) {
+    return sel ? cleanText(sel) : 'ничего';
+  }
+
+  function collectAnswers() {
+    return {
+      ex1: Object.fromEntries(['s1a','s1b','s2a','s2b','s3','s4','s5','s6'].map(id => [id, document.getElementById(id)?.value || ''])),
+      ex2: [...document.querySelectorAll('.wt-btn.selected, .wt-btn.correct')].map(b => ({ q: b.dataset.q, answer: b.dataset.val || cleanText(b) })),
+      ex3: {
+        opposites: [...document.querySelectorAll('.opp-btn.selected, .opp-btn.correct')].map(b => ({ q: b.dataset.q, answer: cleanText(b) })),
+        makeDo: [...document.querySelectorAll('.md-btn.selected, .md-btn.correct')].map(b => ({ q: b.dataset.q, answer: b.dataset.val || cleanText(b) })),
+        prepositions: ['prep1','prep2','prep3','prep4'].map(id => ({ id, answer: document.getElementById(id)?.value || '' })),
+        stress: [...document.querySelectorAll('.str-btn.selected, .str-btn.correct')].map(b => ({ q: b.dataset.q, answer: cleanText(b) })),
+        silent: ['sil1','sil2','sil3','sil4'].map(id => ({ id, answer: document.getElementById(id)?.value || '' }))
+      },
+      ex4: [...document.querySelectorAll('.mc-btn.selected, .mc-btn.correct')].map(b => ({ q: b.dataset.q, answer: b.dataset.val || '', text: cleanText(b) }))
+    };
+  }
+
+  async function saveProgress(payload) {
+    const headers = {
+      'Content-Type': 'application/json',
+      'apikey': SB_KEY,
+      'Authorization': `Bearer ${SB_KEY}`,
+      'Prefer': 'resolution=merge-duplicates,return=minimal'
+    };
+
+    // Если в Supabase уже добавлены колонки hw2_report/hw2_answers — сохранит всё.
+    // Если колонок нет — автоматически повторит сохранение только с существующими полями.
+    const extended = await fetch(`${SB_URL}/progress`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(payload)
+    });
+
+    if (!extended.ok) {
+      const minimal = {
+        student: payload.student,
+        hw2_score: payload.hw2_score,
+        hw2_done: payload.hw2_done,
+        updated_at: payload.updated_at
+      };
+      await fetch(`${SB_URL}/progress`, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify(minimal)
+      });
+    }
+  }
+
   // ── EX 1 ──
   function checkEx1() {
     ex1Score=0; ex1Errors=[];
@@ -936,7 +997,7 @@
       });
       if(!sel||sel.dataset.correct!=='true') {
         const correct=[...btns].find(b=>b.dataset.correct==='true');
-        ex2Errors.push(`Упр.2 (${i}): правильно «${correct?.dataset.val||'?'}»`);
+        ex2Errors.push(`Упр.2 (${i}): правильно «${correct?.dataset.val||'?'}», выбрала «${sel?.dataset.val||'ничего'}»`);
       }
     }
     ex2Checked=true;
@@ -962,19 +1023,24 @@
     btn.classList.add('selected');
   }
 
-  function checkGroup(selector,scoreRef) {
+  function checkGroup(selector, label) {
     let s=0, errs=[];
+    const seen = new Set();
     document.querySelectorAll(selector).forEach(btn=>{
-      const q=btn.dataset.q; if(!q) return;
+      const q=btn.dataset.q; if(!q || seen.has(q)) return;
+      seen.add(q);
       const all=document.querySelectorAll(`${selector}[data-q="${q}"]`);
       if([...all].some(b=>b.disabled)) return; // already checked
       const sel=[...all].find(b=>b.classList.contains('selected'));
+      const correct=[...all].find(b=>b.dataset.correct==='true');
       all.forEach(b=>{
         b.disabled=true;
         if(b.dataset.correct==='true'){if(b===sel){b.classList.add('correct');s++;}else b.classList.add('reveal');}
         else if(b===sel) b.classList.add('wrong');
       });
-      if(!sel||sel.dataset.correct!=='true') errs.push(q);
+      if(!sel||sel.dataset.correct!=='true') {
+        errs.push(`${label} (${q}): правильно «${selectedText(correct)}», выбрала «${selectedText(sel)}»`);
+      }
     });
     return {s,errs};
   }
@@ -982,20 +1048,20 @@
   function checkEx3() {
     ex3Score=0; ex3Errors=[];
     // 3.1 opposites
-    const r1=checkGroup('.opp-btn');
-    ex3Score+=r1.s; r1.errs.forEach(q=>ex3Errors.push(`Упр.3.1 (${q})`));
+    const r1=checkGroup('.opp-btn', 'Упр.3.1');
+    ex3Score+=r1.s; ex3Errors.push(...r1.errs);
     // 3.2 make/do
-    const r2=checkGroup('.md-btn');
-    ex3Score+=r2.s; r2.errs.forEach(q=>ex3Errors.push(`Упр.3.2 (${q})`));
+    const r2=checkGroup('.md-btn', 'Упр.3.2');
+    ex3Score+=r2.s; ex3Errors.push(...r2.errs);
     // 3.3 prepositions
     ['prep1','prep2','prep3','prep4'].forEach(id=>{
       const el=document.getElementById(id); el.disabled=true;
       if(el.value===el.dataset.correct){el.classList.add('correct');ex3Score++;}
-      else{el.classList.add('wrong');ex3Errors.push(`Упр.3.3 (${id}): правильно «${el.dataset.correct}»`);}
+      else{el.classList.add('wrong');ex3Errors.push(`Упр.3.3 (${id}): правильно «${el.dataset.correct}», выбрала «${el.value||'ничего'}»`);}
     });
     // 3.4 stress
-    const r4=checkGroup('.str-btn');
-    ex3Score+=r4.s; r4.errs.forEach(q=>ex3Errors.push(`Упр.3.4 (${q})`));
+    const r4=checkGroup('.str-btn', 'Упр.3.4');
+    ex3Score+=r4.s; ex3Errors.push(...r4.errs);
     // 3.5 silent
     const silAnswers={sil1:'h',sil2:'k',sil3:'w',sil4:'g'};
     const silWords={sil1:'honest',sil2:'knowledge',sil3:'write',sil4:'foreign'};
@@ -1008,7 +1074,7 @@
       } else {
         el.classList.add('wrong');
         if(hint){hint.textContent=`→ «${correct}» не произносится`; hint.style.color='#dc2626';}
-        ex3Errors.push(`Упр.3.5 (${silWords[id]}): немая буква — «${correct}»`);
+        ex3Errors.push(`Упр.3.5 (${silWords[id]}): правильно «${correct}», выбрала «${el.value||'ничего'}»`);
       }
     });
     ex3Checked=true;
@@ -1035,12 +1101,40 @@
         if(b.dataset.correct==='true'){if(b===sel){b.classList.add('correct');ex4Score++;}else b.classList.add('reveal');}
         else if(b===sel) b.classList.add('wrong');
       });
-      if(!sel||sel.dataset.correct!=='true') ex4Errors.push(`Упр.4 (вопрос ${i})`);
+      if(!sel||sel.dataset.correct!=='true') {
+        const correct=[...btns].find(b=>b.dataset.correct==='true');
+        ex4Errors.push(`Упр.4 (вопрос ${i}): правильно «${selectedText(correct)}», выбрала «${selectedText(sel)}»`);
+      }
     }
     ex4Checked=true;
     document.getElementById('checkBtn4').disabled=true;
     document.getElementById('checkBtn4').textContent=`✓ Проверено — ${ex4Score}/5`;
     updateLive();
+  }
+
+  function collectHw2Answers() {
+    return {
+      ex1: Object.fromEntries(['s1a','s1b','s2a','s2b','s3','s4','s5','s6'].map(id => [id, document.getElementById(id)?.value || ''])),
+      ex2: [...document.querySelectorAll('.wt-btn.selected')].map(b => ({ q: b.dataset.q, answer: b.dataset.val || cleanText(b), correct: b.dataset.correct === 'true' })),
+      ex3: {
+        opposites: [...document.querySelectorAll('.opp-btn.selected')].map(b => ({ q: b.dataset.q, answer: cleanText(b), correct: b.dataset.correct === 'true' })),
+        makeDo: [...document.querySelectorAll('.md-btn.selected')].map(b => ({ q: b.dataset.q, answer: b.dataset.val || cleanText(b), correct: b.dataset.correct === 'true' })),
+        prepositions: ['prep1','prep2','prep3','prep4'].map(id => ({ id, answer: document.getElementById(id)?.value || '', correctAnswer: document.getElementById(id)?.dataset.correct || '' })),
+        stress: [...document.querySelectorAll('.str-btn.selected')].map(b => ({ q: b.dataset.q, answer: cleanText(b), correct: b.dataset.correct === 'true' })),
+        silent: ['sil1','sil2','sil3','sil4'].map(id => ({ id, answer: document.getElementById(id)?.value || '', correctAnswer: document.getElementById(id)?.dataset.correct || '' }))
+      },
+      ex4: [...document.querySelectorAll('.mc-btn.selected')].map(b => ({ q: b.dataset.q, answer: b.dataset.val || cleanText(b), text: cleanText(b), correct: b.dataset.correct === 'true' }))
+    };
+  }
+
+  async function saveHw2Progress(payload) {
+    const headers = {'Content-Type':'application/json','apikey':SB_KEY,'Authorization':`Bearer ${SB_KEY}`,'Prefer':'resolution=merge-duplicates,return=minimal'};
+    let r = await fetch(`${SB_URL}/progress`, { method:'POST', headers, body:JSON.stringify(payload) });
+    if (!r.ok && ('hw2_report' in payload || 'hw2_answers' in payload)) {
+      const minimal = { student:payload.student, hw2_score:payload.hw2_score, hw2_done:payload.hw2_done, updated_at:payload.updated_at };
+      r = await fetch(`${SB_URL}/progress`, { method:'POST', headers, body:JSON.stringify(minimal) });
+    }
+    return r;
   }
 
   // ── SUBMIT ──
@@ -1073,17 +1167,25 @@
     tg+=`Упр.1: ${ex1Score}/8 · Упр.2: ${ex2Score}/9 · Упр.3: ${ex3Score}/27 · Упр.4 (Listening): ${ex4Score}/5\n\n`;
     if(allErrors.length>0){
       tg+=`❌ *Ошибки:*\n`;
-      allErrors.slice(0,15).forEach(e=>{tg+=`• ${e}\n`;});
+      allErrors.forEach(e=>{tg+=`• ${e}\n`;});
     } else { tg+=`✅ Все ответы верны!`; }
 
     // Supabase + Telegram параллельно, независимо
     localStorage.setItem('elina_hw2_score', score);
+    localStorage.setItem('elina_hw2_report', tg);
+    localStorage.setItem('elina_hw2_answers', JSON.stringify(collectAnswers()));
+
+    const progressPayload = {
+      student: 'elina',
+      hw2_score: score,
+      hw2_done: true,
+      hw2_report: tg,
+      hw2_answers: collectAnswers(),
+      updated_at: new Date().toISOString()
+    };
+
     await Promise.allSettled([
-      fetch(`${SB_URL}/progress`,{
-        method:'POST',
-        headers:{'Content-Type':'application/json','apikey':SB_KEY,'Authorization':`Bearer ${SB_KEY}`,'Prefer':'resolution=merge-duplicates,return=minimal'},
-        body:JSON.stringify({student:'elina',hw2_score:score,hw2_done:true,updated_at:new Date().toISOString()})
-      }),
+      saveProgress(progressPayload),
       fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`,{
         method:'POST',
         headers:{'Content-Type':'application/json'},
