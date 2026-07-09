@@ -457,7 +457,7 @@
   <div class="section-title">✅ Доступно</div>
 
   <!-- Lesson 1 -->
-  <a href="./vocab-languages.html" class="vocab-card active">
+  <a href="./vocab-languages.html" class="vocab-card active vocab-item" data-topic="l1" data-title="💬 Languages & People" data-total="14" data-sb-field="l1_known" data-ls-key="elina_vocab_l1_known" data-ls-mode="array">
     <div class="vc-main">
       <div class="vc-icon icon-active">💬</div>
       <div class="vc-info">
@@ -476,7 +476,7 @@
   </a>
 
   <!-- Lesson 2 -->
-  <a href="./vocab-lesson2.html" class="vocab-card active">
+  <a href="./vocab-lesson2.html" class="vocab-card active vocab-item" data-topic="l2" data-title="🗣️ Talking About Languages" data-total="12" data-sb-field="l2_known" data-ls-key="elina_vocab_l2_known" data-ls-mode="array">
     <div class="vc-main">
       <div class="vc-icon icon-active">🗣️</div>
       <div class="vc-info">
@@ -495,7 +495,7 @@
   </a>
 
   <!-- Lesson 3 -->
-  <a href="./vocab-lesson3-fixed.html" class="vocab-card active">
+  <a href="./vocab-lesson3.html" class="vocab-card active vocab-item" data-topic="l3" data-title="💬 Feelings & Responses" data-total="40" data-sb-field="l3_known" data-ls-key="elina_vocab_l3_status" data-ls-mode="status-object">
     <div class="vc-main">
       <div class="vc-icon icon-active">💬</div>
       <div class="vc-info">
@@ -514,7 +514,7 @@
   </a>
 
   <!-- Irregular Verbs — always available -->
-  <a href="./vocab-irregular-verbs.html" class="verbs-card">
+  <a href="./vocab-irregular-verbs.html" class="verbs-card vocab-item" data-topic="verbs" data-title="📌 Irregular Verbs" data-total="50" data-sb-field="verbs_known" data-ls-key="elina_vocab_verbs_known" data-ls-mode="array">
     <div class="vc-main">
       <div class="vc-icon">📌</div>
       <div class="vc-info">
@@ -571,96 +571,103 @@
   const SB_URL  = 'https://epbjohhpsvcslcbbcytg.supabase.co/rest/v1';
   const SB_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVwYmpvaGhwc3Zjc2xjYmJjeXRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIxMjU2NzAsImV4cCI6MjA5NzcwMTY3MH0.MMfkWzczZZe6irkqdl6OCPaKjiWiORmcToc6og8bupA';
 
-  const L1_TOTAL    = 14;
-  const L2_TOTAL    = 12;
-  const L3_TOTAL    = 40;
-  const VERBS_TOTAL = 50;
-  const GRAND_TOTAL = L1_TOTAL + L2_TOTAL + L3_TOTAL + VERBS_TOTAL; // 116
+  const vocabItems = () => [...document.querySelectorAll('.vocab-item[data-topic][data-total]')];
+  const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
+
+  function localKnown(item) {
+    const key = item.dataset.lsKey;
+    const mode = item.dataset.lsMode;
+    if (!key) return 0;
+    try {
+      const raw = JSON.parse(localStorage.getItem(key) || (mode === 'status-object' ? '{}' : '[]'));
+      if (mode === 'status-object') return Object.values(raw).filter(v => Number(v) === 2).length;
+      return Array.isArray(raw) ? raw.length : 0;
+    } catch(e) { return 0; }
+  }
 
   window.addEventListener('load', async () => {
-    // 1. Сразу показываем из localStorage
-    const lsL1    = JSON.parse(localStorage.getItem('elina_vocab_l1_known')    || '[]').length;
-    const lsL2    = JSON.parse(localStorage.getItem('elina_vocab_l2_known')    || '[]').length;
-    const l3Status = JSON.parse(localStorage.getItem('elina_vocab_l3_status') || '{}');
-    const lsL3    = Object.values(l3Status).filter(v => Number(v) === 2).length;
-    const lsVerbs = JSON.parse(localStorage.getItem('elina_vocab_verbs_known') || '[]').length;
-    applyTracker(lsL1, lsL2, lsL3, lsVerbs);
+    const items = vocabItems();
+    const localProgress = Object.fromEntries(items.map(item => [item.dataset.topic, localKnown(item)]));
+    applyTracker(localProgress);
 
-    // 2. Обновляем из Supabase (берём максимум)
     try {
+      const fields = [...new Set(items.map(item => item.dataset.sbField).filter(Boolean))].join(',');
       const r = await fetch(
-        `${SB_URL}/progress?student=eq.elina&select=*`,
+        `${SB_URL}/progress?student=eq.elina&select=${fields}`,
         { headers: { 'apikey': SB_KEY, 'Authorization': `Bearer ${SB_KEY}` } }
       );
       const data = await r.json();
       if (data && data[0]) {
-        const l1K    = Math.max(lsL1,    data[0].l1_known    || 0);
-        const l2K    = Math.max(lsL2,    data[0].l2_known    || 0);
-        const l3K    = Math.max(lsL3,    data[0].l3_known    || 0);
-        const verbsK = Math.max(lsVerbs, data[0].verbs_known || 0);
-        applyTracker(l1K, l2K, l3K, verbsK);
+        const merged = {};
+        items.forEach(item => {
+          const topic = item.dataset.topic;
+          const sbField = item.dataset.sbField;
+          merged[topic] = Math.max(localProgress[topic] || 0, data[0][sbField] || 0);
+        });
+        applyTracker(merged);
       }
     } catch(e) {}
   });
 
-  function applyTracker(l1K, l2K, l3K, verbsK) {
-    const totalK   = l1K + l2K + l3K + verbsK;
-    const l1Pct    = Math.round((l1K    / L1_TOTAL)    * 100);
-    const l2Pct    = Math.round((l2K    / L2_TOTAL)    * 100);
-    const l3Pct    = Math.round((l3K    / L3_TOTAL)    * 100);
-    const verbsPct = Math.round((verbsK / VERBS_TOTAL)  * 100);
-    const totalPct = Math.round((totalK / GRAND_TOTAL)  * 100);
+  function setText(id, value) {
+    const el = document.getElementById(id);
+    if (el) el.textContent = value;
+  }
+  function setWidth(id, pct) {
+    const el = document.getElementById(id);
+    if (el) el.style.width = pct + '%';
+  }
 
-    // Hero
-    document.getElementById('heroTotalNum').textContent = GRAND_TOTAL;
-    document.getElementById('heroKnownNum').textContent = totalK;
+  function applyTracker(knownByTopic) {
+    const items = vocabItems();
+    let grandTotal = 0;
+    let totalKnown = 0;
 
-    // Topic cards
-    document.getElementById('bar-l1').style.width    = l1Pct    + '%';
-    document.getElementById('pct-l1').textContent    = l1Pct    + '%';
-    document.getElementById('bar-l2').style.width    = l2Pct    + '%';
-    document.getElementById('pct-l2').textContent    = l2Pct    + '%';
-    document.getElementById('bar-l3').style.width    = l3Pct    + '%';
-    document.getElementById('pct-l3').textContent    = l3Pct    + '%';
-    document.getElementById('bar-verbs').style.width = verbsPct + '%';
-    document.getElementById('pct-verbs').textContent = verbsPct + '%';
+    items.forEach(item => {
+      const topic = item.dataset.topic;
+      const total = Number(item.dataset.total || 0);
+      const known = clamp(Number(knownByTopic[topic] || 0), 0, total);
+      const pct = total ? Math.round((known / total) * 100) : 0;
+      grandTotal += total;
+      totalKnown += known;
 
-    // Ring
+      setText(`count-${topic}`, topic === 'verbs' ? `${total} глаголов` : `${total} слов`);
+      setWidth(`bar-${topic}`, pct);
+      setText(`pct-${topic}`, pct + '%');
+      setWidth(`tt-${topic}-bar`, pct);
+      setText(`tt-${topic}-nums`, `${known} / ${total}`);
+    });
+
+    const totalPct = grandTotal ? Math.round((totalKnown / grandTotal) * 100) : 0;
+
+    setText('heroTotalNum', grandTotal);
+    setText('heroKnownNum', totalKnown);
+    setText('tnTotal', grandTotal);
+    setText('tnKnown', totalKnown);
+    setText('tnLeft', grandTotal - totalKnown);
+    setText('ringPct', totalPct + '%');
+
     const circumference = 2 * Math.PI * 36;
     const offset = circumference - (totalPct / 100) * circumference;
     const ring = document.getElementById('ringFill');
-    ring.style.strokeDasharray  = circumference;
-    ring.style.strokeDashoffset = circumference;
-    setTimeout(() => { ring.style.strokeDashoffset = offset; }, 100);
-    document.getElementById('ringPct').textContent = totalPct + '%';
+    if (ring) {
+      ring.style.strokeDasharray = circumference;
+      ring.style.strokeDashoffset = circumference;
+      setTimeout(() => { ring.style.strokeDashoffset = offset; }, 100);
+    }
 
-    // Numbers
-    document.getElementById('tnTotal').textContent = GRAND_TOTAL;
-    document.getElementById('tnKnown').textContent = totalK;
-    document.getElementById('tnLeft').textContent  = GRAND_TOTAL - totalK;
-
-    // Per-topic bars
-    document.getElementById('tt-l1-bar').style.width     = l1Pct    + '%';
-    document.getElementById('tt-l1-nums').textContent    = `${l1K} / ${L1_TOTAL}`;
-    document.getElementById('tt-l2-bar').style.width     = l2Pct    + '%';
-    document.getElementById('tt-l2-nums').textContent    = `${l2K} / ${L2_TOTAL}`;
-    document.getElementById('tt-l3-bar').style.width     = l3Pct    + '%';
-    document.getElementById('tt-l3-nums').textContent    = `${l3K} / ${L3_TOTAL}`;
-    document.getElementById('tt-verbs-bar').style.width  = verbsPct + '%';
-    document.getElementById('tt-verbs-nums').textContent = `${verbsK} / ${VERBS_TOTAL}`;
-
-    // Milestones
-    [{ id:'ms10',threshold:10},{ id:'ms25',threshold:25},
-     { id:'ms50',threshold:50},{ id:'ms116',threshold:116}]
-    .forEach(m => {
-      const el = document.getElementById(m.id);
-      if (el) el.classList.toggle('reached', totalK >= m.threshold);
+    const milestoneValues = [10, 25, 50, grandTotal];
+    ['ms10','ms25','ms50','ms76'].forEach((id, index) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const threshold = milestoneValues[index];
+      el.classList.toggle('reached', totalKnown >= threshold);
+      const label = el.querySelector('.ms-label');
+      if (label && id === 'ms76') label.textContent = 'Все!';
     });
 
-    // Timestamp
     const now = new Date();
-    document.getElementById('trackerUpdated').textContent =
-      `${now.getHours()}:${String(now.getMinutes()).padStart(2,'0')}`;
+    setText('trackerUpdated', `${now.getHours()}:${String(now.getMinutes()).padStart(2,'0')}`);
   }
 </script>
 </body>
