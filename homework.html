@@ -237,7 +237,7 @@
     <div class="progress-bar-wrap">
       <div class="progress-bar-fill" id="heroProgress" style="width:0%"></div>
     </div>
-    <div class="progress-label" id="heroLabel">0 из 1 выполнено</div>
+    <div class="progress-label" id="heroLabel">0 из 3 выполнено</div>
   </div>
 </div>
 <div class="hero-wave">
@@ -256,7 +256,7 @@
       <div class="sc-lbl">Выполнено</div>
     </div>
     <div class="stat-chip chip-total">
-      <div class="sc-num" id="statTotal">1</div>
+      <div class="sc-num" id="statTotal">3</div>
       <div class="sc-lbl">Всего уроков</div>
     </div>
     <div class="stat-chip chip-pct">
@@ -318,16 +318,25 @@
   <div class="section-title" id="sectionUpcoming">🔒 Предстоящие</div>
 
   <!-- LESSON 3 -->
-  <div class="lesson-card locked">
-    <div class="lc-main">
-      <div class="lc-num num-locked">3</div>
-      <div class="lc-info">
-        <div class="lc-lesson-label">Lesson 3</div>
-        <div class="lc-title">Coming soon…</div>
-        <div class="lc-meta"><span class="lc-pill pill-locked">🔒 Скоро</span></div>
+  <div class="lesson-card active" id="card-3">
+    <a href="./lesson3_progress.html" style="text-decoration:none; color:inherit;">
+      <div class="lc-main">
+        <div class="lc-num" id="num-3">3</div>
+        <div class="lc-info">
+          <div class="lc-lesson-label">Lesson 3</div>
+          <div class="lc-title">Feelings</div>
+          <div class="lc-meta">
+            <span class="lc-pill" id="pill-3">📝 Выполнить</span>
+            <span class="lc-score" id="score-3"></span>
+          </div>
+        </div>
+        <div class="lc-arrow">→</div>
       </div>
+    </a>
+    <div class="lc-vocab-strip">
+      <div class="lvs-left">💬 <span>Лексика к уроку:</span> Feelings & Responses</div>
+      <a href="./vocab-lesson3-fixed.html" class="lvs-link">Тренировать <span>→</span></a>
     </div>
-    <div class="locked-strip">🔒 Задание появится после урока 3</div>
   </div>
 
   <!-- LESSON 4 -->
@@ -381,7 +390,7 @@
 <script>
   const SB_URL = 'https://epbjohhpsvcslcbbcytg.supabase.co/rest/v1';
   const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVwYmpvaGhwc3Zjc2xjYmJjeXRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIxMjU2NzAsImV4cCI6MjA5NzcwMTY3MH0.MMfkWzczZZe6irkqdl6OCPaKjiWiORmcToc6og8bupA';
-  const TOTAL = 2;
+  const TOTAL = 3;
 
   function applyCard(numId, pillId, scoreId, isDone, score, lessonNum) {
     const num  = document.getElementById(numId);
@@ -402,12 +411,12 @@
   }
 
   window.addEventListener('load', async () => {
-    let hw1Score = null, hw2Score = null;
+    let hw1Score = null, hw2Score = null, hw3Score = null;
 
     // Supabase
     try {
       const r = await fetch(
-        `${SB_URL}/progress?student=eq.elina&select=hw1_score,hw2_score`,
+        `${SB_URL}/progress?student=eq.elina&select=hw1_score,hw2_score,hw_scores`,
         { headers: { 'apikey': SB_KEY, 'Authorization': `Bearer ${SB_KEY}` } }
       );
       const data = await r.json();
@@ -415,21 +424,24 @@
         const d = data[0];
         if (d.hw1_score) { hw1Score = d.hw1_score; localStorage.setItem('elina_hw1_score', hw1Score); }
         if (d.hw2_score) { hw2Score = d.hw2_score; localStorage.setItem('elina_hw2_score', hw2Score); }
+        if (d.hw_scores && d.hw_scores['3']) { hw3Score = d.hw_scores['3']; localStorage.setItem('elina_hw3_score', hw3Score); }
       }
     } catch(e) {}
 
     // localStorage fallback
     if (!hw1Score) { const ls = localStorage.getItem('elina_hw1_score'); if (ls) hw1Score = ls; }
     if (!hw2Score) { const ls = localStorage.getItem('elina_hw2_score'); if (ls) hw2Score = ls; }
+    if (!hw3Score) { const ls = localStorage.getItem('elina_hw3_score'); if (ls) hw3Score = ls; }
 
-    const done1 = !!hw1Score, done2 = !!hw2Score;
+    const done1 = !!hw1Score, done2 = !!hw2Score, done3 = !!hw3Score;
 
     applyCard('num-1',  'pill-1',  'score-1',  done1, hw1Score, '1');
     applyCard('num-1b', 'pill-1b', 'score-1b', done2, hw2Score, '2');
+    applyCard('num-3',  'pill-3',  'score-3',  done3, hw3Score, '3');
 
-    if (done1 || done2) document.getElementById('sectionDone').style.display = '';
+    if (done1 || done2 || done3) document.getElementById('sectionDone').style.display = '';
 
-    const done = (done1 ? 1 : 0) + (done2 ? 1 : 0);
+    const done = (done1 ? 1 : 0) + (done2 ? 1 : 0) + (done3 ? 1 : 0);
     const pct  = Math.round((done / TOTAL) * 100);
     document.getElementById('statDone').textContent     = done;
     document.getElementById('statTotal').textContent    = TOTAL;
