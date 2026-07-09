@@ -216,6 +216,15 @@ function saveToSupabase(){
   const total = WORDS.length;
   const percent = Math.round((known/total)*100);
   const answers = { statuses: statusMap, review: reviewWords, known, learning, total };
+
+  // 1) Сохраняем прогресс словаря в общую таблицу progress, чтобы Vocabulary Hub считал автоматически.
+  fetch(`${SB_URL}/progress?on_conflict=student`,{
+    method:'POST',
+    headers:{'Content-Type':'application/json','apikey':SB_KEY,'Authorization':`Bearer ${SB_KEY}`,'Prefer':'resolution=merge-duplicates,return=minimal'},
+    body:JSON.stringify({student:'elina',l3_known:known,updated_at:new Date().toISOString()})
+  }).catch(()=>{});
+
+  // 2) Оставляем подробный лог в homework_results, если он уже используется для отчётов.
   fetch(`${SB_URL}/homework_results`,{
     method:'POST',
     headers:{'Content-Type':'application/json','apikey':SB_KEY,'Authorization':`Bearer ${SB_KEY}`,'Prefer':'resolution=merge-duplicates,return=minimal'},
