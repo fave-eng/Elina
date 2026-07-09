@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vocab — Lesson 3 · Feelings</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--indigo:#4f46e5;--rose:#f43f5e;--emerald:#10b981;--amber:#f59e0b;--violet:#8b5cf6;--sky:#0ea5e9;--orange:#f97316;--dark:#0f172a;--bg:#f1f5f9;--card:#fff;--text:#0f172a;--muted:#64748b;--border:#e2e8f0}
+    body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding-bottom:110px}
+    .hero{background:linear-gradient(135deg,#f43f5e 0%,#f97316 45%,#8b5cf6 100%);padding:40px 24px 56px;position:relative;overflow:hidden}
+    .hero-dots{position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(circle,rgba(255,255,255,.15) 1px,transparent 1px);background-size:28px 28px}
+    .hero-wave{display:block;width:100%;line-height:0;background:var(--bg)}.hero-wave svg{display:block;width:100%}
+    .page{max-width:760px;margin:0 auto;padding:0 20px}.hero-inner{position:relative;z-index:1}
+    .hero-back{display:inline-flex;align-items:center;gap:6px;color:rgba(255,255,255,.78);font-size:13px;font-weight:700;text-decoration:none;margin-bottom:20px}.hero-back:hover{color:#fff}
+    .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);color:#fff;font-size:12px;font-weight:700;padding:5px 14px;border-radius:100px;margin-bottom:16px}
+    .hero h1{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(26px,5vw,40px);font-weight:800;color:#fff;letter-spacing:-.5px;margin-bottom:6px}.hero p{color:rgba(255,255,255,.82);font-size:15px;line-height:1.5}
+    .hero-stats{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}.hero-stat{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.25);border-radius:100px;padding:7px 16px;color:#fff;font-size:13px;font-weight:700}
+    .section-gap{margin-top:24px}.mode-tabs{display:flex;gap:8px;margin-bottom:20px;background:var(--card);border:1.5px solid var(--border);border-radius:16px;padding:6px;box-shadow:0 2px 12px rgba(0,0,0,.05)}
+    .mode-tab{flex:1;padding:11px 6px;border:none;border-radius:11px;font-family:'Inter',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:.2s;background:transparent;color:var(--muted)}.mode-tab.active{background:var(--dark);color:#fff}
+    .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px}.stat-pill{background:var(--card);border:1.5px solid var(--border);border-radius:14px;padding:12px 10px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.04)}.sp-num{font-family:'Plus Jakarta Sans',sans-serif;font-size:22px;font-weight:800}.sp-lbl{font-size:11px;color:var(--muted);font-weight:700;margin-top:2px}.sp-total .sp-num{color:var(--indigo)}.sp-new .sp-num{color:var(--rose)}.sp-learning .sp-num{color:var(--amber)}.sp-known .sp-num{color:var(--emerald)}
+    .filter-panel{background:var(--card);border:1.5px solid var(--border);border-radius:18px;padding:16px;margin-bottom:20px;box-shadow:0 2px 12px rgba(0,0,0,.05)}.filter-title{font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:10px}.filter-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}.filter-row:last-child{margin-bottom:0}.filter-chip{padding:7px 13px;border:1.5px solid var(--border);border-radius:100px;background:#fff;font-size:12px;font-weight:700;color:var(--muted);cursor:pointer;transition:.15s}.filter-chip:hover{border-color:#a5b4fc;color:var(--indigo)}.filter-chip.active{background:var(--dark);border-color:var(--dark);color:#fff}
+    #modeFlash{display:block}#modeTest,#modeList{display:none}.card-counter{text-align:center;font-size:13px;color:var(--muted);font-weight:700;margin-bottom:12px}.card-progress{background:var(--border);border-radius:100px;height:5px;margin-bottom:22px;overflow:hidden}.card-progress-fill{height:100%;border-radius:100px;background:linear-gradient(90deg,#f43f5e,#f97316,#8b5cf6);transition:width .4s}
+    .flashcard-wrap{perspective:1000px;height:285px;margin-bottom:16px}.flashcard{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform .5s;cursor:pointer}.flashcard.flipped{transform:rotateY(180deg)}.card-face{position:absolute;inset:0;border-radius:24px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:26px;backface-visibility:hidden;-webkit-backface-visibility:hidden}.card-front{background:var(--card);border:1.5px solid var(--border);box-shadow:0 4px 20px rgba(0,0,0,.07)}.card-back{background:linear-gradient(135deg,#0f172a 0%,#334155 100%);transform:rotateY(180deg);color:#fff}.cat-badge{font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:5px 12px;border-radius:100px;margin-bottom:14px}.cf-word{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(22px,5vw,36px);font-weight:800;text-align:center;line-height:1.15;margin-bottom:10px}.cf-hint{font-size:13px;color:var(--muted);text-align:center;line-height:1.55;font-style:italic}.cf-tap{position:absolute;bottom:15px;font-size:11px;color:#94a3b8;font-weight:700}.cb-trans{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(18px,4vw,28px);font-weight:800;text-align:center;line-height:1.2;margin-bottom:10px}.cb-note{font-size:13px;color:rgba(255,255,255,.78);text-align:center;line-height:1.55}.cb-prep{font-size:13px;font-weight:800;color:#fde68a;margin-top:8px}
+    .status-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}.status-btn{border:none;border-radius:14px;padding:13px 8px;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:800;cursor:pointer;transition:.2s}.status-btn:hover{transform:translateY(-1px)}.st-new{background:#ffe4e6;color:#9f1239}.st-learning{background:#fef3c7;color:#92400e}.st-known{background:#d1fae5;color:#065f46}.next-row{display:flex;gap:10px;margin-bottom:18px}.small-btn{flex:1;background:#fff;border:1.5px solid var(--border);border-radius:13px;padding:12px;font-weight:800;color:var(--muted);cursor:pointer}.small-btn:hover{border-color:#a5b4fc;color:var(--indigo)}.finish-screen{display:none;text-align:center;background:var(--card);border-radius:22px;border:1.5px solid var(--border);padding:36px 24px;margin-bottom:20px}.finish-screen.show{display:block}.fs-emoji{font-size:48px;margin-bottom:10px}.finish-screen h2{font-family:'Plus Jakarta Sans',sans-serif;font-size:22px;font-weight:800;margin-bottom:6px}.finish-screen p{font-size:14px;color:var(--muted);line-height:1.6}.restart-btn{width:100%;background:var(--dark);color:#fff;border:none;border-radius:14px;padding:16px;font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;font-weight:800;cursor:pointer;margin-bottom:16px}
+    .word-list{display:flex;flex-direction:column;gap:16px;margin-bottom:20px}.cat-section{background:var(--card);border:1.5px solid var(--border);border-radius:20px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.05)}.cat-head{padding:16px 18px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;display:flex;justify-content:space-between;align-items:center}.cat-count{font-family:'Inter',sans-serif;font-size:12px;font-weight:800;opacity:.75}.word-row{padding:14px 18px;border-top:1px solid var(--border);display:flex;align-items:flex-start;gap:12px}.wr-left{flex:1}.wr-eng{font-family:'Plus Jakarta Sans',sans-serif;font-size:16px;font-weight:800;margin-bottom:3px}.wr-ru{font-size:13px;color:var(--muted);margin-bottom:4px}.wr-ex{font-size:12px;color:#94a3b8;font-style:italic;line-height:1.45}.wr-tip{font-size:12px;color:#92400e;font-weight:800;margin-top:3px}.state-select{border:1.5px solid var(--border);border-radius:10px;padding:8px 9px;font-weight:800;background:#fff;outline:none;color:var(--text);flex-shrink:0}.state-select:focus{border-color:var(--indigo)}
+    .test-q{background:var(--card);border:1.5px solid var(--border);border-radius:22px;padding:22px 20px;margin-bottom:14px;box-shadow:0 2px 12px rgba(0,0,0,.05)}.tq-num{font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}.tq-word{font-family:'Plus Jakarta Sans',sans-serif;font-size:20px;font-weight:800;margin-bottom:4px;line-height:1.3}.tq-type{font-size:12px;color:var(--muted);font-weight:700;margin-bottom:12px}.tq-options{display:flex;flex-direction:column;gap:8px}.tq-opt{background:#f8faff;border:1.5px solid var(--border);border-radius:12px;padding:11px 14px;font-size:14px;cursor:pointer;transition:.15s;text-align:left;color:var(--text);display:flex;align-items:center;gap:10px}.tq-opt:hover:not(:disabled){border-color:#a5b4fc;background:#eef2ff}.tq-opt.selected{border-color:var(--indigo);background:#ede9fe}.tq-opt.correct{border-color:var(--emerald);background:#d1fae5;color:#065f46;font-weight:700}.tq-opt.wrong{border-color:var(--rose);background:#fee2e2;color:#991b1b}.tq-opt.reveal{border-color:var(--emerald);background:#d1fae5;color:#065f46;font-weight:700}.tq-opt:disabled{cursor:default}.tq-dot{width:18px;height:18px;border-radius:50%;border:2px solid var(--border);flex-shrink:0}.test-check-btn{width:100%;background:linear-gradient(135deg,#f43f5e,#8b5cf6);color:#fff;border:none;border-radius:14px;padding:16px;font-family:'Plus Jakarta Sans',sans-serif;font-size:16px;font-weight:800;cursor:pointer;margin-bottom:16px}.test-result{display:none;background:linear-gradient(135deg,#10b981,#059669);border-radius:18px;padding:20px;text-align:center;color:#fff;margin-bottom:20px}.test-result.show{display:block}.tr-score{font-family:'Plus Jakarta Sans',sans-serif;font-size:28px;font-weight:800}.test-result p{font-size:14px;opacity:.9;margin-top:4px}.review-box{display:none;background:#fff7ed;border:1.5px solid #fdba74;border-radius:18px;padding:16px;margin-bottom:20px}.review-box.show{display:block}.review-title{font-family:'Plus Jakarta Sans';font-weight:800;color:#9a3412;margin-bottom:8px}.review-list{font-size:13px;color:#7c2d12;line-height:1.6}
+    .c-positive{background:#d1fae5;color:#065f46}.c-negative{background:#ffe4e6;color:#9f1239}.c-strong{background:#ffedd5;color:#9a3412}.c-response{background:#ede9fe;color:#5b21b6}.c-linking{background:#dbeafe;color:#1d4ed8}.c-collocation{background:#ccfbf1;color:#0f766e}
+    .nav-pill{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#0f172a;border-radius:100px;padding:12px 24px;display:flex;gap:4px;box-shadow:0 8px 32px rgba(15,23,42,.3);z-index:900;white-space:nowrap}.nav-pill a{color:rgba(255,255,255,.6);font-size:12px;font-weight:700;text-decoration:none;padding:6px 14px;border-radius:100px;transition:.2s}.nav-pill a:hover,.nav-pill a.active{background:var(--indigo);color:#fff}
+    @media(max-width:560px){.stats-row{grid-template-columns:repeat(2,1fr)}.mode-tabs{gap:5px}.mode-tab{font-size:12px}.flashcard-wrap{height:310px}.status-row{grid-template-columns:1fr}.nav-pill{padding:10px 14px}.nav-pill a{padding:6px 10px}}
+  </style>
+</head>
+<body>
+<div class="hero">
+  <div class="hero-dots"></div>
+  <div class="page hero-inner">
+    <a href="./lesson3.html" class="hero-back">← К уроку 3</a>
+    <div class="hero-badge">💬 Vocabulary · Lesson 3</div>
+    <h1>Feelings & Responses</h1>
+    <p>Эмоции, linking verbs, response expressions и полезные фразы из Unit 2.</p>
+    <div class="hero-stats">
+      <div class="hero-stat">📚 <span id="heroTotal">0</span> слов</div>
+      <div class="hero-stat">🟢 <span id="heroKnown">0</span> знаю</div>
+      <div class="hero-stat">🟡 <span id="heroLearning">0</span> учу</div>
+      <div class="hero-stat">🔴 <span id="heroNew">0</span> новые</div>
+    </div>
+  </div>
+</div>
+<div class="hero-wave"><svg viewBox="0 0 1440 56" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="background:linear-gradient(135deg,#f43f5e,#f97316,#8b5cf6)"><path d="M0,56 C360,0 1080,0 1440,56 L1440,56 L0,56 Z" fill="#f1f5f9"/></svg></div>
+
+<div class="page">
+  <div class="section-gap"></div>
+  <div class="mode-tabs">
+    <button class="mode-tab active" onclick="switchMode('flash',this)">🃏 Карточки</button>
+    <button class="mode-tab" onclick="switchMode('test',this)">✏️ Тест</button>
+    <button class="mode-tab" onclick="switchMode('list',this)">📋 Список</button>
+  </div>
+  <div class="stats-row">
+    <div class="stat-pill sp-total"><div class="sp-num" id="statTotal">0</div><div class="sp-lbl">Всего</div></div>
+    <div class="stat-pill sp-new"><div class="sp-num" id="statNew">0</div><div class="sp-lbl">Новые</div></div>
+    <div class="stat-pill sp-learning"><div class="sp-num" id="statLearning">0</div><div class="sp-lbl">Учу</div></div>
+    <div class="stat-pill sp-known"><div class="sp-num" id="statKnown">0</div><div class="sp-lbl">Знаю</div></div>
+  </div>
+
+  <div id="modeFlash">
+    <div class="filter-panel">
+      <div class="filter-title">Фильтр по статусу</div>
+      <div class="filter-row" id="statusFilters"></div>
+      <div class="filter-title" style="margin-top:12px">Фильтр по категориям</div>
+      <div class="filter-row" id="categoryFilters"></div>
+    </div>
+    <div class="card-counter" id="cardCounter">1 / 1</div>
+    <div class="card-progress"><div class="card-progress-fill" id="cardProgressFill" style="width:0%"></div></div>
+    <div class="flashcard-wrap" id="flashWrap">
+      <div class="flashcard" id="flashcard" onclick="flipCard()">
+        <div class="card-face card-front">
+          <div class="cat-badge" id="cfCat"></div>
+          <div class="cf-word" id="cfWord"></div>
+          <div class="cf-hint" id="cfEx"></div>
+          <div class="cf-tap">👆 нажми, чтобы увидеть перевод</div>
+        </div>
+        <div class="card-face card-back">
+          <div class="cat-badge" id="cbCat"></div>
+          <div class="cb-trans" id="cbTrans"></div>
+          <div class="cb-note" id="cbEx"></div>
+          <div class="cb-prep" id="cbPrep"></div>
+        </div>
+      </div>
+    </div>
+    <div class="status-row" id="statusButtons">
+      <button class="status-btn st-new" onclick="setCurrentStatus(0)">🔴 Новое</button>
+      <button class="status-btn st-learning" onclick="setCurrentStatus(1)">🟡 Учу</button>
+      <button class="status-btn st-known" onclick="setCurrentStatus(2)">🟢 Знаю</button>
+    </div>
+    <div class="next-row" id="navButtons">
+      <button class="small-btn" onclick="prevCard()">← Назад</button>
+      <button class="small-btn" onclick="nextCard()">Дальше →</button>
+    </div>
+    <div class="finish-screen" id="finishScreen">
+      <div class="fs-emoji">🎉</div>
+      <h2 id="fsTitle">Раунд завершён!</h2>
+      <p id="fsText"></p><br>
+      <button class="restart-btn" onclick="restartFlash()">🔄 Повторить</button>
+    </div>
+  </div>
+
+  <div id="modeTest">
+    <div class="filter-panel">
+      <div class="filter-title">Тест лучше проходить после карточек</div>
+      <div style="font-size:13px;color:var(--muted);line-height:1.6">Вопросы смешанные: перевод, категория, пропуск в предложении и предлоги.</div>
+    </div>
+    <div id="testQuestions"></div>
+    <button class="test-check-btn" onclick="checkTest()">Проверить тест</button>
+    <div class="test-result" id="testResult"><div class="tr-score" id="testScore"></div><p id="testText"></p></div>
+    <div class="review-box" id="reviewBox"><div class="review-title">⭐ Повторить сегодня</div><div class="review-list" id="reviewList"></div></div>
+    <button class="restart-btn" onclick="buildTest()">🔄 Новый тест</button>
+  </div>
+
+  <div id="modeList">
+    <div class="filter-panel">
+      <div class="filter-title">Список по смысловым категориям</div>
+      <div style="font-size:13px;color:var(--muted);line-height:1.6">Поменяй статус у каждого слова: 🔴 новое, 🟡 учу, 🟢 знаю.</div>
+    </div>
+    <div class="word-list" id="wordList"></div>
+  </div>
+</div>
+
+<div class="nav-pill">
+  <a href="./index.html">🏠 Home</a>
+  <a href="./homework.html" class="active">📝 HW</a>
+  <a href="./vocabulary-hub.html">💥 Vocab</a>
+</div>
+
+<script>
+const SB_URL = 'https://epbjohhpsvcslcbbcytg.supabase.co/rest/v1';
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVwYmpvaGhwc3Zjc2xjYmJjeXRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIxMjU2NzAsImV4cCI6MjA5NzcwMTY3MH0.MMfkWzczZZe6irkqdl6OCPaKjiWiORmcToc6og8bupA';
+const LS_KEY = 'elina_vocab_l3_status';
+const REVIEW_KEY = 'elina_vocab_l3_review';
+
+const CATEGORIES = {
+  positive:{label:'Positive feelings', short:'Positive', emoji:'😊', cls:'c-positive'},
+  negative:{label:'Negative feelings', short:'Negative', emoji:'😔', cls:'c-negative'},
+  strong:{label:'Strong emotions', short:'Strong', emoji:'😠', cls:'c-strong'},
+  response:{label:'Response expressions', short:'Responses', emoji:'💬', cls:'c-response'},
+  linking:{label:'Linking verbs', short:'Linking verbs', emoji:'🔗', cls:'c-linking'},
+  collocation:{label:'Useful collocations', short:'Collocations', emoji:'📚', cls:'c-collocation'},
+};
+
+const WORDS = [
+  {eng:'happy',ru:'счастливый, довольный',cat:'positive',ex:'She looks really happy in the photo.',tip:'happy about / happy with',gap:'She looks really ___ in the photo.'},
+  {eng:'pleased',ru:'довольный, рад',cat:'positive',ex:'I was really pleased with the results.',tip:'pleased with something',gap:'I was really ___ with the results.'},
+  {eng:'relaxed',ru:'расслабленный, спокойный',cat:'positive',ex:'I felt pretty relaxed about the whole thing.',tip:'relaxed about something',gap:'I felt pretty ___ about the whole thing.'},
+  {eng:'relieved',ru:'испытывающий облегчение',cat:'positive',ex:'Phew, that’s a relief. I was worried.',tip:'relieved that...',gap:'I was ___ when I heard the good news.'},
+  {eng:'pleasantly surprised',ru:'приятно удивлённый',cat:'positive',ex:'I was pleasantly surprised by the film.',tip:'surprised by something',gap:'I was ___ by the film.'},
+
+  {eng:'upset',ru:'расстроенный',cat:'negative',ex:'Why are you upset? What happened?',tip:'upset about / upset with',gap:'Why are you so ___?'},
+  {eng:'worried',ru:'обеспокоенный, переживающий',cat:'negative',ex:'He was very worried about leaving the dog.',tip:'worried about something',gap:'He was very ___ about the exam.'},
+  {eng:'stressed',ru:'в стрессе, напряжённый',cat:'negative',ex:'I’m really stressed about everything.',tip:'stressed about something',gap:'I’m really ___ about work.'},
+  {eng:'exhausted',ru:'измотанный, очень уставший',cat:'negative',ex:'I couldn’t move a muscle. I was exhausted.',tip:'completely exhausted',gap:'After the trip, I felt ___.'},
+  {eng:'disappointed',ru:'разочарованный',cat:'negative',ex:'I was disappointed when they said no.',tip:'disappointed with / by / about',gap:'I felt ___ when I didn’t get the job.'},
+  {eng:'down',ru:'подавленный, грустный',cat:'negative',ex:'He seems a bit down today.',tip:'feel down / seem down',gap:'He seems a bit ___ today.'},
+  {eng:'fed up',ru:'сыт по горло, надоело',cat:'negative',ex:'I’m really fed up with this situation.',tip:'fed up with something',gap:'I’m really ___ with this situation.'},
+  {eng:'annoyed',ru:'раздражённый',cat:'negative',ex:'She looked a bit annoyed.',tip:'annoyed with / about',gap:'She looked a bit ___.'},
+
+  {eng:'furious',ru:'в ярости, очень злой',cat:'strong',ex:'She was absolutely furious when she saw the mess.',tip:'furious with somebody',gap:'She was absolutely ___.'},
+  {eng:'guilty',ru:'виноватый, испытывающий вину',cat:'strong',ex:'I feel guilty about losing Mum’s ring.',tip:'guilty about something',gap:'I feel ___ about what happened.'},
+  {eng:'confused',ru:'растерянный, сбитый с толку',cat:'strong',ex:'I don’t get this. I’m confused.',tip:'confused about something',gap:'I’m a bit ___ about the instructions.'},
+  {eng:'embarrassed',ru:'смущённый, которому неловко',cat:'strong',ex:'I felt embarrassed because I said something silly.',tip:'embarrassed about something',gap:'I felt ___ after my mistake.'},
+  {eng:'terrible',ru:'ужасный; ужасно себя чувствовать',cat:'strong',ex:'I feel terrible at the moment.',tip:'feel terrible',gap:'I feel ___ at the moment.'},
+
+  {eng:'Congratulations!',ru:'Поздравляю!',cat:'response',ex:'Really? Congratulations! When is the wedding?',tip:'for good news',gap:'— I passed my test. — ___!'},
+  {eng:'That’s a relief!',ru:'Какое облегчение!',cat:'response',ex:'Phew, that’s a relief. I was worried.',tip:'when bad news becomes OK',gap:'Phew, ___!'},
+  {eng:'What a shame!',ru:'Как жаль! / Обидно!',cat:'response',ex:'Oh, what a shame! I’ll send you some photos.',tip:'for bad news / missed chance',gap:'Oh, ___! I’ll send you photos.'},
+  {eng:'What a pain!',ru:'Какая неприятность! / Вот досада!',cat:'response',ex:'Oh no, what a pain! Have you lost all your work?',tip:'for annoying problems',gap:'Oh no, ___!'},
+  {eng:'Wow!',ru:'Вау! / Ничего себе!',cat:'response',ex:'Wow! That’s great.',tip:'for surprise / good news',gap:'___! That’s great.'},
+  {eng:'Oh no!',ru:'О нет!',cat:'response',ex:'Oh no! I’m sorry.',tip:'for bad news',gap:'___! I’m sorry.'},
+  {eng:'Really?',ru:'Правда? / Серьёзно?',cat:'response',ex:'Really? Congratulations!',tip:'reaction to news',gap:'— My sister’s getting married. — ___?'},
+  {eng:'I’m sorry.',ru:'Мне жаль.',cat:'response',ex:'Oh no! I’m sorry.',tip:'sympathy',gap:'Oh no! ___.'},
+
+  {eng:'seem',ru:'казаться',cat:'linking',ex:'He seems a bit down.',tip:'seem + adjective',gap:'He ___ a bit down.'},
+  {eng:'look',ru:'выглядеть',cat:'linking',ex:'You look a bit stressed.',tip:'look + adjective / look like + noun',gap:'You ___ a bit stressed.'},
+  {eng:'sound',ru:'звучать, казаться по голосу/описанию',cat:'linking',ex:'That sounds like a nightmare.',tip:'sound + adjective / sound like + noun',gap:'That ___ like a nightmare.'},
+  {eng:'feel',ru:'чувствовать себя',cat:'linking',ex:'I feel guilty about it.',tip:'feel + adjective',gap:'I ___ guilty about it.'},
+  {eng:'taste',ru:'быть на вкус',cat:'linking',ex:'This cake tastes nice.',tip:'taste + adjective',gap:'This cake ___ nice.'},
+  {eng:'smell',ru:'пахнуть',cat:'linking',ex:'The soup smells good.',tip:'smell + adjective',gap:'The soup ___ good.'},
+
+  {eng:'be in a good mood',ru:'быть в хорошем настроении',cat:'collocation',ex:'She looks like she’s in a good mood.',tip:'in a good mood',gap:'She is ___ today.'},
+  {eng:'be in a bad mood',ru:'быть в плохом настроении',cat:'collocation',ex:'He’s in a very bad mood today.',tip:'in a bad mood',gap:'He is ___ today.'},
+  {eng:'have a cold',ru:'быть простуженным',cat:'collocation',ex:'You sound like you’ve got a cold.',tip:'have got a cold',gap:'You sound like you’ve got ___.'},
+  {eng:'get married',ru:'жениться / выходить замуж',cat:'collocation',ex:'My sister’s getting married.',tip:'get married to somebody',gap:'My sister is ___ next month.'},
+  {eng:'pass a driving test',ru:'сдать экзамен по вождению',cat:'collocation',ex:'I’ve just passed my driving test.',tip:'pass a test / fail a test',gap:'I’ve just ___ my driving test.'},
+  {eng:'lose your job',ru:'потерять работу',cat:'collocation',ex:'My dad has just lost his job.',tip:'lose a job',gap:'My dad has just ___ his job.'},
+  {eng:'complain to the manager',ru:'пожаловаться менеджеру',cat:'collocation',ex:'I’m going to complain to the manager.',tip:'complain to somebody about something',gap:'I’m going to ___ the manager.'},
+  {eng:'cheer yourself up',ru:'подбодрить себя, поднять себе настроение',cat:'collocation',ex:'What do you do to cheer yourself up?',tip:'cheer somebody up',gap:'What do you do to ___?'},
+];
+
+const statusMap = JSON.parse(localStorage.getItem(LS_KEY) || '{}');
+let reviewWords = JSON.parse(localStorage.getItem(REVIEW_KEY) || '[]');
+let statusFilter = 'all';
+let catFilter = 'all';
+let deck = [];
+let cardIdx = 0;
+let flipped = false;
+let saveTimer = null;
+
+function getStatus(eng){ return Number(statusMap[eng] ?? 0); }
+function setStatus(eng,val){ statusMap[eng]=val; localStorage.setItem(LS_KEY, JSON.stringify(statusMap)); updateStats(); debounceSave(); }
+function catInfo(cat){ return CATEGORIES[cat]; }
+function badgeHTML(cat){ const c=catInfo(cat); return `${c.emoji} ${c.short}`; }
+function escapeAttr(s){ return String(s).replace(/'/g,"&#39;").replace(/"/g,'&quot;'); }
+
+function saveToSupabase(){
+  const known = WORDS.filter(w=>getStatus(w.eng)===2).length;
+  const learning = WORDS.filter(w=>getStatus(w.eng)===1).length;
+  const total = WORDS.length;
+  const percent = Math.round((known/total)*100);
+  const answers = { statuses: statusMap, review: reviewWords, known, learning, total };
+  fetch(`${SB_URL}/homework_results`,{
+    method:'POST',
+    headers:{'Content-Type':'application/json','apikey':SB_KEY,'Authorization':`Bearer ${SB_KEY}`,'Prefer':'resolution=merge-duplicates,return=minimal'},
+    body:JSON.stringify({student:'elina',lesson:103,lesson_slug:'vocab-lesson3',lesson_title:'Vocabulary Lesson 3 — Feelings',score_text:`${known}/${total} known`,score:known,max_score:total,percent,done:known===total,report:`Vocabulary Lesson 3: ${known}/${total} known, ${learning} learning`,answers,updated_at:new Date().toISOString()})
+  }).catch(()=>{});
+}
+function debounceSave(){ clearTimeout(saveTimer); saveTimer=setTimeout(saveToSupabase,500); }
+
+function updateStats(){
+  const total=WORDS.length;
+  const n=WORDS.filter(w=>getStatus(w.eng)===0).length;
+  const l=WORDS.filter(w=>getStatus(w.eng)===1).length;
+  const k=WORDS.filter(w=>getStatus(w.eng)===2).length;
+  ['Total'].forEach(x=>{document.getElementById('stat'+x).textContent=total;});
+  document.getElementById('heroTotal').textContent=total;
+  document.getElementById('statNew').textContent=n; document.getElementById('heroNew').textContent=n;
+  document.getElementById('statLearning').textContent=l; document.getElementById('heroLearning').textContent=l;
+  document.getElementById('statKnown').textContent=k; document.getElementById('heroKnown').textContent=k;
+}
+
+function buildFilters(){
+  const sf=document.getElementById('statusFilters');
+  sf.innerHTML = [
+    ['all','Все'],['new','🔴 Новые'],['learning','🟡 Учу'],['known','🟢 Знаю'],['review','⭐ Повторить']
+  ].map(([id,label])=>`<button class="filter-chip ${id==='all'?'active':''}" onclick="setStatusFilter('${id}',this)">${label}</button>`).join('');
+  const cf=document.getElementById('categoryFilters');
+  cf.innerHTML = `<button class="filter-chip active" onclick="setCatFilter('all',this)">Все категории</button>` +
+    Object.entries(CATEGORIES).map(([id,c])=>`<button class="filter-chip" onclick="setCatFilter('${id}',this)">${c.emoji} ${c.short}</button>`).join('');
+}
+function filteredWords(){
+  let arr=[...WORDS];
+  if(catFilter!=='all') arr=arr.filter(w=>w.cat===catFilter);
+  if(statusFilter==='new') arr=arr.filter(w=>getStatus(w.eng)===0);
+  if(statusFilter==='learning') arr=arr.filter(w=>getStatus(w.eng)===1);
+  if(statusFilter==='known') arr=arr.filter(w=>getStatus(w.eng)===2);
+  if(statusFilter==='review') arr=arr.filter(w=>reviewWords.includes(w.eng));
+  return arr;
+}
+function rebuildDeck(){ deck=filteredWords(); cardIdx=0; hideFinish(); showCard(); }
+function setStatusFilter(f,btn){statusFilter=f;document.querySelectorAll('#statusFilters .filter-chip').forEach(b=>b.classList.remove('active'));btn.classList.add('active');rebuildDeck();}
+function setCatFilter(f,btn){catFilter=f;document.querySelectorAll('#categoryFilters .filter-chip').forEach(b=>b.classList.remove('active'));btn.classList.add('active');rebuildDeck();}
+
+function showCard(){
+  if(deck.length===0){ showFinish('Здесь пока нет слов','Попробуй другой фильтр.'); return; }
+  if(cardIdx>=deck.length){ showFinish(); return; }
+  if(cardIdx<0) cardIdx=0;
+  const w=deck[cardIdx], c=catInfo(w.cat);
+  document.getElementById('cfCat').className='cat-badge '+c.cls; document.getElementById('cbCat').className='cat-badge '+c.cls;
+  document.getElementById('cfCat').textContent=badgeHTML(w.cat); document.getElementById('cbCat').textContent=badgeHTML(w.cat);
+  document.getElementById('cfWord').textContent=w.eng; document.getElementById('cfEx').textContent=w.ex;
+  document.getElementById('cbTrans').textContent=w.ru; document.getElementById('cbEx').textContent=w.ex; document.getElementById('cbPrep').textContent=w.tip || '';
+  document.getElementById('cardCounter').textContent=`${cardIdx+1} / ${deck.length}`;
+  document.getElementById('cardProgressFill').style.width=`${((cardIdx+1)/deck.length)*100}%`;
+  const fc=document.getElementById('flashcard'); fc.classList.remove('flipped'); flipped=false;
+  document.getElementById('flashWrap').style.display=''; document.getElementById('statusButtons').style.display='grid'; document.getElementById('navButtons').style.display='flex';
+  document.querySelector('.card-counter').style.display=''; document.querySelector('.card-progress').style.display='';
+}
+function flipCard(){ document.getElementById('flashcard').classList.toggle('flipped'); flipped=!flipped; }
+function setCurrentStatus(val){ if(!deck[cardIdx]) return; setStatus(deck[cardIdx].eng,val); if(val===2){ reviewWords=reviewWords.filter(x=>x!==deck[cardIdx].eng); localStorage.setItem(REVIEW_KEY,JSON.stringify(reviewWords)); } nextCard(); }
+function nextCard(){ cardIdx++; showCard(); }
+function prevCard(){ cardIdx=Math.max(0,cardIdx-1); hideFinish(); showCard(); }
+function showFinish(title,text){
+  document.getElementById('flashWrap').style.display='none'; document.getElementById('statusButtons').style.display='none'; document.getElementById('navButtons').style.display='none'; document.querySelector('.card-counter').style.display='none'; document.querySelector('.card-progress').style.display='none';
+  const fs=document.getElementById('finishScreen'); fs.classList.add('show');
+  const known=WORDS.filter(w=>getStatus(w.eng)===2).length, learning=WORDS.filter(w=>getStatus(w.eng)===1).length;
+  document.getElementById('fsTitle').textContent=title || `Раунд завершён: ${known}/${WORDS.length} знаешь`;
+  document.getElementById('fsText').textContent=text || `Ещё учу: ${learning}. Новые: ${WORDS.length-known-learning}.`;
+}
+function hideFinish(){ document.getElementById('finishScreen').classList.remove('show'); }
+function restartFlash(){ hideFinish(); rebuildDeck(); }
+
+function switchMode(mode,tab){
+  document.querySelectorAll('.mode-tab').forEach(t=>t.classList.remove('active')); tab.classList.add('active');
+  document.getElementById('modeFlash').style.display=mode==='flash'?'block':'none';
+  document.getElementById('modeTest').style.display=mode==='test'?'block':'none';
+  document.getElementById('modeList').style.display=mode==='list'?'block':'none';
+  if(mode==='test') buildTest();
+  if(mode==='list') buildList();
+}
+function shuffle(a){return [...a].sort(()=>Math.random()-.5);}
+function optionButton(text,correct){return `<button class="tq-opt" data-correct="${correct}" onclick="selectOpt(this)"><div class="tq-dot"></div>${text}</button>`;}
+function buildTest(){
+  document.getElementById('testResult').classList.remove('show'); document.getElementById('reviewBox').classList.remove('show');
+  const container=document.getElementById('testQuestions'); container.innerHTML='';
+  const testWords=shuffle(WORDS).slice(0, Math.min(16, WORDS.length));
+  testWords.forEach((w,i)=>{
+    const type=i%4;
+    let title='', question='', opts=[];
+    if(type===0){
+      title='Выбери перевод'; question=w.eng; opts=shuffle([w.ru,...shuffle(WORDS.filter(x=>x.eng!==w.eng)).slice(0,3).map(x=>x.ru)]).map(o=>optionButton(o,o===w.ru));
+    } else if(type===1){
+      title='Заполни пропуск'; question=w.gap || w.ex.replace(w.eng,'___');
+      const wrongOpts=shuffle([
+        ...WORDS.filter(x=>x.cat===w.cat && x.eng!==w.eng).map(x=>x.eng),
+        ...WORDS.filter(x=>x.cat!==w.cat).map(x=>x.eng)
+      ]).slice(0,3);
+      opts=shuffle([w.eng,...wrongOpts]).map(o=>optionButton(o,o===w.eng));
+    } else if(type===2){
+      title='Выбери категорию'; question=w.eng; opts=shuffle(Object.entries(CATEGORIES).map(([id,c])=>({id,label:`${c.emoji} ${c.short}`}))).slice(0,4); if(!opts.some(o=>o.id===w.cat)){opts[0]={id:w.cat,label:`${catInfo(w.cat).emoji} ${catInfo(w.cat).short}`}; opts=shuffle(opts);} opts=opts.map(o=>optionButton(o.label,o.id===w.cat));
+    } else {
+      title='Выбери подсказку / collocation'; question=w.eng; const correct=w.tip || w.ex; opts=shuffle([correct,...shuffle(WORDS.filter(x=>x.eng!==w.eng)).slice(0,3).map(x=>x.tip||x.ex)]).map(o=>optionButton(o,o===correct));
+    }
+    const div=document.createElement('div'); div.className='test-q';
+    div.innerHTML=`<div class="tq-num">Вопрос ${i+1} / ${testWords.length}</div><div class="tq-word">${question}</div><div class="tq-type">${title}</div><div class="tq-options" data-word="${escapeAttr(w.eng)}">${opts.join('')}</div>`;
+    container.appendChild(div);
+  });
+}
+function selectOpt(btn){
+  const opts=btn.closest('.tq-options').querySelectorAll('.tq-opt');
+  if([...opts].some(o=>o.disabled)) return;
+  opts.forEach(o=>o.classList.remove('selected')); btn.classList.add('selected');
+}
+function checkTest(){
+  let score=0,total=0,wrong=[];
+  document.querySelectorAll('.test-q').forEach(q=>{
+    total++; const opts=q.querySelectorAll('.tq-opt'); const sel=q.querySelector('.tq-opt.selected'); const word=q.querySelector('.tq-options').dataset.word;
+    opts.forEach(o=>{ o.disabled=true; if(o.dataset.correct==='true'){ if(o===sel){o.classList.add('correct'); score++;} else o.classList.add('reveal'); } else if(o===sel){ o.classList.add('wrong'); } });
+    if(!sel || sel.dataset.correct!=='true'){ wrong.push(word); if(!reviewWords.includes(word)) reviewWords.push(word); setStatus(word, Math.max(getStatus(word),1)); }
+    else { setStatus(word, Math.max(getStatus(word),2)); reviewWords=reviewWords.filter(x=>x!==word); }
+  });
+  localStorage.setItem(REVIEW_KEY,JSON.stringify(reviewWords)); debounceSave();
+  const pct=Math.round((score/total)*100); const res=document.getElementById('testResult');
+  document.getElementById('testScore').textContent=`${score} / ${total} (${pct}%)`;
+  document.getElementById('testText').textContent=pct>=90?'🏆 Отлично!':pct>=70?'👍 Хорошо! Ошибки добавлены в повторение.':'💪 Вернись к карточкам — сложные слова добавлены в повторение.';
+  res.classList.add('show');
+  if(wrong.length){ document.getElementById('reviewBox').classList.add('show'); document.getElementById('reviewList').innerHTML=wrong.map(w=>`• ${w}`).join('<br>'); }
+  res.scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+function buildList(){
+  const c=document.getElementById('wordList'); c.innerHTML='';
+  Object.entries(CATEGORIES).forEach(([cat,info])=>{
+    const words=WORDS.filter(w=>w.cat===cat); if(!words.length) return;
+    const sec=document.createElement('div'); sec.className='cat-section';
+    sec.innerHTML=`<div class="cat-head ${info.cls}"><span>${info.emoji} ${info.label}</span><span class="cat-count">${words.length}</span></div>` + words.map(w=>`
+      <div class="word-row">
+        <div class="wr-left"><div class="wr-eng">${w.eng}</div><div class="wr-ru">${w.ru}</div><div class="wr-ex">${w.ex}</div><div class="wr-tip">${w.tip||''}</div></div>
+        <select class="state-select" onchange="setStatus('${escapeAttr(w.eng)}', Number(this.value))">
+          <option value="0" ${getStatus(w.eng)===0?'selected':''}>🔴 Новое</option>
+          <option value="1" ${getStatus(w.eng)===1?'selected':''}>🟡 Учу</option>
+          <option value="2" ${getStatus(w.eng)===2?'selected':''}>🟢 Знаю</option>
+        </select>
+      </div>`).join('');
+    c.appendChild(sec);
+  });
+}
+
+buildFilters(); updateStats(); rebuildDeck(); debounceSave();
+</script>
+</body>
+</html>
