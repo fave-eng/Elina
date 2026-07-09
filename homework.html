@@ -265,119 +265,15 @@
     </div>
   </div>
 
-  <!-- DONE SECTION (shown only when ≥1 done) -->
   <div id="sectionDone" style="display:none">
     <div class="section-title">✅ Выполнено</div>
   </div>
 
-  <!-- LESSON 1 -->
-  <div class="lesson-card active" id="card-1" data-lesson="1" data-progress-column="hw1_score" data-local-key="elina_hw1_score" data-num-id="num-1" data-pill-id="pill-1" data-score-id="score-1">
-    <a href="./lesson1.html" style="text-decoration:none; color:inherit;">
-      <div class="lc-main">
-        <div class="lc-num" id="num-1">1</div>
-        <div class="lc-info">
-          <div class="lc-lesson-label">Lesson 1A</div>
-          <div class="lc-title">First Class — Nice to Meet You</div>
-          <div class="lc-meta">
-            <span class="lc-pill" id="pill-1">📝 Выполнить</span>
-            <span class="lc-score" id="score-1"></span>
-          </div>
-        </div>
-        <div class="lc-arrow">→</div>
-      </div>
-    </a>
-    <div class="lc-vocab-strip">
-      <div class="lvs-left">💬 <span>Лексика к уроку:</span> Languages & People</div>
-      <a href="./vocab-languages.html" class="lvs-link">Тренировать <span>→</span></a>
-    </div>
-  </div>
+  <div class="section-title">✅ Доступно</div>
+  <div id="hwList"></div>
 
-  <!-- LESSON 1B -->
-  <div class="lesson-card active" id="card-1b" data-lesson="2" data-progress-column="hw2_score" data-local-key="elina_hw2_score" data-num-id="num-1b" data-pill-id="pill-1b" data-score-id="score-1b">
-    <a href="./lesson2.html" style="text-decoration:none; color:inherit;">
-      <div class="lc-main">
-        <div class="lc-num" id="num-1b">2</div>
-        <div class="lc-info">
-          <div class="lc-lesson-label">Lesson 2</div>
-          <div class="lc-title">Talking About Languages</div>
-          <div class="lc-meta">
-            <span class="lc-pill" id="pill-1b">📝 Выполнить</span>
-            <span class="lc-score" id="score-1b"></span>
-          </div>
-        </div>
-        <div class="lc-arrow">→</div>
-      </div>
-    </a>
-    <div class="lc-vocab-strip">
-      <div class="lvs-left">💬 <span>Лексика к уроку:</span> Talking About Languages</div>
-      <a href="./vocab-lesson2.html" class="lvs-link">Тренировать <span>→</span></a>
-    </div>
-  </div>
-
-  <!-- UPCOMING -->
-  <!-- LESSON 3 -->
-  <div class="lesson-card active" id="card-3" data-lesson="3" data-score-map-key="3" data-local-key="elina_hw3_score" data-num-id="num-3" data-pill-id="pill-3" data-score-id="score-3">
-    <a href="./lesson3.html" style="text-decoration:none; color:inherit;">
-      <div class="lc-main">
-        <div class="lc-num" id="num-3">3</div>
-        <div class="lc-info">
-          <div class="lc-lesson-label">Lesson 3</div>
-          <div class="lc-title">Feelings</div>
-          <div class="lc-meta">
-            <span class="lc-pill" id="pill-3">📝 Выполнить</span>
-            <span class="lc-score" id="score-3"></span>
-          </div>
-        </div>
-        <div class="lc-arrow">→</div>
-      </div>
-    </a>
-    <div class="lc-vocab-strip">
-      <div class="lvs-left">💬 <span>Лексика к уроку:</span> Feelings & Responses</div>
-      <a href="./vocab-lesson3.html" class="lvs-link">Тренировать <span>→</span></a>
-    </div>
-  </div>
-
-  <!-- UPCOMING -->
   <div class="section-title" id="sectionUpcoming">🔒 Предстоящие</div>
-
-  <!-- LESSON 4 -->
-  <div class="lesson-card locked">
-    <div class="lc-main">
-      <div class="lc-num num-locked">4</div>
-      <div class="lc-info">
-        <div class="lc-lesson-label">Lesson 4</div>
-        <div class="lc-title">Coming soon…</div>
-        <div class="lc-meta"><span class="lc-pill pill-locked">🔒 Скоро</span></div>
-      </div>
-    </div>
-    <div class="locked-strip">🔒 Задание появится после урока 4</div>
-  </div>
-
-  <!-- LESSON 5 -->
-  <div class="lesson-card locked">
-    <div class="lc-main">
-      <div class="lc-num num-locked">5</div>
-      <div class="lc-info">
-        <div class="lc-lesson-label">Lesson 5</div>
-        <div class="lc-title">Coming soon…</div>
-        <div class="lc-meta"><span class="lc-pill pill-locked">🔒 Скоро</span></div>
-      </div>
-    </div>
-    <div class="locked-strip">🔒 Задание появится после урока 5</div>
-  </div>
-
-  <!-- LESSON 6 -->
-  <div class="lesson-card locked">
-    <div class="lc-main">
-      <div class="lc-num num-locked">6</div>
-      <div class="lc-info">
-        <div class="lc-lesson-label">Lesson 6</div>
-        <div class="lc-title">Coming soon…</div>
-        <div class="lc-meta"><span class="lc-pill pill-locked">🔒 Скоро</span></div>
-      </div>
-    </div>
-    <div class="locked-strip">🔒 Задание появится после урока 6</div>
-  </div>
+  <div id="upcomingList"></div>
 
 </div><!-- /.page -->
 
@@ -391,70 +287,113 @@
 <script>
   const SB_URL = 'https://epbjohhpsvcslcbbcytg.supabase.co/rest/v1';
   const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVwYmpvaGhwc3Zjc2xjYmJjeXRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIxMjU2NzAsImV4cCI6MjA5NzcwMTY3MH0.MMfkWzczZZe6irkqdl6OCPaKjiWiORmcToc6og8bupA';
+  const STUDENT = 'elina';
 
-  const hwCards = () => [...document.querySelectorAll('.lesson-card.active[data-lesson]')];
+  const DEFAULT_HOMEWORKS = {
+    '1': { lesson:'1', label:'Lesson 1A', title:'First Class — Nice to Meet You', homework_url:'lesson1.html', vocab_url:'vocab-languages.html', vocab_title:'Languages & People', emoji:'💬', score_column:'hw1_score', local_key:'elina_hw1_score', published:true },
+    '2': { lesson:'2', label:'Lesson 2', title:'Talking About Languages', homework_url:'lesson2.html', vocab_url:'vocab-lesson2.html', vocab_title:'Talking About Languages', emoji:'🗣️', score_column:'hw2_score', local_key:'elina_hw2_score', published:true },
+    '3': { lesson:'3', label:'Lesson 3', title:'Feelings', homework_url:'lesson3.html', vocab_url:'vocab-lesson3.html', vocab_title:'Feelings & Responses', emoji:'💬', score_key:'3', local_key:'elina_hw3_score', published:true }
+  };
 
-  function applyCard(card, isDone, score) {
-    const lessonNum = card.dataset.lesson;
-    const num  = document.getElementById(card.dataset.numId);
-    const pill = document.getElementById(card.dataset.pillId);
-    const sc   = document.getElementById(card.dataset.scoreId);
-    if (!num || !pill || !sc) return;
-    if (isDone) {
-      num.className    = 'lc-num num-done';
-      num.textContent  = '✓';
-      pill.className   = 'lc-pill pill-done';
-      pill.textContent = '✅ Сдано';
-      sc.textContent   = 'Результат: ' + score;
-    } else {
-      num.className    = 'lc-num num-active';
-      num.textContent  = lessonNum;
-      pill.className   = 'lc-pill pill-current';
-      pill.textContent = '📝 Выполнить';
-      sc.textContent   = '';
-    }
+  const normUrl = url => String(url || '').trim().replace(/^\.\//, '') || '#';
+  const sortLessons = entries => entries.sort((a,b) => Number(a[0]) - Number(b[0]));
+  const isDoneScore = score => !!score && score !== '0/0' && score !== '0 / 0';
+
+  function mergePublished(progress){
+    const fromDb = progress.published_homeworks || {};
+    const merged = { ...DEFAULT_HOMEWORKS };
+    Object.entries(fromDb).forEach(([lesson, item]) => {
+      if (!item || item.published === false) return;
+      merged[String(lesson)] = { ...(merged[String(lesson)] || {}), ...item, lesson:String(lesson), published:true };
+    });
+    return merged;
   }
 
-  function readScoreFromProgress(card, progress) {
-    const directColumn = card.dataset.progressColumn;
-    const mapKey = card.dataset.scoreMapKey;
-    if (directColumn && progress && progress[directColumn]) return progress[directColumn];
-    if (mapKey && progress && progress.hw_scores && progress.hw_scores[mapKey]) return progress.hw_scores[mapKey];
-    return null;
+  function readScore(lesson, item, progress){
+    const hwScores = progress.hw_scores || {};
+    let score = null;
+    if (item.score_column && progress[item.score_column]) score = progress[item.score_column];
+    if (!score && hwScores[String(lesson)]) score = hwScores[String(lesson)];
+    if (!score && item.score_key && hwScores[String(item.score_key)]) score = hwScores[String(item.score_key)];
+    const localKey = item.local_key || `elina_hw${lesson}_score`;
+    if (score) localStorage.setItem(localKey, score);
+    if (!score) score = localStorage.getItem(localKey);
+    return score;
+  }
+
+  function cardHtml(lesson, item, score){
+    const done = isDoneScore(score);
+    const numClass = done ? 'num-done' : 'num-active';
+    const numText = done ? '✓' : lesson;
+    const pillClass = done ? 'pill-done' : 'pill-current';
+    const pillText = done ? '✅ Сдано' : '📝 Выполнить';
+    const label = item.label || `Lesson ${lesson}`;
+    const title = item.title || `Lesson ${lesson}`;
+    const hwUrl = normUrl(item.homework_url || `lesson${lesson}.html`);
+    const vocabUrl = normUrl(item.vocab_url || `vocab-lesson${lesson}.html`);
+    const vocabTitle = item.vocab_title || title;
+    const emoji = item.emoji || '💬';
+    return `
+      <div class="lesson-card active" data-lesson="${lesson}">
+        <a href="./${hwUrl}" style="text-decoration:none; color:inherit;">
+          <div class="lc-main">
+            <div class="lc-num ${numClass}">${numText}</div>
+            <div class="lc-info">
+              <div class="lc-lesson-label">${label}</div>
+              <div class="lc-title">${title}</div>
+              <div class="lc-meta">
+                <span class="lc-pill ${pillClass}">${pillText}</span>
+                <span class="lc-score">${done ? 'Результат: ' + score : ''}</span>
+              </div>
+            </div>
+            <div class="lc-arrow">→</div>
+          </div>
+        </a>
+        <div class="lc-vocab-strip">
+          <div class="lvs-left">${emoji} <span>Лексика к уроку:</span> ${vocabTitle}</div>
+          <a href="./${vocabUrl}" class="lvs-link">Тренировать <span>→</span></a>
+        </div>
+      </div>`;
+  }
+
+  function lockedHtml(lesson){
+    return `<div class="lesson-card locked">
+      <div class="lc-main"><div class="lc-num num-locked">${lesson}</div><div class="lc-info"><div class="lc-lesson-label">Lesson ${lesson}</div><div class="lc-title">Coming soon…</div><div class="lc-meta"><span class="lc-pill pill-locked">🔒 Скоро</span></div></div></div>
+      <div class="locked-strip">🔒 Задание появится после урока ${lesson}</div>
+    </div>`;
+  }
+
+  function render(progress){
+    const published = mergePublished(progress);
+    const list = sortLessons(Object.entries(published));
+    let done = 0;
+    document.getElementById('hwList').innerHTML = list.map(([lesson,item]) => {
+      const score = readScore(lesson, item, progress);
+      if (isDoneScore(score)) done++;
+      return cardHtml(lesson, item, score);
+    }).join('');
+
+    const maxLesson = list.length ? Math.max(...list.map(([n]) => Number(n) || 0)) : 0;
+    document.getElementById('upcomingList').innerHTML = [1,2,3].map(i => lockedHtml(maxLesson + i)).join('');
+
+    const total = list.length;
+    const pct = total ? Math.round((done / total) * 100) : 0;
+    document.getElementById('sectionDone').style.display = done ? '' : 'none';
+    document.getElementById('statDone').textContent = done;
+    document.getElementById('statTotal').textContent = total;
+    document.getElementById('statPct').textContent = pct + '%';
+    document.getElementById('heroProgress').style.width = pct + '%';
+    document.getElementById('heroLabel').textContent = `${done} из ${total} выполнено`;
   }
 
   window.addEventListener('load', async () => {
-    const cards = hwCards();
-    const total = cards.length;
-    let progress = {};
-
+    render({});
     try {
-      const r = await fetch(
-        `${SB_URL}/progress?student=eq.elina&select=hw1_score,hw2_score,hw_scores`,
-        { headers: { 'apikey': SB_KEY, 'Authorization': `Bearer ${SB_KEY}` } }
-      );
+      const fields = ['published_homeworks','hw_scores','hw1_score','hw2_score'].join(',');
+      const r = await fetch(`${SB_URL}/progress?student=eq.${STUDENT}&select=${fields}`, { headers: { apikey: SB_KEY, Authorization: `Bearer ${SB_KEY}` } });
       const data = await r.json();
-      progress = (data && data[0]) ? data[0] : {};
-    } catch(e) {}
-
-    let done = 0;
-    cards.forEach(card => {
-      let score = readScoreFromProgress(card, progress);
-      const localKey = card.dataset.localKey;
-      if (score && localKey) localStorage.setItem(localKey, score);
-      if (!score && localKey) score = localStorage.getItem(localKey);
-      const isDone = !!score;
-      if (isDone) done++;
-      applyCard(card, isDone, score);
-    });
-
-    if (done > 0) document.getElementById('sectionDone').style.display = '';
-    const pct = total ? Math.round((done / total) * 100) : 0;
-    document.getElementById('statDone').textContent     = done;
-    document.getElementById('statTotal').textContent    = total;
-    document.getElementById('statPct').textContent      = pct + '%';
-    document.getElementById('heroProgress').style.width = pct + '%';
-    document.getElementById('heroLabel').textContent    = `${done} из ${total} выполнено`;
+      render((data && data[0]) ? data[0] : {});
+    } catch(e) { console.warn(e); }
   });
 </script>
 </body>
