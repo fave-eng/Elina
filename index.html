@@ -529,14 +529,14 @@
     <div class="pb-row">
       <div class="pb-label">
         <span>Домашние задания</span>
-        <span id="hwProgressLabel">0 / 2 выполнено</span>
+        <span id="hwProgressLabel">0 / 3 выполнено</span>
       </div>
       <div class="pb-track"><div class="pb-fill-hw" id="hwBar" style="width:0%"></div></div>
     </div>
     <div class="pb-row">
       <div class="pb-label">
         <span>Словарный запас</span>
-        <span id="wordsProgressLabel">0 / 76 слов</span>
+        <span id="wordsProgressLabel">0 / 116 слов</span>
       </div>
       <div class="pb-track"><div class="pb-fill-words" id="wordsBar" style="width:0%"></div></div>
     </div>
@@ -961,44 +961,94 @@
       .forEach(m => m.classList.remove('open'));
   });
 
-  // ── Load from Supabase ──
+  // ── Automatic progress from Supabase progress ──
+  const STUDENT = 'elina';
+  const DEFAULT_HOMEWORKS = {
+    '1': { score_column:'hw1_score', local:'elina_hw1_score', published:true },
+    '2': { score_column:'hw2_score', local:'elina_hw2_score', published:true },
+    '3': { score_key:'3', local:'elina_hw3_score', published:true }
+  };
+  const DEFAULT_VOCAB = {
+    '1': { total:14, field:'l1_known', local:'elina_vocab_l1_known', mode:'array', published:true },
+    '2': { total:12, field:'l2_known', local:'elina_vocab_l2_known', mode:'array', published:true },
+    '3': { total:40, field:'l3_known', local:'elina_vocab_l3_status', mode:'status-object', published:true },
+    'verbs': { total:50, field:'verbs_known', local:'elina_vocab_verbs_known', mode:'array', published:true }
+  };
+
+  function isScoreDone(score){ return !!score && score !== '' && score !== '0/0' && score !== '0 / 0'; }
+  function localVocabKnown(topic){
+    try {
+      if (topic.mode === 'status-object') {
+        const obj = JSON.parse(localStorage.getItem(topic.local) || '{}');
+        return Object.values(obj).filter(v => Number(v) === 2).length;
+      }
+      return JSON.parse(localStorage.getItem(topic.local) || '[]').length;
+    } catch(e) { return 0; }
+  }
+  function mergePublishedHomeworks(progress){
+    const merged = { ...DEFAULT_HOMEWORKS };
+    const published = progress.published_homeworks || {};
+    Object.entries(published).forEach(([lesson, item]) => {
+      if (!item || item.published === false) return;
+      merged[String(lesson)] = { ...(merged[String(lesson)] || {}), ...item, published:true };
+    });
+    return merged;
+  }
+  function buildVocabTopics(progress){
+    const topics = { ...DEFAULT_VOCAB };
+    const published = progress.published_homeworks || {};
+    Object.entries(published).forEach(([lesson, item]) => {
+      if (!item || item.published === false || !item.vocab_url) return;
+      const key = String(lesson);
+      topics[key] = {
+        ...(topics[key] || {}),
+        total: Number(item.vocab_total || (topics[key] && topics[key].total) || 0),
+        field: item.vocab_known_field || (topics[key] && topics[key].field) || `l${lesson}_known`,
+        local: item.vocab_ls_key || (topics[key] && topics[key].local) || `elina_vocab_l${lesson}_status`,
+        mode: item.vocab_ls_mode || (topics[key] && topics[key].mode) || 'status-object',
+        published:true
+      };
+    });
+    return topics;
+  }
+  function readHwScore(lesson, item, progress){
+    const hwScores = progress.hw_scores || {};
+    let score = null;
+    if (item.score_column && progress[item.score_column]) score = progress[item.score_column];
+    if (!score && hwScores[String(lesson)]) score = hwScores[String(lesson)];
+    if (!score && item.score_key && hwScores[String(item.score_key)]) score = hwScores[String(item.score_key)];
+    if (!score && item.local) score = localStorage.getItem(item.local);
+    if (score && item.local) localStorage.setItem(item.local, score);
+    return score;
+  }
+  function calculateAndApply(progress){
+    const homeworks = mergePublishedHomeworks(progress);
+    const vocabTopics = buildVocabTopics(progress);
+    const hwEntries = Object.entries(homeworks).filter(([_,x]) => x && x.published !== false);
+    const vocabEntries = Object.entries(vocabTopics).filter(([_,x]) => x && x.published !== false && Number(x.total || 0) > 0);
+    const totalHw = hwEntries.length;
+    const hwDone = hwEntries.filter(([lesson,item]) => isScoreDone(readHwScore(lesson, item, progress))).length;
+    const totalWords = vocabEntries.reduce((sum, [_,topic]) => sum + Number(topic.total || 0), 0);
+    const wordsLearned = vocabEntries.reduce((sum, [key,topic]) => {
+      const ls = localVocabKnown(topic);
+      const sb = Number(progress[topic.field] || 0);
+      const vp = progress.vocab_progress || {};
+      const obj = vp[String(key)];
+      const jsonKnown = typeof obj === 'number' ? obj : Number((obj && obj.known) || 0);
+      return sum + Math.max(ls, sb, jsonKnown);
+    }, 0);
+    _applyStats(hwDone, wordsLearned, totalHw, totalWords);
+  }
+
   window.addEventListener('load', async () => {
     renderVerbs();
-
-    // Константы — одно место, меняем только здесь
-    const TOTAL_HW    = 2;  // сколько ДЗ всего сейчас
-    const TOTAL_WORDS = 76; // 14 + 12 + 50
-
-    // localStorage fallback (применяем сразу)
-    const lsL1    = JSON.parse(localStorage.getItem('elina_vocab_l1_known')    || '[]').length;
-    const lsL2    = JSON.parse(localStorage.getItem('elina_vocab_l2_known')    || '[]').length;
-    const lsVerbs = JSON.parse(localStorage.getItem('elina_vocab_verbs_known') || '[]').length;
-    const lsHw1   = localStorage.getItem('elina_hw1_score');
-    const lsHw2   = localStorage.getItem('elina_hw2_score');
-
-    let hwDone       = (lsHw1 ? 1 : 0) + (lsHw2 ? 1 : 0);
-    let wordsLearned = lsL1 + lsL2 + lsVerbs;
-
-    _applyStats(hwDone, wordsLearned, TOTAL_HW, TOTAL_WORDS);
-
-    // Supabase — обновляем (берём максимум из SB и localStorage)
+    calculateAndApply({});
     try {
-      const r = await fetch(
-        `${SB_URL}/progress?student=eq.elina&select=hw1_score,hw2_score,l1_known,l2_known,verbs_known`,
-        { headers: { 'apikey': SB_KEY, 'Authorization': `Bearer ${SB_KEY}` } }
-      );
+      const fields = ['published_homeworks','hw_scores','vocab_progress','hw1_score','hw2_score','l1_known','l2_known','l3_known','verbs_known'].join(',');
+      const r = await fetch(`${SB_URL}/progress?student=eq.${STUDENT}&select=${fields}`, { headers: { apikey: SB_KEY, Authorization: `Bearer ${SB_KEY}` } });
       const data = await r.json();
-      if (data && data[0]) {
-        const d = data[0];
-        hwDone = [d.hw1_score, d.hw2_score]
-          .filter(s => s && s !== '' && s !== '0/0').length;
-        wordsLearned =
-          Math.max(lsL1,    d.l1_known    || 0) +
-          Math.max(lsL2,    d.l2_known    || 0) +
-          Math.max(lsVerbs, d.verbs_known || 0);
-        _applyStats(hwDone, wordsLearned, TOTAL_HW, TOTAL_WORDS);
-      }
-    } catch(e) {}
+      calculateAndApply((data && data[0]) ? data[0] : {});
+    } catch(e) { console.warn(e); }
   });
 
   function _applyStats(hwDone, wordsLearned, totalHw, totalWords) {
@@ -1009,9 +1059,9 @@
     document.getElementById('wordsProgressLabel').textContent =
       `${wordsLearned} / ${totalWords} слов`;
     document.getElementById('hwBar').style.width =
-      Math.min(100, (hwDone / totalHw) * 100) + '%';
+      totalHw ? Math.min(100, (hwDone / totalHw) * 100) + '%' : '0%';
     document.getElementById('wordsBar').style.width =
-      Math.min(100, (wordsLearned / totalWords) * 100) + '%';
+      totalWords ? Math.min(100, (wordsLearned / totalWords) * 100) + '%' : '0%';
   }
 </script>
 </body>
