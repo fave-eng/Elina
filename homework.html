@@ -267,10 +267,13 @@
 
   <div id="sectionDone" style="display:none">
     <div class="section-title">✅ Выполнено</div>
+    <div id="doneList"></div>
   </div>
 
-  <div class="section-title">✅ Доступно</div>
-  <div id="hwList"></div>
+  <div id="sectionAvailable">
+    <div class="section-title">✅ Доступно</div>
+    <div id="hwList"></div>
+  </div>
 
   <div class="section-title" id="sectionUpcoming">🔒 Предстоящие</div>
   <div id="upcomingList"></div>
@@ -366,19 +369,27 @@
   function render(progress){
     const published = mergePublished(progress);
     const list = sortLessons(Object.entries(published));
-    let done = 0;
-    document.getElementById('hwList').innerHTML = list.map(([lesson,item]) => {
+    const doneCards = [];
+    const availableCards = [];
+
+    list.forEach(([lesson,item]) => {
       const score = readScore(lesson, item, progress);
-      if (isDoneScore(score)) done++;
-      return cardHtml(lesson, item, score);
-    }).join('');
+      const html = cardHtml(lesson, item, score);
+      if (isDoneScore(score)) doneCards.push(html);
+      else availableCards.push(html);
+    });
+
+    document.getElementById('doneList').innerHTML = doneCards.join('');
+    document.getElementById('hwList').innerHTML = availableCards.join('');
 
     const maxLesson = list.length ? Math.max(...list.map(([n]) => Number(n) || 0)) : 0;
     document.getElementById('upcomingList').innerHTML = [1,2,3].map(i => lockedHtml(maxLesson + i)).join('');
 
+    const done = doneCards.length;
     const total = list.length;
     const pct = total ? Math.round((done / total) * 100) : 0;
     document.getElementById('sectionDone').style.display = done ? '' : 'none';
+    document.getElementById('sectionAvailable').style.display = availableCards.length ? '' : 'none';
     document.getElementById('statDone').textContent = done;
     document.getElementById('statTotal').textContent = total;
     document.getElementById('statPct').textContent = pct + '%';
