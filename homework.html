@@ -299,6 +299,12 @@
   };
 
   const normUrl = url => String(url || '').trim().replace(/^\.\//, '') || '#';
+  function safeHomeworkUrl(item, lesson){
+    let url = normUrl(item.homework_url || item.hw_url || item.url || `lesson${lesson}.html`);
+    // Защита от ошибки в Supabase: ссылка домашки не должна вести на словарь или hub.
+    if (/vocab|vocabulary-hub/i.test(url)) url = `lesson${lesson}.html`;
+    return url;
+  }
   const sortLessons = entries => entries.sort((a,b) => Number(a[0]) - Number(b[0]));
   const isDoneScore = score => !!score && score !== '0/0' && score !== '0 / 0';
 
@@ -332,7 +338,7 @@
     const pillText = done ? '✅ Сдано' : '📝 Выполнить';
     const label = item.label || `Lesson ${lesson}`;
     const title = item.title || `Lesson ${lesson}`;
-    const hwUrl = normUrl(item.homework_url || `lesson${lesson}.html`);
+    const hwUrl = safeHomeworkUrl(item, lesson);
     const vocabUrl = normUrl(item.vocab_url || `vocab-lesson${lesson}.html`);
     const vocabTitle = item.vocab_title || title;
     const emoji = item.emoji || '💬';
