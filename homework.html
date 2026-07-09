@@ -271,7 +271,7 @@
   </div>
 
   <!-- LESSON 1 -->
-  <div class="lesson-card active" id="card-1">
+  <div class="lesson-card active" id="card-1" data-lesson="1" data-progress-column="hw1_score" data-local-key="elina_hw1_score" data-num-id="num-1" data-pill-id="pill-1" data-score-id="score-1">
     <a href="./lesson1.html" style="text-decoration:none; color:inherit;">
       <div class="lc-main">
         <div class="lc-num" id="num-1">1</div>
@@ -293,7 +293,7 @@
   </div>
 
   <!-- LESSON 1B -->
-  <div class="lesson-card active" id="card-1b">
+  <div class="lesson-card active" id="card-1b" data-lesson="2" data-progress-column="hw2_score" data-local-key="elina_hw2_score" data-num-id="num-1b" data-pill-id="pill-1b" data-score-id="score-1b">
     <a href="./lesson2.html" style="text-decoration:none; color:inherit;">
       <div class="lc-main">
         <div class="lc-num" id="num-1b">2</div>
@@ -315,11 +315,9 @@
   </div>
 
   <!-- UPCOMING -->
-  <div class="section-title" id="sectionUpcoming">🔒 Предстоящие</div>
-
   <!-- LESSON 3 -->
-  <div class="lesson-card active" id="card-3">
-    <a href="./lesson3_progress.html" style="text-decoration:none; color:inherit;">
+  <div class="lesson-card active" id="card-3" data-lesson="3" data-score-map-key="3" data-local-key="elina_hw3_score" data-num-id="num-3" data-pill-id="pill-3" data-score-id="score-3">
+    <a href="./lesson3.html" style="text-decoration:none; color:inherit;">
       <div class="lc-main">
         <div class="lc-num" id="num-3">3</div>
         <div class="lc-info">
@@ -335,9 +333,12 @@
     </a>
     <div class="lc-vocab-strip">
       <div class="lvs-left">💬 <span>Лексика к уроку:</span> Feelings & Responses</div>
-      <a href="./vocab-lesson3-fixed.html" class="lvs-link">Тренировать <span>→</span></a>
+      <a href="./vocab-lesson3.html" class="lvs-link">Тренировать <span>→</span></a>
     </div>
   </div>
+
+  <!-- UPCOMING -->
+  <div class="section-title" id="sectionUpcoming">🔒 Предстоящие</div>
 
   <!-- LESSON 4 -->
   <div class="lesson-card locked">
@@ -390,64 +391,70 @@
 <script>
   const SB_URL = 'https://epbjohhpsvcslcbbcytg.supabase.co/rest/v1';
   const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVwYmpvaGhwc3Zjc2xjYmJjeXRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIxMjU2NzAsImV4cCI6MjA5NzcwMTY3MH0.MMfkWzczZZe6irkqdl6OCPaKjiWiORmcToc6og8bupA';
-  const TOTAL = 3;
 
-  function applyCard(numId, pillId, scoreId, isDone, score, lessonNum) {
-    const num  = document.getElementById(numId);
-    const pill = document.getElementById(pillId);
-    const sc   = document.getElementById(scoreId);
+  const hwCards = () => [...document.querySelectorAll('.lesson-card.active[data-lesson]')];
+
+  function applyCard(card, isDone, score) {
+    const lessonNum = card.dataset.lesson;
+    const num  = document.getElementById(card.dataset.numId);
+    const pill = document.getElementById(card.dataset.pillId);
+    const sc   = document.getElementById(card.dataset.scoreId);
+    if (!num || !pill || !sc) return;
     if (isDone) {
-      num.className   = 'lc-num num-done';
-      num.textContent = '✓';
-      pill.className  = 'lc-pill pill-done';
+      num.className    = 'lc-num num-done';
+      num.textContent  = '✓';
+      pill.className   = 'lc-pill pill-done';
       pill.textContent = '✅ Сдано';
-      sc.textContent  = 'Результат: ' + score;
+      sc.textContent   = 'Результат: ' + score;
     } else {
-      num.className   = 'lc-num num-active';
-      num.textContent = lessonNum;
-      pill.className  = 'lc-pill pill-current';
+      num.className    = 'lc-num num-active';
+      num.textContent  = lessonNum;
+      pill.className   = 'lc-pill pill-current';
       pill.textContent = '📝 Выполнить';
+      sc.textContent   = '';
     }
   }
 
-  window.addEventListener('load', async () => {
-    let hw1Score = null, hw2Score = null, hw3Score = null;
+  function readScoreFromProgress(card, progress) {
+    const directColumn = card.dataset.progressColumn;
+    const mapKey = card.dataset.scoreMapKey;
+    if (directColumn && progress && progress[directColumn]) return progress[directColumn];
+    if (mapKey && progress && progress.hw_scores && progress.hw_scores[mapKey]) return progress.hw_scores[mapKey];
+    return null;
+  }
 
-    // Supabase
+  window.addEventListener('load', async () => {
+    const cards = hwCards();
+    const total = cards.length;
+    let progress = {};
+
     try {
       const r = await fetch(
         `${SB_URL}/progress?student=eq.elina&select=hw1_score,hw2_score,hw_scores`,
         { headers: { 'apikey': SB_KEY, 'Authorization': `Bearer ${SB_KEY}` } }
       );
       const data = await r.json();
-      if (data && data[0]) {
-        const d = data[0];
-        if (d.hw1_score) { hw1Score = d.hw1_score; localStorage.setItem('elina_hw1_score', hw1Score); }
-        if (d.hw2_score) { hw2Score = d.hw2_score; localStorage.setItem('elina_hw2_score', hw2Score); }
-        if (d.hw_scores && d.hw_scores['3']) { hw3Score = d.hw_scores['3']; localStorage.setItem('elina_hw3_score', hw3Score); }
-      }
+      progress = (data && data[0]) ? data[0] : {};
     } catch(e) {}
 
-    // localStorage fallback
-    if (!hw1Score) { const ls = localStorage.getItem('elina_hw1_score'); if (ls) hw1Score = ls; }
-    if (!hw2Score) { const ls = localStorage.getItem('elina_hw2_score'); if (ls) hw2Score = ls; }
-    if (!hw3Score) { const ls = localStorage.getItem('elina_hw3_score'); if (ls) hw3Score = ls; }
+    let done = 0;
+    cards.forEach(card => {
+      let score = readScoreFromProgress(card, progress);
+      const localKey = card.dataset.localKey;
+      if (score && localKey) localStorage.setItem(localKey, score);
+      if (!score && localKey) score = localStorage.getItem(localKey);
+      const isDone = !!score;
+      if (isDone) done++;
+      applyCard(card, isDone, score);
+    });
 
-    const done1 = !!hw1Score, done2 = !!hw2Score, done3 = !!hw3Score;
-
-    applyCard('num-1',  'pill-1',  'score-1',  done1, hw1Score, '1');
-    applyCard('num-1b', 'pill-1b', 'score-1b', done2, hw2Score, '2');
-    applyCard('num-3',  'pill-3',  'score-3',  done3, hw3Score, '3');
-
-    if (done1 || done2 || done3) document.getElementById('sectionDone').style.display = '';
-
-    const done = (done1 ? 1 : 0) + (done2 ? 1 : 0) + (done3 ? 1 : 0);
-    const pct  = Math.round((done / TOTAL) * 100);
+    if (done > 0) document.getElementById('sectionDone').style.display = '';
+    const pct = total ? Math.round((done / total) * 100) : 0;
     document.getElementById('statDone').textContent     = done;
-    document.getElementById('statTotal').textContent    = TOTAL;
+    document.getElementById('statTotal').textContent    = total;
     document.getElementById('statPct').textContent      = pct + '%';
     document.getElementById('heroProgress').style.width = pct + '%';
-    document.getElementById('heroLabel').textContent    = `${done} из ${TOTAL} выполнено`;
+    document.getElementById('heroLabel').textContent    = `${done} из ${total} выполнено`;
   });
 </script>
 </body>
