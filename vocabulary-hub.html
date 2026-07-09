@@ -401,36 +401,7 @@
     </div>
 
     <!-- Per-topic bars -->
-    <div class="tracker-topics">
-      <div class="tt-row">
-        <div class="tt-head">
-          <span class="tt-name">💬 Languages & People</span>
-          <span class="tt-nums" id="tt-l1-nums">0 / 14</span>
-        </div>
-        <div class="tt-bar"><div class="tt-fill fill-rose" id="tt-l1-bar" style="width:0%"></div></div>
-      </div>
-      <div class="tt-row">
-        <div class="tt-head">
-          <span class="tt-name">🗣️ Talking About Languages</span>
-          <span class="tt-nums" id="tt-l2-nums">0 / 12</span>
-        </div>
-        <div class="tt-bar"><div class="tt-fill fill-rose" id="tt-l2-bar" style="width:0%"></div></div>
-      </div>
-      <div class="tt-row">
-        <div class="tt-head">
-          <span class="tt-name">💬 Feelings & Responses</span>
-          <span class="tt-nums" id="tt-l3-nums">0 / 40</span>
-        </div>
-        <div class="tt-bar"><div class="tt-fill fill-rose" id="tt-l3-bar" style="width:0%"></div></div>
-      </div>
-      <div class="tt-row">
-        <div class="tt-head">
-          <span class="tt-name">📌 Irregular Verbs</span>
-          <span class="tt-nums" id="tt-verbs-nums">0 / 50</span>
-        </div>
-        <div class="tt-bar"><div class="tt-fill fill-emerald" id="tt-verbs-bar" style="width:0%"></div></div>
-      </div>
-    </div>
+    <div class="tracker-topics" id="trackerTopics"></div>
 
     <!-- Milestones -->
     <div class="milestones">
@@ -455,108 +426,18 @@
 
   <!-- ACTIVE TOPICS -->
   <div class="section-title">✅ Доступно</div>
-
-  <!-- Lesson 1 -->
-  <a href="./vocab-languages.html" class="vocab-card active vocab-item" data-topic="l1" data-title="💬 Languages & People" data-total="14" data-sb-field="l1_known" data-ls-key="elina_vocab_l1_known" data-ls-mode="array">
-    <div class="vc-main">
-      <div class="vc-icon icon-active">💬</div>
-      <div class="vc-info">
-        <div class="vc-lesson">Lesson 1</div>
-        <div class="vc-title">Languages & People</div>
-        <div class="vc-meta">
-          <span class="vc-count" id="count-l1">14 слов</span>
-          <div class="vc-progress-bar">
-            <div class="vc-progress-fill" id="bar-l1" style="width:0%"></div>
-          </div>
-          <span class="vc-pct" id="pct-l1">0%</span>
-        </div>
-      </div>
-      <div class="vc-arrow">→</div>
-    </div>
-  </a>
-
-  <!-- Lesson 2 -->
-  <a href="./vocab-lesson2.html" class="vocab-card active vocab-item" data-topic="l2" data-title="🗣️ Talking About Languages" data-total="12" data-sb-field="l2_known" data-ls-key="elina_vocab_l2_known" data-ls-mode="array">
-    <div class="vc-main">
-      <div class="vc-icon icon-active">🗣️</div>
-      <div class="vc-info">
-        <div class="vc-lesson">Lesson 2</div>
-        <div class="vc-title">Talking About Languages</div>
-        <div class="vc-meta">
-          <span class="vc-count" id="count-l2">12 слов</span>
-          <div class="vc-progress-bar">
-            <div class="vc-progress-fill" id="bar-l2" style="width:0%"></div>
-          </div>
-          <span class="vc-pct" id="pct-l2">0%</span>
-        </div>
-      </div>
-      <div class="vc-arrow">→</div>
-    </div>
-  </a>
-
-  <!-- Lesson 3 -->
-  <a href="./vocab-lesson3.html" class="vocab-card active vocab-item" data-topic="l3" data-title="💬 Feelings & Responses" data-total="40" data-sb-field="l3_known" data-ls-key="elina_vocab_l3_status" data-ls-mode="status-object">
-    <div class="vc-main">
-      <div class="vc-icon icon-active">💬</div>
-      <div class="vc-info">
-        <div class="vc-lesson">Lesson 3</div>
-        <div class="vc-title">Feelings & Responses</div>
-        <div class="vc-meta">
-          <span class="vc-count" id="count-l3">40 слов</span>
-          <div class="vc-progress-bar">
-            <div class="vc-progress-fill" id="bar-l3" style="width:0%"></div>
-          </div>
-          <span class="vc-pct" id="pct-l3">0%</span>
-        </div>
-      </div>
-      <div class="vc-arrow">→</div>
-    </div>
-  </a>
-
-  <!-- Irregular Verbs — always available -->
-  <a href="./vocab-irregular-verbs.html" class="verbs-card vocab-item" data-topic="verbs" data-title="📌 Irregular Verbs" data-total="50" data-sb-field="verbs_known" data-ls-key="elina_vocab_verbs_known" data-ls-mode="array">
-    <div class="vc-main">
-      <div class="vc-icon">📌</div>
-      <div class="vc-info">
-        <div class="vc-lesson">Всегда открыто</div>
-        <div class="vc-title">Irregular Verbs · A2–B1</div>
-        <div class="vc-meta">
-          <span class="vc-count" id="count-verbs">50 глаголов</span>
-          <div class="vc-progress-bar">
-            <div class="vc-progress-fill" id="bar-verbs" style="width:0%"></div>
-          </div>
-          <span class="vc-pct" id="pct-verbs">0%</span>
-        </div>
-      </div>
-      <div class="vc-arrow">→</div>
-    </div>
-  </a>
+  <div id="vocabList"></div>
 
   <!-- COMING SOON -->
   <div class="section-title" style="margin-top:28px">🔒 Скоро</div>
-
   <div class="tip-block">
     <div class="tip-icon">💡</div>
     <div class="tip-text">
       <strong>Новые темы появятся после каждого урока</strong>
-      После урока 4 откроется следующий словарный блок — просто продолжай заниматься!
+      Когда ты публикуешь новый урок, его словарь автоматически появится здесь из Supabase progress.
     </div>
   </div>
-
-  <div class="vocab-card locked">
-    <div class="vc-main">
-      <div class="vc-icon icon-locked">🔒</div>
-      <div class="vc-info">
-        <div class="vc-lesson">Lesson 4</div>
-        <div class="vc-title">Coming soon…</div>
-        <div class="vc-meta">
-          <span class="vc-count">— слов</span>
-        </div>
-      </div>
-    </div>
-    <div class="vc-locked-strip">🔒 Откроется после урока 4</div>
-  </div>
-  </div>
+  <div id="vocabUpcoming"></div>
 
 </div><!-- /.page -->
 
@@ -570,105 +451,106 @@
 <script>
   const SB_URL  = 'https://epbjohhpsvcslcbbcytg.supabase.co/rest/v1';
   const SB_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVwYmpvaGhwc3Zjc2xjYmJjeXRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIxMjU2NzAsImV4cCI6MjA5NzcwMTY3MH0.MMfkWzczZZe6irkqdl6OCPaKjiWiORmcToc6og8bupA';
+  const STUDENT = 'elina';
 
-  const vocabItems = () => [...document.querySelectorAll('.vocab-item[data-topic][data-total]')];
+  const DEFAULT_VOCAB = {
+    '1': { lesson:'1', label:'Lesson 1', title:'Languages & People', emoji:'💬', url:'vocab-languages.html', total:14, field:'l1_known', local:'elina_vocab_l1_known', mode:'array', published:true },
+    '2': { lesson:'2', label:'Lesson 2', title:'Talking About Languages', emoji:'🗣️', url:'vocab-lesson2.html', total:12, field:'l2_known', local:'elina_vocab_l2_known', mode:'array', published:true },
+    '3': { lesson:'3', label:'Lesson 3', title:'Feelings & Responses', emoji:'💬', url:'vocab-lesson3.html', total:40, field:'l3_known', local:'elina_vocab_l3_status', mode:'status-object', published:true },
+    'verbs': { lesson:'Всегда открыто', label:'Всегда открыто', title:'Irregular Verbs · A2–B1', emoji:'📌', url:'vocab-irregular-verbs.html', total:50, field:'verbs_known', local:'elina_vocab_verbs_known', mode:'array', published:true, verbs:true }
+  };
   const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
+  const normUrl = url => String(url || '').trim().replace(/^\.\//, '') || '#';
 
-  function localKnown(item) {
-    const key = item.dataset.lsKey;
-    const mode = item.dataset.lsMode;
-    if (!key) return 0;
+  function buildTopics(progress){
+    const topics = { ...DEFAULT_VOCAB };
+    const published = progress.published_homeworks || {};
+    Object.entries(published).forEach(([lesson, item]) => {
+      if (!item || item.published === false || !item.vocab_url) return;
+      const key = String(lesson);
+      topics[key] = {
+        ...(topics[key] || {}), lesson:key,
+        label: item.label || `Lesson ${lesson}`,
+        title: item.vocab_title || item.title || (topics[key] && topics[key].title) || `Lesson ${lesson}`,
+        emoji: item.emoji || (topics[key] && topics[key].emoji) || '💬',
+        url: item.vocab_url,
+        total: Number(item.vocab_total || (topics[key] && topics[key].total) || 0),
+        field: item.vocab_known_field || (topics[key] && topics[key].field) || `l${lesson}_known`,
+        local: item.vocab_ls_key || (topics[key] && topics[key].local) || `elina_vocab_l${lesson}_status`,
+        mode: item.vocab_ls_mode || (topics[key] && topics[key].mode) || 'status-object',
+        published:true
+      };
+    });
+    return topics;
+  }
+  function localKnown(topic) {
     try {
-      const raw = JSON.parse(localStorage.getItem(key) || (mode === 'status-object' ? '{}' : '[]'));
-      if (mode === 'status-object') return Object.values(raw).filter(v => Number(v) === 2).length;
+      if (topic.mode === 'status-object') {
+        const raw = JSON.parse(localStorage.getItem(topic.local) || '{}');
+        return Object.values(raw).filter(v => Number(v) === 2).length;
+      }
+      const raw = JSON.parse(localStorage.getItem(topic.local) || '[]');
       return Array.isArray(raw) ? raw.length : 0;
     } catch(e) { return 0; }
   }
-
-  window.addEventListener('load', async () => {
-    const items = vocabItems();
-    const localProgress = Object.fromEntries(items.map(item => [item.dataset.topic, localKnown(item)]));
-    applyTracker(localProgress);
-
-    try {
-      const fields = [...new Set(items.map(item => item.dataset.sbField).filter(Boolean))].join(',');
-      const r = await fetch(
-        `${SB_URL}/progress?student=eq.elina&select=${fields}`,
-        { headers: { 'apikey': SB_KEY, 'Authorization': `Bearer ${SB_KEY}` } }
-      );
-      const data = await r.json();
-      if (data && data[0]) {
-        const merged = {};
-        items.forEach(item => {
-          const topic = item.dataset.topic;
-          const sbField = item.dataset.sbField;
-          merged[topic] = Math.max(localProgress[topic] || 0, data[0][sbField] || 0);
-        });
-        applyTracker(merged);
-      }
-    } catch(e) {}
-  });
-
-  function setText(id, value) {
-    const el = document.getElementById(id);
-    if (el) el.textContent = value;
+  function sortTopicEntries(topics){
+    return Object.entries(topics).filter(([_,t]) => t && t.published !== false && Number(t.total || 0) > 0)
+      .sort((a,b) => (a[0] === 'verbs' ? 999 : Number(a[0])) - (b[0] === 'verbs' ? 999 : Number(b[0])));
   }
-  function setWidth(id, pct) {
-    const el = document.getElementById(id);
-    if (el) el.style.width = pct + '%';
+  function topicKnown(key, topic, progress){ const vp = progress.vocab_progress || {}; const obj = vp[String(key)]; const jsonKnown = typeof obj === 'number' ? obj : Number((obj && obj.known) || 0); return clamp(Math.max(localKnown(topic), Number(progress[topic.field] || 0), jsonKnown), 0, Number(topic.total || 0)); }
+  function cardHtml(key, topic, known){
+    const total = Number(topic.total || 0), pct = total ? Math.round(known / total * 100) : 0;
+    const cls = topic.verbs ? 'verbs-card' : 'vocab-card active';
+    const iconCls = topic.verbs ? '' : 'icon-active';
+    const countText = topic.verbs ? `${total} глаголов` : `${total} слов`;
+    return `<a href="./${normUrl(topic.url)}" class="${cls}"><div class="vc-main"><div class="vc-icon ${iconCls}">${topic.emoji || '📚'}</div><div class="vc-info"><div class="vc-lesson">${topic.label || `Lesson ${key}`}</div><div class="vc-title">${topic.title}</div><div class="vc-meta"><span class="vc-count">${countText}</span><div class="vc-progress-bar"><div class="vc-progress-fill" style="width:${pct}%"></div></div><span class="vc-pct">${pct}%</span></div></div><div class="vc-arrow">→</div></div></a>`;
   }
+  function trackerRowHtml(key, topic, known){
+    const total = Number(topic.total || 0), pct = total ? Math.round(known / total * 100) : 0;
+    const fill = topic.verbs ? 'fill-emerald' : 'fill-rose';
+    return `<div class="tt-row"><div class="tt-head"><span class="tt-name">${topic.emoji || '📚'} ${topic.title}</span><span class="tt-nums">${known} / ${total}</span></div><div class="tt-bar"><div class="tt-fill ${fill}" style="width:${pct}%"></div></div></div>`;
+  }
+  function lockedHtml(n){ return `<div class="vocab-card locked"><div class="vc-main"><div class="vc-icon icon-locked">🔒</div><div class="vc-info"><div class="vc-lesson">Lesson ${n}</div><div class="vc-title">Coming soon…</div><div class="vc-meta"><span class="vc-count">— слов</span></div></div></div><div class="vc-locked-strip">🔒 Откроется после урока ${n}</div></div>`; }
 
-  function applyTracker(knownByTopic) {
-    const items = vocabItems();
-    let grandTotal = 0;
-    let totalKnown = 0;
+  function apply(progress){
+    const topics = buildTopics(progress);
+    const entries = sortTopicEntries(topics);
+    let grandTotal = 0, totalKnown = 0;
+    document.getElementById('vocabList').innerHTML = entries.map(([key, topic]) => {
+      const known = topicKnown(key, topic, progress);
+      grandTotal += Number(topic.total || 0); totalKnown += known;
+      return cardHtml(key, topic, known);
+    }).join('');
+    document.getElementById('trackerTopics').innerHTML = entries.map(([key, topic]) => trackerRowHtml(key, topic, topicKnown(key, topic, progress))).join('');
 
-    items.forEach(item => {
-      const topic = item.dataset.topic;
-      const total = Number(item.dataset.total || 0);
-      const known = clamp(Number(knownByTopic[topic] || 0), 0, total);
-      const pct = total ? Math.round((known / total) * 100) : 0;
-      grandTotal += total;
-      totalKnown += known;
-
-      setText(`count-${topic}`, topic === 'verbs' ? `${total} глаголов` : `${total} слов`);
-      setWidth(`bar-${topic}`, pct);
-      setText(`pct-${topic}`, pct + '%');
-      setWidth(`tt-${topic}-bar`, pct);
-      setText(`tt-${topic}-nums`, `${known} / ${total}`);
-    });
+    const numericLessons = entries.map(([key]) => Number(key)).filter(Number.isFinite);
+    const maxLesson = numericLessons.length ? Math.max(...numericLessons) : 0;
+    document.getElementById('vocabUpcoming').innerHTML = lockedHtml(maxLesson + 1);
 
     const totalPct = grandTotal ? Math.round((totalKnown / grandTotal) * 100) : 0;
-
-    setText('heroTotalNum', grandTotal);
-    setText('heroKnownNum', totalKnown);
-    setText('tnTotal', grandTotal);
-    setText('tnKnown', totalKnown);
-    setText('tnLeft', grandTotal - totalKnown);
-    setText('ringPct', totalPct + '%');
-
+    setText('heroTotalNum', grandTotal); setText('heroKnownNum', totalKnown);
+    setText('tnTotal', grandTotal); setText('tnKnown', totalKnown); setText('tnLeft', grandTotal - totalKnown); setText('ringPct', totalPct + '%');
     const circumference = 2 * Math.PI * 36;
-    const offset = circumference - (totalPct / 100) * circumference;
     const ring = document.getElementById('ringFill');
-    if (ring) {
-      ring.style.strokeDasharray = circumference;
-      ring.style.strokeDashoffset = circumference;
-      setTimeout(() => { ring.style.strokeDashoffset = offset; }, 100);
-    }
-
-    const milestoneValues = [10, 25, 50, grandTotal];
-    ['ms10','ms25','ms50','ms76'].forEach((id, index) => {
-      const el = document.getElementById(id);
-      if (!el) return;
-      const threshold = milestoneValues[index];
+    if (ring) { ring.style.strokeDasharray = circumference; ring.style.strokeDashoffset = circumference - (totalPct / 100) * circumference; }
+    [['ms10',10],['ms25',25],['ms50',50],['ms116',grandTotal]].forEach(([id, threshold]) => {
+      const el = document.getElementById(id); if (!el) return;
       el.classList.toggle('reached', totalKnown >= threshold);
-      const label = el.querySelector('.ms-label');
-      if (label && id === 'ms76') label.textContent = 'Все!';
+      const label = el.querySelector('.ms-label'); if (label && id === 'ms116') label.textContent = 'Все!';
     });
-
-    const now = new Date();
-    setText('trackerUpdated', `${now.getHours()}:${String(now.getMinutes()).padStart(2,'0')}`);
+    const now = new Date(); setText('trackerUpdated', `${now.getHours()}:${String(now.getMinutes()).padStart(2,'0')}`);
   }
+  function setText(id, value) { const el = document.getElementById(id); if (el) el.textContent = value; }
+
+  window.addEventListener('load', async () => {
+    apply({});
+    try {
+      const fields = ['published_homeworks','vocab_progress','l1_known','l2_known','l3_known','verbs_known'].join(',');
+      const r = await fetch(`${SB_URL}/progress?student=eq.${STUDENT}&select=${fields}`, { headers: { apikey: SB_KEY, Authorization: `Bearer ${SB_KEY}` } });
+      const data = await r.json();
+      apply((data && data[0]) ? data[0] : {});
+    } catch(e) { console.warn(e); }
+  });
 </script>
 </body>
 </html>
