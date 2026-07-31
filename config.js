@@ -10,8 +10,8 @@ window.APP_CONFIG = {
 
   // Общий проект Supabase: тот же, что используется сайтом Кристины.
   supabase: {
-    url: "https://svejqcrkxkiheucglikq.supabase.co",
-    anonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN2ZWpxY3JreGtpaGV1Y2dsaWtxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQwMTE5MDUsImV4cCI6MjA5OTU4NzkwNX0.UUX5_atNjuNdexdhrGQG24UgXLibOE9VgpNcQo3t3nw",
+    url: "https://zqzgarvmpqqqaobeicpc.supabase.co",
+    anonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpxemdhcnZtcHFxcWFvYmVpY3BjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE2ODQwNTIsImV4cCI6MjA5NzI2MDA1Mn0.gARetYwVZfInx3QKS0RvB2I5cOwegPMY5q3nJPX4ZP8",
     tables: {
       homework: "homework_progress",
       vocabulary: "vocabulary_progress",
