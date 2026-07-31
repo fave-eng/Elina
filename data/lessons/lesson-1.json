@@ -1,0 +1,444 @@
+{
+  "id": "lesson-1",
+  "number": 1,
+  "title": "First Class",
+  "subtitle": "Unit 1 · Vocabulary and auxiliary verbs · Outcomes Intermediate",
+  "status": "available",
+  "vocabularyId": "vocab-lesson-1",
+  "grammarIds": [
+    "grammar-present-simple-continuous"
+  ],
+  "publishedAt": "2026-07-09",
+  "totalPoints": 34,
+  "blocks": [
+    {
+      "type": "section",
+      "eyebrow": "Exercise 1",
+      "title": "Vocabulary · People, countries and languages",
+      "text": "Choose the expression that does not fit. In two groups all three expressions are possible."
+    },
+    {
+      "type": "exercise",
+      "id": "lesson1-ex1",
+      "title": "Cross out the odd expression",
+      "instructions": "Choose one answer in every group. Choose “All three expressions fit” when nothing should be crossed out.",
+      "items": [
+        {
+          "id": "1",
+          "number": 1,
+          "prompt": "My friend Lukas is from …",
+          "input": "single",
+          "options": [
+            "Germany",
+            "Arabic",
+            "Japan",
+            "All three expressions fit"
+          ],
+          "answer": 1,
+          "explanation": "Arabic is a language, not a country."
+        },
+        {
+          "id": "2",
+          "number": 2,
+          "prompt": "My sister's a …",
+          "input": "single",
+          "options": [
+            "translator",
+            "civil servant",
+            "engineer",
+            "All three expressions fit"
+          ],
+          "answer": 3,
+          "explanation": "All three are jobs."
+        },
+        {
+          "id": "3",
+          "number": 3,
+          "prompt": "My mum works in a …",
+          "input": "single",
+          "options": [
+            "warehouse",
+            "office",
+            "university",
+            "All three expressions fit"
+          ],
+          "answer": 3,
+          "explanation": "All three can be workplaces."
+        },
+        {
+          "id": "4",
+          "number": 4,
+          "prompt": "My brother speaks good Spanish and a bit of …",
+          "input": "single",
+          "options": [
+            "Portuguese",
+            "Russian",
+            "Poland",
+            "All three expressions fit"
+          ],
+          "answer": 2,
+          "explanation": "Poland is a country, not a language."
+        },
+        {
+          "id": "5",
+          "number": 5,
+          "prompt": "I'm doing a degree in …",
+          "input": "single",
+          "options": [
+            "Lawyer",
+            "Economics",
+            "Medicine",
+            "All three expressions fit"
+          ],
+          "answer": 0,
+          "explanation": "Lawyer is a job, not a university subject."
+        },
+        {
+          "id": "6",
+          "number": 6,
+          "prompt": "My family are all really into …",
+          "input": "single",
+          "options": [
+            "reading",
+            "sport",
+            "cook",
+            "All three expressions fit"
+          ],
+          "answer": 2,
+          "explanation": "Use cooking, not cook, after be into."
+        },
+        {
+          "id": "7",
+          "number": 7,
+          "prompt": "I am …",
+          "input": "single",
+          "options": [
+            "an only children",
+            "the youngest of four kids",
+            "a twin",
+            "All three expressions fit"
+          ],
+          "answer": 0,
+          "explanation": "The correct form is an only child."
+        },
+        {
+          "id": "8",
+          "number": 8,
+          "prompt": "My uncle is …",
+          "input": "single",
+          "options": [
+            "single",
+            "married",
+            "separate",
+            "All three expressions fit"
+          ],
+          "answer": 2,
+          "explanation": "The adjective is separated, not separate."
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "eyebrow": "Exercise 4",
+      "title": "Grammar · Auxiliary verbs",
+      "text": "Build complete questions with the words in brackets."
+    },
+    {
+      "type": "exercise",
+      "id": "lesson1-ex4",
+      "title": "Complete the questions",
+      "instructions": "Type the complete missing part of each question.",
+      "items": [
+        {
+          "id": "1",
+          "number": 1,
+          "prompt": "Complete the question: Well, what ______? (a typical class / involve)",
+          "input": "text",
+          "answer": "does a typical class involve",
+          "explanation": "Correct answer: does a typical class involve."
+        },
+        {
+          "id": "2",
+          "number": 2,
+          "prompt": "Complete the question: So how many students ______? (there / be / in a class)",
+          "input": "text",
+          "answer": "are there in a class",
+          "explanation": "Correct answer: are there in a class."
+        },
+        {
+          "id": "3",
+          "number": 3,
+          "prompt": "Complete the question: And where ______? (they / come from)",
+          "input": "text",
+          "answer": "do they come from",
+          "explanation": "Correct answer: do they come from."
+        },
+        {
+          "id": "4",
+          "number": 4,
+          "prompt": "Complete the question: And how long ______? (each class / last)",
+          "input": "text",
+          "answer": "does each class last",
+          "explanation": "Correct answer: does each class last."
+        },
+        {
+          "id": "5",
+          "number": 5,
+          "prompt": "Complete the question: How ______? (you / decide / on a student's level)",
+          "input": "text",
+          "answer": "do you decide on a student's level",
+          "explanation": "Correct answer: do you decide on a student's level."
+        },
+        {
+          "id": "6",
+          "number": 6,
+          "prompt": "Complete the question: What qualifications ______? (the teachers / have)",
+          "input": "text",
+          "answer": "do the teachers have",
+          "explanation": "Correct answer: do the teachers have."
+        },
+        {
+          "id": "7",
+          "number": 7,
+          "prompt": "Complete the question: Which ones ______ in the next course? (you / go / use)",
+          "input": "text",
+          "answer": "are you going to use",
+          "acceptedAnswers": [
+            "are you going to use",
+            "will you use"
+          ],
+          "explanation": "Correct answer: are you going to use."
+        },
+        {
+          "id": "8",
+          "number": 8,
+          "prompt": "Complete the question: How much ______? (the course / cost)",
+          "input": "text",
+          "answer": "does the course cost",
+          "explanation": "Correct answer: does the course cost."
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "eyebrow": "Exercise 5",
+      "title": "Languages Quiz",
+      "text": "Choose the correct question words, verb forms and factual answers."
+    },
+    {
+      "type": "exercise",
+      "id": "lesson1-ex5",
+      "title": "Choose the correct answer",
+      "items": [
+        {
+          "id": "1",
+          "number": 1,
+          "prompt": "1a. ______ language uses the Cyrillic alphabet?",
+          "input": "single",
+          "options": [
+            "Which",
+            "What"
+          ],
+          "answer": 1
+        },
+        {
+          "id": "2",
+          "number": 2,
+          "prompt": "1b. What language ______ the Cyrillic alphabet?",
+          "input": "single",
+          "options": [
+            "does use",
+            "uses"
+          ],
+          "answer": 1
+        },
+        {
+          "id": "3",
+          "number": 3,
+          "prompt": "1c. Which language uses the Cyrillic alphabet?",
+          "input": "single",
+          "options": [
+            "Polish",
+            "Russian",
+            "French"
+          ],
+          "answer": 1
+        },
+        {
+          "id": "4",
+          "number": 4,
+          "prompt": "2a. How ______ living languages exist in the world today?",
+          "input": "single",
+          "options": [
+            "many",
+            "much"
+          ],
+          "answer": 0
+        },
+        {
+          "id": "5",
+          "number": 5,
+          "prompt": "2b. How many living languages ______ in the world today?",
+          "input": "single",
+          "options": [
+            "exist",
+            "do exist"
+          ],
+          "answer": 0
+        },
+        {
+          "id": "6",
+          "number": 6,
+          "prompt": "2c. How many living languages exist in the world today?",
+          "input": "single",
+          "options": [
+            "about 6,000",
+            "about 600",
+            "about 60"
+          ],
+          "answer": 0
+        },
+        {
+          "id": "7",
+          "number": 7,
+          "prompt": "3a. ______ do you write Hebrew and Arabic?",
+          "input": "single",
+          "options": [
+            "Why",
+            "How"
+          ],
+          "answer": 1
+        },
+        {
+          "id": "8",
+          "number": 8,
+          "prompt": "3b. How do you ______ Hebrew and Arabic?",
+          "input": "single",
+          "options": [
+            "write",
+            "writing"
+          ],
+          "answer": 0
+        },
+        {
+          "id": "9",
+          "number": 9,
+          "prompt": "3c. How do you write Hebrew and Arabic?",
+          "input": "single",
+          "options": [
+            "from left to right",
+            "from right to left",
+            "from top to bottom"
+          ],
+          "answer": 1
+        },
+        {
+          "id": "10",
+          "number": 10,
+          "prompt": "4a. ______ does the word ‘alphabet’ originally come from?",
+          "input": "single",
+          "options": [
+            "When",
+            "Where"
+          ],
+          "answer": 1
+        },
+        {
+          "id": "11",
+          "number": 11,
+          "prompt": "4b. Where does the word ‘alphabet’ originally ______ from?",
+          "input": "single",
+          "options": [
+            "comes",
+            "come"
+          ],
+          "answer": 1
+        },
+        {
+          "id": "12",
+          "number": 12,
+          "prompt": "4c. Where does the word ‘alphabet’ originally come from?",
+          "input": "single",
+          "options": [
+            "Egyptian hieroglyphics",
+            "the name of the first dictionary writer",
+            "the first two letters of the Greek alphabet"
+          ],
+          "answer": 2
+        },
+        {
+          "id": "13",
+          "number": 13,
+          "prompt": "5a. ______ percentage of the Internet is in English?",
+          "input": "single",
+          "options": [
+            "What",
+            "How"
+          ],
+          "answer": 0
+        },
+        {
+          "id": "14",
+          "number": 14,
+          "prompt": "5b. What percentage of the Internet ______ in English?",
+          "input": "single",
+          "options": [
+            "is",
+            "are"
+          ],
+          "answer": 0
+        },
+        {
+          "id": "15",
+          "number": 15,
+          "prompt": "5c. What percentage of the Internet is in English?",
+          "input": "single",
+          "options": [
+            "56 per cent",
+            "86 per cent",
+            "99 per cent"
+          ],
+          "answer": 1
+        },
+        {
+          "id": "16",
+          "number": 16,
+          "prompt": "6a. ______ created the first computer programming language?",
+          "input": "single",
+          "options": [
+            "What",
+            "Who"
+          ],
+          "answer": 1
+        },
+        {
+          "id": "17",
+          "number": 17,
+          "prompt": "6b. Who ______ the first computer programming language?",
+          "input": "single",
+          "options": [
+            "did create",
+            "created"
+          ],
+          "answer": 1
+        },
+        {
+          "id": "18",
+          "number": 18,
+          "prompt": "6c. Who created the first computer programming language?",
+          "input": "single",
+          "options": [
+            "an American businessman",
+            "a German engineer",
+            "a British academic"
+          ],
+          "answer": 2
+        }
+      ]
+    }
+  ],
+  "notification": {
+    "enabled": false,
+    "version": 1
+  }
+}
