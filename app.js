@@ -621,7 +621,9 @@
 
         // Push only sections that were read successfully. This prevents a broken or
         // unavailable table from causing partial local data to overwrite cloud data.
-        for (const section of loadedSections) {
+        // Homework rows are read-only during startup. Pushing them back immediately
+        // causes RLS/immutability errors for already submitted assignments.
+        for (const section of loadedSections.filter((item) => item !== 'homework')) {
           try {
             await this.syncToCloud(section);
           } catch (error) {
@@ -644,7 +646,12 @@
 
       if (sections.includes('homework')) {
         const progress = this.loadHomeworkProgress();
-        const lessonIds = unique([...Object.keys(progress.results), ...Object.keys(progress.submissions)]);
+        const finalStatuses = new Set(['cloud', 'report-sent', 'legacy', 'migrated', 'local']);
+        const lessonIds = unique([...Object.keys(progress.results), ...Object.keys(progress.submissions)])
+          .filter((lessonId) => {
+            const submissionStatus = safeText(progress.submissions[lessonId]?.status).trim().toLowerCase();
+            return !finalStatuses.has(submissionStatus);
+          });
         const rows = lessonIds.map((lessonId) => {
           const result = progress.results[lessonId] || {};
           const submission = progress.submissions[lessonId];
@@ -1581,8 +1588,9 @@
             status: 'report-sent'
           };
           if (!latest.completedIds.includes(lesson.id)) latest.completedIds.push(lesson.id);
+          // The Edge Function has already finalized the Supabase row.
+          // saveHomeworkProgress updates the UI; syncToCloud skips final submissions.
           window.ProgressService.saveHomeworkProgress(latest);
-          await window.ProgressService.syncToCloud('homework');
           showToast(report?.skipped
             ? 'Homework was already submitted and is stored in Supabase.'
             : 'Homework submitted. The teacher received the Telegram report.');
