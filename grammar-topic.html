@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="Personal English learning space">
-  <title>Vocabulary Hub</title>
+  <title>Grammar topic</title>
   <link rel="stylesheet" href="styles.css">
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
@@ -13,39 +13,23 @@
   <script src="data/grammar-data.js" defer></script>
   <script src="app.js?v=5" defer></script>
 </head>
-<body class="has-bottom-nav" data-page="vocabulary" data-view="vocabulary-hub">
+<body class="has-bottom-nav" data-page="grammar" data-view="grammar-topic">
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="hero hero-compact">
     <span class="star one">✦</span><span class="star two">✦</span>
     <div class="container hero-content reveal">
       <span class="hero-badge">✦ <span data-config="level"></span> Level · Individual Course</span>
-      <h1>Vocabulary Hub</h1>
-      <p>Flashcards, tests and review of difficult words.</p>
+      <h1><span id="grammar-hero-title">Grammar</span></h1>
+      <p><span id="grammar-hero-subtitle">Explanations and practice</span></p>
     </div>
     <svg class="hero-wave" viewBox="0 0 1440 100" preserveAspectRatio="none" aria-hidden="true"><path fill="#f8fafc" d="M0,66 C220,102 410,10 696,52 C963,91 1115,99 1440,35 L1440,100 L0,100 Z"></path></svg>
   </header>
 
   <main id="main" class="main-content container">
 
-    <section class="section reveal" aria-label="Vocabulary statistics">
-      <div class="stats-grid">
-        <div class="card stat-card"><strong id="vocab-known">0</strong><span>Learned</span></div>
-        <div class="card stat-card"><strong id="vocab-total">0</strong><span>Total</span></div>
-        <div class="card stat-card"><strong id="vocab-topics">0</strong><span>Topics</span></div>
-        <div class="card stat-card"><strong id="vocab-percent">0%</strong><span>Progress</span></div>
-      </div>
-      <div class="card section"><div id="vocab-overall-progress"></div></div>
-    </section>
-    <section class="section reveal" aria-labelledby="vocab-list-title">
-      <div class="section-heading"><div><span class="eyebrow">Practice</span><h2 id="vocab-list-title">Vocabulary Hub</h2></div></div>
-      <div class="filters" id="vocab-filters" aria-label="Vocabulary topic filters">
-        <button class="filter-btn active" type="button" data-filter="all">All</button>
-        <button class="filter-btn" type="button" data-filter="lesson">By lesson</button>
-        <button class="filter-btn" type="button" data-filter="extra">Extra</button>
-        <button class="filter-btn" type="button" data-filter="completed">Completed</button>
-      </div>
-      <div id="vocabulary-list" class="list section"></div>
+    <section class="section reveal">
+      <div id="grammar-topic-root"></div>
     </section>
 
   </main>
