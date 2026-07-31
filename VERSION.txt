@@ -1,3 +1,0 @@
-Elina English Space v2
-Built: 2026-07-31
-Architecture: shared JSON lessons + common Supabase progress
