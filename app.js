@@ -498,78 +498,139 @@
       CloudService.syncing = true;
       try {
         const client = CloudService.client;
-        const [homeworkResponse, vocabularyResponse, vocabularyTopicsResponse, grammarResponse] = await Promise.all([
+        const requests = await Promise.allSettled([
           client.from(tables.homework).select('*').eq('student_id', studentId),
           client.from(tables.vocabulary).select('*').eq('student_id', studentId),
           client.from(tables.vocabularyTopics).select('*').eq('student_id', studentId),
           client.from(tables.grammar).select('*').eq('student_id', studentId)
         ]);
-        [homeworkResponse, vocabularyResponse, vocabularyTopicsResponse, grammarResponse].forEach((response) => {
-          if (response.error) throw response.error;
+
+        const names = ['homework', 'vocabulary', 'vocabulary topics', 'grammar'];
+        const responses = requests.map((request, index) => {
+          if (request.status === 'rejected') {
+            console.warn(`Supabase ${names[index]} loading failed:`, request.reason);
+            return { data: [], error: request.reason || new Error(`Could not load ${names[index]}`) };
+          }
+          if (request.value?.error) {
+            console.warn(`Supabase ${names[index]} loading failed:`, request.value.error);
+          }
+          return request.value || { data: [], error: new Error(`Could not load ${names[index]}`) };
         });
 
-        const homework = this.loadHomeworkProgress();
-        (homeworkResponse.data || []).forEach((row) => {
-          const localResult = homework.results[row.lesson_id];
-          if (!localResult || dateMs(row.updated_at) >= dateMs(localResult.checkedAt)) {
-            homework.results[row.lesson_id] = {
-              correct: Number(row.score_correct || 0),
-              total: Number(row.score_total || 0),
-              percent: Number(row.score_percent || 0),
-              answers: row.answers && typeof row.answers === 'object' ? row.answers : {},
-              checkedAt: row.checked_at || row.updated_at
-            };
-          }
-          if (row.status === 'submitted') {
-            homework.submissions[row.lesson_id] = {
-              savedAt: row.submitted_at || row.updated_at,
-              reportSentAt: row.report_sent_at || row.submitted_at || row.updated_at,
-              status: 'cloud'
-            };
-            // A homework assignment is counted as complete only after the server
-            // has sent the report and finalized the row as submitted.
-            homework.completedIds.push(row.lesson_id);
-          } else if (Number(row.score_total) > 0 && Number(row.score_correct) === Number(row.score_total)) {
-            homework.completedIds.push(row.lesson_id);
-          }
-        });
-        homework.completedIds = unique(homework.completedIds);
-        storage.write(key('homework'), homework);
+        const [homeworkResponse, vocabularyResponse, vocabularyTopicsResponse, grammarResponse] = responses;
+        const loadedSections = [];
 
-        const vocabulary = this.loadVocabularyProgress();
-        (vocabularyResponse.data || []).forEach((row) => {
-          const local = vocabulary.words[row.word_key];
-          if (!local || dateMs(row.updated_at) >= dateMs(local.updatedAt)) {
-            vocabulary.words[row.word_key] = {
-              status: row.status,
-              topicId: row.source_topic_id || '',
-              learnedAt: row.learned_at || null,
-              updatedAt: row.updated_at
-            };
-          }
-        });
-        (vocabularyTopicsResponse.data || []).forEach((row) => {
-          const localTests = vocabulary.topics[row.topic_id]?.tests || [];
-          const cloudTests = Array.isArray(row.tests) ? row.tests : [];
-          const merged = new Map();
-          [...localTests, ...cloudTests].forEach((test) => merged.set(test.completedAt || JSON.stringify(test), test));
-          vocabulary.topics[row.topic_id] = { tests: [...merged.values()] };
-        });
-        storage.write(key('vocabulary'), normalizeVocabularyProgress(vocabulary));
+        // Homework progress must be restored independently. A missing vocabulary or
+        // grammar table must not hide already submitted homework assignments.
+        if (!homeworkResponse.error) {
+          const homework = this.loadHomeworkProgress();
+          let latestHomeworkUpdate = dateMs(homework._updatedAt);
 
-        const grammar = this.loadGrammarProgress();
-        (grammarResponse.data || []).forEach((row) => {
-          const local = grammar.topics[row.topic_id] || {};
-          grammar.topics[row.topic_id] = {
-            passed: Boolean(local.passed || row.passed),
-            attempts: Math.max(Number(local.attempts || 0), Number(row.attempts || 0)),
-            bestScore: Math.max(Number(local.bestScore || 0), Number(row.best_score || 0)),
-            updatedAt: dateMs(row.updated_at) >= dateMs(local.updatedAt) ? row.updated_at : local.updatedAt
-          };
-        });
-        storage.write(key('grammar'), grammar);
-        await this.syncToCloud();
-        return true;
+          (homeworkResponse.data || []).forEach((row) => {
+            const lessonId = safeText(row.lesson_id).trim();
+            if (!lessonId) return;
+
+            const remoteUpdatedAt = row.updated_at || row.checked_at || row.submitted_at || '';
+            const localResult = homework.results[lessonId];
+            if (!localResult || dateMs(remoteUpdatedAt) >= dateMs(localResult.checkedAt)) {
+              homework.results[lessonId] = {
+                correct: Number(row.score_correct || 0),
+                total: Number(row.score_total || 0),
+                percent: Number(row.score_percent || 0),
+                answers: row.answers && typeof row.answers === 'object' ? row.answers : {},
+                checkedAt: row.checked_at || remoteUpdatedAt
+              };
+            }
+
+            const rowStatus = safeText(row.status).trim().toLowerCase();
+            const reportStatus = safeText(row.report_status).trim().toLowerCase();
+            const isSubmitted = Boolean(
+              rowStatus === 'submitted' ||
+              reportStatus === 'sent' ||
+              row.submitted_at
+            );
+
+            if (isSubmitted) {
+              const savedAt = row.submitted_at || row.locked_at || remoteUpdatedAt || new Date().toISOString();
+              homework.submissions[lessonId] = {
+                savedAt,
+                reportSentAt: row.report_sent_at || savedAt,
+                status: 'cloud'
+              };
+              homework.completedIds.push(lessonId);
+            } else if (Number(row.score_total) > 0 && Number(row.score_correct) === Number(row.score_total)) {
+              homework.completedIds.push(lessonId);
+            }
+
+            latestHomeworkUpdate = Math.max(latestHomeworkUpdate, dateMs(remoteUpdatedAt));
+          });
+
+          homework.completedIds = unique(homework.completedIds);
+          if (latestHomeworkUpdate > 0) {
+            homework._updatedAt = new Date(latestHomeworkUpdate).toISOString();
+          }
+          storage.write(key('homework'), homework);
+          loadedSections.push('homework');
+        }
+
+        if (!vocabularyResponse.error || !vocabularyTopicsResponse.error) {
+          const vocabulary = this.loadVocabularyProgress();
+
+          if (!vocabularyResponse.error) {
+            (vocabularyResponse.data || []).forEach((row) => {
+              const local = vocabulary.words[row.word_key];
+              if (!local || dateMs(row.updated_at) >= dateMs(local.updatedAt)) {
+                vocabulary.words[row.word_key] = {
+                  status: row.status,
+                  topicId: row.source_topic_id || '',
+                  learnedAt: row.learned_at || null,
+                  updatedAt: row.updated_at
+                };
+              }
+            });
+          }
+
+          if (!vocabularyTopicsResponse.error) {
+            (vocabularyTopicsResponse.data || []).forEach((row) => {
+              const localTests = vocabulary.topics[row.topic_id]?.tests || [];
+              const cloudTests = Array.isArray(row.tests) ? row.tests : [];
+              const merged = new Map();
+              [...localTests, ...cloudTests].forEach((test) => merged.set(test.completedAt || JSON.stringify(test), test));
+              vocabulary.topics[row.topic_id] = { tests: [...merged.values()] };
+            });
+          }
+
+          storage.write(key('vocabulary'), normalizeVocabularyProgress(vocabulary));
+          if (!vocabularyResponse.error && !vocabularyTopicsResponse.error) loadedSections.push('vocabulary');
+        }
+
+        if (!grammarResponse.error) {
+          const grammar = this.loadGrammarProgress();
+          (grammarResponse.data || []).forEach((row) => {
+            const local = grammar.topics[row.topic_id] || {};
+            grammar.topics[row.topic_id] = {
+              passed: Boolean(local.passed || row.passed),
+              attempts: Math.max(Number(local.attempts || 0), Number(row.attempts || 0)),
+              bestScore: Math.max(Number(local.bestScore || 0), Number(row.best_score || 0)),
+              updatedAt: dateMs(row.updated_at) >= dateMs(local.updatedAt) ? row.updated_at : local.updatedAt
+            };
+          });
+          storage.write(key('grammar'), grammar);
+          loadedSections.push('grammar');
+        }
+
+        // Push only sections that were read successfully. This prevents a broken or
+        // unavailable table from causing partial local data to overwrite cloud data.
+        for (const section of loadedSections) {
+          try {
+            await this.syncToCloud(section);
+          } catch (error) {
+            console.warn(`Supabase ${section} save after loading failed:`, error);
+          }
+        }
+
+        if (homeworkResponse.error) throw homeworkResponse.error;
+        return loadedSections.length > 0;
       } finally {
         CloudService.syncing = false;
       }
