@@ -1905,3 +1905,55 @@ label.odd-option {
     width: 46px;
   }
 }
+
+/* Newest-first grouped catalog lists */
+.catalog-group {
+  display: grid;
+  gap: 12px;
+}
+
+.catalog-group + .catalog-group {
+  margin-top: 30px;
+  padding-top: 26px;
+  border-top: 1px solid var(--border);
+}
+
+.catalog-group-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 0 2px;
+}
+
+.catalog-group-heading h3 {
+  margin-top: 3px;
+  font-size: 1.2rem;
+}
+
+.catalog-group-completed .eyebrow {
+  color: var(--green);
+}
+
+.catalog-group-count {
+  flex: 0 0 auto;
+  padding: 5px 9px;
+  border-radius: 999px;
+  background: #f1f5f9;
+  color: var(--muted);
+  font-size: .72rem;
+  font-weight: 800;
+}
+
+.catalog-group-list {
+  gap: 14px;
+}
+
+.catalog-group-empty {
+  padding: 16px 18px;
+  border: 1px dashed #cbd5e1;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, .58);
+  color: var(--muted);
+  font-size: .9rem;
+}
