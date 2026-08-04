@@ -842,5 +842,9 @@
         }
       ]
     }
-  ]
+  ],
+  "notification": {
+    "enabled": true,
+    "version": 1
+  }
 }
