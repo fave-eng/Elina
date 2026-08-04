@@ -783,7 +783,7 @@ window.VOCABULARY_DATA = [
       {
         "id": "verb-35-say",
         "en": "say",
-        "ru": "говорить",
+        "ru": "сказать, произнести",
         "transcription": "said · said",
         "exampleEn": "say — said — said"
       },
@@ -825,7 +825,7 @@ window.VOCABULARY_DATA = [
       {
         "id": "verb-41-speak",
         "en": "speak",
-        "ru": "говорить",
+        "ru": "разговаривать, говорить на языке",
         "transcription": "spoke · spoken",
         "exampleEn": "speak — spoke — spoken"
       },

@@ -8,8 +8,8 @@
   const GRAMMAR_DATA = Array.isArray(window.GRAMMAR_DATA) ? window.GRAMMAR_DATA : [];
   const lessonCache = new Map();
   const lessonsPath = 'data/lessons';
+  const lessonsIndexPath = `${lessonsPath}/index.json`;
   const maxLessonNumber = 200;
-  const maxConsecutiveMissingLessons = 3;
 
   const safeText = (value, fallback = '') => value === undefined || value === null ? fallback : String(value);
   const escapeHtml = (value) => safeText(value)
@@ -80,19 +80,47 @@
     }
   }
 
-  async function discoverHomeworkData() {
-    const lessons = [];
-    let consecutiveMissing = 0;
+  async function fetchLessonIndex() {
+    const url = new URL(lessonsIndexPath, document.baseURI);
+    const response = await fetch(url, { cache: 'no-store' });
+    if (response.status === 404) return null;
+    if (!response.ok) throw new Error(`Could not load the lesson index: ${response.status}`);
 
-    for (let number = 1; number <= maxLessonNumber; number += 1) {
-      const lesson = await fetchLessonFile(`lesson-${number}`);
-      if (lesson) {
-        lessons.push(lesson);
-        consecutiveMissing = 0;
-      } else {
-        consecutiveMissing += 1;
-        if (consecutiveMissing >= maxConsecutiveMissingLessons) break;
-      }
+    const payload = await response.json();
+    const sourceIds = Array.isArray(payload) ? payload : payload?.lessons;
+    if (!Array.isArray(sourceIds)) throw new Error('The lesson index has an invalid structure.');
+
+    return unique(sourceIds
+      .map((id) => safeText(id).trim())
+      .filter((id) => /^lesson-\d+$/.test(id)))
+      .sort((a, b) => Number(a.replace('lesson-', '')) - Number(b.replace('lesson-', '')));
+  }
+
+  async function discoverHomeworkData() {
+    let lessonIds = null;
+    try {
+      lessonIds = await fetchLessonIndex();
+    } catch (error) {
+      console.warn('Could not use the lesson index. Falling back to a full scan:', error);
+    }
+
+    if (lessonIds !== null) {
+      const indexedLessons = await Promise.all(lessonIds.map((id) => fetchLessonFile(id)));
+      return indexedLessons
+        .filter(Boolean)
+        .sort((a, b) => Number(a.number || 0) - Number(b.number || 0));
+    }
+
+    // Compatibility fallback for older deployments without index.json. Scan the
+    // complete supported range, so later lessons are not hidden by number gaps.
+    const lessons = [];
+    const batchSize = 20;
+    for (let first = 1; first <= maxLessonNumber; first += batchSize) {
+      const last = Math.min(maxLessonNumber, first + batchSize - 1);
+      const batch = await Promise.all(
+        Array.from({ length: last - first + 1 }, (_, offset) => fetchLessonFile(`lesson-${first + offset}`))
+      );
+      lessons.push(...batch.filter(Boolean));
     }
 
     return lessons.sort((a, b) => Number(a.number || 0) - Number(b.number || 0));
@@ -1666,7 +1694,7 @@
         const progress = window.ProgressService.loadGrammarProgress();
         const previous = progress.topics[topic.id] || {};
         progress.topics[topic.id] = {
-          passed: percent === 100,
+          passed: Boolean(previous.passed || topic.passed || percent === 100),
           attempts: Number(previous.attempts || 0) + 1,
           bestScore: Math.max(Number(previous.bestScore || 0), percent),
           updatedAt: new Date().toISOString()
@@ -1811,9 +1839,12 @@
       });
     };
 
+    const translationKey = (word) => safeText(word?.ru).normalize('NFKC').toLocaleLowerCase('ru').trim().replace(/\s+/g, ' ');
+
     const startTest = () => {
-      if (topic.words.length < 4) {
-        modeRoot.innerHTML = emptyState('🧩', 'At least 4 words are needed for the test', 'Add more unique words to the topic to create four answer options.');
+      const distinctTranslations = new Set(topic.words.map(translationKey).filter(Boolean));
+      if (topic.words.length < 4 || distinctTranslations.size < 4) {
+        modeRoot.innerHTML = emptyState('🧩', 'At least 4 distinct translations are needed for the test', 'Make the translations different so that four unambiguous answer options can be shown.');
         return;
       }
       testState = { words: shuffled(topic.words), index: 0, firstTryCorrect: 0, answered: false, firstAnswers: {} };
@@ -1837,7 +1868,15 @@
     const drawQuestion = () => {
       if (testState.index >= testState.words.length) { finishTest(); return; }
       const word = testState.words[testState.index];
-      const distractors = shuffled(topic.words.filter((item) => item.__wordKey !== word.__wordKey)).slice(0, 3);
+      const usedTranslations = new Set([translationKey(word)]);
+      const distractors = [];
+      for (const candidate of shuffled(topic.words.filter((item) => item.__wordKey !== word.__wordKey))) {
+        const candidateTranslation = translationKey(candidate);
+        if (!candidateTranslation || usedTranslations.has(candidateTranslation)) continue;
+        usedTranslations.add(candidateTranslation);
+        distractors.push(candidate);
+        if (distractors.length === 3) break;
+      }
       const options = shuffled([word, ...distractors]);
       testState.answered = false;
       modeRoot.innerHTML = `<div class="flash-counter">Question ${testState.index + 1} of ${testState.words.length}</div><article class="card"><span class="eyebrow">Choose the translation</span><h2 class="flash-word">${escapeHtml(word.en)}</h2>${word.transcription ? `<p class="muted">${escapeHtml(word.transcription)}</p>` : ''}<div class="option-list section">${options.map((option) => `<button class="quiz-option" type="button" data-answer-key="${escapeHtml(option.__wordKey)}">${escapeHtml(option.ru)}</button>`).join('')}</div><div id="vocab-test-feedback" class="feedback"></div><div class="button-row"><button class="btn btn-primary" id="next-vocab-question" type="button" disabled>Next word</button></div></article>`;
