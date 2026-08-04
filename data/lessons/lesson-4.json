@@ -1,0 +1,846 @@
+{
+  "id": "lesson-4",
+  "number": 4,
+  "title": "How food affects mood",
+  "subtitle": "Unit 2 · -ing / -ed adjectives and reading · Outcomes",
+  "status": "available",
+  "vocabularyId": "vocab-lesson-4",
+  "grammarIds": [
+    "grammar-ed-ing-adjectives"
+  ],
+  "publishedAt": "2026-08-04",
+  "totalPoints": 35,
+  "blocks": [
+    {
+      "type": "section",
+      "eyebrow": "Exercise 1",
+      "title": "VOCABULARY · -ing / -ed adjectives",
+      "text": "Cross out two nouns that do not usually go with the –ing adjectives."
+    },
+    {
+      "type": "exercise",
+      "id": "lesson4-ex1",
+      "title": "Cross out two nouns that do not usually go with the –ing adjectives.",
+      "items": [
+        {
+          "id": "1",
+          "number": 1,
+          "prompt": "relaxing holiday / friend / weekend / massage / food",
+          "input": "multiple",
+          "options": [
+            "holiday",
+            "friend",
+            "weekend",
+            "massage",
+            "food"
+          ],
+          "answer": [
+            1,
+            4
+          ]
+        },
+        {
+          "id": "2",
+          "number": 2,
+          "prompt": "annoying neighbour / disaster / mobile phone ringing / success / habit",
+          "input": "multiple",
+          "options": [
+            "neighbour",
+            "disaster",
+            "mobile phone ringing",
+            "success",
+            "habit"
+          ],
+          "answer": [
+            1,
+            3
+          ]
+        },
+        {
+          "id": "3",
+          "number": 3,
+          "prompt": "disappointing problem / result / ending / exam grade / clothes",
+          "input": "multiple",
+          "options": [
+            "problem",
+            "result",
+            "ending",
+            "exam grade",
+            "clothes"
+          ],
+          "answer": [
+            0,
+            4
+          ]
+        },
+        {
+          "id": "4",
+          "number": 4,
+          "prompt": "confusing atmosphere / situation / idea / explanation / skill",
+          "input": "multiple",
+          "options": [
+            "atmosphere",
+            "situation",
+            "idea",
+            "explanation",
+            "skill"
+          ],
+          "answer": [
+            2,
+            4
+          ]
+        },
+        {
+          "id": "5",
+          "number": 5,
+          "prompt": "exciting sleep / development / help / news / story",
+          "input": "multiple",
+          "options": [
+            "sleep",
+            "development",
+            "help",
+            "news",
+            "story"
+          ],
+          "answer": [
+            0,
+            2
+          ]
+        },
+        {
+          "id": "6",
+          "number": 6,
+          "prompt": "inspiring crime / leader / speech / plan / loss",
+          "input": "multiple",
+          "options": [
+            "crime",
+            "leader",
+            "speech",
+            "plan",
+            "loss"
+          ],
+          "answer": [
+            0,
+            4
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "eyebrow": "Exercise 2",
+      "title": "Choose the correct words.",
+      "text": ""
+    },
+    {
+      "type": "exercise",
+      "id": "lesson4-ex2",
+      "title": "Choose the correct words.",
+      "items": [
+        {
+          "id": "1",
+          "number": 1,
+          "input": "inline-choices",
+          "segments": [
+            "You walk out of the place completely ",
+            ". And they don’t play that ",
+            " whale music, which is a relief."
+          ],
+          "choices": [
+            [
+              "relaxed",
+              "relaxing"
+            ],
+            [
+              "boring",
+              "bored"
+            ]
+          ],
+          "answers": [
+            0,
+            0
+          ]
+        },
+        {
+          "id": "2",
+          "number": 2,
+          "input": "inline-choices",
+          "segments": [
+            "I had to give my height, weight, and my age – it was so ",
+            ". I was a bit ",
+            " when I saw how much weight I’d put on."
+          ],
+          "choices": [
+            [
+              "embarrassed",
+              "embarrassing"
+            ],
+            [
+              "shocked",
+              "shocking"
+            ]
+          ],
+          "answers": [
+            1,
+            0
+          ]
+        },
+        {
+          "id": "3",
+          "number": 3,
+          "input": "inline-choices",
+          "segments": [
+            "I’m not sure I’m in the correct level. I’m always so ",
+            " at the end of the lesson. And concentrating for an hour is ",
+            "."
+          ],
+          "choices": [
+            [
+              "confused",
+              "confusing"
+            ],
+            [
+              "exhausting",
+              "exhausted"
+            ]
+          ],
+          "answers": [
+            0,
+            0
+          ]
+        },
+        {
+          "id": "4",
+          "number": 4,
+          "input": "inline-choices",
+          "segments": [
+            "I didn’t expect it to be so beautiful. I was quite ",
+            " when I saw the scenery. But our flight was delayed, which was ",
+            "."
+          ],
+          "choices": [
+            [
+              "surprising",
+              "surprised"
+            ],
+            [
+              "annoyed",
+              "annoying"
+            ]
+          ],
+          "answers": [
+            1,
+            1
+          ]
+        },
+        {
+          "id": "5",
+          "number": 5,
+          "input": "inline-choices",
+          "segments": [
+            "I wasn’t very ",
+            " in the characters. And the ending was ",
+            "."
+          ],
+          "choices": [
+            [
+              "interested",
+              "interesting"
+            ],
+            [
+              "disappointed",
+              "disappointing"
+            ]
+          ],
+          "answers": [
+            0,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "eyebrow": "Exercise 3",
+      "title": "What are the people in exercise 2 talking about? Match 1–5 above to a–e.",
+      "text": ""
+    },
+    {
+      "type": "exercise",
+      "id": "lesson4-ex3",
+      "title": "What are the people in exercise 2 talking about? Match 1–5 above to a–e.",
+      "items": [
+        {
+          "id": "option-a",
+          "displayOnly": true,
+          "prompt": "a    a gym"
+        },
+        {
+          "id": "option-b",
+          "displayOnly": true,
+          "prompt": "b    a novel"
+        },
+        {
+          "id": "option-c",
+          "displayOnly": true,
+          "prompt": "c    a trip"
+        },
+        {
+          "id": "option-d",
+          "displayOnly": true,
+          "prompt": "d    a language school"
+        },
+        {
+          "id": "option-e",
+          "displayOnly": true,
+          "prompt": "e    a health spa"
+        },
+        {
+          "id": "1",
+          "number": 1,
+          "prompt": "",
+          "input": "select",
+          "options": [
+            "a",
+            "b",
+            "c",
+            "d",
+            "e"
+          ],
+          "answer": 4
+        },
+        {
+          "id": "2",
+          "number": 2,
+          "prompt": "",
+          "input": "select",
+          "options": [
+            "a",
+            "b",
+            "c",
+            "d",
+            "e"
+          ],
+          "answer": 0
+        },
+        {
+          "id": "3",
+          "number": 3,
+          "prompt": "",
+          "input": "select",
+          "options": [
+            "a",
+            "b",
+            "c",
+            "d",
+            "e"
+          ],
+          "answer": 3
+        },
+        {
+          "id": "4",
+          "number": 4,
+          "prompt": "",
+          "input": "select",
+          "options": [
+            "a",
+            "b",
+            "c",
+            "d",
+            "e"
+          ],
+          "answer": 2
+        },
+        {
+          "id": "5",
+          "number": 5,
+          "prompt": "",
+          "input": "select",
+          "options": [
+            "a",
+            "b",
+            "c",
+            "d",
+            "e"
+          ],
+          "answer": 1
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "eyebrow": "Exercise 4",
+      "title": "Complete the conversations with the correct form of the verbs in brackets.",
+      "text": ""
+    },
+    {
+      "type": "exercise",
+      "id": "lesson4-ex4",
+      "title": "Complete the conversations with the correct form of the verbs in brackets.",
+      "items": [
+        {
+          "id": "1",
+          "number": 1,
+          "input": "gaps",
+          "layout": "dialogue",
+          "segments": [
+            "A: If you don’t mind, I’d like to change channels before the news. There’s an ",
+            " (interest) programme on at 8 p.m.\nB: Go ahead. I don’t want to watch the news. It’s always so ",
+            " (depress)."
+          ],
+          "answers": [
+            [
+              "interesting"
+            ],
+            [
+              "depressing"
+            ]
+          ]
+        },
+        {
+          "id": "2",
+          "number": 2,
+          "input": "gaps",
+          "layout": "dialogue",
+          "segments": [
+            "A: Can you believe that score – six nil? I’ve never been so ",
+            " (disappoint).\nB: I know. I was so ",
+            " (excite) at the start of the season."
+          ],
+          "answers": [
+            [
+              "disappointed"
+            ],
+            [
+              "excited"
+            ]
+          ]
+        },
+        {
+          "id": "3",
+          "number": 3,
+          "input": "gaps",
+          "layout": "dialogue",
+          "segments": [
+            "A: Do you fancy coming for a walk? The view over the beach is meant to be ",
+            " (amaze).\nB: Thanks, but I’m not up to it. I feel ",
+            " (exhaust) after that journey."
+          ],
+          "answers": [
+            [
+              "amazing"
+            ],
+            [
+              "exhausted"
+            ]
+          ]
+        },
+        {
+          "id": "4",
+          "number": 4,
+          "input": "gaps",
+          "layout": "dialogue",
+          "segments": [
+            "A: Only ten people turned up to my party. I don’t think I’ve ever been so ",
+            " (embarrass).\nB: That’s a shame. It’s very ",
+            " (annoy) when people let you down."
+          ],
+          "answers": [
+            [
+              "embarrassed"
+            ],
+            [
+              "annoying"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "eyebrow": "READING · Exercise 5",
+      "title": "Read the article opposite quickly. What is the main reason for writing it?",
+      "text": ""
+    },
+    {
+      "type": "exercise",
+      "id": "lesson4-ex5",
+      "title": "Read the article opposite quickly. What is the main reason for writing it?",
+      "items": [
+        {
+          "id": "1",
+          "number": "",
+          "prompt": "",
+          "input": "single",
+          "options": [
+            "a    to advise people on how to improve their diet",
+            "b    to explain that there is a connection between food and how people feel",
+            "c    to describe a series of experiments on food"
+          ],
+          "answer": 1
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "eyebrow": "Exercise 6",
+      "title": "Six parts of the article ‘How food affects mood’ have been removed. Write the correct letter (a–f) in the gaps in the article.",
+      "text": ""
+    },
+    {
+      "type": "exercise",
+      "id": "lesson4-ex6",
+      "title": "Six parts of the article ‘How food affects mood’ have been removed. Write the correct letter (a–f) in the gaps in the article.",
+      "items": [
+        {
+          "id": "a",
+          "displayOnly": true,
+          "prompt": "a    Research also suggests that the right foods"
+        },
+        {
+          "id": "b",
+          "displayOnly": true,
+          "prompt": "b    that activate when people enjoy themselves"
+        },
+        {
+          "id": "c",
+          "displayOnly": true,
+          "prompt": "c    if they were eating healthily and taking regular physical exercise."
+        },
+        {
+          "id": "d",
+          "displayOnly": true,
+          "prompt": "d    who wrote a report based on the survey"
+        },
+        {
+          "id": "e",
+          "displayOnly": true,
+          "prompt": "e    but felt guilty afterwards."
+        },
+        {
+          "id": "f",
+          "displayOnly": true,
+          "prompt": "f    There is a definite link with food and mood"
+        },
+        {
+          "id": "article",
+          "number": "",
+          "prompt": "",
+          "input": "article-gaps",
+          "articleTitle": "How food affects mood",
+          "segments": [
+            "Eating ice cream really does make you happy. Scientists at the Institute of Psychiatry in London tested the brains of people eating vanilla ice cream. They found an immediate effect on parts of the brain ",
+            ". It works on the same part of the brain that reacts when people win money or listen to music.\n\n",
+            " can improve people’s mood and even their overall mental health. A survey of 200 people found 88 per cent reported that changing their diet improved their mental health. 26 per cent said they had seen marked improvements in mood swings, 26 per cent had seen improvements in panic attacks and anxiety, and 24 per cent in depression.\n\nPeople in the survey identified mood ‘stressors’ and ‘supporters’. Eating fewer ‘stressors’ like chocolate, sugar, caffeine and alcohol improved their mood. They also increased the ‘supporters’ they ate, like water, fruit, vegetables and oily fish. Not skipping breakfast, and eating regularly also led to an increase in well-being.\n\nOver a third of people said they were ‘very certain’ that the improvements to their mental health were directly linked to the changes they had made to their diet. One person who completed the survey said, ‘",
+            ", but I do lapse and, when I do, I feel noticeably different. Once you find out your triggers, you can feel so much better.’\n\nAmanda Geary, ",
+            " said ‘A lot of these changes are very simple things that people can do and are fairly safe, and fit with healthy eating advice.’\n\nDr Wendy Doyle, a dietician, said oily fish and fruit and vegetables were known to be beneficial. ‘They are good for general health – and you must have enough fluid to prevent dehydration.’ She said people would also feel better ",
+            " Dr Doyle added, ‘People may feel bad after eating chocolate because they enjoyed eating it, ",
+            "’"
+          ],
+          "answers": [
+            [
+              "b"
+            ],
+            [
+              "a"
+            ],
+            [
+              "f"
+            ],
+            [
+              "d"
+            ],
+            [
+              "c"
+            ],
+            [
+              "e"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "eyebrow": "Exercise 7",
+      "title": "Underline the following parts of the article.",
+      "text": ""
+    },
+    {
+      "type": "exercise",
+      "id": "lesson4-ex7",
+      "title": "Underline the following parts of the article.",
+      "items": [
+        {
+          "id": "underline-article",
+          "number": "",
+          "prompt": "",
+          "input": "underline",
+          "tasks": [
+            "four mental health problems",
+            "the word the writer uses to describe food / drinks with a positive effect and examples of these",
+            "the word the writer uses to describe food / drinks with a negative effect and examples of these",
+            "the reason why it is important to drink enough fluid"
+          ],
+          "paragraphs": [
+            [
+              {
+                "id": "u1",
+                "text": "Eating ice cream really does make you happy."
+              },
+              {
+                "id": "u2",
+                "text": " Scientists at the Institute of Psychiatry in London tested the brains of people eating vanilla ice cream."
+              },
+              {
+                "id": "u3",
+                "text": " They found an immediate effect on parts of the brain that activate when people enjoy themselves."
+              },
+              {
+                "id": "u4",
+                "text": " It works on the same part of the brain that reacts when people win money or listen to music."
+              }
+            ],
+            [
+              {
+                "id": "u5",
+                "text": "Research also suggests that the right foods can improve people’s mood and even their overall mental health."
+              },
+              {
+                "id": "u6",
+                "text": " A survey of 200 people found 88 per cent reported that changing their diet improved their mental health."
+              },
+              {
+                "id": "u7",
+                "text": " 26 per cent said they had seen marked improvements in "
+              },
+              {
+                "id": "problem-mood-swings",
+                "text": "mood swings"
+              },
+              {
+                "id": "u8",
+                "text": ", 26 per cent had seen improvements in "
+              },
+              {
+                "id": "problem-panic-attacks",
+                "text": "panic attacks"
+              },
+              {
+                "id": "u9",
+                "text": " and "
+              },
+              {
+                "id": "problem-anxiety",
+                "text": "anxiety"
+              },
+              {
+                "id": "u10",
+                "text": ", and 24 per cent in "
+              },
+              {
+                "id": "problem-depression",
+                "text": "depression"
+              },
+              {
+                "id": "u11",
+                "text": "."
+              }
+            ],
+            [
+              {
+                "id": "u12",
+                "text": "People in the survey identified mood ‘stressors’ and ‘supporters’."
+              },
+              {
+                "id": "negative-foods",
+                "text": " Eating fewer ‘stressors’ like chocolate, sugar, caffeine and alcohol"
+              },
+              {
+                "id": "u13",
+                "text": " improved their mood."
+              },
+              {
+                "id": "positive-foods",
+                "text": " They also increased the ‘supporters’ they ate, like water, fruit, vegetables and oily fish."
+              },
+              {
+                "id": "u14",
+                "text": " Not skipping breakfast, and eating regularly also led to an increase in well-being."
+              }
+            ],
+            [
+              {
+                "id": "u15",
+                "text": "Over a third of people said they were ‘very certain’ that the improvements to their mental health were directly linked to the changes they had made to their diet."
+              },
+              {
+                "id": "u16",
+                "text": " One person who completed the survey said, ‘There is a definite link with food and mood, but I do lapse and, when I do, I feel noticeably different."
+              },
+              {
+                "id": "u17",
+                "text": " Once you find out your triggers, you can feel so much better.’"
+              }
+            ],
+            [
+              {
+                "id": "u18",
+                "text": "Amanda Geary, who wrote a report based on the survey said ‘A lot of these changes are very simple things that people can do and are fairly safe, and fit with healthy eating advice.’"
+              }
+            ],
+            [
+              {
+                "id": "u19",
+                "text": "Dr Wendy Doyle, a dietician, said oily fish and fruit and vegetables were known to be beneficial."
+              },
+              {
+                "id": "u20",
+                "text": " ‘They are good for general health – and "
+              },
+              {
+                "id": "fluid-reason",
+                "text": "you must have enough fluid to prevent dehydration"
+              },
+              {
+                "id": "u21",
+                "text": ".’"
+              },
+              {
+                "id": "u22",
+                "text": " She said people would also feel better if they were eating healthily and taking regular physical exercise."
+              },
+              {
+                "id": "u23",
+                "text": " Dr Doyle added, ‘People may feel bad after eating chocolate because they enjoyed eating it, but felt guilty afterwards.’"
+              }
+            ]
+          ],
+          "answer": [
+            "problem-mood-swings",
+            "problem-panic-attacks",
+            "problem-anxiety",
+            "problem-depression",
+            "positive-foods",
+            "negative-foods",
+            "fluid-reason"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "eyebrow": "Exercise 8",
+      "title": "Which adjectives went with these nouns? Look back at the article and sentences a–f in exercise 6.",
+      "text": ""
+    },
+    {
+      "type": "exercise",
+      "id": "lesson4-ex8",
+      "title": "Which adjectives went with these nouns? Look back at the article and sentences a–f in exercise 6.",
+      "items": [
+        {
+          "id": "1",
+          "number": 1,
+          "prompt": "________ effect",
+          "input": "text",
+          "answer": "immediate"
+        },
+        {
+          "id": "2",
+          "number": 2,
+          "prompt": "________ foods",
+          "input": "text",
+          "answer": "right"
+        },
+        {
+          "id": "3",
+          "number": 3,
+          "prompt": "________ mental health",
+          "input": "text",
+          "answer": "overall"
+        },
+        {
+          "id": "4",
+          "number": 4,
+          "prompt": "________ improvements",
+          "input": "text",
+          "answer": "marked"
+        },
+        {
+          "id": "5",
+          "number": 5,
+          "prompt": "________ link",
+          "input": "text",
+          "answer": "definite"
+        },
+        {
+          "id": "6",
+          "number": 6,
+          "prompt": "________ physical exercise",
+          "input": "text",
+          "answer": "regular"
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "eyebrow": "Exercise 9",
+      "title": "Complete the sentences with the collocations from exercise 8.",
+      "text": ""
+    },
+    {
+      "type": "exercise",
+      "id": "lesson4-ex9",
+      "title": "Complete the sentences with the collocations from exercise 8.",
+      "items": [
+        {
+          "id": "1",
+          "number": 1,
+          "prompt": "I think there’s a __________ between talking about your feelings and being happy.",
+          "input": "text",
+          "answer": "definite link"
+        },
+        {
+          "id": "2",
+          "number": 2,
+          "prompt": "I gave up strong coffee and it had an __________ on me – I stopped having headaches straight away and I slept better.",
+          "input": "text",
+          "answer": "immediate effect"
+        },
+        {
+          "id": "3",
+          "number": 3,
+          "prompt": "There’s been __________ in my children’s behaviour since they have stopped eating sugar.",
+          "input": "text",
+          "acceptedAnswers": [
+            "marked improvement",
+            "a marked improvement"
+          ],
+          "answer": "marked improvement"
+        },
+        {
+          "id": "4",
+          "number": 4,
+          "prompt": "A diet containing the __________ doesn’t have to be boring.",
+          "input": "text",
+          "answer": "right foods"
+        },
+        {
+          "id": "5",
+          "number": 5,
+          "prompt": "Many people don’t realise that __________ is linked to eating a good diet.",
+          "input": "text",
+          "answer": "overall mental health"
+        },
+        {
+          "id": "6",
+          "number": 6,
+          "prompt": "Taking __________, like walking or cycling, helps me deal with stress.",
+          "input": "text",
+          "answer": "regular physical exercise"
+        }
+      ]
+    }
+  ]
+}

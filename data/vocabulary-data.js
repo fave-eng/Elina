@@ -535,6 +535,171 @@ window.VOCABULARY_DATA = [
     ]
   },
   {
+    "id": "vocab-lesson-4",
+    "title": "Food, Mood & Mental Health",
+    "label": "Lesson 4 · How food affects mood",
+    "icon": "🍎",
+    "type": "lesson",
+    "linkedLessonId": "lesson-4",
+    "page": "vocabulary.html?id=vocab-lesson-4",
+    "words": [
+      {
+        "id": "vocab-l4-1-scenery",
+        "en": "scenery",
+        "ru": "пейзаж, вид",
+        "exampleEn": "I was surprised when I saw the scenery.",
+        "category": "READING"
+      },
+      {
+        "id": "vocab-l4-2-affect",
+        "en": "affect",
+        "ru": "влиять на",
+        "exampleEn": "The article explains how food can affect mood.",
+        "category": "READING"
+      },
+      {
+        "id": "vocab-l4-3-a-mood-swing",
+        "en": "a mood swing",
+        "ru": "резкая смена настроения",
+        "exampleEn": "Some people reported improvements in mood swings.",
+        "category": "MENTAL HEALTH"
+      },
+      {
+        "id": "vocab-l4-4-anxiety",
+        "en": "anxiety",
+        "ru": "тревожность, тревога",
+        "exampleEn": "The survey mentioned panic attacks and anxiety.",
+        "category": "MENTAL HEALTH"
+      },
+      {
+        "id": "vocab-l4-5-depression",
+        "en": "depression",
+        "ru": "депрессия",
+        "exampleEn": "Some people reported an improvement in depression.",
+        "category": "MENTAL HEALTH"
+      },
+      {
+        "id": "vocab-l4-6-an-immediate-effect",
+        "en": "an immediate effect",
+        "ru": "немедленный эффект",
+        "exampleEn": "The ice cream had an immediate effect on parts of the brain.",
+        "category": "COLLOCATION"
+      },
+      {
+        "id": "vocab-l4-7-overall-mental-health",
+        "en": "overall mental health",
+        "ru": "общее психическое здоровье",
+        "exampleEn": "Changing their diet improved their overall mental health.",
+        "category": "COLLOCATION"
+      },
+      {
+        "id": "vocab-l4-8-a-marked-improvement",
+        "en": "a marked improvement",
+        "ru": "заметное улучшение",
+        "exampleEn": "They saw a marked improvement in their mood.",
+        "category": "COLLOCATION"
+      },
+      {
+        "id": "vocab-l4-9-a-stressor",
+        "en": "a stressor",
+        "ru": "фактор, вызывающий стресс",
+        "exampleEn": "Sugar and caffeine can be mood stressors.",
+        "category": "READING"
+      },
+      {
+        "id": "vocab-l4-10-a-supporter",
+        "en": "a supporter",
+        "ru": "то, что поддерживает хорошее состояние",
+        "exampleEn": "Water, fruit and vegetables were described as supporters.",
+        "category": "READING"
+      },
+      {
+        "id": "vocab-l4-11-caffeine",
+        "en": "caffeine",
+        "ru": "кофеин",
+        "exampleEn": "Eating fewer stressors such as caffeine improved their mood.",
+        "category": "FOOD"
+      },
+      {
+        "id": "vocab-l4-12-oily-fish",
+        "en": "oily fish",
+        "ru": "жирная рыба",
+        "exampleEn": "Oily fish is known to be beneficial.",
+        "category": "FOOD"
+      },
+      {
+        "id": "vocab-l4-13-skip-breakfast",
+        "en": "skip breakfast",
+        "ru": "пропускать завтрак",
+        "exampleEn": "Not skipping breakfast led to an increase in well-being.",
+        "category": "FOOD"
+      },
+      {
+        "id": "vocab-l4-14-well-being",
+        "en": "well-being",
+        "ru": "хорошее самочувствие, благополучие",
+        "exampleEn": "Eating regularly led to an increase in well-being.",
+        "category": "MENTAL HEALTH"
+      },
+      {
+        "id": "vocab-l4-15-be-linked-to",
+        "en": "be linked to",
+        "ru": "быть связанным с",
+        "exampleEn": "The improvements were linked to changes in diet.",
+        "category": "COLLOCATION"
+      },
+      {
+        "id": "vocab-l4-16-lapse",
+        "en": "lapse",
+        "ru": "сбиваться, временно возвращаться к старой привычке",
+        "exampleEn": "I do lapse and, when I do, I feel noticeably different.",
+        "category": "READING"
+      },
+      {
+        "id": "vocab-l4-17-noticeably",
+        "en": "noticeably",
+        "ru": "заметно",
+        "exampleEn": "I feel noticeably different when I eat badly.",
+        "category": "READING"
+      },
+      {
+        "id": "vocab-l4-18-a-trigger",
+        "en": "a trigger",
+        "ru": "триггер; то, что вызывает реакцию",
+        "exampleEn": "Once you find out your triggers, you can feel better.",
+        "category": "READING"
+      },
+      {
+        "id": "vocab-l4-19-beneficial",
+        "en": "beneficial",
+        "ru": "полезный, благотворный",
+        "exampleEn": "Oily fish and fruit and vegetables are beneficial.",
+        "category": "READING"
+      },
+      {
+        "id": "vocab-l4-20-fluid",
+        "en": "fluid",
+        "ru": "жидкость",
+        "exampleEn": "You must have enough fluid every day.",
+        "category": "HEALTH"
+      },
+      {
+        "id": "vocab-l4-21-dehydration",
+        "en": "dehydration",
+        "ru": "обезвоживание",
+        "exampleEn": "Drink enough fluid to prevent dehydration.",
+        "category": "HEALTH"
+      },
+      {
+        "id": "vocab-l4-22-regular-physical-exercise",
+        "en": "regular physical exercise",
+        "ru": "регулярные физические упражнения",
+        "exampleEn": "Regular physical exercise can help people deal with stress.",
+        "category": "COLLOCATION"
+      }
+    ]
+  },
+  {
     "id": "vocab-irregular-verbs",
     "title": "Irregular Verbs · A2–B1",
     "label": "Extra · Always available",

@@ -15,6 +15,7 @@
   const escapeHtml = (value) => safeText(value)
     .replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;')
     .replaceAll('"', '&quot;').replaceAll("'", '&#039;');
+  const formatExerciseText = (value) => escapeHtml(value).replaceAll('\n', '<br>');
   const byId = (id) => document.getElementById(id);
   const queryParam = (name) => new URLSearchParams(window.location.search).get(name) || '';
   const unique = (items) => [...new Set(Array.isArray(items) ? items : [])];
@@ -1051,7 +1052,7 @@
   function renderExerciseItem(item, blockId, index) {
     const itemId = safeText(item.id, `${index + 1}`);
     const number = item.number === undefined ? index + 1 : item.number;
-    const prompt = escapeHtml(item.prompt || '');
+    const prompt = formatExerciseText(item.prompt || '');
     const inputId = `exercise-${blockId}-${itemId}`.replace(/[^a-zA-Z0-9_-]/g, '-');
     const numberMarkup = number === '' || number === null ? '' : `<span class="exercise-number">${escapeHtml(number)}</span>`;
 
@@ -1079,9 +1080,26 @@
     let control = '';
     if (item.input === 'example-gap') {
       const segments = Array.isArray(item.segments) ? item.segments : [];
-      control = `<div class="sentence-gaps numbered-example-gap"><span>${escapeHtml(segments[0] || '')}</span><span class="inline-example-answer"><b>${escapeHtml(item.exampleNumber || 1)}</b> ${escapeHtml(item.exampleAnswer || '')}</span><span>${escapeHtml(segments[1] || '')}</span><span class="inline-gap-number">${escapeHtml(item.gapNumber || 2)}</span><input class="gap-input" data-example-gap autocomplete="off"><span>${escapeHtml(segments[2] || '')}</span></div>`;
+      control = `<div class="sentence-gaps numbered-example-gap"><span>${formatExerciseText(segments[0] || '')}</span><span class="inline-example-answer"><b>${escapeHtml(item.exampleNumber || 1)}</b> ${escapeHtml(item.exampleAnswer || '')}</span><span>${formatExerciseText(segments[1] || '')}</span><span class="inline-gap-number">${escapeHtml(item.gapNumber || 2)}</span><input class="gap-input" data-example-gap autocomplete="off"><span>${formatExerciseText(segments[2] || '')}</span></div>`;
     } else if (item.input === 'odd-one-out') {
       control = `<div class="odd-one-out-control"><div class="odd-options">${(item.options || []).map((option, optionIndex) => `<label class="odd-option"><input type="radio" name="${escapeHtml(inputId)}" value="${optionIndex}"><span>${escapeHtml(option)}</span></label>`).join('')}</div><label class="odd-reason" for="${escapeHtml(inputId)}-reason">The others are all <input class="gap-input odd-reason-input" id="${escapeHtml(inputId)}-reason" data-odd-reason autocomplete="off">.</label></div>`;
+    } else if (item.input === 'inline-choices') {
+      const choices = Array.isArray(item.choices) ? item.choices : [];
+      const segments = Array.isArray(item.segments) ? item.segments : [];
+      control = `<div class="inline-choice-sentence">${choices.map((options, choiceIndex) => `${choiceIndex < segments.length ? `<span>${formatExerciseText(segments[choiceIndex])}</span>` : ''}<select class="inline-choice" data-inline-choice-index="${choiceIndex}" aria-label="Choice ${choiceIndex + 1}"><option value="">—</option>${(options || []).map((option, optionIndex) => `<option value="${optionIndex}">${escapeHtml(option)}</option>`).join('')}</select>`).join('')}${segments.length > choices.length ? `<span>${formatExerciseText(segments[segments.length - 1])}</span>` : ''}</div>`;
+    } else if (item.input === 'article-gaps') {
+      const answers = Array.isArray(item.answers) ? item.answers : [];
+      const segments = Array.isArray(item.segments) ? item.segments : [];
+      control = `<article class="article-gap-card">${item.articleTitle ? `<h4>${escapeHtml(item.articleTitle)}</h4>` : ''}<div class="article-gap-copy">${answers.map((answer, gapIndex) => `${gapIndex < segments.length ? `<span>${formatExerciseText(segments[gapIndex])}</span>` : ''}<span class="article-gap"><b>${gapIndex + 1}</b><input class="gap-input article-gap-input" data-gap-index="${gapIndex}" maxlength="1" autocomplete="off" aria-label="Gap ${gapIndex + 1}"></span>`).join('')}${segments.length > answers.length ? `<span>${formatExerciseText(segments[segments.length - 1])}</span>` : ''}</div></article>`;
+    } else if (item.input === 'underline') {
+      const tasks = Array.isArray(item.tasks) ? item.tasks : [];
+      const paragraphs = Array.isArray(item.paragraphs) ? item.paragraphs : [];
+      const taskList = tasks.length ? `<ol class="underline-task-list">${tasks.map((task) => `<li>${escapeHtml(task)}</li>`).join('')}</ol>` : '';
+      const article = paragraphs.map((paragraph) => `<p>${(paragraph || []).map((segment, segmentIndex) => {
+        const segmentId = safeText(segment?.id, `segment-${segmentIndex}`);
+        return `<button class="underline-option" type="button" data-underline-option data-underline-id="${escapeHtml(segmentId)}">${formatExerciseText(segment?.text || '')}</button>`;
+      }).join('')}</p>`).join('');
+      control = `${taskList}<article class="underline-article"><h4>How food affects mood</h4>${article}</article>`;
     } else if (item.input === 'multiple' || item.input === 'single') {
       const inputType = item.input === 'multiple' ? 'checkbox' : 'radio';
       control = `<div class="option-list compact-options">${(item.options || []).map((option, optionIndex) => `<label class="option"><input type="${inputType}" name="${escapeHtml(inputId)}" value="${optionIndex}"><span>${escapeHtml(option)}</span></label>`).join('')}</div>`;
@@ -1092,7 +1110,8 @@
     } else if (item.input === 'gaps') {
       const answers = Array.isArray(item.answers) ? item.answers : [];
       const segments = Array.isArray(item.segments) ? item.segments : [];
-      control = `<div class="sentence-gaps" aria-label="${prompt}">${answers.map((answer, gapIndex) => `${gapIndex < segments.length ? `<span>${escapeHtml(segments[gapIndex])}</span>` : ''}<input class="gap-input" data-gap-index="${gapIndex}" aria-label="Gap ${gapIndex + 1}" autocomplete="off">`).join('')}${segments.length > answers.length ? `<span>${escapeHtml(segments[segments.length - 1])}</span>` : ''}</div>`;
+      const layoutClass = item.layout === 'dialogue' ? ' dialogue-gaps' : '';
+      control = `<div class="sentence-gaps${layoutClass}" aria-label="${escapeHtml(item.prompt || '')}">${answers.map((answer, gapIndex) => `${gapIndex < segments.length ? `<span>${formatExerciseText(segments[gapIndex])}</span>` : ''}<input class="gap-input" data-gap-index="${gapIndex}" aria-label="Gap ${gapIndex + 1}" autocomplete="off">`).join('')}${segments.length > answers.length ? `<span>${formatExerciseText(segments[segments.length - 1])}</span>` : ''}</div>`;
     } else {
       control = `<input class="text-field" id="${escapeHtml(inputId)}" autocomplete="off" placeholder="${escapeHtml(item.placeholder || '')}">`;
     }
@@ -1212,6 +1231,14 @@
       correct = selected !== ''
         && Number(selected) === Number(item.answer)
         && normalizeAnswer(reason) === normalizeAnswer(item.reasonAnswer);
+    } else if (inputType === 'inline-choices') {
+      actual = [...itemNode.querySelectorAll('[data-inline-choice-index]')].map((select) => select.value);
+      const expected = Array.isArray(item.answers) ? item.answers.map(Number) : [];
+      correct = expected.length > 0 && actual.length === expected.length && actual.every((value, index) => value !== '' && Number(value) === expected[index]);
+    } else if (inputType === 'underline') {
+      actual = [...itemNode.querySelectorAll('[data-underline-option].selected')].map((button) => button.dataset.underlineId).sort();
+      const expected = [...(item.answer || [])].map(String).sort();
+      correct = JSON.stringify(actual) === JSON.stringify(expected);
     } else if (inputType === 'multiple') {
       actual = [...itemNode.querySelectorAll('input:checked')].map((input) => Number(input.value)).sort((a, b) => a - b);
       const expected = [...(item.answer || [])].map(Number).sort((a, b) => a - b);
@@ -1222,7 +1249,7 @@
     } else if (inputType === 'select') {
       actual = itemNode.querySelector('select')?.value ?? '';
       correct = actual !== '' && Number(actual) === Number(item.answer);
-    } else if (inputType === 'gaps') {
+    } else if (inputType === 'gaps' || inputType === 'article-gaps') {
       actual = [...itemNode.querySelectorAll('[data-gap-index]')].map((input) => input.value);
       const expected = Array.isArray(item.answers) ? item.answers : [];
       correct = expected.length > 0 && expected.every((answer, index) => {
@@ -1310,6 +1337,10 @@
       const inputType = item.input || 'text';
       if (inputType === 'example-gap') {
         actual[itemId] = itemNode.querySelector('[data-example-gap]')?.value ?? '';
+      } else if (inputType === 'inline-choices') {
+        actual[itemId] = [...itemNode.querySelectorAll('[data-inline-choice-index]')].map((select) => select.value);
+      } else if (inputType === 'underline') {
+        actual[itemId] = [...itemNode.querySelectorAll('[data-underline-option].selected')].map((button) => button.dataset.underlineId);
       } else if (inputType === 'odd-one-out') {
         actual[itemId] = {
           selected: itemNode.querySelector('input[type="radio"]:checked')?.value ?? '',
@@ -1321,7 +1352,7 @@
         actual[itemId] = itemNode.querySelector('input[type="radio"]:checked')?.value ?? '';
       } else if (inputType === 'select') {
         actual[itemId] = itemNode.querySelector('select')?.value ?? '';
-      } else if (inputType === 'gaps') {
+      } else if (inputType === 'gaps' || inputType === 'article-gaps') {
         actual[itemId] = [...itemNode.querySelectorAll('[data-gap-index]')].map((input) => input.value);
       } else {
         actual[itemId] = itemNode.querySelector('input, textarea')?.value ?? '';
@@ -1366,6 +1397,12 @@
       if (inputType === 'example-gap') {
         const input = itemNode.querySelector('[data-example-gap]');
         if (input) input.value = safeText(value);
+      } else if (inputType === 'inline-choices') {
+        const values = Array.isArray(value) ? value : [];
+        itemNode.querySelectorAll('[data-inline-choice-index]').forEach((select, choiceIndex) => { select.value = safeText(values[choiceIndex]); });
+      } else if (inputType === 'underline') {
+        const selected = new Set(Array.isArray(value) ? value.map(String) : []);
+        itemNode.querySelectorAll('[data-underline-option]').forEach((button) => { button.classList.toggle('selected', selected.has(safeText(button.dataset.underlineId))); });
       } else if (inputType === 'odd-one-out') {
         const selected = safeText(value?.selected);
         const input = itemNode.querySelector(`input[type="radio"][value="${CSS.escape(selected)}"]`);
@@ -1381,7 +1418,7 @@
       } else if (inputType === 'select') {
         const select = itemNode.querySelector('select');
         if (select) select.value = safeText(value);
-      } else if (inputType === 'gaps') {
+      } else if (inputType === 'gaps' || inputType === 'article-gaps') {
         const values = Array.isArray(value) ? value : [];
         itemNode.querySelectorAll('[data-gap-index]').forEach((input, gapIndex) => { input.value = safeText(values[gapIndex]); });
       } else {
@@ -1504,6 +1541,14 @@
         const input = parent.querySelector('input');
         const selected = [...source.querySelectorAll('.selected')].map((item) => item.dataset.word);
         input.value = selected.join(' ');
+      });
+    });
+
+    root.querySelectorAll('[data-underline-option]').forEach((button) => {
+      button.addEventListener('click', () => {
+        if (button.disabled) return;
+        button.classList.toggle('selected');
+        button.dispatchEvent(new Event('change', { bubbles: true }));
       });
     });
 
@@ -1672,37 +1717,79 @@
       return;
     }
 
+    const lockPractice = () => {
+      root.querySelectorAll('[data-grammar-exercise] input, [data-grammar-exercise] textarea, [data-grammar-exercise] select, [data-grammar-exercise] button').forEach((control) => {
+        control.disabled = true;
+      });
+      const checkButton = byId('check-grammar');
+      const retryButton = byId('retry-grammar');
+      if (checkButton) checkButton.disabled = true;
+      if (retryButton) {
+        retryButton.disabled = true;
+        retryButton.textContent = 'Topic completed';
+      }
+    };
+
     const renderPractice = () => {
+      const currentProgress = window.ProgressService.loadGrammarProgress();
+      const saved = currentProgress.topics[topic.id] || {};
+      const alreadyPassed = Boolean(saved.passed || topic.passed);
       root.innerHTML = `${exercises.map((block, index) => renderGrammarExercise(block, index)).join('')}
         <div class="card grammar-practice-actions">
-          <div id="grammar-result"><h3>Practise step by step</h3><p class="muted">Start with the easier tasks and move on to the more challenging ones.</p></div>
+          <div id="grammar-result"><h3>${alreadyPassed ? 'Topic mastered' : 'Practise step by step'}</h3><p class="muted">${alreadyPassed ? 'All answers were correct. The exercises are locked.' : 'Start with the easier tasks and move on to the more challenging ones.'}</p></div>
           <div class="button-row"><button class="btn btn-primary" type="button" id="check-grammar">Check exercises</button><button class="btn btn-secondary" type="button" id="retry-grammar">Start again</button></div>
         </div>`;
+
+      exercises.forEach((block, index) => {
+        const node = root.querySelector(`[data-grammar-exercise="${index}"]`);
+        if (!node) return;
+        restoreExerciseAnswers(block, node, saved.answers?.[block.id]);
+      });
+
+      if (alreadyPassed) {
+        if (saved.answers) {
+          exercises.forEach((block, index) => {
+            const node = root.querySelector(`[data-grammar-exercise="${index}"]`);
+            if (node) checkExerciseBlock(block, node);
+          });
+        }
+        lockPractice();
+        return;
+      }
 
       byId('check-grammar').addEventListener('click', () => {
         let correct = 0;
         let total = 0;
+        const answers = {};
         exercises.forEach((block, index) => {
           const node = root.querySelector(`[data-grammar-exercise="${index}"]`);
           if (!node) return;
           const result = checkExerciseBlock(block, node);
           correct += Number(result.correctCount || 0);
           total += Number(result.total || 0);
+          answers[block.id] = result.actual;
         });
         const percent = safePercent(correct, total);
-        byId('grammar-result').innerHTML = `<h3>Score: ${correct} of ${total}</h3><p class="muted">${percent}% correct</p>${percent === 100 ? '<p class="grammar-success-note">Excellent! You have mastered the topic and can move on.</p>' : '<p class="grammar-success-note">Review the tables and the Common mistakes section above, then try again.</p>'}`;
+        byId('grammar-result').innerHTML = `<h3>Score: ${correct} of ${total}</h3><p class="muted">${percent}% correct</p>${percent === 100 ? '<p class="grammar-success-note">Excellent! You have mastered the topic and can move on.</p>' : '<p class="grammar-success-note">There are mistakes. Check the marked answers and try again.</p>'}`;
         const progress = window.ProgressService.loadGrammarProgress();
         const previous = progress.topics[topic.id] || {};
         progress.topics[topic.id] = {
           passed: Boolean(previous.passed || topic.passed || percent === 100),
           attempts: Number(previous.attempts || 0) + 1,
           bestScore: Math.max(Number(previous.bestScore || 0), percent),
+          answers,
           updatedAt: new Date().toISOString()
         };
         window.ProgressService.saveGrammarProgress(progress);
+        if (percent === 100) lockPractice();
       });
 
-      byId('retry-grammar').addEventListener('click', renderPractice);
+      byId('retry-grammar').addEventListener('click', () => {
+        const progress = window.ProgressService.loadGrammarProgress();
+        if (progress.topics[topic.id]) progress.topics[topic.id].answers = {};
+        window.ProgressService.saveGrammarProgress(progress);
+        renderPractice();
+      });
     };
 
     renderPractice();
@@ -1727,6 +1814,7 @@
     const exampleGroups = Array.isArray(topic.exampleGroups) ? topic.exampleGroups : [];
     const examples = Array.isArray(topic.examples) ? topic.examples : [];
     const mistakes = Array.isArray(topic.commonMistakes) ? topic.commonMistakes : [];
+    const topicImage = topic.image ? `<figure class="card grammar-topic-visual"><a href="${escapeHtml(topic.image)}" target="_blank" rel="noopener"><img src="${escapeHtml(topic.image)}" alt="${escapeHtml(topic.imageAlt || topic.title || 'Grammar illustration')}" loading="eager"></a></figure>` : '';
 
     root.innerHTML = `
       <article class="card grammar-intro-card">
@@ -1736,6 +1824,8 @@
         ${topic.formula ? `<div class="grammar-formula-box"><strong>Quick formula</strong><p>${escapeHtml(topic.formula)}</p></div>` : ''}
         ${anchorLinks.length ? `<div class="grammar-anchor-links">${anchorLinks.map((link) => `<a class="grammar-anchor-link" href="#${escapeHtml(link.id)}">${escapeHtml(link.title)}</a>`).join('')}</div>` : ''}
       </article>
+
+      ${topicImage}
 
       ${glanceCards.length ? `<section class="section" id="grammar-at-a-glance" aria-labelledby="grammar-at-a-glance-title"><div class="section-heading"><div><span class="eyebrow">Quick overview</span><h2 id="grammar-at-a-glance-title">How to choose the right form quickly</h2></div></div><div class="grammar-glance-grid">${glanceCards.map((card) => `<article class="card grammar-glance-card"><div class="grammar-glance-head"><span class="grammar-glance-icon">${escapeHtml(card.icon || '✦')}</span><div><h3>${escapeHtml(card.label || '')}</h3><p class="muted">${escapeHtml(card.hint || '')}</p></div></div><div class="grammar-pattern">${escapeHtml(card.pattern || '')}</div><p class="grammar-example-sentence">${escapeHtml(card.example || '')}</p></article>`).join('')}</div></section>` : ''}
 

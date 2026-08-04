@@ -777,5 +777,402 @@ window.GRAMMAR_DATA = [
         ]
       }
     ]
+  },
+  {
+    "id": "grammar-ed-ing-adjectives",
+    "order": 7,
+    "title": "-ing / -ed adjectives",
+    "level": "A2–B1",
+    "status": "available",
+    "page": "grammar-topic.html?id=grammar-ed-ing-adjectives",
+    "linkedLessonId": "lesson-4",
+    "passed": false,
+    "attempts": 0,
+    "image": "assets/grammar/ed-ing-adjectives.png",
+    "imageAlt": "Схема: -ed описывает чувства человека, -ing описывает то, что вызывает чувство.",
+    "explanation": "Прилагательные на -ed и -ing часто образуются от одного глагола, но отвечают на разные вопросы. Форма на -ed показывает, что чувствует человек или животное. Форма на -ing описывает человека, предмет, событие или ситуацию, которые вызывают это чувство.",
+    "formula": "Кто чувствует? → -ed · Что вызывает чувство? → -ing",
+    "anchorLinks": [
+      {
+        "id": "grammar-at-a-glance",
+        "title": "Главное правило"
+      },
+      {
+        "id": "grammar-tables",
+        "title": "Пары прилагательных"
+      },
+      {
+        "id": "grammar-practice-section",
+        "title": "Задания"
+      }
+    ],
+    "glanceCards": [
+      {
+        "icon": "🙂",
+        "label": "-ed",
+        "hint": "чувство человека или животного",
+        "pattern": "be / feel + adjective-ed",
+        "example": "I’m bored. — Мне скучно."
+      },
+      {
+        "icon": "🎬",
+        "label": "-ing",
+        "hint": "причина или характеристика",
+        "pattern": "noun + be + adjective-ing",
+        "example": "The film is boring. — Фильм скучный."
+      },
+      {
+        "icon": "🧠",
+        "label": "Быстрая проверка",
+        "hint": "задайте один вопрос",
+        "pattern": "чувствует или вызывает?",
+        "example": "She is interesting = она вызывает интерес у других."
+      }
+    ],
+    "miniRules": [
+      {
+        "title": "1. Найдите носителя чувства",
+        "text": "Если речь о том, что человек чувствует, выбирайте -ed.",
+        "example": "We were disappointed with the result."
+      },
+      {
+        "title": "2. Найдите причину чувства",
+        "text": "Если слово описывает событие, предмет, ситуацию или человека как причину эмоции, выбирайте -ing.",
+        "example": "The result was disappointing."
+      },
+      {
+        "title": "3. Не ориентируйтесь только на одушевлённость",
+        "text": "Человек тоже может быть boring, annoying или inspiring, когда он вызывает такое чувство у других.",
+        "example": "The speaker was inspiring, so the audience felt inspired."
+      }
+    ],
+    "tables": [
+      {
+        "title": "Частые пары",
+        "headers": [
+          "Глагол / значение",
+          "-ed: чувство",
+          "-ing: причина"
+        ],
+        "rows": [
+          [
+            "interest — интересовать",
+            "interested",
+            "interesting"
+          ],
+          [
+            "excite — волновать",
+            "excited",
+            "exciting"
+          ],
+          [
+            "bore — наскучивать",
+            "bored",
+            "boring"
+          ],
+          [
+            "confuse — путать",
+            "confused",
+            "confusing"
+          ],
+          [
+            "disappoint — разочаровывать",
+            "disappointed",
+            "disappointing"
+          ],
+          [
+            "exhaust — изматывать",
+            "exhausted",
+            "exhausting"
+          ],
+          [
+            "embarrass — смущать",
+            "embarrassed",
+            "embarrassing"
+          ],
+          [
+            "annoy — раздражать",
+            "annoyed",
+            "annoying"
+          ],
+          [
+            "surprise — удивлять",
+            "surprised",
+            "surprising"
+          ]
+        ]
+      }
+    ],
+    "exampleGroups": [
+      {
+        "title": "Одна ситуация — два взгляда",
+        "items": [
+          "The journey was exhausting. — Поездка была изматывающей.",
+          "We were exhausted after the journey. — Мы были измотаны после поездки.",
+          "The news was surprising. — Новость была удивительной.",
+          "I was surprised by the news. — Я был удивлён новостью."
+        ]
+      }
+    ],
+    "commonMistakes": [
+      "I am boring означает «я скучный и вызываю скуку». Для «мне скучно» нужно I am bored.",
+      "The lesson is interested неверно, потому что урок не испытывает интерес. Правильно: The lesson is interesting.",
+      "Окончания -ed и -ing здесь образуют прилагательные; это не выбор времени глагола."
+    ],
+    "exercises": [
+      {
+        "type": "exercise",
+        "id": "grammar-ed-ing-step-1",
+        "title": "Choose the correct adjective.",
+        "difficulty": "Easy",
+        "instructions": "Choose the correct adjective.",
+        "items": [
+          {
+            "id": "1",
+            "number": 1,
+            "prompt": "After the long journey, we felt …",
+            "input": "single",
+            "options": [
+              "exhausted",
+              "exhausting"
+            ],
+            "answer": 0
+          },
+          {
+            "id": "2",
+            "number": 2,
+            "prompt": "The journey was …",
+            "input": "single",
+            "options": [
+              "exhausted",
+              "exhausting"
+            ],
+            "answer": 1
+          },
+          {
+            "id": "3",
+            "number": 3,
+            "prompt": "I’m … in this book.",
+            "input": "single",
+            "options": [
+              "interested",
+              "interesting"
+            ],
+            "answer": 0
+          },
+          {
+            "id": "4",
+            "number": 4,
+            "prompt": "The book is really …",
+            "input": "single",
+            "options": [
+              "interested",
+              "interesting"
+            ],
+            "answer": 1
+          },
+          {
+            "id": "5",
+            "number": 5,
+            "prompt": "She was … by the result.",
+            "input": "single",
+            "options": [
+              "surprised",
+              "surprising"
+            ],
+            "answer": 0
+          },
+          {
+            "id": "6",
+            "number": 6,
+            "prompt": "The result was …",
+            "input": "single",
+            "options": [
+              "surprised",
+              "surprising"
+            ],
+            "answer": 1
+          }
+        ]
+      },
+      {
+        "type": "exercise",
+        "id": "grammar-ed-ing-step-2",
+        "title": "What does the adjective describe?",
+        "difficulty": "Medium",
+        "instructions": "Choose what the adjective describes in each sentence.",
+        "items": [
+          {
+            "id": "1",
+            "number": 1,
+            "prompt": "I’m confused by these instructions.",
+            "input": "select",
+            "options": [
+              "a feeling",
+              "the cause of a feeling"
+            ],
+            "answer": 0
+          },
+          {
+            "id": "2",
+            "number": 2,
+            "prompt": "These instructions are confusing.",
+            "input": "select",
+            "options": [
+              "a feeling",
+              "the cause of a feeling"
+            ],
+            "answer": 1
+          },
+          {
+            "id": "3",
+            "number": 3,
+            "prompt": "The audience was inspired by the speech.",
+            "input": "select",
+            "options": [
+              "a feeling",
+              "the cause of a feeling"
+            ],
+            "answer": 0
+          },
+          {
+            "id": "4",
+            "number": 4,
+            "prompt": "The speaker was inspiring.",
+            "input": "select",
+            "options": [
+              "a feeling",
+              "the cause of a feeling"
+            ],
+            "answer": 1
+          },
+          {
+            "id": "5",
+            "number": 5,
+            "prompt": "He felt embarrassed.",
+            "input": "select",
+            "options": [
+              "a feeling",
+              "the cause of a feeling"
+            ],
+            "answer": 0
+          },
+          {
+            "id": "6",
+            "number": 6,
+            "prompt": "It was an embarrassing mistake.",
+            "input": "select",
+            "options": [
+              "a feeling",
+              "the cause of a feeling"
+            ],
+            "answer": 1
+          }
+        ]
+      },
+      {
+        "type": "exercise",
+        "id": "grammar-ed-ing-step-3",
+        "title": "Complete the sentences.",
+        "difficulty": "Hard",
+        "instructions": "Complete each sentence with the correct -ed or -ing adjective from the verb in brackets.",
+        "items": [
+          {
+            "id": "1",
+            "number": 1,
+            "prompt": "The ending was __________. (disappoint)",
+            "input": "text",
+            "answer": "disappointing"
+          },
+          {
+            "id": "2",
+            "number": 2,
+            "prompt": "We were __________ with the ending. (disappoint)",
+            "input": "text",
+            "answer": "disappointed"
+          },
+          {
+            "id": "3",
+            "number": 3,
+            "prompt": "Waiting for three hours was __________. (annoy)",
+            "input": "text",
+            "answer": "annoying"
+          },
+          {
+            "id": "4",
+            "number": 4,
+            "prompt": "I was __________ because the flight was delayed. (annoy)",
+            "input": "text",
+            "answer": "annoyed"
+          },
+          {
+            "id": "5",
+            "number": 5,
+            "prompt": "The view was absolutely __________. (amaze)",
+            "input": "text",
+            "answer": "amazing"
+          },
+          {
+            "id": "6",
+            "number": 6,
+            "prompt": "They were __________ by the view. (amaze)",
+            "input": "text",
+            "answer": "amazed"
+          }
+        ]
+      },
+      {
+        "type": "exercise",
+        "id": "grammar-ed-ing-step-4",
+        "title": "Complete the dialogue.",
+        "difficulty": "Advanced",
+        "instructions": "Complete the dialogue with the correct -ed or -ing forms of the verbs in brackets.",
+        "items": [
+          {
+            "id": "dialogue",
+            "number": "",
+            "input": "gaps",
+            "layout": "dialogue",
+            "segments": [
+              "A: How was the conference?\nB: At first I was ",
+              " (interest), but the first speaker was quite ",
+              " (bore).\nA: That sounds ",
+              " (disappoint).\nB: It was. Then a scientist gave an ",
+              " (inspire) talk. Everyone looked ",
+              " (excite).\nA: Was the final discussion useful?\nB: Yes, although some of the questions were ",
+              " (confuse). By the end I was completely ",
+              " (exhaust), but the day itself was very ",
+              " (reward)."
+            ],
+            "answers": [
+              [
+                "interested"
+              ],
+              [
+                "boring"
+              ],
+              [
+                "disappointing"
+              ],
+              [
+                "inspiring"
+              ],
+              [
+                "excited"
+              ],
+              [
+                "confusing"
+              ],
+              [
+                "exhausted"
+              ],
+              [
+                "rewarding"
+              ]
+            ]
+          }
+        ]
+      }
+    ]
   }
 ];
