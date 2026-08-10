@@ -43,9 +43,7 @@ function pageUrl(baseUrl, page, fallback) {
 function isPublished(lesson) {
   if (lesson.status !== 'available') return false
   if (!lesson.notification?.enabled) return false
-  if (!lesson.publishedAt) return true
-  const published = new Date(`${lesson.publishedAt}T00:00:00Z`)
-  return Number.isFinite(published.getTime()) && published.getTime() <= Date.now()
+  return true
 }
 
 const siteBaseUrl = requiredEnv('SITE_BASE_URL').replace(/\/+$/, '')
@@ -62,7 +60,7 @@ const lessons = loadLessons().filter((lesson) => {
 })
 
 if (selectedLessonId && lessons.length === 0) {
-  throw new Error(`Lesson ${selectedLessonId} was not found or notification.enabled is not true`)
+  throw new Error(`Lesson ${selectedLessonId} was not found, is not available, or notification.enabled is not true`)
 }
 
 if (lessons.length === 0) {

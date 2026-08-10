@@ -852,7 +852,7 @@
       const homeworkProgress = window.ProgressService.loadHomeworkProgress();
       const currentHomework = HOMEWORK_DATA
         .filter((item) => item.status === 'available' && !homeworkProgress.completedIds.includes(item.id))
-        .sort((a, b) => dateMs(b.publishedAt) - dateMs(a.publishedAt) || Number(b.number || 0) - Number(a.number || 0))[0];
+        .sort((a, b) => Number(b.number || 0) - Number(a.number || 0))[0];
 
       if (currentHomework) {
         const href = currentHomework.page || `lesson.html?id=${encodeURIComponent(currentHomework.id)}`;
@@ -982,11 +982,7 @@
       </article>`;
     };
 
-    const sorted = [...published].sort((a, b) => {
-      const numberDifference = Number(b.number || 0) - Number(a.number || 0);
-      if (numberDifference) return numberDifference;
-      return dateMs(b.publishedAt) - dateMs(a.publishedAt);
-    });
+    const sorted = [...published].sort((a, b) => Number(b.number || 0) - Number(a.number || 0));
     const newItems = sorted.filter((item) => !isComplete(item)).map(renderCard);
     const completedItems = sorted.filter(isComplete).map(renderCard);
     root.innerHTML = groupedListMarkup([
