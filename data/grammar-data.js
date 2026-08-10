@@ -1,131 +1,445 @@
 window.GRAMMAR_DATA = [
   {
-    "id": "grammar-present-simple-continuous",
-    "order": 1,
-    "title": "Present Simple vs Present Continuous",
-    "level": "A2–B1",
-    "status": "available",
-    "page": "grammar-topic.html?id=grammar-present-simple-continuous",
-    "passed": false,
-    "attempts": 0,
-    "explanation": "Present Simple describes facts, habits and timetables. Present Continuous describes an action happening now, a temporary situation or a fixed near-future arrangement.",
-    "formula": "Present Simple: subject + V1 / V-s · Present Continuous: am / is / are + V-ing",
-    "glanceCards": [
-      {
-        "icon": "🔄",
-        "label": "Present Simple",
-        "hint": "facts, habits, timetables",
-        "pattern": "I work · she works",
-        "example": "The plane leaves at 6 a.m."
-      },
-      {
-        "icon": "▶️",
-        "label": "Present Continuous",
-        "hint": "now, temporary, arranged future",
-        "pattern": "am / is / are + V-ing",
-        "example": "We are flying next week."
-      },
-      {
-        "icon": "🧠",
-        "label": "Stative verbs",
-        "hint": "normally not used in Continuous",
-        "pattern": "know · want · need · believe",
-        "example": "I know the answer."
-      }
-    ],
-    "miniRules": [
-      {
-        "title": "Use Simple for routines",
-        "text": "Use Present Simple with repeated actions and frequency expressions.",
-        "example": "I go to the gym three times a week."
-      },
-      {
-        "title": "Use Continuous for now",
-        "text": "Use Present Continuous for an action in progress or a temporary situation.",
-        "example": "She is staying in Kuala Lumpur this month."
-      },
-      {
-        "title": "Check the verb meaning",
-        "text": "Stative verbs such as know, want and understand normally stay in Simple.",
-        "example": "She wants to go, not “is wanting”."
-      }
-    ],
-    "tables": [
-      {
-        "title": "Main uses",
-        "headers": [
-          "Tense",
-          "Use",
-          "Example"
+  "id": "grammar-present-simple-continuous",
+  "order": 1,
+  "title": "Present Simple vs Present Continuous",
+  "level": "A2–B1",
+  "status": "available",
+  "page": "grammar-topic.html?id=grammar-present-simple-continuous",
+  "passed": false,
+  "attempts": 0,
+  "explanation": "Present Simple и Present Continuous говорят о настоящем, но показывают ситуацию по-разному. Present Simple описывает то, что обычно, регулярно, вообще верно или стоит в расписании. Present Continuous показывает действие прямо сейчас, временную ситуацию или уже организованную договорённость на ближайшее будущее. Быстрая проверка: это «обычно / вообще» или «сейчас / временно / уже договорились»?",
+  "formula": "Present Simple: I/you/we/they + V1 · he/she/it + V-s · Present Continuous: am/is/are + V-ing",
+  "anchorLinks": [
+    {
+      "id": "grammar-at-a-glance",
+      "title": "Когда какое время"
+    },
+    {
+      "id": "grammar-tables",
+      "title": "Формы и написание"
+    },
+    {
+      "id": "grammar-examples",
+      "title": "Примеры"
+    },
+    {
+      "id": "grammar-mistakes",
+      "title": "Типичные ошибки"
+    },
+    {
+      "id": "grammar-practice-section",
+      "title": "Задания"
+    }
+  ],
+  "glanceCards": [
+    {
+      "icon": "🔁",
+      "label": "Present Simple",
+      "hint": "привычки, факты, регулярность, расписание",
+      "pattern": "I work · she works",
+      "example": "I visit my parents every Saturday."
+    },
+    {
+      "icon": "▶️",
+      "label": "Present Continuous",
+      "hint": "прямо сейчас или временно",
+      "pattern": "am / is / are + V-ing",
+      "example": "I’m working on an important project."
+    },
+    {
+      "icon": "📅",
+      "label": "Договорённость",
+      "hint": "личный план уже организован",
+      "pattern": "am / is / are + V-ing",
+      "example": "We’re meeting my boss later."
+    },
+    {
+      "icon": "🧠",
+      "label": "Stative verbs",
+      "hint": "обычно не ставятся в Continuous",
+      "pattern": "know · want · need · understand · believe",
+      "example": "I know what you mean."
+    }
+  ],
+  "miniRules": [
+    {
+      "title": "1. Present Simple: обычное и постоянное",
+      "text": "Используйте Present Simple для привычек, повторяющихся действий, фактов, общих состояний и расписаний. Слова-маркеры: usually, always, often, every day, every Saturday, normally.",
+      "example": "We normally go on holiday in the winter."
+    },
+    {
+      "title": "2. Окончание -s в Present Simple",
+      "text": "После he / she / it в утвердительном предложении добавьте -s: works, feels. После -s, -sh, -ch, -x, -o обычно добавляется -es: watches, goes. С согласной + y: study → studies.",
+      "example": "She works late on Fridays."
+    },
+    {
+      "title": "3. Отрицание и вопрос в Present Simple",
+      "text": "Используйте do / does. Отрицание: do not (don’t) / does not (doesn’t) + V1. Вопрос: Do / Does + подлежащее + V1? После does основной глагол остаётся без -s.",
+      "example": "Does he work here? — Yes, he does. / No, he doesn’t."
+    },
+    {
+      "title": "4. Present Continuous: be + V-ing",
+      "text": "Утверждение: am / is / are + V-ing. Отрицание: am not / isn’t / aren’t + V-ing. Вопрос: Am / Is / Are + подлежащее + V-ing?",
+      "example": "Are you working now? — Yes, I am. / No, I’m not."
+    },
+    {
+      "title": "5. Как писать форму -ing",
+      "text": "Обычно добавьте -ing: work → working. Немое -e убирается: make → making. В коротком ударном слоге последняя согласная часто удваивается: sit → sitting. -ie меняется на -y: lie → lying.",
+      "example": "write → writing · run → running · lie → lying"
+    },
+    {
+      "title": "6. Глаголы состояния",
+      "text": "Know, want, need, understand, believe, remember, like, love и некоторые другие глаголы обычно описывают состояние, а не процесс, поэтому чаще используются в Present Simple.",
+      "example": "I want to talk about it. Не: I’m wanting to talk about it."
+    },
+    {
+      "title": "7. Будущее: расписание или личная договорённость",
+      "text": "Present Simple часто используется для официального расписания. Present Continuous — для личной договорённости, которая уже организована.",
+      "example": "The lesson starts at nine. · We’re meeting at nine."
+    },
+    {
+      "title": "8. Always + Continuous",
+      "text": "Always обычно встречается с Present Simple, но Present Continuous + always может подчёркивать повторяющееся поведение, которое раздражает или удивляет говорящего.",
+      "example": "He’s always losing his keys!"
+    }
+  ],
+  "tables": [
+    {
+      "title": "Формы",
+      "headers": [
+        "",
+        "Present Simple",
+        "Present Continuous"
+      ],
+      "rows": [
+        [
+          "Утверждение",
+          "I work. / She works.",
+          "I am working. / She is working."
         ],
-        "rows": [
-          [
-            "Present Simple",
-            "fact / habit / timetable",
-            "She works as a model."
+        [
+          "Отрицание",
+          "I don’t work. / She doesn’t work.",
+          "I’m not working. / She isn’t working."
+        ],
+        [
+          "Вопрос",
+          "Do you work? / Does she work?",
+          "Are you working? / Is she working?"
+        ],
+        [
+          "Короткий ответ",
+          "Yes, I do. / No, she doesn’t.",
+          "Yes, I am. / No, she isn’t."
+        ]
+      ]
+    },
+    {
+      "title": "Когда использовать",
+      "headers": [
+        "Ситуация",
+        "Present Simple",
+        "Present Continuous"
+      ],
+      "rows": [
+        [
+          "Привычка / регулярность",
+          "I visit my parents every Saturday.",
+          "—"
+        ],
+        [
+          "Факт / состояние",
+          "I know the answer.",
+          "—"
+        ],
+        [
+          "Действие сейчас",
+          "—",
+          "She is talking on the phone now."
+        ],
+        [
+          "Временная ситуация",
+          "—",
+          "I’m staying with friends this week."
+        ],
+        [
+          "Расписание",
+          "The train leaves at 18:10.",
+          "—"
+        ],
+        [
+          "Личная договорённость",
+          "—",
+          "We’re having dinner with Anna tonight."
+        ]
+      ]
+    },
+    {
+      "title": "Написание форм",
+      "headers": [
+        "Правило",
+        "Пример"
+      ],
+      "rows": [
+        [
+          "he / she / it + -s",
+          "work → works"
+        ],
+        [
+          "-s / -sh / -ch / -x / -o + -es",
+          "watch → watches · go → goes"
+        ],
+        [
+          "согласная + y → -ies",
+          "study → studies"
+        ],
+        [
+          "обычно + -ing",
+          "work → working"
+        ],
+        [
+          "немое -e убирается",
+          "make → making"
+        ],
+        [
+          "короткий ударный слог: согласная удваивается",
+          "run → running"
+        ],
+        [
+          "-ie → -ying",
+          "lie → lying"
+        ]
+      ]
+    }
+  ],
+  "exampleGroups": [
+    {
+      "title": "Одна ситуация — два смысла",
+      "items": [
+        "I work from home. — Это мой обычный формат работы.",
+        "I’m working from home this week. — Это временно, только на этой неделе.",
+        "What do you do on Friday evenings? — Что вы обычно делаете по пятницам?",
+        "What are you doing this Friday? — Что вы делаете в эту конкретную пятницу?"
+      ]
+    },
+    {
+      "title": "Think и другие глаголы со сменой смысла",
+      "items": [
+        "I think it’s a good idea. — think = иметь мнение → Present Simple.",
+        "I’m thinking about the offer. — think = обдумывать прямо сейчас → Present Continuous."
+      ]
+    }
+  ],
+  "commonMistakes": [
+    "Не говорите “I am knowing the answer.” Для состояния know используйте Present Simple: I know the answer.",
+    "После does / doesn’t не добавляйте -s к основному глаголу: Does she work? Не: Does she works?",
+    "Не забывайте am / is / are в Continuous: I’m working. Не: I working.",
+    "Не выбирайте Continuous только потому, что речь о будущем. Для Continuous нужна организованная договорённость; расписание обычно выражается Present Simple.",
+    "Every day / usually / normally обычно ведут к Present Simple; now / at the moment часто ведут к Present Continuous, но сначала проверяйте смысл глагола."
+  ],
+  "exercises": [
+    {
+      "type": "exercise",
+      "id": "grammar-present-simple-continuous-practice",
+      "title": "Choose the correct form.",
+      "difficulty": "Easy",
+      "instructions": "Choose the correct form.",
+      "items": [
+        {
+          "id": "1",
+          "number": 1,
+          "prompt": "She usually ___ from home.",
+          "input": "single",
+          "options": [
+            "works",
+            "is working"
           ],
-          [
-            "Present Continuous",
-            "now / temporary / arrangement",
-            "I am studying right now."
-          ]
-        ]
-      }
-    ],
-    "examples": [
-      "I think it is a great idea.",
-      "I am thinking about the offer now.",
-      "The lesson starts at nine."
-    ],
-    "commonMistakes": [
-      "Do not say “I am knowing the answer.” Say “I know the answer.”",
-      "Do not use Continuous only because a sentence refers to the future; use it for an arrangement."
-    ],
-    "exercises": [
-      {
-        "type": "exercise",
-        "id": "grammar-present-simple-continuous-practice",
-        "title": "Quick practice",
-        "difficulty": "Check yourself",
-        "instructions": "Choose the correct option.",
-        "items": [
-          {
-            "id": "1",
-            "input": "single",
-            "prompt": "She usually ___ from home.",
-            "options": [
-              "works",
-              "is working"
-            ],
-            "answer": 0,
-            "explanation": "Usually signals a habit, so use Present Simple."
-          },
-          {
-            "id": "2",
-            "input": "single",
-            "prompt": "Please be quiet. I ___ to the teacher.",
-            "options": [
-              "listen",
-              "am listening"
-            ],
-            "answer": 1,
-            "explanation": "The action is happening now."
-          },
-          {
-            "id": "3",
-            "input": "single",
-            "prompt": "I ___ this is a good idea.",
-            "options": [
-              "think",
-              "am thinking"
-            ],
-            "answer": 0,
-            "explanation": "Think means “have an opinion” here, so use Simple."
-          }
-        ]
-      }
-    ]
-  },
+          "answer": 0
+        },
+        {
+          "id": "2",
+          "number": 2,
+          "prompt": "Please be quiet. I ___ to the teacher.",
+          "input": "single",
+          "options": [
+            "listen",
+            "am listening"
+          ],
+          "answer": 1
+        },
+        {
+          "id": "3",
+          "number": 3,
+          "prompt": "I ___ this is a good idea.",
+          "input": "single",
+          "options": [
+            "think",
+            "am thinking"
+          ],
+          "answer": 0
+        },
+        {
+          "id": "4",
+          "number": 4,
+          "prompt": "We ___ our manager at six this evening.",
+          "input": "single",
+          "options": [
+            "meet",
+            "are meeting"
+          ],
+          "answer": 1
+        }
+      ]
+    },
+    {
+      "type": "exercise",
+      "id": "grammar-present-simple-continuous-step-2",
+      "title": "Complete each sentence with the correct form.",
+      "difficulty": "Medium",
+      "instructions": "Write the correct form of the words in brackets.",
+      "items": [
+        {
+          "id": "1",
+          "number": 1,
+          "prompt": "My brother ___ (work) from home on Fridays.",
+          "input": "text",
+          "answer": "works"
+        },
+        {
+          "id": "2",
+          "number": 2,
+          "prompt": "I ___ (write) an email right now.",
+          "input": "text",
+          "acceptedAnswers": [
+            "am writing",
+            "'m writing"
+          ],
+          "answer": "am writing"
+        },
+        {
+          "id": "3",
+          "number": 3,
+          "prompt": "They ___ (not / need) any help.",
+          "input": "text",
+          "acceptedAnswers": [
+            "don’t need",
+            "don't need",
+            "do not need"
+          ],
+          "answer": "don’t need"
+        },
+        {
+          "id": "4",
+          "number": 4,
+          "prompt": "Why ___ (you / wear) a coat today?",
+          "input": "text",
+          "answer": "are you wearing"
+        }
+      ]
+    },
+    {
+      "type": "exercise",
+      "id": "grammar-present-simple-continuous-step-3",
+      "title": "Choose the sentence that matches the context.",
+      "difficulty": "More challenging",
+      "instructions": "Choose the sentence that matches the context.",
+      "items": [
+        {
+          "id": "1",
+          "number": 1,
+          "prompt": "The job is temporary and lasts only this month.",
+          "input": "select",
+          "options": [
+            "I work at the café this month.",
+            "I’m working at the café this month."
+          ],
+          "answer": 1
+        },
+        {
+          "id": "2",
+          "number": 2,
+          "prompt": "The departure time comes from the official timetable.",
+          "input": "select",
+          "options": [
+            "The train leaves at 18:10.",
+            "The train is leaving at 18:10."
+          ],
+          "answer": 0
+        },
+        {
+          "id": "3",
+          "number": 3,
+          "prompt": "You are giving your opinion.",
+          "input": "select",
+          "options": [
+            "I think the plan is sensible.",
+            "I’m thinking the plan is sensible."
+          ],
+          "answer": 0
+        },
+        {
+          "id": "4",
+          "number": 4,
+          "prompt": "You are complaining about a repeated annoying habit.",
+          "input": "select",
+          "options": [
+            "He always interrupts me.",
+            "He’s always interrupting me."
+          ],
+          "answer": 1
+        }
+      ]
+    },
+    {
+      "type": "exercise",
+      "id": "grammar-present-simple-continuous-step-4",
+      "title": "Build the complete sentence.",
+      "difficulty": "Hard",
+      "instructions": "Write the complete sentence or question.",
+      "items": [
+        {
+          "id": "1",
+          "number": 1,
+          "prompt": "Make a question about a routine: how often / your sister / go / to the gym?",
+          "input": "text",
+          "answer": "How often does your sister go to the gym?"
+        },
+        {
+          "id": "2",
+          "number": 2,
+          "prompt": "Make a negative sentence about now: I / not / use / the computer / at the moment.",
+          "input": "text",
+          "acceptedAnswers": [
+            "I’m not using the computer at the moment.",
+            "I'm not using the computer at the moment.",
+            "I am not using the computer at the moment."
+          ],
+          "answer": "I’m not using the computer at the moment."
+        },
+        {
+          "id": "3",
+          "number": 3,
+          "prompt": "Use the correct tense for an arranged future: we / have dinner / with Anna / tonight.",
+          "input": "text",
+          "acceptedAnswers": [
+            "We’re having dinner with Anna tonight.",
+            "We're having dinner with Anna tonight.",
+            "We are having dinner with Anna tonight."
+          ],
+          "answer": "We’re having dinner with Anna tonight."
+        },
+        {
+          "id": "4",
+          "number": 4,
+          "prompt": "Correct the sentence: She is wanting to leave early.",
+          "input": "text",
+          "answer": "She wants to leave early."
+        }
+      ]
+    }
+  ]
+},
   {
     "id": "grammar-narrative-tenses",
     "order": 2,

@@ -1,0 +1,637 @@
+{
+  "id": "lesson-5",
+  "number": 5,
+  "title": "Present simple and continuous · A letter – giving news",
+  "subtitle": "Unit 2 · Grammar and developing writing · Outcomes",
+  "status": "available",
+  "vocabularyId": "vocab-lesson-5",
+  "grammarIds": [
+    "grammar-present-simple-continuous"
+  ],
+  "publishedAt": "2026-08-11",
+  "totalPoints": 52,
+  "blocks": [
+    {
+      "type": "section",
+      "eyebrow": "Exercise 1",
+      "title": "GRAMMAR · Present simple and continuous",
+      "text": "Circle the correct form in italics."
+    },
+    {
+      "type": "exercise",
+      "id": "lesson5-ex1",
+      "title": "Circle the correct form in italics.",
+      "items": [
+        {
+          "id": "1",
+          "number": 1,
+          "input": "inline-choices",
+          "layout": "dialogue",
+          "segments": [
+            "A: What on earth ",
+            "?\nB: It’s my new summer shirt. I think ",
+            " pretty cool.\nA: Well, ",
+            " my boss later, so don’t wear it then."
+          ],
+          "choices": [
+            [
+              "are you wearing",
+              "do you wear"
+            ],
+            [
+              "it looks",
+              "it’s looking"
+            ],
+            [
+              "we meet",
+              "we’re meeting"
+            ]
+          ],
+          "answers": [
+            0,
+            0,
+            1
+          ],
+          "scoreEachResponse": true
+        },
+        {
+          "id": "2",
+          "number": 2,
+          "input": "inline-choices",
+          "layout": "dialogue",
+          "segments": [
+            "A: What ",
+            " this Saturday?\nB: ",
+            " to a new yoga class. Do you fancy coming?\nIt ",
+            " very relaxing.\nA: Sorry, I can’t. ",
+            " my parents every Saturday."
+          ],
+          "choices": [
+            [
+              "do you do",
+              "are you doing"
+            ],
+            [
+              "I’m going",
+              "I go"
+            ],
+            [
+              "sounds",
+              "is sounding"
+            ],
+            [
+              "I visit",
+              "I’m visiting"
+            ]
+          ],
+          "answers": [
+            1,
+            0,
+            0,
+            0
+          ],
+          "scoreEachResponse": true
+        },
+        {
+          "id": "3",
+          "number": 3,
+          "input": "inline-choices",
+          "layout": "dialogue",
+          "segments": [
+            "A: Why on earth ",
+            " so aggressive? It’s unlike you.\nB: Sorry. I’m just stressed out. ",
+            " on a really important project. ",
+            " a presentation this afternoon and ",
+            " my part.\nA: Oh dear. You must be a bit nervous. Good luck with it."
+          ],
+          "choices": [
+            [
+              "are you being",
+              "do you be"
+            ],
+            [
+              "I work",
+              "I’m working"
+            ],
+            [
+              "We’re giving",
+              "We give"
+            ],
+            [
+              "I’m still preparing",
+              "I still prepare"
+            ]
+          ],
+          "answers": [
+            0,
+            1,
+            0,
+            0
+          ],
+          "scoreEachResponse": true
+        },
+        {
+          "id": "4",
+          "number": 4,
+          "input": "inline-choices",
+          "layout": "dialogue",
+          "segments": [
+            "A: Cheer up. Why on earth are you so down?\nB: Don’t worry. ",
+            " like this in the winter. I can’t stand the short days.\nA: I know what you mean. We ",
+            " on holiday in the winter, but my kids ",
+            " their exams soon."
+          ],
+          "choices": [
+            [
+              "I always feel",
+              "I’m always feeling"
+            ],
+            [
+              "normally go",
+              "are normally going"
+            ],
+            [
+              "do",
+              "are doing"
+            ]
+          ],
+          "answers": [
+            0,
+            0,
+            1
+          ],
+          "scoreEachResponse": true
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "eyebrow": "Exercise 2",
+      "title": "Complete the pairs of questions.",
+      "text": "Use the present continuous or present simple form of the verbs in brackets."
+    },
+    {
+      "type": "exercise",
+      "id": "lesson5-ex2",
+      "title": "Complete the pairs of questions.",
+      "instructions": "Use the present continuous or present simple form of the verbs in brackets.",
+      "items": [
+        {
+          "id": "1",
+          "number": 1,
+          "example": true,
+          "exampleTextOnly": true,
+          "prompt": "How’s the match going (go)? Who’s winning (win)?"
+        },
+        {
+          "id": "2",
+          "number": 2,
+          "input": "gaps",
+          "layout": "question-pair",
+          "segments": [
+            "What ",
+            " you ",
+            " (do) on Friday evenings? ",
+            " you ",
+            " (fancy) joining our book group?"
+          ],
+          "answers": [
+            [
+              "are"
+            ],
+            [
+              "doing"
+            ],
+            [
+              "Do"
+            ],
+            [
+              "fancy"
+            ]
+          ],
+          "scoreEachResponse": true
+        },
+        {
+          "id": "3",
+          "number": 3,
+          "input": "gaps",
+          "layout": "question-pair",
+          "segments": [
+            "Why ",
+            " you ",
+            " (cry)? ",
+            " you ",
+            " (want) to talk about it?"
+          ],
+          "answers": [
+            [
+              "are"
+            ],
+            [
+              "crying"
+            ],
+            [
+              "Do"
+            ],
+            [
+              "want"
+            ]
+          ],
+          "scoreEachResponse": true
+        },
+        {
+          "id": "4",
+          "number": 4,
+          "input": "gaps",
+          "layout": "question-pair",
+          "segments": [
+            "Where ",
+            " you ",
+            " (move) to?\nWhat ",
+            " (be) the new area like?"
+          ],
+          "answers": [
+            [
+              "are"
+            ],
+            [
+              "moving"
+            ],
+            [
+              "is"
+            ]
+          ],
+          "scoreEachResponse": true
+        },
+        {
+          "id": "5",
+          "number": 5,
+          "input": "gaps",
+          "layout": "question-pair",
+          "segments": [
+            "Why ",
+            " those people ",
+            " (stand) there? ",
+            " they ",
+            " (need) help?"
+          ],
+          "answers": [
+            [
+              "are"
+            ],
+            [
+              "standing"
+            ],
+            [
+              "Do"
+            ],
+            [
+              "need"
+            ]
+          ],
+          "scoreEachResponse": true
+        },
+        {
+          "id": "6",
+          "number": 6,
+          "input": "gaps",
+          "layout": "question-pair",
+          "segments": [
+            "",
+            " your brother ",
+            " (enjoy) his new job? What exactly ",
+            " he ",
+            " (do) every day?"
+          ],
+          "answers": [
+            [
+              "Is"
+            ],
+            [
+              "enjoying"
+            ],
+            [
+              "does"
+            ],
+            [
+              "do"
+            ]
+          ],
+          "scoreEachResponse": true
+        },
+        {
+          "id": "7",
+          "number": 7,
+          "input": "gaps",
+          "layout": "question-pair",
+          "segments": [
+            "How ",
+            " your kids ",
+            " (get) to school every day? How long ",
+            " it ",
+            " (take)?"
+          ],
+          "answers": [
+            [
+              "do"
+            ],
+            [
+              "get"
+            ],
+            [
+              "does"
+            ],
+            [
+              "take"
+            ]
+          ],
+          "scoreEachResponse": true
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "eyebrow": "Exercise 3",
+      "title": "Use the words to write reasons for refusing the requests.",
+      "text": ""
+    },
+    {
+      "type": "exercise",
+      "id": "lesson5-ex3",
+      "title": "Use the words to write reasons for refusing the requests.",
+      "items": [
+        {
+          "id": "1",
+          "number": 1,
+          "example": true,
+          "exampleTextOnly": true,
+          "prompt": "A: I was wondering if you wanted to get together on Saturday?\nB: I’d love to but I can’t. I’m going away for the weekend.\n(love to / but can’t. go away / for the weekend.)"
+        },
+        {
+          "id": "2",
+          "number": 2,
+          "input": "text",
+          "prompt": "A: Can you give me a hand to set up my new computer?\nB: ______________________________ (sorry / can’t. work late / this evening.)",
+          "answer": "I’m sorry, I can’t. I’m working late this evening.",
+          "acceptedAnswers": [
+            "I’m sorry, I can’t. I’m working late this evening.",
+            "I’m sorry I can’t. I’m working late this evening."
+          ]
+        },
+        {
+          "id": "3",
+          "number": 3,
+          "input": "text",
+          "prompt": "A: Do you think I could use your mobile?\nB: ______________________________ (afraid / can’t. don’t have / with me.)",
+          "answer": "I’m afraid you can’t. I don’t have it with me."
+        },
+        {
+          "id": "4",
+          "number": 4,
+          "input": "text",
+          "prompt": "A: Do you fancy coming to my party on Friday evening?\nB: ______________________________ (nice / of you to ask me. play in a band / every Friday.)",
+          "answer": "It’s nice of you to ask me. But I play in a band every Friday.",
+          "acceptedAnswers": [
+            "It’s nice of you to ask me. But I play in a band every Friday.",
+            "It’s nice of you to ask me. I play in a band every Friday."
+          ]
+        },
+        {
+          "id": "5",
+          "number": 5,
+          "input": "text",
+          "prompt": "A: Would you like to meet up some time this weekend?\nB: ______________________________ (kind / of you to ask us. go to London / every weekend.)",
+          "answer": "It’s kind of you to ask us. But we go to London every weekend.",
+          "acceptedAnswers": [
+            "It’s kind of you to ask us. But we go to London every weekend.",
+            "It’s kind of you to ask us. We go to London every weekend."
+          ]
+        },
+        {
+          "id": "6",
+          "number": 6,
+          "input": "text",
+          "prompt": "A: Can you help me with my homework?\nB: ______________________________ (no / sorry. go out / this evening.)",
+          "answer": "No, I’m sorry. I’m going out this evening.",
+          "acceptedAnswers": [
+            "No, I’m sorry. I’m going out this evening.",
+            "No I’m sorry. I’m going out this evening."
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "eyebrow": "DEVELOPING WRITING · Exercise 4",
+      "title": "A letter – giving news",
+      "text": "Rani has just started university. Complete the letter to her parents with the words in the box."
+    },
+    {
+      "type": "exercise",
+      "id": "lesson5-ex4",
+      "title": "Rani has just started university. Complete the letter to her parents with the words in the box.",
+      "wordBank": [
+        "pretty",
+        "miss",
+        "settling",
+        "hug",
+        "down",
+        "sorry",
+        "into",
+        "mind",
+        "expect",
+        "out"
+      ],
+      "items": [
+        {
+          "id": "letter",
+          "number": "",
+          "input": "inline-choices",
+          "layout": "letter",
+          "numberedChoices": true,
+          "segments": [
+            "Dear Mum and Dad\n\n",
+            " I haven’t written before, but I’ve been ",
+            " busy since I started. I’m ",
+            " in to my flat and enjoying the course so far. Lectures have started but I didn’t ",
+            " to be working so hard in the first month!\n\nI’ve been a bit ",
+            " this week. It’s nothing to worry about but Rachel has changed course, so I’m now one of the few girls doing physics! I had a feeling she wasn’t very happy, but I think she’s sorted it ",
+            " now.\n\nI ",
+            " everyone but I’m making a lot of new friends. My flatmates are all ",
+            " adventure sports (my idea of hell), but I had a go at climbing last weekend - exhausting but good fun.\n\nMy next lecture is about to start, so I’ll put this in the post. Give everyone a ",
+            " from me.\n\nLots of love\n\nRani\nxx\n\nP.S. If you don’t ",
+            ", I won’t ring you on my mobile. It’s too expensive - but you can ring me!"
+          ],
+          "choices": [
+            [
+              "pretty",
+              "miss",
+              "settling",
+              "hug",
+              "down",
+              "sorry",
+              "into",
+              "mind",
+              "expect",
+              "out"
+            ],
+            [
+              "pretty",
+              "miss",
+              "settling",
+              "hug",
+              "down",
+              "sorry",
+              "into",
+              "mind",
+              "expect",
+              "out"
+            ],
+            [
+              "pretty",
+              "miss",
+              "settling",
+              "hug",
+              "down",
+              "sorry",
+              "into",
+              "mind",
+              "expect",
+              "out"
+            ],
+            [
+              "pretty",
+              "miss",
+              "settling",
+              "hug",
+              "down",
+              "sorry",
+              "into",
+              "mind",
+              "expect",
+              "out"
+            ],
+            [
+              "pretty",
+              "miss",
+              "settling",
+              "hug",
+              "down",
+              "sorry",
+              "into",
+              "mind",
+              "expect",
+              "out"
+            ],
+            [
+              "pretty",
+              "miss",
+              "settling",
+              "hug",
+              "down",
+              "sorry",
+              "into",
+              "mind",
+              "expect",
+              "out"
+            ],
+            [
+              "pretty",
+              "miss",
+              "settling",
+              "hug",
+              "down",
+              "sorry",
+              "into",
+              "mind",
+              "expect",
+              "out"
+            ],
+            [
+              "pretty",
+              "miss",
+              "settling",
+              "hug",
+              "down",
+              "sorry",
+              "into",
+              "mind",
+              "expect",
+              "out"
+            ],
+            [
+              "pretty",
+              "miss",
+              "settling",
+              "hug",
+              "down",
+              "sorry",
+              "into",
+              "mind",
+              "expect",
+              "out"
+            ],
+            [
+              "pretty",
+              "miss",
+              "settling",
+              "hug",
+              "down",
+              "sorry",
+              "into",
+              "mind",
+              "expect",
+              "out"
+            ]
+          ],
+          "answers": [
+            5,
+            0,
+            2,
+            8,
+            4,
+            9,
+            1,
+            6,
+            3,
+            7
+          ],
+          "scoreEachResponse": true
+        }
+      ]
+    },
+    {
+      "type": "info",
+      "title": "Language note",
+      "text": "a bit / pretty / not very + adjective\n\nIf you don’t want to sound too negative, you can soften an adjective like this:\nI’m a bit tired.\nIt was pretty disappointing.\nIt wasn’t very easy."
+    },
+    {
+      "type": "section",
+      "eyebrow": "Exercise 5",
+      "title": "Imagine you have just left home to start a new job / go on a course.",
+      "text": "Write a letter home (120–150 words) and give your news. Use the letter in exercise 4 to help you."
+    },
+    {
+      "type": "exercise",
+      "id": "lesson5-ex5",
+      "title": "Imagine you have just left home to start a new job / go on a course. Write a letter home (120–150 words) and give your news. Use the letter in exercise 4 to help you.",
+      "referenceFrom": {
+        "blockId": "lesson5-ex4",
+        "itemId": "letter"
+      },
+      "items": [
+        {
+          "id": "1",
+          "number": "",
+          "input": "textarea",
+          "scored": false,
+          "placeholder": ""
+        }
+      ]
+    }
+  ],
+  "notification": {
+    "enabled": true,
+    "version": 1
+  }
+}

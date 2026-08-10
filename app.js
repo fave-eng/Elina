@@ -1142,7 +1142,9 @@
     } else if (item.input === 'inline-choices') {
       const choices = Array.isArray(item.choices) ? item.choices : [];
       const segments = Array.isArray(item.segments) ? item.segments : [];
-      control = `<div class="inline-choice-sentence">${choices.map((options, choiceIndex) => `${choiceIndex < segments.length ? `<span>${formatExerciseText(segments[choiceIndex])}</span>` : ''}<select class="inline-choice" data-inline-choice-index="${choiceIndex}" aria-label="Choice ${choiceIndex + 1}"><option value="">—</option>${(options || []).map((option, optionIndex) => `<option value="${optionIndex}">${escapeHtml(option)}</option>`).join('')}</select>`).join('')}${segments.length > choices.length ? `<span>${formatExerciseText(segments[segments.length - 1])}</span>` : ''}</div>`;
+      const layoutClass = item.layout === 'letter' ? ' letter-gaps' : '';
+      const numberedChoices = item.numberedChoices === true;
+      control = `<div class="inline-choice-sentence${layoutClass}">${choices.map((options, choiceIndex) => `${choiceIndex < segments.length ? `<span>${formatExerciseText(segments[choiceIndex])}</span>` : ''}${numberedChoices ? `<span class="inline-gap-number">${choiceIndex + 1}</span>` : ''}<select class="inline-choice" data-inline-choice-index="${choiceIndex}" aria-label="Choice ${choiceIndex + 1}"><option value="">—</option>${(options || []).map((option, optionIndex) => `<option value="${optionIndex}">${escapeHtml(option)}</option>`).join('')}</select>`).join('')}${segments.length > choices.length ? `<span>${formatExerciseText(segments[segments.length - 1])}</span>` : ''}</div>`;
     } else if (item.input === 'article-gaps') {
       const answers = Array.isArray(item.answers) ? item.answers : [];
       const segments = Array.isArray(item.segments) ? item.segments : [];
@@ -1166,7 +1168,11 @@
     } else if (item.input === 'gaps') {
       const answers = Array.isArray(item.answers) ? item.answers : [];
       const segments = Array.isArray(item.segments) ? item.segments : [];
-      const layoutClass = item.layout === 'dialogue' ? ' dialogue-gaps' : '';
+      const layoutClass = item.layout === 'dialogue'
+        ? ' dialogue-gaps'
+        : item.layout === 'question-pair'
+          ? ' question-pair-gaps'
+          : '';
       control = `<div class="sentence-gaps${layoutClass}" aria-label="${escapeHtml(item.prompt || '')}">${answers.map((answer, gapIndex) => `${gapIndex < segments.length ? `<span>${formatExerciseText(segments[gapIndex])}</span>` : ''}<input class="gap-input" data-gap-index="${gapIndex}" aria-label="Gap ${gapIndex + 1}" autocomplete="off">`).join('')}${segments.length > answers.length ? `<span>${formatExerciseText(segments[segments.length - 1])}</span>` : ''}</div>`;
     } else {
       control = `<input class="text-field" id="${escapeHtml(inputId)}" autocomplete="off" placeholder="${escapeHtml(item.placeholder || '')}">`;
@@ -1220,9 +1226,12 @@
           }).join('')}</div>`
         : '';
       const intro = block.introTitle || block.introText ? `<div class="exercise-source"><h4>${escapeHtml(block.introTitle || '')}</h4>${block.introText ? `<p>${escapeHtml(block.introText)}</p>` : ''}</div>` : '';
+      const reference = block.referenceFrom?.blockId && block.referenceFrom?.itemId
+        ? `<div class="exercise-answer-reference" data-answer-reference data-reference-block="${escapeHtml(block.referenceFrom.blockId)}" data-reference-item="${escapeHtml(block.referenceFrom.itemId)}"><div data-answer-reference-content></div></div>`
+        : '';
       return `<article class="card lesson-block exercise-card" data-task="${escapeHtml(id)}" data-type="exercise">
         <div class="exercise-heading"><span class="eyebrow">Exercise</span><h3>${title}</h3>${block.instructions ? `<p class="muted exercise-instructions">${escapeHtml(block.instructions)}</p>` : ''}${player}${wordBank}${wordBanks}</div>
-        ${image}${intro}
+        ${image}${intro}${reference}
         <div class="exercise-items">${items.map((item, itemIndex) => renderExerciseItem(item, id, itemIndex)).join('')}</div>
       </article>`;
     }
@@ -1272,10 +1281,22 @@
     return accepted.some((answer) => normalizeAnswer(answer) !== '' && normalizeAnswer(answer) === normalizeAnswer(actual));
   }
 
+  function setAnswerControlState(control, state) {
+    if (!control) return;
+    control.classList.remove('answer-correct', 'answer-wrong');
+    control.removeAttribute('aria-invalid');
+    if (state === true) control.classList.add('answer-correct');
+    if (state === false) {
+      control.classList.add('answer-wrong');
+      control.setAttribute('aria-invalid', 'true');
+    }
+  }
+
   function checkExerciseItem(item, itemNode) {
     const inputType = item.input || 'text';
     let actual;
     let correct = false;
+    let responseResults = null;
 
     if (inputType === 'example-gap') {
       actual = itemNode.querySelector('[data-example-gap]')?.value ?? '';
@@ -1288,9 +1309,14 @@
         && Number(selected) === Number(item.answer)
         && normalizeAnswer(reason) === normalizeAnswer(item.reasonAnswer);
     } else if (inputType === 'inline-choices') {
-      actual = [...itemNode.querySelectorAll('[data-inline-choice-index]')].map((select) => select.value);
+      const controls = [...itemNode.querySelectorAll('[data-inline-choice-index]')];
+      actual = controls.map((select) => select.value);
       const expected = Array.isArray(item.answers) ? item.answers.map(Number) : [];
-      correct = expected.length > 0 && actual.length === expected.length && actual.every((value, index) => value !== '' && Number(value) === expected[index]);
+      responseResults = expected.map((answer, index) => actual[index] !== '' && Number(actual[index]) === answer);
+      correct = expected.length > 0 && actual.length === expected.length && responseResults.every(Boolean);
+      if (item.scoreEachResponse === true) {
+        controls.forEach((control, index) => setAnswerControlState(control, responseResults[index] ?? false));
+      }
     } else if (inputType === 'underline') {
       actual = [...itemNode.querySelectorAll('[data-underline-option].selected')].map((button) => button.dataset.underlineId).sort();
       const expected = [...(item.answer || [])].map(String).sort();
@@ -1306,18 +1332,23 @@
       actual = itemNode.querySelector('select')?.value ?? '';
       correct = actual !== '' && Number(actual) === Number(item.answer);
     } else if (inputType === 'gaps' || inputType === 'article-gaps') {
-      actual = [...itemNode.querySelectorAll('[data-gap-index]')].map((input) => input.value);
+      const controls = [...itemNode.querySelectorAll('[data-gap-index]')];
+      actual = controls.map((input) => input.value);
       const expected = Array.isArray(item.answers) ? item.answers : [];
-      correct = expected.length > 0 && expected.every((answer, index) => {
+      responseResults = expected.map((answer, index) => {
         const accepted = Array.isArray(answer) ? answer : [answer];
         return accepted.some((variant) => normalizeAnswer(variant) === normalizeAnswer(actual[index]));
       });
+      correct = expected.length > 0 && responseResults.length === expected.length && responseResults.every(Boolean);
+      if (item.scoreEachResponse === true) {
+        controls.forEach((control, index) => setAnswerControlState(control, responseResults[index] ?? false));
+      }
     } else {
       actual = itemNode.querySelector('input, textarea')?.value || '';
       correct = textAnswerMatches(item, actual);
     }
 
-    return { actual, correct };
+    return { actual, correct, responseResults };
   }
 
   function checkExerciseBlock(block, node) {
@@ -1344,14 +1375,21 @@
         return;
       }
 
-      total += 1;
-      if (result.correct) correctCount += 1;
-      itemNode.classList.toggle('is-correct', result.correct);
-      itemNode.classList.toggle('is-wrong', !result.correct);
+      const responseResults = item.scoreEachResponse === true && Array.isArray(result.responseResults)
+        ? result.responseResults
+        : null;
+      const itemTotal = responseResults ? responseResults.length : 1;
+      const itemCorrectCount = responseResults ? responseResults.filter(Boolean).length : (result.correct ? 1 : 0);
+      const itemIsCorrect = itemTotal > 0 && itemCorrectCount === itemTotal;
+
+      total += itemTotal;
+      correctCount += itemCorrectCount;
+      itemNode.classList.toggle('is-correct', itemIsCorrect);
+      itemNode.classList.toggle('is-wrong', !itemIsCorrect);
       itemNode.classList.remove('is-saved');
       if (feedback) {
-        feedback.className = `feedback show ${result.correct ? 'good' : 'bad'}`;
-        feedback.textContent = result.correct ? 'Correct!' : safeText(item.explanation, 'Check the answer and try again.');
+        feedback.className = `feedback show ${itemIsCorrect ? 'good' : 'bad'}`;
+        feedback.textContent = itemIsCorrect ? 'Correct!' : safeText(item.explanation, 'Check the marked answer and try again.');
       }
     });
 
@@ -1513,6 +1551,37 @@
     });
   }
 
+  function bindLessonAnswerReferences(root, blocks) {
+    const blockMap = new Map((Array.isArray(blocks) ? blocks : []).map((block, index) => [safeText(block.id, `task-${index}`), block]));
+
+    root.querySelectorAll('[data-answer-reference]').forEach((referenceNode) => {
+      const blockId = safeText(referenceNode.dataset.referenceBlock).trim();
+      const itemId = safeText(referenceNode.dataset.referenceItem).trim();
+      const sourceBlock = blockMap.get(blockId);
+      const sourceItem = (Array.isArray(sourceBlock?.items) ? sourceBlock.items : []).find((item, index) => safeText(item.id, `${index + 1}`) === itemId);
+      const sourceNode = root.querySelector(`[data-task="${CSS.escape(blockId)}"] [data-exercise-item="${CSS.escape(itemId)}"]`);
+      const contentNode = referenceNode.querySelector('[data-answer-reference-content]');
+      if (!sourceItem || !sourceNode || !contentNode || !['gaps', 'inline-choices'].includes(sourceItem.input)) return;
+
+      const segments = Array.isArray(sourceItem.segments) ? sourceItem.segments : [];
+      const controlSelector = sourceItem.input === 'inline-choices' ? '[data-inline-choice-index]' : '[data-gap-index]';
+      const controls = [...sourceNode.querySelectorAll(controlSelector)];
+      const renderReference = () => {
+        const values = controls.map((control) => {
+          if (sourceItem.input === 'inline-choices') {
+            return control.value === '' ? '' : safeText(control.options?.[control.selectedIndex]?.text);
+          }
+          return safeText(control.value);
+        });
+        contentNode.innerHTML = `<div class="answer-reference-copy${sourceItem.layout === 'letter' ? ' answer-reference-letter' : ''}">${controls.map((control, gapIndex) => `${gapIndex < segments.length ? `<span>${formatExerciseText(segments[gapIndex])}</span>` : ''}${sourceItem.numberedChoices === true ? `<span class="inline-gap-number">${gapIndex + 1}</span>` : ''}<span class="answer-reference-gap${values[gapIndex] ? ' has-value' : ''}">${values[gapIndex] ? escapeHtml(values[gapIndex]) : '&nbsp;'}</span>`).join('')}${segments.length > controls.length ? `<span>${formatExerciseText(segments[segments.length - 1])}</span>` : ''}</div>`;
+      };
+
+      sourceNode.addEventListener('input', renderReference);
+      sourceNode.addEventListener('change', renderReference);
+      renderReference();
+    });
+  }
+
   async function renderLesson() {
     const id = queryParam('id');
     const lessonRecord = HOMEWORK_DATA.find((item) => item.id === id && item.status !== 'draft');
@@ -1564,6 +1633,7 @@
       <div class="card section lesson-actions"><div id="lesson-result" aria-live="polite"></div><div class="button-row"><button class="btn btn-primary" id="check-lesson" type="button">Check answers</button><button class="btn btn-secondary" id="submit-lesson" type="button" ${savedResult ? '' : 'disabled'}>Submit to teacher</button></div><p class="muted save-note">After checking, your answers are saved on this device and synced with Supabase.</p></div>`;
 
     restoreLessonAnswers(root, blocks, savedResult?.answers);
+    bindLessonAnswerReferences(root, blocks);
 
     const savedSubmission = progress.submissions[lesson.id];
     if (savedSubmission) {
@@ -1803,7 +1873,14 @@
       });
 
       if (alreadyPassed) {
-        if (saved.answers) {
+        const hasAnswersForCurrentPractice = exercises.every((block) => {
+          const blockAnswers = saved.answers?.[block.id];
+          if (!blockAnswers || typeof blockAnswers !== 'object') return false;
+          return (Array.isArray(block.items) ? block.items : [])
+            .filter((item) => !item.example && !item.displayOnly && item.scored !== false)
+            .every((item, itemIndex) => Object.prototype.hasOwnProperty.call(blockAnswers, safeText(item.id, `${itemIndex + 1}`)));
+        });
+        if (hasAnswersForCurrentPractice) {
           exercises.forEach((block, index) => {
             const node = root.querySelector(`[data-grammar-exercise="${index}"]`);
             if (node) checkExerciseBlock(block, node);

@@ -699,6 +699,227 @@ window.VOCABULARY_DATA = [
       }
     ]
   },
+    {
+      "id": "vocab-lesson-5",
+      "title": "Present Simple & Continuous · Giving news",
+      "label": "Lesson 5 · Grammar & Writing",
+      "icon": "✉️",
+      "type": "lesson",
+      "linkedLessonId": "lesson-5",
+      "page": "vocabulary.html?id=vocab-lesson-5",
+      "words": [
+          {
+              "id": "vocab-l5-1-what-on-earth",
+              "en": "what on earth",
+              "ru": "что вообще; что же (для усиления вопроса)",
+              "exampleEn": "What on earth are you wearing?",
+              "category": "PHRASE"
+          },
+          {
+              "id": "vocab-l5-2-aggressive",
+              "en": "aggressive",
+              "ru": "агрессивный, резкий",
+              "exampleEn": "Why on earth are you being so aggressive?",
+              "category": "VOCAB"
+          },
+          {
+              "id": "vocab-l5-3-unlike-you",
+              "en": "unlike you",
+              "ru": "на тебя не похоже",
+              "exampleEn": "It’s unlike you.",
+              "category": "PHRASE"
+          },
+          {
+              "id": "vocab-l5-4-give-a-presentation",
+              "en": "give a presentation",
+              "ru": "выступить с презентацией",
+              "exampleEn": "We’re giving a presentation this afternoon.",
+              "category": "COLLOCATION"
+          },
+          {
+              "id": "vocab-l5-5-nervous",
+              "en": "nervous",
+              "ru": "нервничающий, взволнованный",
+              "exampleEn": "You must be a bit nervous.",
+              "category": "VOCAB"
+          },
+          {
+              "id": "vocab-l5-6-cant-stand",
+              "en": "can’t stand",
+              "ru": "терпеть не могу",
+              "exampleEn": "I can’t stand the short days.",
+              "category": "PHRASE"
+          },
+          {
+              "id": "vocab-l5-7-fancy",
+              "en": "fancy",
+              "ru": "хотеть, быть не против (что-то сделать)",
+              "exampleEn": "Do you fancy coming?",
+              "category": "VOCAB"
+          },
+          {
+              "id": "vocab-l5-8-a-book-group",
+              "en": "a book group",
+              "ru": "книжный клуб / группа для обсуждения книг",
+              "exampleEn": "Do you fancy joining our book group?",
+              "category": "VOCAB"
+          },
+          {
+              "id": "vocab-l5-9-get-together",
+              "en": "get together",
+              "ru": "встретиться, собраться вместе",
+              "exampleEn": "I was wondering if you wanted to get together on Saturday?",
+              "category": "PHRASAL VERB"
+          },
+          {
+              "id": "vocab-l5-10-go-away-for-the-weekend",
+              "en": "go away for the weekend",
+              "ru": "уехать куда-нибудь на выходные",
+              "exampleEn": "I’m going away for the weekend.",
+              "category": "PHRASE"
+          },
+          {
+              "id": "vocab-l5-11-give-someone-a-hand",
+              "en": "give someone a hand",
+              "ru": "помочь кому-то",
+              "exampleEn": "Can you give me a hand to set up my new computer?",
+              "category": "IDIOM"
+          },
+          {
+              "id": "vocab-l5-12-set-up-a-computer",
+              "en": "set up a computer",
+              "ru": "настроить компьютер",
+              "exampleEn": "Can you give me a hand to set up my new computer?",
+              "category": "PHRASE"
+          },
+          {
+              "id": "vocab-l5-13-play-in-a-band",
+              "en": "play in a band",
+              "ru": "играть в музыкальной группе",
+              "exampleEn": "I play in a band every Friday.",
+              "category": "PHRASE"
+          },
+          {
+              "id": "vocab-l5-14-meet-up",
+              "en": "meet up",
+              "ru": "встретиться",
+              "exampleEn": "Would you like to meet up some time this weekend?",
+              "category": "PHRASAL VERB"
+          },
+          {
+              "id": "vocab-l5-15-a-flatmate",
+              "en": "a flatmate",
+              "ru": "сосед / соседка по квартире",
+              "exampleEn": "My flatmates are all into adventure sports.",
+              "category": "VOCAB"
+          },
+          {
+              "id": "vocab-l5-16-adventure-sports",
+              "en": "adventure sports",
+              "ru": "экстремальные / приключенческие виды спорта",
+              "exampleEn": "My flatmates are all into adventure sports.",
+              "category": "VOCAB"
+          },
+          {
+              "id": "vocab-l5-17-have-a-go-at",
+              "en": "have a go at",
+              "ru": "попробовать что-либо",
+              "exampleEn": "I had a go at climbing last weekend.",
+              "category": "PHRASE"
+          },
+          {
+              "id": "vocab-l5-18-good-fun",
+              "en": "good fun",
+              "ru": "очень весело; хорошее развлечение",
+              "exampleEn": "It was exhausting but good fun.",
+              "category": "PHRASE"
+          },
+          {
+              "id": "vocab-l5-19-a-lecture",
+              "en": "a lecture",
+              "ru": "лекция",
+              "exampleEn": "My next lecture is about to start.",
+              "category": "VOCAB"
+          },
+          {
+              "id": "vocab-l5-20-climbing",
+              "en": "climbing",
+              "ru": "скалолазание, лазание",
+              "exampleEn": "I had a go at climbing last weekend.",
+              "category": "VOCAB"
+          },
+          {
+              "id": "vocab-l5-21-settle-in",
+              "en": "settle in",
+              "ru": "обжиться, освоиться на новом месте",
+              "exampleEn": "I’m settling in to my flat and enjoying the course so far.",
+              "category": "PHRASAL VERB"
+          },
+          {
+              "id": "vocab-l5-22-sort-something-out",
+              "en": "sort something out",
+              "ru": "разобраться с чем-то; уладить что-то",
+              "exampleEn": "I think she’s sorted it out now.",
+              "category": "PHRASAL VERB"
+          },
+          {
+              "id": "vocab-l5-23-miss-someone",
+              "en": "miss someone",
+              "ru": "скучать по кому-то",
+              "exampleEn": "I miss everyone but I’m making a lot of new friends.",
+              "category": "PHRASE"
+          },
+          {
+              "id": "vocab-l5-24-be-into-something",
+              "en": "be into something",
+              "ru": "увлекаться чем-то, интересоваться чем-то",
+              "exampleEn": "My flatmates are all into adventure sports.",
+              "category": "PHRASE"
+          },
+          {
+              "id": "vocab-l5-25-put-something-in-the-post",
+              "en": "put something in the post",
+              "ru": "отправить что-то по почте",
+              "exampleEn": "I’ll put this in the post.",
+              "category": "PHRASE"
+          },
+          {
+              "id": "vocab-l5-26-a-hug",
+              "en": "a hug",
+              "ru": "объятие",
+              "exampleEn": "Give everyone a hug from me.",
+              "category": "VOCAB"
+          },
+          {
+              "id": "vocab-l5-27-mind",
+              "en": "mind",
+              "ru": "возражать, быть против",
+              "exampleEn": "If you don’t mind, I won’t ring you on my mobile.",
+              "category": "VOCAB"
+          },
+          {
+              "id": "vocab-l5-28-ring-someone",
+              "en": "ring someone",
+              "ru": "позвонить кому-то (брит.)",
+              "exampleEn": "You can ring me!",
+              "category": "VOCAB"
+          },
+          {
+              "id": "vocab-l5-29-pretty-adjective",
+              "en": "pretty + adjective",
+              "ru": "довольно, достаточно + прилагательное",
+              "exampleEn": "It was pretty disappointing.",
+              "category": "LANGUAGE NOTE"
+          },
+          {
+              "id": "vocab-l5-30-a-bit-adjective",
+              "en": "a bit + adjective",
+              "ru": "немного, слегка + прилагательное",
+              "exampleEn": "I’m a bit tired.",
+              "category": "LANGUAGE NOTE"
+          }
+      ]
+  },
   {
     "id": "vocab-irregular-verbs",
     "title": "Irregular Verbs · A2–B1",
