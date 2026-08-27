@@ -8,7 +8,7 @@
   "grammarIds": [],
   "totalPoints": 32,
   "notification": {
-    "enabled": false,
+    "enabled": true,
     "version": 1
   },
   "blocks": [
