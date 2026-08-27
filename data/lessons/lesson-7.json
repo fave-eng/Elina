@@ -1,0 +1,493 @@
+{
+  "id": "lesson-7",
+  "number": 7,
+  "title": "Time off · Future plans and advice email",
+  "subtitle": "Collocations, sentence halves, writing advice, and future plans.",
+  "status": "available",
+  "vocabularyId": "vocab-lesson-7",
+  "grammarIds": [
+    "grammar-future-plans"
+  ],
+  "totalPoints": 38,
+  "blocks": [
+    {
+      "type": "section",
+      "heading": "DEVELOPING WRITING · An email — giving advice",
+      "copy": "Continue working with useful phrases for giving advice and writing an email."
+    },
+    {
+      "type": "exercise",
+      "id": "lesson7-ex5",
+      "title": "Cross out the word or phrase that doesn’t collocate.",
+      "items": [
+        {
+          "id": "1",
+          "number": 1,
+          "prompt": "Have a great …",
+          "input": "select",
+          "options": [
+            "week",
+            "time off",
+            "time"
+          ],
+          "answer": 1
+        },
+        {
+          "id": "2",
+          "number": 2,
+          "prompt": "You can … a bus to the castle.",
+          "input": "select",
+          "options": [
+            "ride",
+            "get",
+            "take"
+          ],
+          "answer": 0
+        },
+        {
+          "id": "3",
+          "number": 3,
+          "prompt": "I know you are … old churches.",
+          "input": "select",
+          "options": [
+            "like",
+            "into",
+            "a fan of"
+          ],
+          "answer": 0
+        },
+        {
+          "id": "4",
+          "number": 4,
+          "prompt": "The festival is …",
+          "input": "select",
+          "options": [
+            "great fun",
+            "a great laugh",
+            "funny"
+          ],
+          "answer": 2
+        },
+        {
+          "id": "5",
+          "number": 5,
+          "prompt": "The show starts …",
+          "input": "select",
+          "options": [
+            "at 2pm",
+            "every day",
+            "on Wednesday"
+          ],
+          "answer": 1
+        },
+        {
+          "id": "6",
+          "number": 6,
+          "prompt": "The best places … are in the main square.",
+          "input": "select",
+          "options": [
+            "to eat",
+            "for food",
+            "for eating"
+          ],
+          "answer": 2
+        }
+      ]
+    },
+    {
+      "type": "exercise",
+      "id": "lesson7-ex6",
+      "title": "Match the sentence halves.",
+      "items": [
+        {
+          "id": "1",
+          "number": 1,
+          "prompt": "If you’re into art, head …",
+          "input": "select",
+          "options": [
+            "a out the new shopping mall.",
+            "b to the new gallery in the main square.",
+            "c round the market on a Sunday morning.",
+            "d forget to send me copies.",
+            "e around after midnight apart from in a taxi.",
+            "f up some sunshine.",
+            "g miss it. It’s a great laugh.",
+            "h expensive and you have to book."
+          ],
+          "answer": 1
+        },
+        {
+          "id": "2",
+          "number": 2,
+          "prompt": "The comedy festival starts on Friday, so don’t …",
+          "input": "select",
+          "options": [
+            "a out the new shopping mall.",
+            "b to the new gallery in the main square.",
+            "c round the market on a Sunday morning.",
+            "d forget to send me copies.",
+            "e around after midnight apart from in a taxi.",
+            "f up some sunshine.",
+            "g miss it. It’s a great laugh.",
+            "h expensive and you have to book."
+          ],
+          "answer": 6
+        },
+        {
+          "id": "3",
+          "number": 3,
+          "prompt": "Local transport isn’t great. It’s difficult to get …",
+          "input": "select",
+          "options": [
+            "a out the new shopping mall.",
+            "b to the new gallery in the main square.",
+            "c round the market on a Sunday morning.",
+            "d forget to send me copies.",
+            "e around after midnight apart from in a taxi.",
+            "f up some sunshine.",
+            "g miss it. It’s a great laugh.",
+            "h expensive and you have to book."
+          ],
+          "answer": 4
+        },
+        {
+          "id": "4",
+          "number": 4,
+          "prompt": "If you have some spending money, check …",
+          "input": "select",
+          "options": [
+            "a out the new shopping mall.",
+            "b to the new gallery in the main square.",
+            "c round the market on a Sunday morning.",
+            "d forget to send me copies.",
+            "e around after midnight apart from in a taxi.",
+            "f up some sunshine.",
+            "g miss it. It’s a great laugh.",
+            "h expensive and you have to book."
+          ],
+          "answer": 0
+        },
+        {
+          "id": "5",
+          "number": 5,
+          "prompt": "When you want to relax, go to the beach and soak …",
+          "input": "select",
+          "options": [
+            "a out the new shopping mall.",
+            "b to the new gallery in the main square.",
+            "c round the market on a Sunday morning.",
+            "d forget to send me copies.",
+            "e around after midnight apart from in a taxi.",
+            "f up some sunshine.",
+            "g miss it. It’s a great laugh.",
+            "h expensive and you have to book."
+          ],
+          "answer": 5
+        },
+        {
+          "id": "6",
+          "number": 6,
+          "prompt": "Don’t try the restaurants in the centre. They’re pretty …",
+          "input": "select",
+          "options": [
+            "a out the new shopping mall.",
+            "b to the new gallery in the main square.",
+            "c round the market on a Sunday morning.",
+            "d forget to send me copies.",
+            "e around after midnight apart from in a taxi.",
+            "f up some sunshine.",
+            "g miss it. It’s a great laugh.",
+            "h expensive and you have to book."
+          ],
+          "answer": 7
+        },
+        {
+          "id": "7",
+          "number": 7,
+          "prompt": "Take lots of photos and don’t …",
+          "input": "select",
+          "options": [
+            "a out the new shopping mall.",
+            "b to the new gallery in the main square.",
+            "c round the market on a Sunday morning.",
+            "d forget to send me copies.",
+            "e around after midnight apart from in a taxi.",
+            "f up some sunshine.",
+            "g miss it. It’s a great laugh.",
+            "h expensive and you have to book."
+          ],
+          "answer": 3
+        },
+        {
+          "id": "8",
+          "number": 8,
+          "prompt": "It’s nice to wander …",
+          "input": "select",
+          "options": [
+            "a out the new shopping mall.",
+            "b to the new gallery in the main square.",
+            "c round the market on a Sunday morning.",
+            "d forget to send me copies.",
+            "e around after midnight apart from in a taxi.",
+            "f up some sunshine.",
+            "g miss it. It’s a great laugh.",
+            "h expensive and you have to book."
+          ],
+          "answer": 2
+        }
+      ]
+    },
+    {
+      "type": "exercise",
+      "id": "lesson7-ex7",
+      "title": "Write an email in 120–150 words for the following situation. Use the checklist in exercise A and the language in this section to help you.",
+      "items": [
+        {
+          "id": "email",
+          "number": "",
+          "prompt": "An English-speaking friend is spending a week’s holiday in your home town. You are going to be away, so write an email to your friend giving advice about their stay.",
+          "input": "textarea",
+          "placeholder": "Write your email here…",
+          "scored": false
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "heading": "GRAMMAR · Future plans",
+      "copy": "Use the future forms from the workbook: be going to, might, have got to, be thinking of + -ing, Present Continuous arrangements, will / probably."
+    },
+    {
+      "type": "exercise",
+      "id": "lesson7-grammar-ex1",
+      "title": "Rewrite the sentences with the words in brackets.",
+      "items": [
+        {
+          "id": "1",
+          "number": 1,
+          "prompt": "We will definitely be away in June. (going)",
+          "input": "text",
+          "example": true,
+          "exampleAnswer": "We’re going to be away in June."
+        },
+        {
+          "id": "2",
+          "number": 2,
+          "prompt": "Perhaps I’ll try couch-surfing this year. (might)",
+          "input": "text",
+          "answer": [
+            "I might try couch-surfing this year.",
+            "I might try couch surfing this year."
+          ]
+        },
+        {
+          "id": "3",
+          "number": 3,
+          "prompt": "I can’t meet up this weekend. I have to revise for my exams. (got)",
+          "input": "text",
+          "answer": "I’ve got to revise for my exams."
+        },
+        {
+          "id": "4",
+          "number": 4,
+          "prompt": "Jim might go travelling this summer. (thinking)",
+          "input": "text",
+          "answer": [
+            "Jim is thinking of going travelling this summer.",
+            "Jim’s thinking of going travelling this summer."
+          ]
+        },
+        {
+          "id": "5",
+          "number": 5,
+          "prompt": "I think it will be too cold for swimming. (probably)",
+          "input": "text",
+          "answer": "It will probably be too cold for swimming."
+        },
+        {
+          "id": "6",
+          "number": 6,
+          "prompt": "They definitely won’t be on holiday in July. (going)",
+          "input": "text",
+          "answer": [
+            "They definitely aren’t going to be on holiday in July.",
+            "They definitely are not going to be on holiday in July."
+          ]
+        }
+      ]
+    },
+    {
+      "type": "exercise",
+      "id": "lesson7-grammar-ex2",
+      "title": "Use the words in 1–7 to complete the students’ replies to the teacher’s question.",
+      "instructions": "What are you doing at the weekend?",
+      "items": [
+        {
+          "id": "1",
+          "number": 1,
+          "prompt": "It’s such a busy time! Why do they arrange exams at the end of term? (I / got / study for / my university entrance exam)",
+          "input": "text",
+          "answer": [
+            "I’ve got to study for my university entrance exam.",
+            "I have got to study for my university entrance exam."
+          ]
+        },
+        {
+          "id": "2",
+          "number": 2,
+          "prompt": "I’m not sure yet but (my friends and I / think / go / camping / near the coast)",
+          "input": "text",
+          "answer": [
+            "My friends and I are thinking of going camping near the coast.",
+            "My friends and I’re thinking of going camping near the coast."
+          ]
+        },
+        {
+          "id": "3",
+          "number": 3,
+          "prompt": "(Marek and I / go to / a concert / in Manchester on Friday) We need to leave class early to get the train.",
+          "input": "text",
+          "answer": [
+            "Marek and I are going to a concert in Manchester on Friday.",
+            "Marek and I’re going to a concert in Manchester on Friday."
+          ]
+        },
+        {
+          "id": "4",
+          "number": 4,
+          "prompt": "I’m not sure. (I / might / meet up with some friends in London)",
+          "input": "text",
+          "answer": "I might meet up with some friends in London."
+        },
+        {
+          "id": "5",
+          "number": 5,
+          "prompt": "(I / got / a free weekend) I’m going to catch up on some sleep.",
+          "input": "text",
+          "answer": [
+            "I’ve got a free weekend.",
+            "I have got a free weekend."
+          ]
+        },
+        {
+          "id": "6",
+          "number": 6,
+          "prompt": "(my sister and I / not go / be around) We’ve been invited to a party in Brighton.",
+          "input": "text",
+          "answer": [
+            "My sister and I aren’t going to be around.",
+            "My sister and I are not going to be around."
+          ]
+        },
+        {
+          "id": "7",
+          "number": 7,
+          "prompt": "I haven’t made any plans but (I / probably / go to / my friend’s barbecue)",
+          "input": "text",
+          "answer": [
+            "I’ll probably go to my friend’s barbecue.",
+            "I will probably go to my friend’s barbecue."
+          ]
+        }
+      ]
+    },
+    {
+      "type": "exercise",
+      "id": "lesson7-grammar-ex3",
+      "title": "Circle the correct forms in italics.",
+      "items": [
+        {
+          "id": "dialogues",
+          "number": "",
+          "input": "inline-choices",
+          "layout": "dialogue",
+          "numberedChoices": true,
+          "segments": [
+            "1 A: Where ",
+            " on holiday this year?\nB: I’m not sure. In fact I ",
+            " not go away at all because I’m a bit short of money. My dad lent me some cash for a car and ",
+            " to pay him back. How about you? What are your plans?\nA: Well, it depends on the weather. ",
+            " a week’s holiday, so I want to go when it’s hot and sunny.\nB: They say ",
+            " probably be another very hot summer, so you should be OK.\n\n2 A: It’s my day off today and ",
+            " lunch with James and Gary in that new restaurant. Would you like to join us?\nB: I’d love to but I can’t. ",
+            " to the doctor’s.\nA: Oh, nothing serious, I hope.\nB: No, I’m fine, thanks. But ",
+            " ages. The waiting room is always so crowded.\n\n3 A: I’ve booked an apartment in Barcelona this year. ",
+            " for two weeks in August. Do you fancy coming with us?\nB: It’s nice of you to ask me but I’m ",
+            " be here in the summer. ",
+            " two months in Australia.\nA: Really? That sounds exciting.\nB: Yes, I’m thinking ",
+            " there at some point.\nA: Wow, that’s great."
+          ],
+          "choices": [
+            [
+              "are you going",
+              "do you go"
+            ],
+            [
+              "will",
+              "might"
+            ],
+            [
+              "I’ve got",
+              "I must"
+            ],
+            [
+              "I’ve only got",
+              "got to"
+            ],
+            [
+              "it’ll",
+              "it might"
+            ],
+            [
+              "I’ll have",
+              "I’m having"
+            ],
+            [
+              "I’m going",
+              "thinking of going"
+            ],
+            [
+              "it’ll probably take",
+              "it’s taking"
+            ],
+            [
+              "We might go",
+              "We’re going"
+            ],
+            [
+              "not going to",
+              "thinking to"
+            ],
+            [
+              "I’ll spend",
+              "I’m spending"
+            ],
+            [
+              "to emigrate",
+              "of emigrating"
+            ]
+          ],
+          "answers": [
+            0,
+            1,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            1,
+            0,
+            1,
+            1
+          ],
+          "scoreEachResponse": true
+        }
+      ]
+    }
+  ],
+  "notification": {
+    "enabled": true,
+    "version": 1
+  }
+}

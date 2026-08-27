@@ -1,445 +1,445 @@
 window.GRAMMAR_DATA = [
   {
-  "id": "grammar-present-simple-continuous",
-  "order": 1,
-  "title": "Present Simple vs Present Continuous",
-  "level": "A2–B1",
-  "status": "available",
-  "page": "grammar-topic.html?id=grammar-present-simple-continuous",
-  "passed": false,
-  "attempts": 0,
-  "explanation": "Present Simple и Present Continuous говорят о настоящем, но показывают ситуацию по-разному. Present Simple описывает то, что обычно, регулярно, вообще верно или стоит в расписании. Present Continuous показывает действие прямо сейчас, временную ситуацию или уже организованную договорённость на ближайшее будущее. Быстрая проверка: это «обычно / вообще» или «сейчас / временно / уже договорились»?",
-  "formula": "Present Simple: I/you/we/they + V1 · he/she/it + V-s · Present Continuous: am/is/are + V-ing",
-  "anchorLinks": [
-    {
-      "id": "grammar-at-a-glance",
-      "title": "Когда какое время"
-    },
-    {
-      "id": "grammar-tables",
-      "title": "Формы и написание"
-    },
-    {
-      "id": "grammar-examples",
-      "title": "Примеры"
-    },
-    {
-      "id": "grammar-mistakes",
-      "title": "Типичные ошибки"
-    },
-    {
-      "id": "grammar-practice-section",
-      "title": "Задания"
-    }
-  ],
-  "glanceCards": [
-    {
-      "icon": "🔁",
-      "label": "Present Simple",
-      "hint": "привычки, факты, регулярность, расписание",
-      "pattern": "I work · she works",
-      "example": "I visit my parents every Saturday."
-    },
-    {
-      "icon": "▶️",
-      "label": "Present Continuous",
-      "hint": "прямо сейчас или временно",
-      "pattern": "am / is / are + V-ing",
-      "example": "I’m working on an important project."
-    },
-    {
-      "icon": "📅",
-      "label": "Договорённость",
-      "hint": "личный план уже организован",
-      "pattern": "am / is / are + V-ing",
-      "example": "We’re meeting my boss later."
-    },
-    {
-      "icon": "🧠",
-      "label": "Stative verbs",
-      "hint": "обычно не ставятся в Continuous",
-      "pattern": "know · want · need · understand · believe",
-      "example": "I know what you mean."
-    }
-  ],
-  "miniRules": [
-    {
-      "title": "1. Present Simple: обычное и постоянное",
-      "text": "Используйте Present Simple для привычек, повторяющихся действий, фактов, общих состояний и расписаний. Слова-маркеры: usually, always, often, every day, every Saturday, normally.",
-      "example": "We normally go on holiday in the winter."
-    },
-    {
-      "title": "2. Окончание -s в Present Simple",
-      "text": "После he / she / it в утвердительном предложении добавьте -s: works, feels. После -s, -sh, -ch, -x, -o обычно добавляется -es: watches, goes. С согласной + y: study → studies.",
-      "example": "She works late on Fridays."
-    },
-    {
-      "title": "3. Отрицание и вопрос в Present Simple",
-      "text": "Используйте do / does. Отрицание: do not (don’t) / does not (doesn’t) + V1. Вопрос: Do / Does + подлежащее + V1? После does основной глагол остаётся без -s.",
-      "example": "Does he work here? — Yes, he does. / No, he doesn’t."
-    },
-    {
-      "title": "4. Present Continuous: be + V-ing",
-      "text": "Утверждение: am / is / are + V-ing. Отрицание: am not / isn’t / aren’t + V-ing. Вопрос: Am / Is / Are + подлежащее + V-ing?",
-      "example": "Are you working now? — Yes, I am. / No, I’m not."
-    },
-    {
-      "title": "5. Как писать форму -ing",
-      "text": "Обычно добавьте -ing: work → working. Немое -e убирается: make → making. В коротком ударном слоге последняя согласная часто удваивается: sit → sitting. -ie меняется на -y: lie → lying.",
-      "example": "write → writing · run → running · lie → lying"
-    },
-    {
-      "title": "6. Глаголы состояния",
-      "text": "Know, want, need, understand, believe, remember, like, love и некоторые другие глаголы обычно описывают состояние, а не процесс, поэтому чаще используются в Present Simple.",
-      "example": "I want to talk about it. Не: I’m wanting to talk about it."
-    },
-    {
-      "title": "7. Будущее: расписание или личная договорённость",
-      "text": "Present Simple часто используется для официального расписания. Present Continuous — для личной договорённости, которая уже организована.",
-      "example": "The lesson starts at nine. · We’re meeting at nine."
-    },
-    {
-      "title": "8. Always + Continuous",
-      "text": "Always обычно встречается с Present Simple, но Present Continuous + always может подчёркивать повторяющееся поведение, которое раздражает или удивляет говорящего.",
-      "example": "He’s always losing his keys!"
-    }
-  ],
-  "tables": [
-    {
-      "title": "Формы",
-      "headers": [
-        "",
-        "Present Simple",
-        "Present Continuous"
-      ],
-      "rows": [
-        [
-          "Утверждение",
-          "I work. / She works.",
-          "I am working. / She is working."
+    "id": "grammar-present-simple-continuous",
+    "order": 1,
+    "title": "Present Simple vs Present Continuous",
+    "level": "A2–B1",
+    "status": "available",
+    "page": "grammar-topic.html?id=grammar-present-simple-continuous",
+    "passed": false,
+    "attempts": 0,
+    "explanation": "Present Simple и Present Continuous говорят о настоящем, но показывают ситуацию по-разному. Present Simple описывает то, что обычно, регулярно, вообще верно или стоит в расписании. Present Continuous показывает действие прямо сейчас, временную ситуацию или уже организованную договорённость на ближайшее будущее. Быстрая проверка: это «обычно / вообще» или «сейчас / временно / уже договорились»?",
+    "formula": "Present Simple: I/you/we/they + V1 · he/she/it + V-s · Present Continuous: am/is/are + V-ing",
+    "anchorLinks": [
+      {
+        "id": "grammar-at-a-glance",
+        "title": "Когда какое время"
+      },
+      {
+        "id": "grammar-tables",
+        "title": "Формы и написание"
+      },
+      {
+        "id": "grammar-examples",
+        "title": "Примеры"
+      },
+      {
+        "id": "grammar-mistakes",
+        "title": "Типичные ошибки"
+      },
+      {
+        "id": "grammar-practice-section",
+        "title": "Задания"
+      }
+    ],
+    "glanceCards": [
+      {
+        "icon": "🔁",
+        "label": "Present Simple",
+        "hint": "привычки, факты, регулярность, расписание",
+        "pattern": "I work · she works",
+        "example": "I visit my parents every Saturday."
+      },
+      {
+        "icon": "▶️",
+        "label": "Present Continuous",
+        "hint": "прямо сейчас или временно",
+        "pattern": "am / is / are + V-ing",
+        "example": "I’m working on an important project."
+      },
+      {
+        "icon": "📅",
+        "label": "Договорённость",
+        "hint": "личный план уже организован",
+        "pattern": "am / is / are + V-ing",
+        "example": "We’re meeting my boss later."
+      },
+      {
+        "icon": "🧠",
+        "label": "Stative verbs",
+        "hint": "обычно не ставятся в Continuous",
+        "pattern": "know · want · need · understand · believe",
+        "example": "I know what you mean."
+      }
+    ],
+    "miniRules": [
+      {
+        "title": "1. Present Simple: обычное и постоянное",
+        "text": "Используйте Present Simple для привычек, повторяющихся действий, фактов, общих состояний и расписаний. Слова-маркеры: usually, always, often, every day, every Saturday, normally.",
+        "example": "We normally go on holiday in the winter."
+      },
+      {
+        "title": "2. Окончание -s в Present Simple",
+        "text": "После he / she / it в утвердительном предложении добавьте -s: works, feels. После -s, -sh, -ch, -x, -o обычно добавляется -es: watches, goes. С согласной + y: study → studies.",
+        "example": "She works late on Fridays."
+      },
+      {
+        "title": "3. Отрицание и вопрос в Present Simple",
+        "text": "Используйте do / does. Отрицание: do not (don’t) / does not (doesn’t) + V1. Вопрос: Do / Does + подлежащее + V1? После does основной глагол остаётся без -s.",
+        "example": "Does he work here? — Yes, he does. / No, he doesn’t."
+      },
+      {
+        "title": "4. Present Continuous: be + V-ing",
+        "text": "Утверждение: am / is / are + V-ing. Отрицание: am not / isn’t / aren’t + V-ing. Вопрос: Am / Is / Are + подлежащее + V-ing?",
+        "example": "Are you working now? — Yes, I am. / No, I’m not."
+      },
+      {
+        "title": "5. Как писать форму -ing",
+        "text": "Обычно добавьте -ing: work → working. Немое -e убирается: make → making. В коротком ударном слоге последняя согласная часто удваивается: sit → sitting. -ie меняется на -y: lie → lying.",
+        "example": "write → writing · run → running · lie → lying"
+      },
+      {
+        "title": "6. Глаголы состояния",
+        "text": "Know, want, need, understand, believe, remember, like, love и некоторые другие глаголы обычно описывают состояние, а не процесс, поэтому чаще используются в Present Simple.",
+        "example": "I want to talk about it. Не: I’m wanting to talk about it."
+      },
+      {
+        "title": "7. Будущее: расписание или личная договорённость",
+        "text": "Present Simple часто используется для официального расписания. Present Continuous — для личной договорённости, которая уже организована.",
+        "example": "The lesson starts at nine. · We’re meeting at nine."
+      },
+      {
+        "title": "8. Always + Continuous",
+        "text": "Always обычно встречается с Present Simple, но Present Continuous + always может подчёркивать повторяющееся поведение, которое раздражает или удивляет говорящего.",
+        "example": "He’s always losing his keys!"
+      }
+    ],
+    "tables": [
+      {
+        "title": "Формы",
+        "headers": [
+          "",
+          "Present Simple",
+          "Present Continuous"
         ],
-        [
-          "Отрицание",
-          "I don’t work. / She doesn’t work.",
-          "I’m not working. / She isn’t working."
-        ],
-        [
-          "Вопрос",
-          "Do you work? / Does she work?",
-          "Are you working? / Is she working?"
-        ],
-        [
-          "Короткий ответ",
-          "Yes, I do. / No, she doesn’t.",
-          "Yes, I am. / No, she isn’t."
+        "rows": [
+          [
+            "Утверждение",
+            "I work. / She works.",
+            "I am working. / She is working."
+          ],
+          [
+            "Отрицание",
+            "I don’t work. / She doesn’t work.",
+            "I’m not working. / She isn’t working."
+          ],
+          [
+            "Вопрос",
+            "Do you work? / Does she work?",
+            "Are you working? / Is she working?"
+          ],
+          [
+            "Короткий ответ",
+            "Yes, I do. / No, she doesn’t.",
+            "Yes, I am. / No, she isn’t."
+          ]
         ]
-      ]
-    },
-    {
-      "title": "Когда использовать",
-      "headers": [
-        "Ситуация",
-        "Present Simple",
-        "Present Continuous"
-      ],
-      "rows": [
-        [
-          "Привычка / регулярность",
-          "I visit my parents every Saturday.",
-          "—"
+      },
+      {
+        "title": "Когда использовать",
+        "headers": [
+          "Ситуация",
+          "Present Simple",
+          "Present Continuous"
         ],
-        [
-          "Факт / состояние",
-          "I know the answer.",
-          "—"
-        ],
-        [
-          "Действие сейчас",
-          "—",
-          "She is talking on the phone now."
-        ],
-        [
-          "Временная ситуация",
-          "—",
-          "I’m staying with friends this week."
-        ],
-        [
-          "Расписание",
-          "The train leaves at 18:10.",
-          "—"
-        ],
-        [
-          "Личная договорённость",
-          "—",
-          "We’re having dinner with Anna tonight."
-        ]
-      ]
-    },
-    {
-      "title": "Написание форм",
-      "headers": [
-        "Правило",
-        "Пример"
-      ],
-      "rows": [
-        [
-          "he / she / it + -s",
-          "work → works"
-        ],
-        [
-          "-s / -sh / -ch / -x / -o + -es",
-          "watch → watches · go → goes"
-        ],
-        [
-          "согласная + y → -ies",
-          "study → studies"
-        ],
-        [
-          "обычно + -ing",
-          "work → working"
-        ],
-        [
-          "немое -e убирается",
-          "make → making"
-        ],
-        [
-          "короткий ударный слог: согласная удваивается",
-          "run → running"
-        ],
-        [
-          "-ie → -ying",
-          "lie → lying"
-        ]
-      ]
-    }
-  ],
-  "exampleGroups": [
-    {
-      "title": "Одна ситуация — два смысла",
-      "items": [
-        "I work from home. — Это мой обычный формат работы.",
-        "I’m working from home this week. — Это временно, только на этой неделе.",
-        "What do you do on Friday evenings? — Что вы обычно делаете по пятницам?",
-        "What are you doing this Friday? — Что вы делаете в эту конкретную пятницу?"
-      ]
-    },
-    {
-      "title": "Think и другие глаголы со сменой смысла",
-      "items": [
-        "I think it’s a good idea. — think = иметь мнение → Present Simple.",
-        "I’m thinking about the offer. — think = обдумывать прямо сейчас → Present Continuous."
-      ]
-    }
-  ],
-  "commonMistakes": [
-    "Не говорите “I am knowing the answer.” Для состояния know используйте Present Simple: I know the answer.",
-    "После does / doesn’t не добавляйте -s к основному глаголу: Does she work? Не: Does she works?",
-    "Не забывайте am / is / are в Continuous: I’m working. Не: I working.",
-    "Не выбирайте Continuous только потому, что речь о будущем. Для Continuous нужна организованная договорённость; расписание обычно выражается Present Simple.",
-    "Every day / usually / normally обычно ведут к Present Simple; now / at the moment часто ведут к Present Continuous, но сначала проверяйте смысл глагола."
-  ],
-  "exercises": [
-    {
-      "type": "exercise",
-      "id": "grammar-present-simple-continuous-practice",
-      "title": "Choose the correct form.",
-      "difficulty": "Easy",
-      "instructions": "Choose the correct form.",
-      "items": [
-        {
-          "id": "1",
-          "number": 1,
-          "prompt": "She usually ___ from home.",
-          "input": "single",
-          "options": [
-            "works",
-            "is working"
+        "rows": [
+          [
+            "Привычка / регулярность",
+            "I visit my parents every Saturday.",
+            "—"
           ],
-          "answer": 0
-        },
-        {
-          "id": "2",
-          "number": 2,
-          "prompt": "Please be quiet. I ___ to the teacher.",
-          "input": "single",
-          "options": [
-            "listen",
-            "am listening"
+          [
+            "Факт / состояние",
+            "I know the answer.",
+            "—"
           ],
-          "answer": 1
-        },
-        {
-          "id": "3",
-          "number": 3,
-          "prompt": "I ___ this is a good idea.",
-          "input": "single",
-          "options": [
-            "think",
-            "am thinking"
+          [
+            "Действие сейчас",
+            "—",
+            "She is talking on the phone now."
           ],
-          "answer": 0
-        },
-        {
-          "id": "4",
-          "number": 4,
-          "prompt": "We ___ our manager at six this evening.",
-          "input": "single",
-          "options": [
-            "meet",
-            "are meeting"
+          [
+            "Временная ситуация",
+            "—",
+            "I’m staying with friends this week."
           ],
-          "answer": 1
-        }
-      ]
-    },
-    {
-      "type": "exercise",
-      "id": "grammar-present-simple-continuous-step-2",
-      "title": "Complete each sentence with the correct form.",
-      "difficulty": "Medium",
-      "instructions": "Write the correct form of the words in brackets.",
-      "items": [
-        {
-          "id": "1",
-          "number": 1,
-          "prompt": "My brother ___ (work) from home on Fridays.",
-          "input": "text",
-          "answer": "works"
-        },
-        {
-          "id": "2",
-          "number": 2,
-          "prompt": "I ___ (write) an email right now.",
-          "input": "text",
-          "acceptedAnswers": [
-            "am writing",
-            "'m writing"
-          ],
-          "answer": "am writing"
-        },
-        {
-          "id": "3",
-          "number": 3,
-          "prompt": "They ___ (not / need) any help.",
-          "input": "text",
-          "acceptedAnswers": [
-            "don’t need",
-            "don't need",
-            "do not need"
-          ],
-          "answer": "don’t need"
-        },
-        {
-          "id": "4",
-          "number": 4,
-          "prompt": "Why ___ (you / wear) a coat today?",
-          "input": "text",
-          "answer": "are you wearing"
-        }
-      ]
-    },
-    {
-      "type": "exercise",
-      "id": "grammar-present-simple-continuous-step-3",
-      "title": "Choose the sentence that matches the context.",
-      "difficulty": "More challenging",
-      "instructions": "Choose the sentence that matches the context.",
-      "items": [
-        {
-          "id": "1",
-          "number": 1,
-          "prompt": "The job is temporary and lasts only this month.",
-          "input": "select",
-          "options": [
-            "I work at the café this month.",
-            "I’m working at the café this month."
-          ],
-          "answer": 1
-        },
-        {
-          "id": "2",
-          "number": 2,
-          "prompt": "The departure time comes from the official timetable.",
-          "input": "select",
-          "options": [
+          [
+            "Расписание",
             "The train leaves at 18:10.",
-            "The train is leaving at 18:10."
+            "—"
           ],
-          "answer": 0
-        },
-        {
-          "id": "3",
-          "number": 3,
-          "prompt": "You are giving your opinion.",
-          "input": "select",
-          "options": [
-            "I think the plan is sensible.",
-            "I’m thinking the plan is sensible."
+          [
+            "Личная договорённость",
+            "—",
+            "We’re having dinner with Anna tonight."
+          ]
+        ]
+      },
+      {
+        "title": "Написание форм",
+        "headers": [
+          "Правило",
+          "Пример"
+        ],
+        "rows": [
+          [
+            "he / she / it + -s",
+            "work → works"
           ],
-          "answer": 0
-        },
-        {
-          "id": "4",
-          "number": 4,
-          "prompt": "You are complaining about a repeated annoying habit.",
-          "input": "select",
-          "options": [
-            "He always interrupts me.",
-            "He’s always interrupting me."
+          [
+            "-s / -sh / -ch / -x / -o + -es",
+            "watch → watches · go → goes"
           ],
-          "answer": 1
-        }
-      ]
-    },
-    {
-      "type": "exercise",
-      "id": "grammar-present-simple-continuous-step-4",
-      "title": "Build the complete sentence.",
-      "difficulty": "Hard",
-      "instructions": "Write the complete sentence or question.",
-      "items": [
-        {
-          "id": "1",
-          "number": 1,
-          "prompt": "Make a question about a routine: how often / your sister / go / to the gym?",
-          "input": "text",
-          "answer": "How often does your sister go to the gym?"
-        },
-        {
-          "id": "2",
-          "number": 2,
-          "prompt": "Make a negative sentence about now: I / not / use / the computer / at the moment.",
-          "input": "text",
-          "acceptedAnswers": [
-            "I’m not using the computer at the moment.",
-            "I'm not using the computer at the moment.",
-            "I am not using the computer at the moment."
+          [
+            "согласная + y → -ies",
+            "study → studies"
           ],
-          "answer": "I’m not using the computer at the moment."
-        },
-        {
-          "id": "3",
-          "number": 3,
-          "prompt": "Use the correct tense for an arranged future: we / have dinner / with Anna / tonight.",
-          "input": "text",
-          "acceptedAnswers": [
-            "We’re having dinner with Anna tonight.",
-            "We're having dinner with Anna tonight.",
-            "We are having dinner with Anna tonight."
+          [
+            "обычно + -ing",
+            "work → working"
           ],
-          "answer": "We’re having dinner with Anna tonight."
-        },
-        {
-          "id": "4",
-          "number": 4,
-          "prompt": "Correct the sentence: She is wanting to leave early.",
-          "input": "text",
-          "answer": "She wants to leave early."
-        }
-      ]
-    }
-  ]
-},
+          [
+            "немое -e убирается",
+            "make → making"
+          ],
+          [
+            "короткий ударный слог: согласная удваивается",
+            "run → running"
+          ],
+          [
+            "-ie → -ying",
+            "lie → lying"
+          ]
+        ]
+      }
+    ],
+    "exampleGroups": [
+      {
+        "title": "Одна ситуация — два смысла",
+        "items": [
+          "I work from home. — Это мой обычный формат работы.",
+          "I’m working from home this week. — Это временно, только на этой неделе.",
+          "What do you do on Friday evenings? — Что вы обычно делаете по пятницам?",
+          "What are you doing this Friday? — Что вы делаете в эту конкретную пятницу?"
+        ]
+      },
+      {
+        "title": "Think и другие глаголы со сменой смысла",
+        "items": [
+          "I think it’s a good idea. — think = иметь мнение → Present Simple.",
+          "I’m thinking about the offer. — think = обдумывать прямо сейчас → Present Continuous."
+        ]
+      }
+    ],
+    "commonMistakes": [
+      "Не говорите “I am knowing the answer.” Для состояния know используйте Present Simple: I know the answer.",
+      "После does / doesn’t не добавляйте -s к основному глаголу: Does she work? Не: Does she works?",
+      "Не забывайте am / is / are в Continuous: I’m working. Не: I working.",
+      "Не выбирайте Continuous только потому, что речь о будущем. Для Continuous нужна организованная договорённость; расписание обычно выражается Present Simple.",
+      "Every day / usually / normally обычно ведут к Present Simple; now / at the moment часто ведут к Present Continuous, но сначала проверяйте смысл глагола."
+    ],
+    "exercises": [
+      {
+        "type": "exercise",
+        "id": "grammar-present-simple-continuous-practice",
+        "title": "Choose the correct form.",
+        "difficulty": "Easy",
+        "instructions": "Choose the correct form.",
+        "items": [
+          {
+            "id": "1",
+            "number": 1,
+            "prompt": "She usually ___ from home.",
+            "input": "single",
+            "options": [
+              "works",
+              "is working"
+            ],
+            "answer": 0
+          },
+          {
+            "id": "2",
+            "number": 2,
+            "prompt": "Please be quiet. I ___ to the teacher.",
+            "input": "single",
+            "options": [
+              "listen",
+              "am listening"
+            ],
+            "answer": 1
+          },
+          {
+            "id": "3",
+            "number": 3,
+            "prompt": "I ___ this is a good idea.",
+            "input": "single",
+            "options": [
+              "think",
+              "am thinking"
+            ],
+            "answer": 0
+          },
+          {
+            "id": "4",
+            "number": 4,
+            "prompt": "We ___ our manager at six this evening.",
+            "input": "single",
+            "options": [
+              "meet",
+              "are meeting"
+            ],
+            "answer": 1
+          }
+        ]
+      },
+      {
+        "type": "exercise",
+        "id": "grammar-present-simple-continuous-step-2",
+        "title": "Complete each sentence with the correct form.",
+        "difficulty": "Medium",
+        "instructions": "Write the correct form of the words in brackets.",
+        "items": [
+          {
+            "id": "1",
+            "number": 1,
+            "prompt": "My brother ___ (work) from home on Fridays.",
+            "input": "text",
+            "answer": "works"
+          },
+          {
+            "id": "2",
+            "number": 2,
+            "prompt": "I ___ (write) an email right now.",
+            "input": "text",
+            "acceptedAnswers": [
+              "am writing",
+              "'m writing"
+            ],
+            "answer": "am writing"
+          },
+          {
+            "id": "3",
+            "number": 3,
+            "prompt": "They ___ (not / need) any help.",
+            "input": "text",
+            "acceptedAnswers": [
+              "don’t need",
+              "don't need",
+              "do not need"
+            ],
+            "answer": "don’t need"
+          },
+          {
+            "id": "4",
+            "number": 4,
+            "prompt": "Why ___ (you / wear) a coat today?",
+            "input": "text",
+            "answer": "are you wearing"
+          }
+        ]
+      },
+      {
+        "type": "exercise",
+        "id": "grammar-present-simple-continuous-step-3",
+        "title": "Choose the sentence that matches the context.",
+        "difficulty": "More challenging",
+        "instructions": "Choose the sentence that matches the context.",
+        "items": [
+          {
+            "id": "1",
+            "number": 1,
+            "prompt": "The job is temporary and lasts only this month.",
+            "input": "select",
+            "options": [
+              "I work at the café this month.",
+              "I’m working at the café this month."
+            ],
+            "answer": 1
+          },
+          {
+            "id": "2",
+            "number": 2,
+            "prompt": "The departure time comes from the official timetable.",
+            "input": "select",
+            "options": [
+              "The train leaves at 18:10.",
+              "The train is leaving at 18:10."
+            ],
+            "answer": 0
+          },
+          {
+            "id": "3",
+            "number": 3,
+            "prompt": "You are giving your opinion.",
+            "input": "select",
+            "options": [
+              "I think the plan is sensible.",
+              "I’m thinking the plan is sensible."
+            ],
+            "answer": 0
+          },
+          {
+            "id": "4",
+            "number": 4,
+            "prompt": "You are complaining about a repeated annoying habit.",
+            "input": "select",
+            "options": [
+              "He always interrupts me.",
+              "He’s always interrupting me."
+            ],
+            "answer": 1
+          }
+        ]
+      },
+      {
+        "type": "exercise",
+        "id": "grammar-present-simple-continuous-step-4",
+        "title": "Build the complete sentence.",
+        "difficulty": "Hard",
+        "instructions": "Write the complete sentence or question.",
+        "items": [
+          {
+            "id": "1",
+            "number": 1,
+            "prompt": "Make a question about a routine: how often / your sister / go / to the gym?",
+            "input": "text",
+            "answer": "How often does your sister go to the gym?"
+          },
+          {
+            "id": "2",
+            "number": 2,
+            "prompt": "Make a negative sentence about now: I / not / use / the computer / at the moment.",
+            "input": "text",
+            "acceptedAnswers": [
+              "I’m not using the computer at the moment.",
+              "I'm not using the computer at the moment.",
+              "I am not using the computer at the moment."
+            ],
+            "answer": "I’m not using the computer at the moment."
+          },
+          {
+            "id": "3",
+            "number": 3,
+            "prompt": "Use the correct tense for an arranged future: we / have dinner / with Anna / tonight.",
+            "input": "text",
+            "acceptedAnswers": [
+              "We’re having dinner with Anna tonight.",
+              "We're having dinner with Anna tonight.",
+              "We are having dinner with Anna tonight."
+            ],
+            "answer": "We’re having dinner with Anna tonight."
+          },
+          {
+            "id": "4",
+            "number": 4,
+            "prompt": "Correct the sentence: She is wanting to leave early.",
+            "input": "text",
+            "answer": "She wants to leave early."
+          }
+        ]
+      }
+    ]
+  },
   {
     "id": "grammar-narrative-tenses",
     "order": 2,
@@ -1483,6 +1483,420 @@ window.GRAMMAR_DATA = [
               [
                 "rewarding"
               ]
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "grammar-future-plans",
+    "order": 8,
+    "title": "Future plans",
+    "level": "A2–B1",
+    "status": "available",
+    "page": "grammar-topic.html?id=grammar-future-plans",
+    "linkedLessonId": "lesson-7",
+    "passed": false,
+    "attempts": 0,
+    "explanation": "Future plans можно выражать разными способами. В этом уроке важно различать личные договорённости, намерения, возможность, обязанность и прогноз. Одна форма не заменяет все остальные: выбор зависит от смысла предложения.",
+    "formula": "be going to + V · might + V · have got to + V · be thinking of + V-ing · Present Continuous for arrangements · will probably + V",
+    "anchorLinks": [
+      {
+        "id": "grammar-at-a-glance",
+        "title": "Когда какая форма"
+      },
+      {
+        "id": "grammar-tables",
+        "title": "Формы"
+      },
+      {
+        "id": "grammar-examples",
+        "title": "Примеры"
+      },
+      {
+        "id": "grammar-mistakes",
+        "title": "Типичные ошибки"
+      },
+      {
+        "id": "grammar-practice-section",
+        "title": "Задания"
+      }
+    ],
+    "glanceCards": [
+      {
+        "icon": "📅",
+        "label": "Arrangement",
+        "hint": "уже договорились / забронировали",
+        "pattern": "am / is / are + V-ing",
+        "example": "We’re going to Barcelona in August."
+      },
+      {
+        "icon": "🎯",
+        "label": "Intention",
+        "hint": "план или намерение",
+        "pattern": "be going to + V",
+        "example": "I’m going to catch up on some sleep."
+      },
+      {
+        "icon": "🤔",
+        "label": "Possibility",
+        "hint": "возможно, но не точно",
+        "pattern": "might + V",
+        "example": "I might meet some friends."
+      },
+      {
+        "icon": "✅",
+        "label": "Obligation / plan pressure",
+        "hint": "надо сделать",
+        "pattern": "have got to + V",
+        "example": "I’ve got to revise for my exams."
+      }
+    ],
+    "miniRules": [
+      {
+        "title": "1. Present Continuous для договорённостей",
+        "text": "Используйте am / is / are + V-ing, когда план уже организован: есть договорённость, билет, бронь или конкретное время.",
+        "example": "I’m having lunch with James and Gary today."
+      },
+      {
+        "title": "2. be going to для намерений и планов",
+        "text": "Используйте be going to + глагол, когда говорите о плане или намерении. В отрицании: am not / isn’t / aren’t going to.",
+        "example": "My sister and I aren’t going to be around."
+      },
+      {
+        "title": "3. might для неуверенности",
+        "text": "Might показывает, что действие возможно, но решение не окончательное. После might используйте глагол без to.",
+        "example": "I might try couch-surfing this year."
+      },
+      {
+        "title": "4. have got to и be thinking of",
+        "text": "Have got to значит «нужно / придётся». Be thinking of + V-ing значит «подумывать о том, чтобы…». После of нужен глагол с -ing.",
+        "example": "I’ve got to pay him back. / I’m thinking of emigrating."
+      }
+    ],
+    "tables": [
+      {
+        "title": "Main forms",
+        "headers": [
+          "Meaning",
+          "Form",
+          "Example"
+        ],
+        "rows": [
+          [
+            "arranged plan",
+            "am / is / are + V-ing",
+            "We’re going for two weeks."
+          ],
+          [
+            "intention",
+            "be going to + V",
+            "I’m going to catch up on sleep."
+          ],
+          [
+            "possibility",
+            "might + V",
+            "I might meet friends."
+          ],
+          [
+            "obligation",
+            "have got to + V",
+            "I’ve got to study."
+          ],
+          [
+            "considering an idea",
+            "be thinking of + V-ing",
+            "I’m thinking of going camping."
+          ],
+          [
+            "prediction",
+            "will probably + V",
+            "It’ll probably take ages."
+          ]
+        ]
+      },
+      {
+        "title": "Questions and short answers",
+        "headers": [
+          "Question",
+          "Short answer"
+        ],
+        "rows": [
+          [
+            "Are you going away this year?",
+            "Yes, I am. / No, I’m not."
+          ],
+          [
+            "Are you going to be here?",
+            "Yes, I am. / No, I’m not."
+          ],
+          [
+            "Might you go away?",
+            "Maybe. / I might."
+          ],
+          [
+            "Have you got to study?",
+            "Yes, I have. / No, I haven’t."
+          ]
+        ]
+      }
+    ],
+    "exampleGroups": [
+      {
+        "title": "Plans and arrangements",
+        "items": [
+          "I’m meeting Gary at the new restaurant.",
+          "We’re going to Barcelona in August.",
+          "Marek and I are going to a concert on Friday."
+        ]
+      },
+      {
+        "title": "Uncertainty and prediction",
+        "items": [
+          "I might not go away this year.",
+          "It’ll probably be a hot summer.",
+          "It’ll probably take ages."
+        ]
+      },
+      {
+        "title": "Obligation and ideas",
+        "items": [
+          "I’ve got to revise for my exams.",
+          "I’m thinking of going camping.",
+          "I’m thinking of emigrating there."
+        ]
+      }
+    ],
+    "commonMistakes": [
+      {
+        "wrong": "I might to go camping.",
+        "right": "I might go camping.",
+        "note": "После might не ставим to."
+      },
+      {
+        "wrong": "I’m thinking to emigrate.",
+        "right": "I’m thinking of emigrating.",
+        "note": "После thinking of используем -ing."
+      },
+      {
+        "wrong": "I must to pay him back.",
+        "right": "I’ve got to pay him back. / I must pay him back.",
+        "note": "После must не ставим to, а have got to уже содержит to."
+      },
+      {
+        "wrong": "We go to Barcelona in August.",
+        "right": "We’re going to Barcelona in August.",
+        "note": "Для личной договорённости на будущее используйте Present Continuous."
+      }
+    ],
+    "exercises": [
+      {
+        "type": "exercise",
+        "id": "grammar-future-plans-step-1",
+        "title": "Choose the meaning.",
+        "difficulty": "Easy",
+        "instructions": "Choose what each future form means.",
+        "items": [
+          {
+            "id": "1",
+            "number": 1,
+            "prompt": "I’m having lunch with James today.",
+            "input": "select",
+            "options": [
+              "fixed arrangement",
+              "possibility",
+              "obligation",
+              "general habit"
+            ],
+            "answer": 0
+          },
+          {
+            "id": "2",
+            "number": 2,
+            "prompt": "I might not go away this year.",
+            "input": "select",
+            "options": [
+              "fixed arrangement",
+              "possibility",
+              "obligation",
+              "general habit"
+            ],
+            "answer": 1
+          },
+          {
+            "id": "3",
+            "number": 3,
+            "prompt": "I’ve got to revise for my exams.",
+            "input": "select",
+            "options": [
+              "fixed arrangement",
+              "possibility",
+              "obligation",
+              "general habit"
+            ],
+            "answer": 2
+          },
+          {
+            "id": "4",
+            "number": 4,
+            "prompt": "It’ll probably take ages.",
+            "input": "select",
+            "options": [
+              "fixed arrangement",
+              "possibility",
+              "prediction",
+              "general habit"
+            ],
+            "answer": 2
+          }
+        ]
+      },
+      {
+        "type": "exercise",
+        "id": "grammar-future-plans-step-2",
+        "title": "Choose the correct form.",
+        "difficulty": "Medium",
+        "instructions": "Choose the best future form in each sentence.",
+        "items": [
+          {
+            "id": "1",
+            "number": 1,
+            "prompt": "I’m not sure. I … stay at home this weekend.",
+            "input": "single",
+            "options": [
+              "might",
+              "am having",
+              "have got"
+            ],
+            "answer": 0
+          },
+          {
+            "id": "2",
+            "number": 2,
+            "prompt": "We … a concert on Friday. We already have tickets.",
+            "input": "single",
+            "options": [
+              "might go to",
+              "are going to",
+              "have got to"
+            ],
+            "answer": 1
+          },
+          {
+            "id": "3",
+            "number": 3,
+            "prompt": "She … call her teacher before the exam.",
+            "input": "single",
+            "options": [
+              "has got to",
+              "is thinking of",
+              "might to"
+            ],
+            "answer": 0
+          },
+          {
+            "id": "4",
+            "number": 4,
+            "prompt": "They are thinking … a flat near the coast.",
+            "input": "single",
+            "options": [
+              "to rent",
+              "of renting",
+              "rent"
+            ],
+            "answer": 1
+          }
+        ]
+      },
+      {
+        "type": "exercise",
+        "id": "grammar-future-plans-step-3",
+        "title": "Rewrite the sentences.",
+        "difficulty": "Hard",
+        "instructions": "Rewrite each sentence using the word in brackets.",
+        "items": [
+          {
+            "id": "1",
+            "number": 1,
+            "prompt": "Perhaps I’ll meet friends in London. (might)",
+            "input": "text",
+            "answer": "I might meet friends in London."
+          },
+          {
+            "id": "2",
+            "number": 2,
+            "prompt": "I have to study tonight. (got)",
+            "input": "text",
+            "answer": [
+              "I’ve got to study tonight.",
+              "I have got to study tonight."
+            ]
+          },
+          {
+            "id": "3",
+            "number": 3,
+            "prompt": "We booked dinner for 8 p.m. (having)",
+            "input": "text",
+            "answer": [
+              "We’re having dinner at 8 p.m.",
+              "We are having dinner at 8 p.m."
+            ]
+          },
+          {
+            "id": "4",
+            "number": 4,
+            "prompt": "Jim is considering travelling this summer. (thinking)",
+            "input": "text",
+            "answer": [
+              "Jim is thinking of going travelling this summer.",
+              "Jim’s thinking of going travelling this summer."
+            ]
+          }
+        ]
+      },
+      {
+        "type": "exercise",
+        "id": "grammar-future-plans-step-4",
+        "title": "Complete the mini-dialogues.",
+        "difficulty": "Advanced",
+        "instructions": "Complete each answer with a suitable future form.",
+        "items": [
+          {
+            "id": "1",
+            "number": 1,
+            "prompt": "A: Are you free on Friday? B: No, __________ lunch with Gary. (I / have)",
+            "input": "text",
+            "answer": [
+              "I’m having",
+              "I am having"
+            ]
+          },
+          {
+            "id": "2",
+            "number": 2,
+            "prompt": "A: Are you going abroad this year? B: I’m not sure. __________ to Spain. (I / might / go)",
+            "input": "text",
+            "answer": "I might go"
+          },
+          {
+            "id": "3",
+            "number": 3,
+            "prompt": "A: Why can’t you come? B: __________ for my entrance exam. (I / got / revise)",
+            "input": "text",
+            "answer": [
+              "I’ve got to revise",
+              "I have got to revise"
+            ]
+          },
+          {
+            "id": "4",
+            "number": 4,
+            "prompt": "A: What are your plans after university? B: __________ abroad. (I / think / work)",
+            "input": "text",
+            "answer": [
+              "I’m thinking of working",
+              "I am thinking of working"
             ]
           }
         ]
