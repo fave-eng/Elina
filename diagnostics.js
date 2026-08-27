@@ -241,8 +241,8 @@
         student_id: studentId,
         student_name: student.nameEn || student.nameRu || studentId,
         lesson_id: probeId,
-        lesson_title: 'Diagnostics homework write probe',
-        status: 'checked',
+        lesson_title: 'Diagnostics homework draft probe',
+        status: 'draft',
         answers: { diagnostic: true },
         score_correct: 1,
         score_total: 1,
@@ -251,14 +251,14 @@
         submitted_at: null
       });
 
-      if (insertError) throw new Error(`browser_checked_insert: ${formatError(insertError)}`);
+      if (insertError) throw new Error(`browser_draft_insert: ${formatError(insertError)}`);
 
       const probe = await invokeDiagnostic({ kind: 'diagnostics_homework_probe', studentId, lessonId: probeId });
       if (!probe.ok || !probe.data?.ok) {
         throw new Error(probe.data?.error || explainFunctionFailure(probe));
       }
 
-      dbWriteResultEl.innerHTML = '<div class="summary ok">✓ Путь homework_progress работает: browser checked → submitted → cleanup. Реальные ДЗ не изменялись.</div>';
+      dbWriteResultEl.innerHTML = '<div class="summary ok">✓ Путь homework_progress работает: browser draft → submitted → cleanup. Реальные ДЗ не изменялись.</div>';
       lastReport.databaseWriteProbe = { ok: true, lessonId: probeId, stages: probe.data.stages || null };
     } catch (error) {
       const detail = formatError(error);
