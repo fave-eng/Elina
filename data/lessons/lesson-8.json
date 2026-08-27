@@ -84,100 +84,101 @@
         {
           "id": "1",
           "number": 1,
-          "prompt": "Paragraph 1",
+          "prompt": "1",
           "input": "select",
           "options": [
-            "But is it safe?",
-            "How much does it cost?",
-            "How long do people stay?",
-            "Who are these couch-surfers?",
-            "So what is couch-surfing exactly?",
-            "What are the disadvantages?",
-            "What are the benefits?"
+            "a But is it safe?",
+            "b How much does it cost?",
+            "c How long do people stay?",
+            "d Who are these couch-surfers?",
+            "e So what is couch-surfing exactly?",
+            "f What are the disadvantages?",
+            "g What are the benefits?"
           ],
           "answer": 4
         },
         {
           "id": "2",
           "number": 2,
-          "prompt": "Paragraph 2",
+          "prompt": "2",
           "input": "select",
           "options": [
-            "But is it safe?",
-            "How much does it cost?",
-            "How long do people stay?",
-            "Who are these couch-surfers?",
-            "So what is couch-surfing exactly?",
-            "What are the disadvantages?",
-            "What are the benefits?"
+            "a But is it safe?",
+            "b How much does it cost?",
+            "c How long do people stay?",
+            "d Who are these couch-surfers?",
+            "e So what is couch-surfing exactly?",
+            "f What are the disadvantages?",
+            "g What are the benefits?"
           ],
           "answer": 3
         },
         {
           "id": "3",
           "number": 3,
-          "prompt": "Paragraph 3",
+          "prompt": "3",
           "input": "select",
           "options": [
-            "But is it safe?",
-            "How much does it cost?",
-            "How long do people stay?",
-            "Who are these couch-surfers?",
-            "So what is couch-surfing exactly?",
-            "What are the disadvantages?",
-            "What are the benefits?"
+            "a But is it safe?",
+            "b How much does it cost?",
+            "c How long do people stay?",
+            "d Who are these couch-surfers?",
+            "e So what is couch-surfing exactly?",
+            "f What are the disadvantages?",
+            "g What are the benefits?"
           ],
           "answer": 1
         },
         {
           "id": "4",
           "number": 4,
-          "prompt": "Paragraph 4",
+          "prompt": "4",
           "input": "select",
           "options": [
-            "But is it safe?",
-            "How much does it cost?",
-            "How long do people stay?",
-            "Who are these couch-surfers?",
-            "So what is couch-surfing exactly?",
-            "What are the disadvantages?",
-            "What are the benefits?"
+            "a But is it safe?",
+            "b How much does it cost?",
+            "c How long do people stay?",
+            "d Who are these couch-surfers?",
+            "e So what is couch-surfing exactly?",
+            "f What are the disadvantages?",
+            "g What are the benefits?"
           ],
           "answer": 6
         },
         {
           "id": "5",
           "number": 5,
-          "prompt": "Paragraph 5",
+          "prompt": "5",
           "input": "select",
           "options": [
-            "But is it safe?",
-            "How much does it cost?",
-            "How long do people stay?",
-            "Who are these couch-surfers?",
-            "So what is couch-surfing exactly?",
-            "What are the disadvantages?",
-            "What are the benefits?"
+            "a But is it safe?",
+            "b How much does it cost?",
+            "c How long do people stay?",
+            "d Who are these couch-surfers?",
+            "e So what is couch-surfing exactly?",
+            "f What are the disadvantages?",
+            "g What are the benefits?"
           ],
           "answer": 2
         },
         {
           "id": "6",
           "number": 6,
-          "prompt": "Paragraph 6",
+          "prompt": "6",
           "input": "select",
           "options": [
-            "But is it safe?",
-            "How much does it cost?",
-            "How long do people stay?",
-            "Who are these couch-surfers?",
-            "So what is couch-surfing exactly?",
-            "What are the disadvantages?",
-            "What are the benefits?"
+            "a But is it safe?",
+            "b How much does it cost?",
+            "c How long do people stay?",
+            "d Who are these couch-surfers?",
+            "e So what is couch-surfing exactly?",
+            "f What are the disadvantages?",
+            "g What are the benefits?"
           ],
           "answer": 0
         }
-      ]
+      ],
+      "displayMode": "heading-match"
     },
     {
       "type": "exercise",
@@ -253,18 +254,16 @@
         {
           "id": "scale",
           "number": "",
-          "prompt": "0°C → 100°C",
-          "input": "gaps",
-          "layout": "temperature-scale",
+          "prompt": "",
+          "input": "temperature-scale",
           "scoreEachResponse": true,
-          "segments": [
+          "labels": [
             "0°C",
             "",
             "",
             "",
             "",
-            "100°C",
-            ""
+            "100°C"
           ],
           "answers": [
             "freezing",
@@ -275,7 +274,8 @@
             "boiling hot"
           ]
         }
-      ]
+      ],
+      "layoutNote": "temperature-diagram"
     },
     {
       "type": "exercise",
@@ -293,31 +293,67 @@
       ],
       "items": [
         {
-          "id": "dialogues",
+          "id": "replacements",
           "number": "",
-          "input": "gaps",
-          "layout": "dialogue",
+          "input": "replace-lines",
           "scoreEachResponse": true,
-          "segments": [
-            "1 A: Have you heard the weather forecast?\nB: Yes, apparently it’s going to _rain a lot_ all weekend.\nB: ",
-            "\nA: Oh, no, what a pain. I was thinking of going to the beach.\nB: I’d stay at home if I were you and _avoid_ the rain.\nB: ",
-            "\n\n2 A: What’s the forecast for the weekend?\nB: Er, Saturday morning is supposed to be rainy, but then it should _improve_ in the afternoon.\nA: Phew! That’s a relief. I’m going to a _wedding_ at 2.30.\nA: ",
-            ", ",
-            "\n\n3 A: I can’t stand this _hot weather_.\nA: ",
-            "\nB: I know what you mean. The air conditioning isn’t working in my office. The temperature went up to 40° yesterday.\nA: ",
-            "\nA: Poor you! It’s so _hot and wet_ that I can’t sleep.\nA: ",
-            "\nB: Yeah, we need a storm to clear the air.\n\n4 A: What are you up to at the weekend?\nB: It depends on the weather.\nA: Apparently, it’s going to be freezing. They say it could fall to minus 5°.\nB: Time to stay in with a good book, I think.\nA: ",
-            ""
-          ],
-          "answers": [
-            "pour down",
-            "keep out of",
-            "wet",
-            "clear up",
-            "heat",
-            "reached",
-            "humid",
-            "drop"
+          "lines": [
+            {
+              "number": "1",
+              "speaker": "B",
+              "text": "Yes, apparently it’s going to rain a lot all weekend.",
+              "target": "rain a lot",
+              "answer": "pour down"
+            },
+            {
+              "number": "1",
+              "speaker": "B",
+              "text": "I’d stay at home if I were you and avoid the rain.",
+              "target": "avoid",
+              "answer": "keep out of"
+            },
+            {
+              "number": "2",
+              "speaker": "B",
+              "text": "Er, Saturday morning is supposed to be rainy, but then it should improve in the afternoon.",
+              "target": "rainy",
+              "answer": "wet"
+            },
+            {
+              "number": "2",
+              "speaker": "B",
+              "text": "Er, Saturday morning is supposed to be rainy, but then it should improve in the afternoon.",
+              "target": "improve",
+              "answer": "clear up"
+            },
+            {
+              "number": "3",
+              "speaker": "A",
+              "text": "I can’t stand this hot weather.",
+              "target": "hot weather",
+              "answer": "heat"
+            },
+            {
+              "number": "3",
+              "speaker": "B",
+              "text": "The temperature went up to 40° yesterday.",
+              "target": "went up to",
+              "answer": "reached"
+            },
+            {
+              "number": "3",
+              "speaker": "A",
+              "text": "It’s so hot and wet that I can’t sleep.",
+              "target": "hot and wet",
+              "answer": "humid"
+            },
+            {
+              "number": "4",
+              "speaker": "A",
+              "text": "They say it could fall to minus 5°.",
+              "target": "fall",
+              "answer": "drop"
+            }
           ]
         }
       ]
@@ -333,69 +369,181 @@
       "title": "Complete the questions with the correct form of the verbs in brackets. Then choose the correct words in the answers.",
       "items": [
         {
-          "id": "dialogues",
+          "id": "present-perfect-dialogues",
           "number": "",
-          "input": "gaps",
-          "layout": "dialogue",
+          "input": "mixed-question-choice",
           "scoreEachResponse": true,
-          "segments": [
-            "1 A: ",
-            " you ever ",
-            " the pyramids? (see)\nB: No, never. I love / I’d love to, though.\nB: ",
-            "\n\n2 A: ",
-            " you ever ",
-            " on holiday by yourself? (go)\nB: No, I’ve ever / never really fancied it.\nB: ",
-            "\n\n3 A: ",
-            " you ever ",
-            " camping? (try)\nB: Yes, lots / several times.\nB: ",
-            "\n\n4 A: ",
-            " you ever ",
-            " Japanese food? (eat)\nB: No, never. It’s supposed be / to be delicious.\nB: ",
-            "\n\n5 A: ",
-            " you ever ",
-            " a camel? (ride)\nB: No, never. Have you? / Did you? I’ve heard it’s quite difficult.\nB: ",
-            "\n\n6 A: ",
-            " you ever ",
-            " Disneyland with your kids? (visit)\nB: Yes, but I wouldn’t go there if I were you. It’s not worth it / of it.\nB: ",
-            "\n\n7 A: ",
-            " you ever ",
-            " in a helicopter? (fly)\nB: No, never. What does / is it like?\nB: ",
-            "\n\n8 A: ",
-            " you ever ",
-            " to Singapore? (go)\nB: Yes, it’s wonderful. You should go / go.\nB: ",
-            ""
-          ],
-          "answers": [
-            "Have",
-            "seen",
-            "I’d love to",
-            "Have",
-            [
-              "gone",
-              "been"
-            ],
-            "never",
-            "Have",
-            "tried",
-            "several times",
-            "Have",
-            "eaten",
-            "to be",
-            "Have",
-            "ridden",
-            "Have you?",
-            "Have",
-            "visited",
-            "it",
-            "Have",
-            "flown",
-            "is",
-            "Have",
-            [
-              "gone",
-              "been"
-            ],
-            "go"
+          "rows": [
+            {
+              "number": 1,
+              "qBefore": "A:",
+              "verb": "see",
+              "qSegments": [
+                "",
+                " you ever ",
+                " the pyramids?"
+              ],
+              "gapAnswers": [
+                "Have",
+                "seen"
+              ],
+              "answerText": "B: No, never.",
+              "choices": [
+                "I love",
+                "I’d love to"
+              ],
+              "choiceAnswer": 1
+            },
+            {
+              "number": 2,
+              "qBefore": "A:",
+              "verb": "go",
+              "qSegments": [
+                "",
+                " you ever ",
+                " on holiday by yourself?"
+              ],
+              "gapAnswers": [
+                "Have",
+                [
+                  "gone",
+                  "been"
+                ]
+              ],
+              "answerText": "B: No,",
+              "choices": [
+                "I’ve ever",
+                "never"
+              ],
+              "choiceAnswer": 1,
+              "answerAfter": "really fancied it."
+            },
+            {
+              "number": 3,
+              "qBefore": "A:",
+              "verb": "try",
+              "qSegments": [
+                "",
+                " you ever ",
+                " camping?"
+              ],
+              "gapAnswers": [
+                "Have",
+                "tried"
+              ],
+              "answerText": "B: Yes,",
+              "choices": [
+                "lots",
+                "several times"
+              ],
+              "choiceAnswer": 1
+            },
+            {
+              "number": 4,
+              "qBefore": "A:",
+              "verb": "eat",
+              "qSegments": [
+                "",
+                " you ever ",
+                " Japanese food?"
+              ],
+              "gapAnswers": [
+                "Have",
+                "eaten"
+              ],
+              "answerText": "B: No, never. It’s supposed",
+              "choices": [
+                "be",
+                "to be"
+              ],
+              "choiceAnswer": 1,
+              "answerAfter": "delicious."
+            },
+            {
+              "number": 5,
+              "qBefore": "A:",
+              "verb": "ride",
+              "qSegments": [
+                "",
+                " you ever ",
+                " a camel?"
+              ],
+              "gapAnswers": [
+                "Have",
+                "ridden"
+              ],
+              "answerText": "B: No, never.",
+              "choices": [
+                "Have you?",
+                "Did you?"
+              ],
+              "choiceAnswer": 0,
+              "answerAfter": "I’ve heard it’s quite difficult."
+            },
+            {
+              "number": 6,
+              "qBefore": "A:",
+              "verb": "visit",
+              "qSegments": [
+                "",
+                " you ever ",
+                " Disneyland with your kids?"
+              ],
+              "gapAnswers": [
+                "Have",
+                "visited"
+              ],
+              "answerText": "B: Yes, but I wouldn’t go there if I were you. It’s not worth",
+              "choices": [
+                "it",
+                "of it"
+              ],
+              "choiceAnswer": 0
+            },
+            {
+              "number": 7,
+              "qBefore": "A:",
+              "verb": "fly",
+              "qSegments": [
+                "",
+                " you ever ",
+                " in a helicopter?"
+              ],
+              "gapAnswers": [
+                "Have",
+                "flown"
+              ],
+              "answerText": "B: No, never. What",
+              "choices": [
+                "does",
+                "is"
+              ],
+              "choiceAnswer": 1,
+              "answerAfter": "it like?"
+            },
+            {
+              "number": 8,
+              "qBefore": "A:",
+              "verb": "go",
+              "qSegments": [
+                "",
+                " you ever ",
+                " to Singapore?"
+              ],
+              "gapAnswers": [
+                "Have",
+                [
+                  "gone",
+                  "been"
+                ]
+              ],
+              "answerText": "B: Yes, it’s wonderful. You should",
+              "choices": [
+                "go",
+                "go to"
+              ],
+              "choiceAnswer": 0
+            }
           ]
         }
       ]
@@ -413,33 +561,85 @@
         {
           "id": "corrections",
           "number": "",
-          "input": "gaps",
-          "layout": "dialogue",
+          "input": "correction-lines",
           "scoreEachResponse": true,
-          "segments": [
-            "1 What a nightmare! Our flight was _delay_ and we were _stuck at_ the airport for hours.\nCorrections: ",
-            ", ",
-            "\n2 I’m never going on holiday with my family again. My brother and sister didn’t stop _argue_ all week.\nCorrection: ",
-            "\n3 We must go somewhere warm next year. It poured _of_ rain and it was so _wind_ all week.\nCorrections: ",
-            ", ",
-            "\n4 I must look like a tourist. Everywhere we went we got ripped _up_. I paid €15 for a beer!\nCorrection: ",
-            "\n5 A couple took our _part_ on the beach and Jim got really _anger_ with them. It was so embarrassing!\nCorrections: ",
-            ", ",
-            "\n6 Never again! The beach was so _crowd_ you couldn’t even see the sand.\nCorrection: ",
-            "\n7 The kids were ill on the plane. Jodi threw _off_ three times. Poor thing!\nCorrection: ",
-            ""
-          ],
-          "answers": [
-            "delayed",
-            "stuck",
-            "arguing",
-            "with",
-            "windy",
-            "off",
-            "place",
-            "angry",
-            "crowded",
-            "up"
+          "lines": [
+            {
+              "number": 1,
+              "text": "What a nightmare! Our flight was delay and we were stuck at the airport for hours.",
+              "targets": [
+                "delay",
+                "stuck at"
+              ],
+              "answers": [
+                "delayed",
+                "stuck"
+              ]
+            },
+            {
+              "number": 2,
+              "text": "I’m never going on holiday with my family again. My brother and sister didn’t stop argue all week.",
+              "targets": [
+                "argue"
+              ],
+              "answers": [
+                "arguing"
+              ]
+            },
+            {
+              "number": 3,
+              "text": "We must go somewhere warm next year. It poured of rain and it was so wind all week.",
+              "targets": [
+                "of",
+                "wind"
+              ],
+              "answers": [
+                "with",
+                "windy"
+              ]
+            },
+            {
+              "number": 4,
+              "text": "I must look like a tourist. Everywhere we went we got ripped up. I paid €15 for a beer!",
+              "targets": [
+                "up"
+              ],
+              "answers": [
+                "off"
+              ]
+            },
+            {
+              "number": 5,
+              "text": "A couple took our part on the beach and Jim got really anger with them. It was so embarrassing!",
+              "targets": [
+                "part",
+                "anger"
+              ],
+              "answers": [
+                "place",
+                "angry"
+              ]
+            },
+            {
+              "number": 6,
+              "text": "Never again! The beach was so crowd you couldn’t even see the sand.",
+              "targets": [
+                "crowd"
+              ],
+              "answers": [
+                "crowded"
+              ]
+            },
+            {
+              "number": 7,
+              "text": "The kids were ill on the plane. Jodi threw off three times. Poor thing!",
+              "targets": [
+                "off"
+              ],
+              "answers": [
+                "up"
+              ]
+            }
           ]
         }
       ]
@@ -493,7 +693,8 @@
             "camera"
           ]
         }
-      ]
+      ],
+      "layoutNote": "conversation-gaps"
     }
   ],
   "notification": {

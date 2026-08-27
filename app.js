@@ -1162,6 +1162,35 @@
       const answers = Array.isArray(item.answers) ? item.answers : [];
       const segments = Array.isArray(item.segments) ? item.segments : [];
       control = `<article class="article-gap-card">${item.articleTitle ? `<h4>${escapeHtml(item.articleTitle)}</h4>` : ''}<div class="article-gap-copy">${answers.map((answer, gapIndex) => `${gapIndex < segments.length ? `<span>${formatExerciseText(segments[gapIndex])}</span>` : ''}<span class="article-gap"><b>${gapIndex + 1}</b><input class="gap-input article-gap-input" data-gap-index="${gapIndex}" maxlength="1" autocomplete="off" aria-label="Gap ${gapIndex + 1}"></span>`).join('')}${segments.length > answers.length ? `<span>${formatExerciseText(segments[segments.length - 1])}</span>` : ''}</div></article>`;
+    } else if (item.input === 'temperature-scale') {
+      const labels = Array.isArray(item.labels) ? item.labels : [];
+      const answers = Array.isArray(item.answers) ? item.answers : [];
+      control = `<div class="temperature-diagram" aria-label="Temperature scale from 0°C to 100°C">
+        <div class="temperature-line" aria-hidden="true"><span>0°C</span><span>100°C</span></div>
+        <div class="temperature-slots">${answers.map((answer, tempIndex) => `<label class="temperature-slot"><span class="temperature-tick-label">${escapeHtml(labels[tempIndex] || '')}</span><input class="gap-input temperature-input" data-temp-index="${tempIndex}" autocomplete="off" aria-label="Temperature word ${tempIndex + 1}"></label>`).join('')}</div>
+      </div>`;
+    } else if (item.input === 'replace-lines') {
+      const lines = Array.isArray(item.lines) ? item.lines : [];
+      control = `<div class="replace-lines">${lines.map((line, lineIndex) => {
+        const original = escapeHtml(line.text || '').replace(escapeHtml(line.target || ''), `<u>${escapeHtml(line.target || '')}</u>`);
+        return `<div class="replace-line"><span class="replace-number">${escapeHtml(line.number || '')}</span><div class="replace-copy"><p><b>${escapeHtml(line.speaker || '')}:</b> ${original}</p><label>Replace <strong>${escapeHtml(line.target || '')}</strong> with <input class="gap-input replace-input" data-replace-index="${lineIndex}" autocomplete="off"></label></div></div>`;
+      }).join('')}</div>`;
+    } else if (item.input === 'mixed-question-choice') {
+      const rows = Array.isArray(item.rows) ? item.rows : [];
+      control = `<div class="mixed-question-list">${rows.map((row, rowIndex) => {
+        const qSegments = Array.isArray(row.qSegments) ? row.qSegments : ['', '', ''];
+        const groupName = `${inputId}-choice-${rowIndex}`;
+        const choiceOptions = (row.choices || []).map((choice, choiceIndex) => `<label class="inline-choice-radio-option"><input type="radio" name="${escapeHtml(groupName)}" value="${choiceIndex}" data-mixed-choice="${rowIndex}"><span>${escapeHtml(choice)}</span></label>`).join('');
+        return `<div class="mixed-question-row"><span class="exercise-number">${escapeHtml(row.number || rowIndex + 1)}</span><div class="mixed-question-copy"><p>${escapeHtml(row.qBefore || 'A:')} <input class="gap-input mixed-gap" data-mixed-gap="${rowIndex}-0" autocomplete="off">${formatExerciseText(qSegments[1] || '')}<input class="gap-input mixed-gap" data-mixed-gap="${rowIndex}-1" autocomplete="off">${formatExerciseText(qSegments[2] || '')} <span class="verb-hint">(${escapeHtml(row.verb || '')})</span></p><p>${escapeHtml(row.answerText || '')} <span class="inline-choice-radio-group mixed-choice-group" data-mixed-choice-group="${rowIndex}" role="radiogroup" aria-label="Answer choice ${rowIndex + 1}">${choiceOptions}</span> ${escapeHtml(row.answerAfter || '')}</p></div></div>`;
+      }).join('')}</div>`;
+    } else if (item.input === 'correction-lines') {
+      const lines = Array.isArray(item.lines) ? item.lines : [];
+      control = `<div class="correction-lines">${lines.map((line, lineIndex) => {
+        let text = escapeHtml(line.text || '');
+        (line.targets || []).forEach((target) => { text = text.replace(escapeHtml(target), `<u>${escapeHtml(target)}</u>`); });
+        const inputs = (line.answers || []).map((answer, answerIndex) => `<input class="gap-input correction-input" data-correction-index="${lineIndex}-${answerIndex}" autocomplete="off" aria-label="Correction ${lineIndex + 1}.${answerIndex + 1}">`).join(' ');
+        return `<div class="correction-line"><span class="exercise-number">${escapeHtml(line.number || lineIndex + 1)}</span><div class="correction-copy"><p>${text}</p><label>Correction${(line.answers || []).length > 1 ? 's' : ''}: ${inputs}</label></div></div>`;
+      }).join('')}</div>`;
     } else if (item.input === 'underline') {
       const tasks = Array.isArray(item.tasks) ? item.tasks : [];
       const paragraphs = Array.isArray(item.paragraphs) ? item.paragraphs : [];
@@ -1346,6 +1375,51 @@
       correct = selected !== ''
         && Number(selected) === Number(item.answer)
         && normalizeAnswer(reason) === normalizeAnswer(item.reasonAnswer);
+    } else if (inputType === 'temperature-scale') {
+      const controls = [...itemNode.querySelectorAll('[data-temp-index]')];
+      actual = controls.map((input) => input.value);
+      const expected = Array.isArray(item.answers) ? item.answers : [];
+      responseResults = expected.map((answer, index) => normalizeAnswer(answer) === normalizeAnswer(actual[index]));
+      correct = expected.length > 0 && responseResults.every(Boolean);
+      controls.forEach((control, index) => setAnswerControlState(control, responseResults[index] ?? false));
+    } else if (inputType === 'replace-lines') {
+      const controls = [...itemNode.querySelectorAll('[data-replace-index]')];
+      actual = controls.map((input) => input.value);
+      const expected = (Array.isArray(item.lines) ? item.lines : []).map((line) => line.answer);
+      responseResults = expected.map((answer, index) => normalizeAnswer(answer) === normalizeAnswer(actual[index]));
+      correct = expected.length > 0 && responseResults.every(Boolean);
+      controls.forEach((control, index) => setAnswerControlState(control, responseResults[index] ?? false));
+    } else if (inputType === 'mixed-question-choice') {
+      const rows = Array.isArray(item.rows) ? item.rows : [];
+      actual = rows.map((row, rowIndex) => {
+        const gap0 = itemNode.querySelector(`[data-mixed-gap="${rowIndex}-0"]`)?.value ?? '';
+        const gap1 = itemNode.querySelector(`[data-mixed-gap="${rowIndex}-1"]`)?.value ?? '';
+        const choice = itemNode.querySelector(`input[data-mixed-choice="${rowIndex}"]:checked`)?.value ?? '';
+        return { gaps: [gap0, gap1], choice };
+      });
+      responseResults = [];
+      rows.forEach((row, rowIndex) => {
+        const expectedGaps = Array.isArray(row.gapAnswers) ? row.gapAnswers : [];
+        expectedGaps.forEach((answer, gapIndex) => {
+          const accepted = Array.isArray(answer) ? answer : [answer];
+          const result = accepted.some((variant) => normalizeAnswer(variant) === normalizeAnswer(actual[rowIndex]?.gaps?.[gapIndex]));
+          responseResults.push(result);
+          const control = itemNode.querySelector(`[data-mixed-gap="${rowIndex}-${gapIndex}"]`);
+          setAnswerControlState(control, result);
+        });
+        const choiceResult = actual[rowIndex]?.choice !== '' && Number(actual[rowIndex]?.choice) === Number(row.choiceAnswer);
+        responseResults.push(choiceResult);
+        const choiceGroup = itemNode.querySelector(`[data-mixed-choice-group="${rowIndex}"]`);
+        setAnswerControlState(choiceGroup, choiceResult);
+      });
+      correct = responseResults.length > 0 && responseResults.every(Boolean);
+    } else if (inputType === 'correction-lines') {
+      const controls = [...itemNode.querySelectorAll('[data-correction-index]')];
+      actual = controls.map((input) => input.value);
+      const expected = (Array.isArray(item.lines) ? item.lines : []).flatMap((line) => line.answers || []);
+      responseResults = expected.map((answer, index) => normalizeAnswer(answer) === normalizeAnswer(actual[index]));
+      correct = expected.length > 0 && responseResults.every(Boolean);
+      controls.forEach((control, index) => setAnswerControlState(control, responseResults[index] ?? false));
     } else if (inputType === 'inline-choices') {
       const controls = getInlineChoiceControls(itemNode);
       actual = readInlineChoiceValues(itemNode);
@@ -1473,6 +1547,20 @@
       const inputType = item.input || 'text';
       if (inputType === 'example-gap') {
         actual[itemId] = itemNode.querySelector('[data-example-gap]')?.value ?? '';
+      } else if (inputType === 'temperature-scale') {
+        actual[itemId] = [...itemNode.querySelectorAll('[data-temp-index]')].map((input) => input.value);
+      } else if (inputType === 'replace-lines') {
+        actual[itemId] = [...itemNode.querySelectorAll('[data-replace-index]')].map((input) => input.value);
+      } else if (inputType === 'mixed-question-choice') {
+        actual[itemId] = (Array.isArray(item.rows) ? item.rows : []).map((row, rowIndex) => ({
+          gaps: [
+            itemNode.querySelector(`[data-mixed-gap="${rowIndex}-0"]`)?.value ?? '',
+            itemNode.querySelector(`[data-mixed-gap="${rowIndex}-1"]`)?.value ?? ''
+          ],
+          choice: itemNode.querySelector(`input[data-mixed-choice="${rowIndex}"]:checked`)?.value ?? ''
+        }));
+      } else if (inputType === 'correction-lines') {
+        actual[itemId] = [...itemNode.querySelectorAll('[data-correction-index]')].map((input) => input.value);
       } else if (inputType === 'inline-choices') {
         actual[itemId] = readInlineChoiceValues(itemNode);
       } else if (inputType === 'underline') {
@@ -1533,6 +1621,25 @@
       if (inputType === 'example-gap') {
         const input = itemNode.querySelector('[data-example-gap]');
         if (input) input.value = safeText(value);
+      } else if (inputType === 'temperature-scale') {
+        const values = Array.isArray(value) ? value : [];
+        itemNode.querySelectorAll('[data-temp-index]').forEach((input, index) => { input.value = safeText(values[index]); });
+      } else if (inputType === 'replace-lines') {
+        const values = Array.isArray(value) ? value : [];
+        itemNode.querySelectorAll('[data-replace-index]').forEach((input, index) => { input.value = safeText(values[index]); });
+      } else if (inputType === 'mixed-question-choice') {
+        const values = Array.isArray(value) ? value : [];
+        values.forEach((rowValue, rowIndex) => {
+          (Array.isArray(rowValue?.gaps) ? rowValue.gaps : []).forEach((gapValue, gapIndex) => {
+            const input = itemNode.querySelector(`[data-mixed-gap="${rowIndex}-${gapIndex}"]`);
+            if (input) input.value = safeText(gapValue);
+          });
+          const radio = itemNode.querySelector(`input[data-mixed-choice="${rowIndex}"][value="${CSS.escape(safeText(rowValue?.choice))}"]`);
+          if (radio) radio.checked = true;
+        });
+      } else if (inputType === 'correction-lines') {
+        const values = Array.isArray(value) ? value : [];
+        itemNode.querySelectorAll('[data-correction-index]').forEach((input, index) => { input.value = safeText(values[index]); });
       } else if (inputType === 'inline-choices') {
         const values = Array.isArray(value) ? value : [];
         writeInlineChoiceValues(itemNode, values);
