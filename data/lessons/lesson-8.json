@@ -242,14 +242,6 @@
       "type": "exercise",
       "id": "lesson8-weather-ex1",
       "title": "Write the words and phrases that describe temperature in the correct place on the diagram.",
-      "wordBank": [
-        "freezing",
-        "cold",
-        "boiling hot",
-        "a bit chilly",
-        "quite warm",
-        "hot"
-      ],
       "items": [
         {
           "id": "scale",
@@ -272,6 +264,14 @@
             "quite warm",
             "hot",
             "boiling hot"
+          ],
+          "wordBank": [
+            "hot",
+            "freezing",
+            "a bit chilly",
+            "boiling hot",
+            "cold",
+            "quite warm"
           ]
         }
       ],

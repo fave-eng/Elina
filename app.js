@@ -1364,7 +1364,8 @@
     }
     if (block.type === 'exercise') {
       const items = Array.isArray(block.items) ? block.items : [];
-      const wordBank = Array.isArray(block.wordBank) && block.wordBank.length
+      const hasTemperatureScale = items.some((item) => item.input === 'temperature-scale');
+      const wordBank = !hasTemperatureScale && Array.isArray(block.wordBank) && block.wordBank.length
         ? `<div class="word-bank" aria-label="Word bank"><strong class="word-bank-label">Word bank</strong>${block.wordBank.map((word) => `<span>${escapeHtml(word)}</span>`).join('')}</div>`
         : '';
       const wordBanks = Array.isArray(block.wordBanks) && block.wordBanks.length
