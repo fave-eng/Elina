@@ -175,12 +175,25 @@
         );
 
         addCheck('6. Edge Function → Supabase (service role)', h.database?.ok ? 'ok' : 'bad', h.database?.ok ? `Сервер читает Supabase. Строк ДЗ: ${h.database.homeworkRows}.` : (h.database?.error || 'Сервер не может читать Supabase.'));
-        addCheck('7. Получатель Telegram', h.recipient?.ok ? 'ok' : 'bad', h.recipient?.ok ? `Получатель найден и включён (${h.recipient.source || 'server'}).` : (h.recipient?.error || 'Получатель не найден/выключен.'));
 
-        const threadOk = h.recipient?.ok && (EXPECTED_THREAD_ID === null ? h.recipient?.threadId == null : Number(h.recipient?.threadId) === EXPECTED_THREAD_ID);
-        addCheck('8. Тема Telegram', threadOk ? 'ok' : 'bad', h.recipient?.ok ? `message_thread_id=${h.recipient?.threadId ?? 'NULL'}; ожидается ${EXPECTED_THREAD_ID === null ? 'NULL / не используется' : EXPECTED_THREAD_ID}.` : 'Нельзя проверить тему без настроенного получателя.');
-        addCheck('9. Telegram Bot API / бот', h.telegram?.bot?.ok ? 'ok' : 'bad', h.telegram?.bot?.ok ? `Telegram видит бота @${h.telegram.bot.username || 'без username'}.` : (h.telegram?.bot?.error || 'getMe завершился ошибкой.'));
-        addCheck('10. Telegram Bot API / группа', h.telegram?.chat?.ok ? 'ok' : 'bad', h.telegram?.chat?.ok ? `Бот имеет доступ к целевому чату (${h.telegram.chat.type || 'chat'}).` : (h.telegram?.chat?.error || 'Бот не имеет доступа к целевому чату.'));
+        // Supports both diagnostics response shapes:
+        // v1: { recipient: {...}, telegram: { bot: {...}, chat: {...} } }
+        // v2: { telegram: { ok, chatId, messageThreadId, enabled, threadMatches } }
+        const recipientOk = Boolean(h.recipient?.ok || (h.telegram?.ok && h.telegram?.enabled));
+        const recipientEnabled = Boolean(h.recipient?.enabled ?? h.telegram?.enabled);
+        const recipientSource = h.recipient?.source || 'server';
+        const threadId = h.recipient?.threadId ?? h.telegram?.messageThreadId ?? null;
+        const chatId = h.recipient?.chatId ?? h.telegram?.chatId ?? null;
+        const threadMatches = typeof h.telegram?.threadMatches === 'boolean'
+          ? h.telegram.threadMatches
+          : (EXPECTED_THREAD_ID === null ? threadId == null : Number(threadId) === EXPECTED_THREAD_ID);
+        const botOk = Boolean(h.telegram?.bot?.ok || h.telegram?.ok);
+        const chatOk = Boolean(h.telegram?.chat?.ok || h.telegram?.ok);
+
+        addCheck('7. Получатель Telegram', recipientOk ? 'ok' : 'bad', recipientOk ? `Получатель найден и включён (${recipientSource}). chat_id=${chatId ?? '—'}.` : (h.recipient?.error || h.telegram?.error || 'Получатель не найден/выключен.'));
+        addCheck('8. Тема Telegram', recipientOk && threadMatches ? 'ok' : 'bad', recipientOk ? `message_thread_id=${threadId ?? 'NULL'}; ожидается ${EXPECTED_THREAD_ID === null ? 'NULL / не используется' : EXPECTED_THREAD_ID}.` : 'Нельзя проверить тему без настроенного получателя.');
+        addCheck('9. Telegram Bot API / бот', botOk ? 'ok' : 'bad', h.telegram?.bot?.ok ? `Telegram видит бота @${h.telegram.bot.username || 'без username'}.` : (botOk ? 'Telegram-настройка проверена сервером.' : (h.telegram?.bot?.error || h.telegram?.error || 'getMe завершился ошибкой.')));
+        addCheck('10. Telegram Bot API / группа', chatOk ? 'ok' : 'bad', h.telegram?.chat?.ok ? `Бот имеет доступ к целевому чату (${h.telegram.chat.type || 'chat'}).` : (chatOk ? `Бот настроен на целевой чат ${chatId ?? '—'} и тему ${threadId ?? 'NULL'}.` : (h.telegram?.chat?.error || h.telegram?.error || 'Бот не имеет доступа к целевому чату.')));
 
         const suspicious = Array.isArray(h.database?.suspiciousHomework) ? h.database.suspiciousHomework : [];
         addCheck(
@@ -192,12 +205,13 @@
         telegramInfoEl.innerHTML = '';
         addKV(telegramInfoEl, 'Edge diagnostics', h.diagnosticVersion || '—', true);
         addKV(telegramInfoEl, 'Function version', h.functionVersion || '—', true);
-        addKV(telegramInfoEl, 'Recipient', h.recipient?.ok ? 'найден' : 'ошибка');
-        addKV(telegramInfoEl, 'Source', h.recipient?.source || '—', true);
-        addKV(telegramInfoEl, 'Enabled', String(Boolean(h.recipient?.enabled)));
-        addKV(telegramInfoEl, 'message_thread_id', h.recipient?.threadId ?? 'NULL', true);
-        addKV(telegramInfoEl, 'Bot API', h.telegram?.bot?.ok ? 'OK' : 'ERROR');
-        addKV(telegramInfoEl, 'Доступ к чату', h.telegram?.chat?.ok ? 'OK' : 'ERROR');
+        addKV(telegramInfoEl, 'Recipient', recipientOk ? 'найден' : 'ошибка');
+        addKV(telegramInfoEl, 'Source', recipientSource, true);
+        addKV(telegramInfoEl, 'Enabled', String(recipientEnabled));
+        addKV(telegramInfoEl, 'chat_id', chatId ?? '—', true);
+        addKV(telegramInfoEl, 'message_thread_id', threadId ?? 'NULL', true);
+        addKV(telegramInfoEl, 'Bot API', botOk ? 'OK' : 'ERROR');
+        addKV(telegramInfoEl, 'Доступ к чату', chatOk ? 'OK' : 'ERROR');
       }
 
       const bad = lastReport.checks.filter((item) => item.status === 'bad');
