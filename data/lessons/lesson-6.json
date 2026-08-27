@@ -57,158 +57,188 @@
           "prompt": "TRAVELLERS’ TIPS\n\nculture vultures"
         },
         {
-          "id": "1a",
+          "id": "1",
           "number": "",
-          "input": "gaps",
+          "input": "inline-choices",
+          "layout": "letter",
+          "numberedChoices": true,
           "segments": [
-            "THIS SUMMER the royal 1 palace is open to the public for the first time with exhibitions of paintings from across the centuries. There is also a private 2 ",
-            " in the city with paintings for sale."
+            "THIS SUMMER the royal 1 palace is open to the public for the first time with exhibitions of paintings from across the centuries. There is also a private ",
+            " in the city with paintings for sale.\n\nFOR LOVERS of architecture, head to the ",
+            " with its interesting mix of historic buildings. ",
+            " in the east of the city, is the site of the old Jewish district. It also has a number of beautiful churches and the city ",
+            ".\n\nTAKE A TRIP out to the Roman ",
+            " and learn about some of the first people to live in the area. Local archaeologists give talks at the weekends.\n\nget active\n\nCHECK OUT SkyFlyer, the tallest roller coaster in the country, at the new ",
+            ". It’s ",
+            " 45 minutes ",
+            " the city but it’s well worth the trip.\n\nENJOY the ",
+            " — there are lots of bars and restaurants and it’s always very lively.\n\nFor a MORE RELAXING time, take a boat out on the ",
+            ". Swimming isn’t allowed but you can enjoy a picnic down ",
+            " the water.\n\nfun on a budget\n\nIF MONEY IS A BIT TIGHT, join a free walking tour. Local residents act as guides and give an insider view of the city. All tours start inside the city ",
+            " under the clock tower.\n\nDON’T MISS the market on Fridays and Saturdays with ",
+            " all ",
+            " the High Street. You’ll find everything from cheap and tasty snacks to local souvenirs at bargain prices."
           ],
-          "answers": [
+          "choices": [
             [
-              "gallery"
-            ]
-          ],
-          "scoreEachResponse": true
-        },
-        {
-          "id": "1b",
-          "number": "",
-          "input": "gaps",
-          "segments": [
-            "FOR LOVERS of architecture, head to the 3 ",
-            " with its interesting mix of historic buildings. 4 ",
-            " in the east of the city, is the site of the old Jewish district. It also has a number of beautiful churches and the city 5 ",
-            "."
-          ],
-          "answers": [
-            [
-              "old town"
+              "theme park",
+              "nightlife",
+              "gallery",
+              "ruins",
+              "lake",
+              "old town",
+              "stalls",
+              "mosque",
+              "palace",
+              "walls"
             ],
             [
-              "Out"
+              "theme park",
+              "nightlife",
+              "gallery",
+              "ruins",
+              "lake",
+              "old town",
+              "stalls",
+              "mosque",
+              "palace",
+              "walls"
             ],
             [
-              "mosque"
-            ]
-          ],
-          "scoreEachResponse": true
-        },
-        {
-          "id": "1c",
-          "number": "",
-          "input": "gaps",
-          "segments": [
-            "TAKE A TRIP out to the Roman 6 ",
-            " and learn about some of the first people to live in the area. Local archaeologists give talks at the weekends."
-          ],
-          "answers": [
-            [
-              "ruins"
-            ]
-          ],
-          "scoreEachResponse": true
-        },
-        {
-          "id": "active-title",
-          "displayOnly": true,
-          "displayStyle": "heading",
-          "prompt": "get active"
-        },
-        {
-          "id": "1d",
-          "number": "",
-          "input": "gaps",
-          "segments": [
-            "CHECK OUT SkyFlyer, the tallest roller coaster in the country, at the new 7 ",
-            ". It’s 8 ",
-            " 45 minutes 9 ",
-            " the city but it’s well worth the trip."
-          ],
-          "answers": [
-            [
-              "theme park"
+              "by",
+              "out",
+              "along",
+              "about",
+              "outside"
             ],
             [
-              "about"
+              "theme park",
+              "nightlife",
+              "gallery",
+              "ruins",
+              "lake",
+              "old town",
+              "stalls",
+              "mosque",
+              "palace",
+              "walls"
             ],
             [
+              "theme park",
+              "nightlife",
+              "gallery",
+              "ruins",
+              "lake",
+              "old town",
+              "stalls",
+              "mosque",
+              "palace",
+              "walls"
+            ],
+            [
+              "theme park",
+              "nightlife",
+              "gallery",
+              "ruins",
+              "lake",
+              "old town",
+              "stalls",
+              "mosque",
+              "palace",
+              "walls"
+            ],
+            [
+              "by",
+              "out",
+              "along",
+              "about",
+              "outside"
+            ],
+            [
+              "by",
+              "out",
+              "along",
+              "about",
+              "outside"
+            ],
+            [
+              "theme park",
+              "nightlife",
+              "gallery",
+              "ruins",
+              "lake",
+              "old town",
+              "stalls",
+              "mosque",
+              "palace",
+              "walls"
+            ],
+            [
+              "theme park",
+              "nightlife",
+              "gallery",
+              "ruins",
+              "lake",
+              "old town",
+              "stalls",
+              "mosque",
+              "palace",
+              "walls"
+            ],
+            [
+              "by",
+              "out",
+              "along",
+              "about",
+              "outside"
+            ],
+            [
+              "theme park",
+              "nightlife",
+              "gallery",
+              "ruins",
+              "lake",
+              "old town",
+              "stalls",
+              "mosque",
+              "palace",
+              "walls"
+            ],
+            [
+              "theme park",
+              "nightlife",
+              "gallery",
+              "ruins",
+              "lake",
+              "old town",
+              "stalls",
+              "mosque",
+              "palace",
+              "walls"
+            ],
+            [
+              "by",
+              "out",
+              "along",
+              "about",
               "outside"
             ]
           ],
-          "scoreEachResponse": true
-        },
-        {
-          "id": "1e",
-          "number": "",
-          "input": "gaps",
-          "segments": [
-            "ENJOY the 10 ",
-            " — there are lots of bars and restaurants and it’s always very lively."
-          ],
           "answers": [
-            [
-              "nightlife"
-            ]
-          ],
-          "scoreEachResponse": true
-        },
-        {
-          "id": "1f",
-          "number": "",
-          "input": "gaps",
-          "segments": [
-            "For a MORE RELAXING time, take a boat out on the 11 ",
-            ". Swimming isn’t allowed but you can enjoy a picnic down 12 ",
-            " the water."
-          ],
-          "answers": [
-            [
-              "lake"
-            ],
-            [
-              "by"
-            ]
-          ],
-          "scoreEachResponse": true
-        },
-        {
-          "id": "budget-title",
-          "displayOnly": true,
-          "displayStyle": "heading",
-          "prompt": "fun on a budget"
-        },
-        {
-          "id": "1g",
-          "number": "",
-          "input": "gaps",
-          "segments": [
-            "IF MONEY IS A BIT TIGHT, join a free walking tour. Local residents act as guides and give an insider view of the city. All tours start inside the city 13 ",
-            " under the clock tower."
-          ],
-          "answers": [
-            [
-              "walls"
-            ]
-          ],
-          "scoreEachResponse": true
-        },
-        {
-          "id": "1h",
-          "number": "",
-          "input": "gaps",
-          "segments": [
-            "DON’T MISS the market on Fridays and Saturdays with 14 ",
-            " all 15 ",
-            " the High Street. You’ll find everything from cheap and tasty snacks to local souvenirs at bargain prices."
-          ],
-          "answers": [
-            [
-              "stalls"
-            ],
-            [
-              "along"
-            ]
+            2,
+            5,
+            1,
+            7,
+            3,
+            0,
+            3,
+            4,
+            1,
+            4,
+            0,
+            9,
+            6,
+            2
           ],
           "scoreEachResponse": true
         }
@@ -238,32 +268,70 @@
         {
           "id": "2",
           "number": "",
-          "input": "gaps",
-          "layout": "dialogue",
+          "input": "inline-choices",
+          "layout": "letter",
+          "numberedChoices": true,
           "segments": [
-            "Kim 1 g. Can you recommend anywhere good to go?\nFelix Well, Mexico is a big country and there are lots of places to choose from. 2 ",
-            " If you want a relaxing holiday, there are some fantastic beaches all along the Caribbean coast.\nKim 3 ",
-            " And I’m not really into it either.\nFelix 4 ",
-            " There are amazing Mayan ruins throughout the area.\nKim That sounds interesting. I think I saw a documentary about them on TV. They look like pyramids but with steps. Is that right?\nFelix Well, some of them are pyramids. Others are more like houses, or even palaces.\nKim Wow! That sounds amazing.\nFelix 5 ",
-            " There are lots of places for diving or snorkelling. You could also try kayaking if you like.\nKim Oh, that’s my idea of heaven!\nFelix OK, I can do an online check for the best places for doing that, if you want.\nKim 6 ",
+            "Kim 1 g. Can you recommend anywhere good to go?\nFelix Well, Mexico is a big country and there are lots of places to choose from. ",
+            " If you want a relaxing holiday, there are some fantastic beaches all along the Caribbean coast.\nKim ",
+            " And I’m not really into it either.\nFelix ",
+            " There are amazing Mayan ruins throughout the area.\nKim That sounds interesting. I think I saw a documentary about them on TV. They look like pyramids but with steps. Is that right?\nFelix Well, some of them are pyramids. Others are more like houses, or even palaces.\nKim Wow! That sounds amazing.\nFelix ",
+            " There are lots of places for diving or snorkelling. You could also try kayaking if you like.\nKim Oh, that’s my idea of heaven!\nFelix OK, I can do an online check for the best places for doing that, if you want.\nKim ",
             ""
           ],
-          "answers": [
+          "choices": [
             [
-              "e"
+              "a Oh, I’d love to but I can’t.",
+              "b Jo isn’t really a big fan of sunbathing, to be honest.",
+              "c OK, well in that case, how about something more cultural?",
+              "d That would be great, thanks.",
+              "e It depends on what you like.",
+              "f And you could always have a go at some water sports.",
+              "g My boyfriend Jo and I are thinking of going to Mexico this year."
             ],
             [
-              "b"
+              "a Oh, I’d love to but I can’t.",
+              "b Jo isn’t really a big fan of sunbathing, to be honest.",
+              "c OK, well in that case, how about something more cultural?",
+              "d That would be great, thanks.",
+              "e It depends on what you like.",
+              "f And you could always have a go at some water sports.",
+              "g My boyfriend Jo and I are thinking of going to Mexico this year."
             ],
             [
-              "c"
+              "a Oh, I’d love to but I can’t.",
+              "b Jo isn’t really a big fan of sunbathing, to be honest.",
+              "c OK, well in that case, how about something more cultural?",
+              "d That would be great, thanks.",
+              "e It depends on what you like.",
+              "f And you could always have a go at some water sports.",
+              "g My boyfriend Jo and I are thinking of going to Mexico this year."
             ],
             [
-              "f"
+              "a Oh, I’d love to but I can’t.",
+              "b Jo isn’t really a big fan of sunbathing, to be honest.",
+              "c OK, well in that case, how about something more cultural?",
+              "d That would be great, thanks.",
+              "e It depends on what you like.",
+              "f And you could always have a go at some water sports.",
+              "g My boyfriend Jo and I are thinking of going to Mexico this year."
             ],
             [
-              "d"
+              "a Oh, I’d love to but I can’t.",
+              "b Jo isn’t really a big fan of sunbathing, to be honest.",
+              "c OK, well in that case, how about something more cultural?",
+              "d That would be great, thanks.",
+              "e It depends on what you like.",
+              "f And you could always have a go at some water sports.",
+              "g My boyfriend Jo and I are thinking of going to Mexico this year."
             ]
+          ],
+          "answers": [
+            4,
+            1,
+            2,
+            5,
+            3
           ],
           "scoreEachResponse": true
         }
@@ -282,94 +350,94 @@
       "instructions": "Number the content of his message in order.",
       "items": [
         {
-          "id": "3a",
-          "number": "",
-          "prompt": "suggestions of other things to do",
+          "id": "3-1",
+          "number": "1",
+          "prompt": "Place 1",
           "input": "select",
           "options": [
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6"
-          ],
-          "answer": 3
-        },
-        {
-          "id": "3b",
-          "number": "",
-          "prompt": "ending",
-          "input": "select",
-          "options": [
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6"
-          ],
-          "answer": 5
-        },
-        {
-          "id": "3c",
-          "number": "",
-          "prompt": "reason for writing",
-          "input": "select",
-          "options": [
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6"
-          ],
-          "answer": 1
-        },
-        {
-          "id": "3d",
-          "number": "",
-          "prompt": "practical advice",
-          "input": "select",
-          "options": [
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6"
+            "suggestions of other things to do",
+            "ending",
+            "reason for writing",
+            "practical advice",
+            "greeting",
+            "where to go first"
           ],
           "answer": 4
         },
         {
-          "id": "3e",
-          "number": "",
-          "prompt": "greeting",
+          "id": "3-2",
+          "number": "2",
+          "prompt": "Place 2",
           "input": "select",
           "options": [
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6"
+            "suggestions of other things to do",
+            "ending",
+            "reason for writing",
+            "practical advice",
+            "greeting",
+            "where to go first"
+          ],
+          "answer": 2
+        },
+        {
+          "id": "3-3",
+          "number": "3",
+          "prompt": "Place 3",
+          "input": "select",
+          "options": [
+            "suggestions of other things to do",
+            "ending",
+            "reason for writing",
+            "practical advice",
+            "greeting",
+            "where to go first"
+          ],
+          "answer": 5
+        },
+        {
+          "id": "3-4",
+          "number": "4",
+          "prompt": "Place 4",
+          "input": "select",
+          "options": [
+            "suggestions of other things to do",
+            "ending",
+            "reason for writing",
+            "practical advice",
+            "greeting",
+            "where to go first"
           ],
           "answer": 0
         },
         {
-          "id": "3f",
-          "number": "",
-          "prompt": "where to go first",
+          "id": "3-5",
+          "number": "5",
+          "prompt": "Place 5",
           "input": "select",
           "options": [
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6"
+            "suggestions of other things to do",
+            "ending",
+            "reason for writing",
+            "practical advice",
+            "greeting",
+            "where to go first"
           ],
-          "answer": 2
+          "answer": 3
+        },
+        {
+          "id": "3-6",
+          "number": "6",
+          "prompt": "Place 6",
+          "input": "select",
+          "options": [
+            "suggestions of other things to do",
+            "ending",
+            "reason for writing",
+            "practical advice",
+            "greeting",
+            "where to go first"
+          ],
+          "answer": 1
         }
       ]
     },
@@ -397,40 +465,99 @@
         {
           "id": "4",
           "number": "",
-          "input": "gaps",
+          "input": "inline-choices",
           "layout": "letter",
+          "numberedChoices": true,
           "segments": [
-            "Hi Yuko,\n\nJust a 1 quick note to say I’m sorry I can’t see you next week. I’m on a training course, but here are a few ideas of things to do 2 ",
-            " your stay.\n\nThe old town is a good place to start. You can just wander round and soak up the atmosphere. If you want to 3 ",
-            " photos, head to the castle ruins and you’ll find some amazing views.\n\nDon’t miss the parade on Saturday. It’s a great laugh. They have decorated floats, people in fancy dress, and bands playing music. It starts 4 ",
-            " midday in the main square.\n\nI know you’re a fan of roller coasters, so check out the new theme park, Adventure Zone. It’s about an hour outside of town, but you can get a bus 5 ",
-            " there.\n\nDon’t forget to buy a travel card. It’s the cheapest way to get around the area. The best places to eat are 6 ",
-            " by the old canal. They’re pretty cheap but the food is good.\n\n7 ",
-            ", I hope this information helps. Have a great 8 ",
+            "Hi Yuko,\n\nJust a 1 quick note to say I’m sorry I can’t see you next week. I’m on a training course, but here are a few ideas of things to do ",
+            " your stay.\n\nThe old town is a good place to start. You can just wander round and soak up the atmosphere. If you want to ",
+            " photos, head to the castle ruins and you’ll find some amazing views.\n\nDon’t miss the parade on Saturday. It’s a great laugh. They have decorated floats, people in fancy dress, and bands playing music. It starts ",
+            " midday in the main square.\n\nI know you’re a fan of roller coasters, so check out the new theme park, Adventure Zone. It’s about an hour outside of town, but you can get a bus ",
+            " there.\n\nDon’t forget to buy a travel card. It’s the cheapest way to get around the area. The best places to eat are ",
+            " by the old canal. They’re pretty cheap but the food is good.\n\n",
+            ", I hope this information helps. Have a great ",
             ".\n\nAll the best,\nDan"
           ],
-          "answers": [
+          "choices": [
             [
-              "during"
-            ],
-            [
-              "take"
-            ],
-            [
-              "at"
-            ],
-            [
-              "straight"
-            ],
-            [
+              "time",
+              "quick",
+              "at",
+              "take",
+              "anyway",
+              "straight",
+              "during",
               "down"
             ],
             [
-              "Anyway"
+              "time",
+              "quick",
+              "at",
+              "take",
+              "anyway",
+              "straight",
+              "during",
+              "down"
             ],
             [
-              "time"
+              "time",
+              "quick",
+              "at",
+              "take",
+              "anyway",
+              "straight",
+              "during",
+              "down"
+            ],
+            [
+              "time",
+              "quick",
+              "at",
+              "take",
+              "anyway",
+              "straight",
+              "during",
+              "down"
+            ],
+            [
+              "time",
+              "quick",
+              "at",
+              "take",
+              "anyway",
+              "straight",
+              "during",
+              "down"
+            ],
+            [
+              "time",
+              "quick",
+              "at",
+              "take",
+              "anyway",
+              "straight",
+              "during",
+              "down"
+            ],
+            [
+              "time",
+              "quick",
+              "at",
+              "take",
+              "anyway",
+              "straight",
+              "during",
+              "down"
             ]
+          ],
+          "answers": [
+            6,
+            3,
+            2,
+            5,
+            7,
+            4,
+            0
           ],
           "scoreEachResponse": true
         }
