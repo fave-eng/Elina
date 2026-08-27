@@ -8,7 +8,7 @@
   "grammarIds": [
     "grammar-future-plans"
   ],
-  "totalPoints": 38,
+  "totalPoints": 37,
   "blocks": [
     {
       "type": "section",
@@ -226,21 +226,18 @@
         {
           "id": "1",
           "number": 1,
-          "prompt": "It’s such a busy time! Why do they arrange exams at the end of term? (I / got / study for / my university entrance exam)",
+          "prompt": "(I / got / study for / my university entrance exam)",
           "input": "text",
-          "answer": [
-            "I’ve got to study for my university entrance exam.",
-            "I have got to study for my university entrance exam."
-          ]
+          "example": true,
+          "exampleAnswer": "I’ve got to study for my university entrance exam."
         },
         {
           "id": "2",
           "number": 2,
-          "prompt": "I’m not sure yet but (my friends and I / think / go / camping / near the coast)",
+          "prompt": "I’m not sure yet but\n(my friends and I / think / go / camping / near the coast)",
           "input": "text",
           "answer": [
-            "My friends and I are thinking of going camping near the coast.",
-            "My friends and I’re thinking of going camping near the coast."
+            "My friends and I are thinking of going camping near the coast."
           ]
         },
         {
@@ -249,16 +246,17 @@
           "prompt": "(Marek and I / go to / a concert / in Manchester on Friday) We need to leave class early to get the train.",
           "input": "text",
           "answer": [
-            "Marek and I are going to a concert in Manchester on Friday.",
-            "Marek and I’re going to a concert in Manchester on Friday."
+            "Marek and I are going to a concert in Manchester on Friday."
           ]
         },
         {
           "id": "4",
           "number": 4,
-          "prompt": "I’m not sure. (I / might / meet up with some friends in London)",
+          "prompt": "I’m not sure.\n(I / might / meet up with some friends in London)",
           "input": "text",
-          "answer": "I might meet up with some friends in London."
+          "answer": [
+            "I might meet up with some friends in London."
+          ]
         },
         {
           "id": "5",
@@ -283,7 +281,7 @@
         {
           "id": "7",
           "number": 7,
-          "prompt": "I haven’t made any plans but (I / probably / go to / my friend’s barbecue)",
+          "prompt": "I haven’t made any plans but\n(I / probably / go to / my friend’s barbecue)",
           "input": "text",
           "answer": [
             "I’ll probably go to my friend’s barbecue.",
