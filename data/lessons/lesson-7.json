@@ -8,7 +8,7 @@
   "grammarIds": [
     "grammar-future-plans"
   ],
-  "totalPoints": 38,
+  "totalPoints": 39,
   "blocks": [
     {
       "type": "section",
@@ -267,8 +267,10 @@
           "number": 1,
           "prompt": "We will definitely be away in June. (going)",
           "input": "text",
-          "example": true,
-          "exampleAnswer": "We’re going to be away in June."
+          "answer": [
+            "We’re going to be away in June.",
+            "We are going to be away in June."
+          ]
         },
         {
           "id": "2",
