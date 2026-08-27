@@ -1,7 +1,9 @@
 import { withSupabase } from 'npm:@supabase/server@^1'
 
 const encoder = new TextEncoder()
-const FUNCTION_VERSION = 'homework-reports-v5-elina-final'
+const FUNCTION_VERSION = 'homework-reports-v6-elina-topic-13'
+const DIAGNOSTIC_VERSION = 'elina-diagnostics-v2-topic-13'
+const diagnosticSendAttempts = new Map<string, number>()
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-notify-secret',
@@ -72,25 +74,25 @@ function buildHomeworkReport(row: any): string {
   const mistakes = Math.max(0, total - correct)
   const submittedAt = row.submitted_at || row.updated_at || row.checked_at
   const submittedLabel = submittedAt
-    ? new Date(submittedAt).toLocaleString('ru-RU', { timeZone: 'Asia/Yekaterinburg' })
-    : 'не указано'
+    ? new Date(submittedAt).toLocaleString('en-GB', { timeZone: 'Asia/Yekaterinburg' })
+    : 'not specified'
 
   return [
-    '📩 <b>Получен отчёт по домашней работе</b>',
+    '📩 <b>Homework report received</b>',
     '',
-    `👩‍🎓 Ученица: <b>${escapeHtml(row.student_name || 'Ученица')}</b>`,
-    `📝 Работа: <b>${escapeHtml(row.lesson_title || row.lesson_id)}</b>`,
-    `✅ Результат: <b>${correct} из ${total} (${percent}%)</b>`,
-    `❌ Ошибок: <b>${mistakes}</b>`,
-    `🕒 Отправлено: ${escapeHtml(submittedLabel)}`,
+    `📝 Homework: <b>${escapeHtml(row.lesson_title || row.lesson_id)}</b>`,
+    `✅ Score: <b>${correct} / ${total} (${percent}%)</b>`,
+    `❌ Mistakes: <b>${mistakes}</b>`,
+    `🕒 Submitted: ${escapeHtml(submittedLabel)}`,
     '',
-    'Ответы и результат сохранены в Supabase.',
+    'Answers and results were saved in Supabase.',
   ].join('\n')
 }
 
 async function sendTelegramMessage(
   token: string,
   chatId: number,
+  threadId: number | null,
   text: string,
   inlineKeyboard: Array<Array<{ text: string; url: string }>> = [],
 ) {
@@ -99,6 +101,7 @@ async function sendTelegramMessage(
     text,
     parse_mode: 'HTML',
   }
+  if (typeof threadId === 'number' && Number.isFinite(threadId)) payload.message_thread_id = threadId
   if (inlineKeyboard.length) payload.reply_markup = { inline_keyboard: inlineKeyboard }
 
   const response = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
@@ -119,7 +122,7 @@ async function sendTelegramMessage(
 async function getRecipient(ctx: any, studentId: string) {
   const { data: recipient, error } = await ctx.supabaseAdmin
     .from('telegram_recipients')
-    .select('chat_id, enabled')
+    .select('chat_id, message_thread_id, enabled')
     .eq('student_id', studentId)
     .maybeSingle()
 
@@ -189,7 +192,7 @@ async function handleHomeworkReport(payload: any, ctx: any, botToken: string) {
   const submittedAt = new Date().toISOString()
   const reportRow = { ...row, submitted_at: submittedAt }
   const keyboard = lessonUrl
-    ? [[{ text: '📝 Открыть домашнюю работу', url: lessonUrl }]]
+    ? [[{ text: '📝 Open homework', url: lessonUrl }]]
     : []
 
   let telegramMessage: any
@@ -197,6 +200,7 @@ async function handleHomeworkReport(payload: any, ctx: any, botToken: string) {
     telegramMessage = await sendTelegramMessage(
       botToken,
       Number(recipient.chat_id),
+      recipient.message_thread_id == null ? null : Number(recipient.message_thread_id),
       buildHomeworkReport(reportRow),
       keyboard,
     )
@@ -241,6 +245,218 @@ async function handleHomeworkReport(payload: any, ctx: any, botToken: string) {
     submittedAt,
     reportSentAt,
   })
+}
+
+
+async function fetchTelegramJson(token: string, method: string, payload: Record<string, unknown> = {}) {
+  const response = await fetch(`https://api.telegram.org/bot${token}/${method}`, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify(payload),
+  })
+  const data = await response.json().catch(() => null)
+  return {
+    ok: Boolean(response.ok && data?.ok),
+    status: response.status,
+    data,
+    error: data?.description || (response.ok ? '' : `Telegram HTTP ${response.status}`),
+  }
+}
+
+function isDiagnosticKind(value: unknown): value is string {
+  return typeof value === 'string' && value.startsWith('diagnostics_')
+}
+
+function validateDiagnosticStudent(payload: any) {
+  const studentId = typeof payload.studentId === 'string' ? payload.studentId.trim().toLowerCase() : ''
+  if (studentId !== 'elina') {
+    const error = new Error('Diagnostics are allowed only for student_id=elina')
+    ;(error as any).status = 403
+    throw error
+  }
+  return studentId
+}
+
+async function readDiagnosticRecipient(ctx: any, studentId: string) {
+  const { data: recipient, error } = await ctx.supabaseAdmin
+    .from('telegram_recipients')
+    .select('chat_id, message_thread_id, enabled')
+    .eq('student_id', studentId)
+    .maybeSingle()
+
+  if (error) return { ok: false, error: error.message, enabled: false, source: 'telegram_recipients', threadId: null }
+  if (!recipient) return { ok: false, error: 'Recipient row was not found', enabled: false, source: 'telegram_recipients', threadId: null }
+  if (!recipient.enabled) return { ok: false, error: 'Recipient is disabled', enabled: false, source: 'telegram_recipients', threadId: null }
+  return {
+    ok: true,
+    source: 'telegram_recipients',
+    enabled: Boolean(recipient.enabled),
+    chatId: Number(recipient.chat_id),
+    threadId: recipient.message_thread_id == null ? null : Number(recipient.message_thread_id),
+  }
+}
+
+async function handleDiagnostics(payload: any, ctx: any, botToken: string) {
+  let studentId = 'elina'
+  try {
+    studentId = validateDiagnosticStudent(payload)
+  } catch (error) {
+    return json({ ok: false, error: error instanceof Error ? error.message : String(error), diagnosticVersion: DIAGNOSTIC_VERSION }, (error as any)?.status || 403)
+  }
+
+  if (payload.kind === 'diagnostics_health') {
+    let rows: any[] = []
+    let database: Record<string, unknown> = { ok: false, homeworkRows: 0 }
+    const { data, error } = await ctx.supabaseAdmin
+      .from('homework_progress')
+      .select('lesson_id,status')
+      .eq('student_id', studentId)
+      .limit(200)
+
+    if (error) {
+      database = { ok: false, homeworkRows: 0, error: error.message }
+    } else {
+      rows = data || []
+      const workingRows = rows.filter((row) => !String(row.lesson_id || '').startsWith('__diagnostic_probe__'))
+      const suspicious = workingRows
+        .filter((row) => !['draft', 'checked', 'submitted'].includes(String(row.status || '')))
+        .map((row) => `${row.lesson_id}: ${row.status}`)
+      const staleDiagnosticProbes = rows.filter((row) => String(row.lesson_id || '').startsWith('__diagnostic_probe__'))
+      let staleDiagnosticProbesRemoved = 0
+      if (staleDiagnosticProbes.length) {
+        const { error: deleteError } = await ctx.supabaseAdmin
+          .from('homework_progress')
+          .delete()
+          .eq('student_id', studentId)
+          .like('lesson_id', '__diagnostic_probe__%')
+        if (!deleteError) staleDiagnosticProbesRemoved = staleDiagnosticProbes.length
+      }
+      database = {
+        ok: true,
+        homeworkRows: workingRows.length,
+        suspiciousHomework: suspicious,
+        staleDiagnosticProbesRemoved,
+      }
+    }
+
+    const recipient = await readDiagnosticRecipient(ctx, studentId)
+    const telegram: Record<string, unknown> = {
+      bot: { ok: false, error: 'Not checked' },
+      chat: { ok: false, error: 'Not checked' },
+    }
+
+    const bot = await fetchTelegramJson(botToken, 'getMe')
+    telegram.bot = bot.ok
+      ? { ok: true, username: bot.data?.result?.username || null }
+      : { ok: false, error: bot.error || 'getMe failed' }
+
+    if (recipient.ok && typeof recipient.chatId === 'number') {
+      const chat = await fetchTelegramJson(botToken, 'getChat', { chat_id: recipient.chatId })
+      telegram.chat = chat.ok
+        ? { ok: true, type: chat.data?.result?.type || null, title: chat.data?.result?.title || null }
+        : { ok: false, error: chat.error || 'getChat failed' }
+    }
+
+    return json({
+      ok: true,
+      diagnosticVersion: DIAGNOSTIC_VERSION,
+      database,
+      recipient,
+      telegram,
+    })
+  }
+
+  if (payload.kind === 'diagnostics_homework_probe') {
+    const lessonId = typeof payload.lessonId === 'string' ? payload.lessonId.trim() : ''
+    if (!lessonId.startsWith('__diagnostic_probe__')) return json({ ok: false, error: 'Invalid diagnostic lessonId', diagnosticVersion: DIAGNOSTIC_VERSION }, 400)
+    const now = new Date().toISOString()
+    const { data: before, error: readError } = await ctx.supabaseAdmin
+      .from('homework_progress')
+      .select('student_id,lesson_id,status,score_correct,score_total')
+      .eq('student_id', studentId)
+      .eq('lesson_id', lessonId)
+      .maybeSingle()
+    if (readError) return json({ ok: false, error: readError.message, diagnosticVersion: DIAGNOSTIC_VERSION }, 500)
+    if (!before) return json({ ok: false, error: 'Probe row was not found after browser insert', diagnosticVersion: DIAGNOSTIC_VERSION }, 404)
+
+    const { error: submitError } = await ctx.supabaseAdmin
+      .from('homework_progress')
+      .update({
+        status: 'submitted',
+        submitted_at: now,
+        locked_at: now,
+        report_status: 'sent',
+        report_sent_at: now,
+        report_error: null,
+        updated_at: now,
+      })
+      .eq('student_id', studentId)
+      .eq('lesson_id', lessonId)
+    if (submitError) return json({ ok: false, error: submitError.message, diagnosticVersion: DIAGNOSTIC_VERSION }, 500)
+
+    const { error: cleanupError } = await ctx.supabaseAdmin
+      .from('homework_progress')
+      .delete()
+      .eq('student_id', studentId)
+      .eq('lesson_id', lessonId)
+    if (cleanupError) return json({ ok: false, error: cleanupError.message, diagnosticVersion: DIAGNOSTIC_VERSION }, 500)
+
+    return json({
+      ok: true,
+      diagnosticVersion: DIAGNOSTIC_VERSION,
+      stages: ['browser_checked_insert_seen', 'service_role_submitted_update', 'service_role_cleanup_delete'],
+    })
+  }
+
+  if (payload.kind === 'diagnostics_cleanup_probe') {
+    const lessonId = typeof payload.lessonId === 'string' ? payload.lessonId.trim() : ''
+    if (lessonId.startsWith('__diagnostic_probe__')) {
+      await ctx.supabaseAdmin
+        .from('homework_progress')
+        .delete()
+        .eq('student_id', studentId)
+        .eq('lesson_id', lessonId)
+    }
+    return json({ ok: true, diagnosticVersion: DIAGNOSTIC_VERSION })
+  }
+
+  if (payload.kind === 'diagnostics_send_report') {
+    const last = diagnosticSendAttempts.get(studentId) || 0
+    const nowMs = Date.now()
+    const diffSeconds = Math.floor((nowMs - last) / 1000)
+    if (last && diffSeconds < 30) {
+      return json({ ok: true, skipped: true, retryAfterSeconds: 30 - diffSeconds, diagnosticVersion: DIAGNOSTIC_VERSION })
+    }
+
+    const recipient = await readDiagnosticRecipient(ctx, studentId)
+    if (!recipient.ok || typeof recipient.chatId !== 'number') {
+      return json({ ok: false, error: recipient.error || 'Telegram recipient is not connected', diagnosticVersion: DIAGNOSTIC_VERSION }, 404)
+    }
+
+    const pageUrl = isHttpUrl(payload.pageUrl) ? payload.pageUrl : ''
+    const text = [
+      '🧪 <b>Diagnostics test message</b>',
+      '',
+      'The website can reach Telegram successfully.',
+      pageUrl ? `Page: ${escapeHtml(pageUrl)}` : '',
+    ].filter(Boolean).join('\n')
+
+    try {
+      const message = await sendTelegramMessage(botToken, recipient.chatId, recipient.threadId == null ? null : Number(recipient.threadId), text)
+      diagnosticSendAttempts.set(studentId, nowMs)
+      return json({
+        ok: true,
+        skipped: false,
+        diagnosticVersion: DIAGNOSTIC_VERSION,
+        telegramMessageId: message?.message_id,
+        threadId: recipient.threadId ?? null,
+      })
+    } catch (error) {
+      return json({ ok: false, error: error instanceof Error ? error.message : String(error), diagnosticVersion: DIAGNOSTIC_VERSION }, 502)
+    }
+  }
+
+  return json({ ok: false, error: 'Unknown diagnostics request', diagnosticVersion: DIAGNOSTIC_VERSION }, 400)
 }
 
 async function handleMaterialNotification(payload: any, req: Request, ctx: any, botToken: string) {
@@ -328,6 +544,7 @@ async function handleMaterialNotification(payload: any, req: Request, ctx: any, 
     const telegramMessage = await sendTelegramMessage(
       botToken,
       Number(recipient.chat_id),
+      recipient.message_thread_id == null ? null : Number(recipient.message_thread_id),
       buildMaterialMessage(Boolean(vocabulary)),
       keyboard,
     )
@@ -367,6 +584,10 @@ export default {
       payload = await req.json()
     } catch {
       return json({ ok: false, error: 'Invalid JSON' }, 400)
+    }
+
+    if (isDiagnosticKind(payload?.kind)) {
+      return handleDiagnostics(payload, ctx, botToken)
     }
 
     if (payload?.eventType === 'homework_report') {
