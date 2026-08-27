@@ -1,7 +1,7 @@
 import { withSupabase } from 'npm:@supabase/server@^1'
 
 const encoder = new TextEncoder()
-const FUNCTION_VERSION = 'homework-reports-v6-elina-topic-13'
+const FUNCTION_VERSION = 'homework-reports-v7-elina-notification-style-topic-13'
 const DIAGNOSTIC_VERSION = 'elina-diagnostics-v2-topic-13'
 const diagnosticSendAttempts = new Map<string, number>()
 const corsHeaders = {
@@ -47,23 +47,37 @@ function escapeHtml(value: unknown): string {
     .replaceAll('"', '&quot;')
 }
 
-function buildMaterialMessage(hasVocabulary: boolean): string {
-  if (hasVocabulary) {
-    return [
-      '🚀 <b>New learning materials are available!</b>',
-      '',
-      'Start with the lesson vocabulary — it will make the homework easier. Then continue to the assignment.',
-      '',
-      'Good luck! Note any questions and we will discuss them in the next lesson ✨',
-    ].join('\n')
-  }
+const MOTIVATION_LINES = [
+  'Keep going — you’re doing great! 💪',
+  'Small steps still move you forward. ✨',
+  'You are building real English skills. 🌱',
+  'One task at a time. You’ve got this. 🚀',
+  'Today’s practice makes tomorrow easier. 💫',
+  'Stay consistent — it works. ⭐',
+]
+
+function randomMotivation(): string {
+  return MOTIVATION_LINES[Math.floor(Math.random() * MOTIVATION_LINES.length)] || 'Keep going — you’re doing great! 💪'
+}
+
+function buildMaterialMessage(homeworkTitle: unknown, hasVocabulary: boolean, grammarCount: number): string {
+  const title = String(homeworkTitle || 'Homework').trim()
+  const steps: string[] = []
+
+  if (hasVocabulary) steps.push('First, learn the new words.')
+  if (grammarCount > 0) steps.push(`${hasVocabulary ? 'Next' : 'First'}, read the grammar.`)
+  steps.push(`${hasVocabulary || grammarCount > 0 ? 'Then' : 'Open the homework and'}, do the homework.`)
 
   return [
-    '🚀 <b>New learning materials are available!</b>',
+    'Hi! 👋',
     '',
-    'Continue to the homework assignment. Note any questions and we will discuss them in the next lesson.',
+    'Your new English homework is ready.',
     '',
-    'Good luck! ✨',
+    `📘 <b>${escapeHtml(title)}</b>`,
+    '',
+    ...steps,
+    '',
+    escapeHtml(randomMotivation()),
   ].join('\n')
 }
 
@@ -533,19 +547,18 @@ async function handleMaterialNotification(payload: any, req: Request, ctx: any, 
   }
 
   const keyboard: Array<Array<{ text: string; url: string }>> = []
-  if (vocabulary) keyboard.push([{ text: '💥 Open vocabulary', url: vocabulary.url }])
-  keyboard.push([{ text: '📝 Open homework', url: homework.url }])
+  if (vocabulary) keyboard.push([{ text: '📚 Learn new words', url: vocabulary.url }])
   grammar.forEach((item: any, index: number) => {
-    const label = grammar.length === 1 ? '📐 Review grammar' : `📐 ${String(item.title || `Grammar ${index + 1}`).slice(0, 48)}`
-    keyboard.push([{ text: label, url: item.url }])
+    keyboard.push([{ text: `📖 Grammar ${index + 1}`, url: item.url }])
   })
+  keyboard.push([{ text: '📝 Do the homework', url: homework.url }])
 
   try {
     const telegramMessage = await sendTelegramMessage(
       botToken,
       Number(recipient.chat_id),
       recipient.message_thread_id == null ? null : Number(recipient.message_thread_id),
-      buildMaterialMessage(Boolean(vocabulary)),
+      buildMaterialMessage(homework.title, Boolean(vocabulary), grammar.length),
       keyboard,
     )
 
