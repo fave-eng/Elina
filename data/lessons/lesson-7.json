@@ -8,7 +8,7 @@
   "grammarIds": [
     "grammar-future-plans"
   ],
-  "totalPoints": 39,
+  "totalPoints": 38,
   "blocks": [
     {
       "type": "section",
@@ -23,8 +23,8 @@
         {
           "id": "1",
           "number": 1,
-          "prompt": "Have a great …",
-          "input": "select",
+          "prompt": "Have a great week / time off / time.",
+          "input": "single",
           "options": [
             "week",
             "time off",
@@ -35,8 +35,8 @@
         {
           "id": "2",
           "number": 2,
-          "prompt": "You can … a bus to the castle.",
-          "input": "select",
+          "prompt": "You can ride / get / take a bus to the castle.",
+          "input": "single",
           "options": [
             "ride",
             "get",
@@ -47,8 +47,8 @@
         {
           "id": "3",
           "number": 3,
-          "prompt": "I know you are … old churches.",
-          "input": "select",
+          "prompt": "I know you are like / into / a fan of old churches.",
+          "input": "single",
           "options": [
             "like",
             "into",
@@ -59,8 +59,8 @@
         {
           "id": "4",
           "number": 4,
-          "prompt": "The festival is …",
-          "input": "select",
+          "prompt": "The festival is great fun / a great laugh / funny.",
+          "input": "single",
           "options": [
             "great fun",
             "a great laugh",
@@ -71,8 +71,8 @@
         {
           "id": "5",
           "number": 5,
-          "prompt": "The show starts …",
-          "input": "select",
+          "prompt": "The show starts at 2pm / every day / on Wednesday.",
+          "input": "single",
           "options": [
             "at 2pm",
             "every day",
@@ -83,8 +83,8 @@
         {
           "id": "6",
           "number": 6,
-          "prompt": "The best places … are in the main square.",
-          "input": "select",
+          "prompt": "The best places to eat / for food / for eating are in the main square.",
+          "input": "single",
           "options": [
             "to eat",
             "for food",
@@ -92,148 +92,46 @@
           ],
           "answer": 2
         }
-      ]
+      ],
+      "instructions": "Choose the word or phrase you would cross out."
     },
     {
-      "type": "exercise",
+      "type": "match",
       "id": "lesson7-ex6",
       "title": "Match the sentence halves.",
-      "items": [
+      "instructions": "Match each sentence beginning with the correct ending (a–h).",
+      "pairs": [
         {
-          "id": "1",
-          "number": 1,
-          "prompt": "If you’re into art, head …",
-          "input": "select",
-          "options": [
-            "a out the new shopping mall.",
-            "b to the new gallery in the main square.",
-            "c round the market on a Sunday morning.",
-            "d forget to send me copies.",
-            "e around after midnight apart from in a taxi.",
-            "f up some sunshine.",
-            "g miss it. It’s a great laugh.",
-            "h expensive and you have to book."
-          ],
-          "answer": 1
+          "left": "If you’re into art, head …",
+          "right": "to the new gallery in the main square."
         },
         {
-          "id": "2",
-          "number": 2,
-          "prompt": "The comedy festival starts on Friday, so don’t …",
-          "input": "select",
-          "options": [
-            "a out the new shopping mall.",
-            "b to the new gallery in the main square.",
-            "c round the market on a Sunday morning.",
-            "d forget to send me copies.",
-            "e around after midnight apart from in a taxi.",
-            "f up some sunshine.",
-            "g miss it. It’s a great laugh.",
-            "h expensive and you have to book."
-          ],
-          "answer": 6
+          "left": "The comedy festival starts on Friday, so don’t …",
+          "right": "miss it. It’s a great laugh."
         },
         {
-          "id": "3",
-          "number": 3,
-          "prompt": "Local transport isn’t great. It’s difficult to get …",
-          "input": "select",
-          "options": [
-            "a out the new shopping mall.",
-            "b to the new gallery in the main square.",
-            "c round the market on a Sunday morning.",
-            "d forget to send me copies.",
-            "e around after midnight apart from in a taxi.",
-            "f up some sunshine.",
-            "g miss it. It’s a great laugh.",
-            "h expensive and you have to book."
-          ],
-          "answer": 4
+          "left": "Local transport isn’t great. It’s difficult to get …",
+          "right": "around after midnight apart from in a taxi."
         },
         {
-          "id": "4",
-          "number": 4,
-          "prompt": "If you have some spending money, check …",
-          "input": "select",
-          "options": [
-            "a out the new shopping mall.",
-            "b to the new gallery in the main square.",
-            "c round the market on a Sunday morning.",
-            "d forget to send me copies.",
-            "e around after midnight apart from in a taxi.",
-            "f up some sunshine.",
-            "g miss it. It’s a great laugh.",
-            "h expensive and you have to book."
-          ],
-          "answer": 0
+          "left": "If you have some spending money, check …",
+          "right": "out the new shopping mall."
         },
         {
-          "id": "5",
-          "number": 5,
-          "prompt": "When you want to relax, go to the beach and soak …",
-          "input": "select",
-          "options": [
-            "a out the new shopping mall.",
-            "b to the new gallery in the main square.",
-            "c round the market on a Sunday morning.",
-            "d forget to send me copies.",
-            "e around after midnight apart from in a taxi.",
-            "f up some sunshine.",
-            "g miss it. It’s a great laugh.",
-            "h expensive and you have to book."
-          ],
-          "answer": 5
+          "left": "When you want to relax, go to the beach and soak …",
+          "right": "up some sunshine."
         },
         {
-          "id": "6",
-          "number": 6,
-          "prompt": "Don’t try the restaurants in the centre. They’re pretty …",
-          "input": "select",
-          "options": [
-            "a out the new shopping mall.",
-            "b to the new gallery in the main square.",
-            "c round the market on a Sunday morning.",
-            "d forget to send me copies.",
-            "e around after midnight apart from in a taxi.",
-            "f up some sunshine.",
-            "g miss it. It’s a great laugh.",
-            "h expensive and you have to book."
-          ],
-          "answer": 7
+          "left": "Don’t try the restaurants in the centre. They’re pretty …",
+          "right": "expensive and you have to book."
         },
         {
-          "id": "7",
-          "number": 7,
-          "prompt": "Take lots of photos and don’t …",
-          "input": "select",
-          "options": [
-            "a out the new shopping mall.",
-            "b to the new gallery in the main square.",
-            "c round the market on a Sunday morning.",
-            "d forget to send me copies.",
-            "e around after midnight apart from in a taxi.",
-            "f up some sunshine.",
-            "g miss it. It’s a great laugh.",
-            "h expensive and you have to book."
-          ],
-          "answer": 3
+          "left": "Take lots of photos and don’t …",
+          "right": "forget to send me copies."
         },
         {
-          "id": "8",
-          "number": 8,
-          "prompt": "It’s nice to wander …",
-          "input": "select",
-          "options": [
-            "a out the new shopping mall.",
-            "b to the new gallery in the main square.",
-            "c round the market on a Sunday morning.",
-            "d forget to send me copies.",
-            "e around after midnight apart from in a taxi.",
-            "f up some sunshine.",
-            "g miss it. It’s a great laugh.",
-            "h expensive and you have to book."
-          ],
-          "answer": 2
+          "left": "It’s nice to wander …",
+          "right": "round the market on a Sunday morning."
         }
       ]
     },
@@ -270,7 +168,9 @@
           "answer": [
             "We’re going to be away in June.",
             "We are going to be away in June."
-          ]
+          ],
+          "example": true,
+          "exampleAnswer": "We’re going to be away in June."
         },
         {
           "id": "2",
@@ -322,7 +222,6 @@
       "type": "exercise",
       "id": "lesson7-grammar-ex2",
       "title": "Use the words in 1–7 to complete the students’ replies to the teacher’s question.",
-      "instructions": "What are you doing at the weekend?",
       "items": [
         {
           "id": "1",
@@ -483,7 +382,9 @@
             1,
             1
           ],
-          "scoreEachResponse": true
+          "scoreEachResponse": true,
+          "choiceControl": "radio",
+          "instructions": "Choose the correct form in each pair."
         }
       ]
     }

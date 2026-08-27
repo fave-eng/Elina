@@ -1140,7 +1140,15 @@
       const segments = Array.isArray(item.segments) ? item.segments : [];
       const layoutClass = item.layout === 'letter' ? ' letter-gaps' : '';
       const numberedChoices = item.numberedChoices === true;
-      control = `<div class="inline-choice-sentence${layoutClass}">${choices.map((options, choiceIndex) => `${choiceIndex < segments.length ? `<span>${formatExerciseText(segments[choiceIndex])}</span>` : ''}${numberedChoices ? `<span class="inline-gap-number">${choiceIndex + 1}</span>` : ''}<select class="inline-choice" data-inline-choice-index="${choiceIndex}" aria-label="Choice ${choiceIndex + 1}"><option value="">—</option>${(options || []).map((option, optionIndex) => `<option value="${optionIndex}">${escapeHtml(option)}</option>`).join('')}</select>`).join('')}${segments.length > choices.length ? `<span>${formatExerciseText(segments[segments.length - 1])}</span>` : ''}</div>`;
+      if (item.choiceControl === 'radio') {
+        control = `<div class="inline-choice-sentence inline-choice-radio-sentence${layoutClass}">${choices.map((options, choiceIndex) => {
+          const groupName = `${inputId}-${choiceIndex}`;
+          const radioOptions = (options || []).map((option, optionIndex) => `<label class="inline-choice-radio-option"><input type="radio" name="${escapeHtml(groupName)}" value="${optionIndex}"><span>${escapeHtml(option)}</span></label>`).join('');
+          return `${choiceIndex < segments.length ? `<span>${formatExerciseText(segments[choiceIndex])}</span>` : ''}${numberedChoices ? `<span class="inline-gap-number">${choiceIndex + 1}</span>` : ''}<span class="inline-choice-radio-group" data-inline-choice-index="${choiceIndex}" role="radiogroup" aria-label="Choice ${choiceIndex + 1}">${radioOptions}</span>`;
+        }).join('')}${segments.length > choices.length ? `<span>${formatExerciseText(segments[segments.length - 1])}</span>` : ''}</div>`;
+      } else {
+        control = `<div class="inline-choice-sentence${layoutClass}">${choices.map((options, choiceIndex) => `${choiceIndex < segments.length ? `<span>${formatExerciseText(segments[choiceIndex])}</span>` : ''}${numberedChoices ? `<span class="inline-gap-number">${choiceIndex + 1}</span>` : ''}<select class="inline-choice" data-inline-choice-index="${choiceIndex}" aria-label="Choice ${choiceIndex + 1}"><option value="">—</option>${(options || []).map((option, optionIndex) => `<option value="${optionIndex}">${escapeHtml(option)}</option>`).join('')}</select>`).join('')}${segments.length > choices.length ? `<span>${formatExerciseText(segments[segments.length - 1])}</span>` : ''}</div>`;
+      }
     } else if (item.input === 'article-gaps') {
       const answers = Array.isArray(item.answers) ? item.answers : [];
       const segments = Array.isArray(item.segments) ? item.segments : [];
@@ -1245,7 +1253,7 @@
     if (block.type === 'match') {
       const rights = (block.pairs || []).map((pair) => pair.right);
       const rows = (block.pairs || []).map((pair, pairIndex) => `<div>${escapeHtml(pair.left)}</div><select data-match-index="${pairIndex}"><option value="">Choose a match</option>${rights.map((right, rightIndex) => `<option value="${rightIndex}">${escapeHtml(right)}</option>`).join('')}</select>`).join('');
-      return `<article class="card lesson-block" data-task="${escapeHtml(id)}" data-type="match"><h3>${title}</h3><div class="match-grid">${rows}</div><div class="feedback"></div></article>`;
+      return `<article class="card lesson-block" data-task="${escapeHtml(id)}" data-type="match"><h3>${title}</h3>${block.instructions ? `<p class="muted exercise-instructions">${escapeHtml(block.instructions)}</p>` : ''}<div class="match-grid">${rows}</div><div class="feedback"></div></article>`;
     }
     if (block.type === 'reorder') {
       const chips = shuffled(block.words || []).map((word) => `<button class="word-chip" type="button" data-word="${escapeHtml(word)}">${escapeHtml(word)}</button>`).join('');
@@ -1288,6 +1296,29 @@
     }
   }
 
+  function getInlineChoiceControls(itemNode) {
+    return [...itemNode.querySelectorAll('[data-inline-choice-index]')];
+  }
+
+  function readInlineChoiceValues(itemNode) {
+    return getInlineChoiceControls(itemNode).map((control) => {
+      if (control.matches('select')) return control.value;
+      const checked = control.querySelector('input[type="radio"]:checked');
+      return checked ? checked.value : '';
+    });
+  }
+
+  function writeInlineChoiceValues(itemNode, values) {
+    getInlineChoiceControls(itemNode).forEach((control, choiceIndex) => {
+      const value = safeText(values[choiceIndex]);
+      if (control.matches('select')) {
+        control.value = value;
+      } else {
+        control.querySelectorAll('input[type="radio"]').forEach((input) => { input.checked = input.value === value; });
+      }
+    });
+  }
+
   function checkExerciseItem(item, itemNode) {
     const inputType = item.input || 'text';
     let actual;
@@ -1305,8 +1336,8 @@
         && Number(selected) === Number(item.answer)
         && normalizeAnswer(reason) === normalizeAnswer(item.reasonAnswer);
     } else if (inputType === 'inline-choices') {
-      const controls = [...itemNode.querySelectorAll('[data-inline-choice-index]')];
-      actual = controls.map((select) => select.value);
+      const controls = getInlineChoiceControls(itemNode);
+      actual = readInlineChoiceValues(itemNode);
       const expected = Array.isArray(item.answers) ? item.answers.map(Number) : [];
       responseResults = expected.map((answer, index) => actual[index] !== '' && Number(actual[index]) === answer);
       correct = expected.length > 0 && actual.length === expected.length && responseResults.every(Boolean);
@@ -1407,8 +1438,12 @@
       actual = node.querySelector('select')?.value;
       correct = Number(actual) === Number(block.answer);
     } else if (block.type === 'match') {
-      actual = [...node.querySelectorAll('[data-match-index]')].map((select) => Number(select.value));
-      correct = actual.length > 0 && actual.every((value, index) => value === index);
+      actual = [...node.querySelectorAll('[data-match-index]')].map((select) => select.value === '' ? null : Number(select.value));
+      const responseResults = actual.map((value, index) => value === index);
+      const controls = [...node.querySelectorAll('[data-match-index]')];
+      controls.forEach((control, index) => setAnswerControlState(control, responseResults[index] ?? false));
+      const correctCount = responseResults.filter(Boolean).length;
+      return { correctCount, total: responseResults.length, actual };
     } else {
       actual = node.querySelector('input, textarea')?.value || '';
       if (Array.isArray(block.answer)) correct = block.answer.some((answer) => normalizeAnswer(answer) === normalizeAnswer(actual));
@@ -1428,7 +1463,7 @@
       if (inputType === 'example-gap') {
         actual[itemId] = itemNode.querySelector('[data-example-gap]')?.value ?? '';
       } else if (inputType === 'inline-choices') {
-        actual[itemId] = [...itemNode.querySelectorAll('[data-inline-choice-index]')].map((select) => select.value);
+        actual[itemId] = readInlineChoiceValues(itemNode);
       } else if (inputType === 'underline') {
         actual[itemId] = [...itemNode.querySelectorAll('[data-underline-option].selected')].map((button) => button.dataset.underlineId);
       } else if (inputType === 'odd-one-out') {
@@ -1489,7 +1524,7 @@
         if (input) input.value = safeText(value);
       } else if (inputType === 'inline-choices') {
         const values = Array.isArray(value) ? value : [];
-        itemNode.querySelectorAll('[data-inline-choice-index]').forEach((select, choiceIndex) => { select.value = safeText(values[choiceIndex]); });
+        writeInlineChoiceValues(itemNode, values);
       } else if (inputType === 'underline') {
         const selected = new Set(Array.isArray(value) ? value.map(String) : []);
         itemNode.querySelectorAll('[data-underline-option]').forEach((button) => { button.classList.toggle('selected', selected.has(safeText(button.dataset.underlineId))); });
