@@ -38,6 +38,118 @@
     return Number.isFinite(time) ? time : 0;
   };
 
+
+  function createTemperatureChipMarkup(word, tokenId) {
+    return `<button class="temperature-chip" type="button" draggable="true" data-temp-word="${escapeHtml(word)}" data-token-id="${escapeHtml(tokenId)}" aria-label="${escapeHtml(word)}">${escapeHtml(word)}</button>`;
+  }
+
+  function updateTemperatureScaleInputs(scaleNode) {
+    scaleNode.querySelectorAll('.temperature-slot').forEach((slot) => {
+      const input = slot.querySelector('[data-temp-index]');
+      const chip = slot.querySelector('[data-temp-word]');
+      if (input) input.value = chip?.dataset.tempWord || '';
+      slot.classList.toggle('is-filled', Boolean(chip));
+    });
+  }
+
+  function returnTemperatureChipToBank(scaleNode, chip) {
+    if (!scaleNode || !chip) return;
+    const bank = scaleNode.querySelector('[data-temperature-bank]');
+    if (!bank) return;
+    chip.classList.remove('in-slot');
+    bank.appendChild(chip);
+  }
+
+  function placeTemperatureChip(scaleNode, chip, slot) {
+    if (!scaleNode || !chip || !slot) return;
+    const existing = slot.querySelector('[data-temp-word]');
+    if (existing && existing !== chip) returnTemperatureChipToBank(scaleNode, existing);
+    const currentSlot = chip.closest('.temperature-slot');
+    if (currentSlot && currentSlot !== slot) currentSlot.classList.remove('is-filled');
+    chip.classList.add('in-slot');
+    const zone = slot.querySelector('.temperature-drop-zone') || slot;
+    zone.appendChild(chip);
+    updateTemperatureScaleInputs(scaleNode);
+    const changedInput = slot.querySelector('[data-temp-index]') || scaleNode.querySelector('[data-temp-index]');
+    changedInput?.dispatchEvent(new Event('change', { bubbles: true }));
+  }
+
+  function syncTemperatureScaleUI(root) {
+    root.querySelectorAll('.temperature-diagram').forEach((scaleNode) => {
+      const bank = scaleNode.querySelector('[data-temperature-bank]');
+      if (!bank) return;
+      const chips = [...scaleNode.querySelectorAll('[data-temp-word]')];
+      chips.forEach((chip) => bank.appendChild(chip));
+      scaleNode.querySelectorAll('.temperature-slot').forEach((slot) => {
+        const input = slot.querySelector('[data-temp-index]');
+        const expectedWord = safeText(input?.value).trim().toLowerCase();
+        slot.classList.remove('is-filled');
+        if (!expectedWord) return;
+        const chip = chips.find((item) => safeText(item.dataset.tempWord).trim().toLowerCase() == expectedWord && item.parentElement === bank);
+        if (chip) {
+          chip.classList.add('in-slot');
+          const zone = slot.querySelector('.temperature-drop-zone') || slot;
+          zone.appendChild(chip);
+          slot.classList.add('is-filled');
+        }
+      });
+      updateTemperatureScaleInputs(scaleNode);
+    });
+  }
+
+  function setupTemperatureScales(root) {
+    root.querySelectorAll('.temperature-diagram').forEach((scaleNode) => {
+      if (scaleNode.dataset.enhanced === 'true') return;
+      scaleNode.dataset.enhanced = 'true';
+      const bank = scaleNode.querySelector('[data-temperature-bank]');
+      let draggedId = '';
+
+      scaleNode.querySelectorAll('[data-temp-word]').forEach((chip) => {
+        chip.addEventListener('dragstart', (event) => {
+          if (chip.disabled || chip.getAttribute('aria-disabled') === 'true') {
+            event.preventDefault();
+            return;
+          }
+          draggedId = chip.dataset.tokenId || '';
+          event.dataTransfer?.setData('text/plain', draggedId);
+          event.dataTransfer.effectAllowed = 'move';
+          chip.classList.add('is-dragging');
+        });
+        chip.addEventListener('dragend', () => {
+          chip.classList.remove('is-dragging');
+          scaleNode.querySelectorAll('.temperature-slot, [data-temperature-bank]').forEach((node) => node.classList.remove('is-over'));
+        });
+      });
+
+      const handleDrop = (target) => (event) => {
+        event.preventDefault();
+        const tokenId = event.dataTransfer?.getData('text/plain') || draggedId;
+        const chip = tokenId ? scaleNode.querySelector(`[data-token-id="${CSS.escape(tokenId)}"]`) : null;
+        if (!chip) return;
+        if (target.classList.contains('temperature-slot')) {
+          placeTemperatureChip(scaleNode, chip, target);
+        } else if (target === bank) {
+          returnTemperatureChipToBank(scaleNode, chip);
+          updateTemperatureScaleInputs(scaleNode);
+          const changedInput = scaleNode.querySelector('[data-temp-index]');
+          changedInput?.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+        target.classList.remove('is-over');
+      };
+
+      [bank, ...scaleNode.querySelectorAll('.temperature-slot')].forEach((target) => {
+        if (!target) return;
+        target.addEventListener('dragover', (event) => {
+          event.preventDefault();
+          target.classList.add('is-over');
+          if (event.dataTransfer) event.dataTransfer.dropEffect = 'move';
+        });
+        target.addEventListener('dragleave', () => target.classList.remove('is-over'));
+        target.addEventListener('drop', handleDrop(target));
+      });
+    });
+  }
+
   function normalizeLesson(rawLesson, requestedId = '') {
     if (!rawLesson || typeof rawLesson !== 'object') return null;
     const id = safeText(rawLesson.id || requestedId).trim();
@@ -1165,9 +1277,13 @@
     } else if (item.input === 'temperature-scale') {
       const labels = Array.isArray(item.labels) ? item.labels : [];
       const answers = Array.isArray(item.answers) ? item.answers : [];
+      const wordBank = Array.isArray(item.wordBank) && item.wordBank.length ? item.wordBank : answers;
       control = `<div class="temperature-diagram" aria-label="Temperature scale from 0°C to 100°C">
-        <div class="temperature-line" aria-hidden="true"><span>0°C</span><span>100°C</span></div>
-        <div class="temperature-slots">${answers.map((answer, tempIndex) => `<label class="temperature-slot"><span class="temperature-tick-label">${escapeHtml(labels[tempIndex] || '')}</span><input class="gap-input temperature-input" data-temp-index="${tempIndex}" autocomplete="off" aria-label="Temperature word ${tempIndex + 1}"></label>`).join('')}</div>
+        <div class="temperature-bank-wrap"><span class="temperature-bank-title">Drag the words onto the scale.</span><div class="temperature-bank" data-temperature-bank>${wordBank.map((word, wordIndex) => createTemperatureChipMarkup(word, `temp-${index}-${wordIndex}`)).join('')}</div></div>
+        <div class="temperature-scale-area">
+          <div class="temperature-line" aria-hidden="true"><span>0°C</span><span>100°C</span></div>
+          <div class="temperature-slots">${answers.map((answer, tempIndex) => `<label class="temperature-slot"><span class="temperature-tick-label">${escapeHtml(labels[tempIndex] || '')}</span><span class="temperature-drop-zone"></span><input type="hidden" class="temperature-value" data-temp-index="${tempIndex}" aria-label="Temperature word ${tempIndex + 1}"></label>`).join('')}</div>
+        </div>
       </div>`;
     } else if (item.input === 'replace-lines') {
       const lines = Array.isArray(item.lines) ? item.lines : [];
@@ -1781,7 +1897,9 @@
       <div id="lesson-blocks">${renderedBlocks}</div>
       <div class="card section lesson-actions"><div id="lesson-result" aria-live="polite"></div><div class="button-row"><button class="btn btn-primary" id="check-lesson" type="button">Check answers</button><button class="btn btn-secondary" id="submit-lesson" type="button" ${savedResult ? '' : 'disabled'}>Submit to teacher</button></div><p class="muted save-note">After checking, your answers are saved on this device and synced with Supabase.</p></div>`;
 
+    setupTemperatureScales(root);
     restoreLessonAnswers(root, blocks, savedResult?.answers);
+    syncTemperatureScaleUI(root);
     bindLessonAnswerReferences(root, blocks);
 
     const savedSubmission = progress.submissions[lesson.id];
@@ -1789,9 +1907,10 @@
       root.querySelectorAll('#lesson-blocks input, #lesson-blocks textarea, #lesson-blocks select, #lesson-blocks button').forEach((control) => {
         control.disabled = true;
       });
-      root.querySelectorAll('[data-reorder-source], [data-word]').forEach((control) => {
+      root.querySelectorAll('[data-reorder-source], [data-word], [data-temp-word]').forEach((control) => {
         control.setAttribute('aria-disabled', 'true');
         control.classList.add('is-locked');
+        if (control.matches('[data-temp-word]')) control.setAttribute('draggable', 'false');
       });
       const checkButton = byId('check-lesson');
       const submitButton = byId('submit-lesson');
