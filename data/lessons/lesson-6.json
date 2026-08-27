@@ -1,0 +1,440 @@
+{
+  "id": "lesson-6",
+  "number": 6,
+  "title": "Time off · Places of interest and travel advice",
+  "subtitle": "Unit 3 · Vocabulary, developing conversations and writing · Outcomes",
+  "status": "available",
+  "vocabularyId": "vocab-lesson-6",
+  "grammarIds": [],
+  "totalPoints": 32,
+  "notification": {
+    "enabled": false,
+    "version": 1
+  },
+  "blocks": [
+    {
+      "type": "section",
+      "eyebrow": "Exercise 1",
+      "title": "VOCABULARY · Places of interest",
+      "text": "Complete the travel advice with the nouns in box A and the prepositions in box B."
+    },
+    {
+      "type": "exercise",
+      "id": "lesson6-ex1",
+      "title": "Complete the travel advice with the nouns in box A and the prepositions in box B.",
+      "wordBanks": [
+        {
+          "label": "A",
+          "words": [
+            "theme park",
+            "nightlife",
+            "gallery",
+            "ruins",
+            "lake",
+            "old town",
+            "stalls",
+            "mosque",
+            "palace",
+            "walls"
+          ]
+        },
+        {
+          "label": "B",
+          "words": [
+            "by",
+            "out",
+            "along",
+            "about",
+            "outside"
+          ]
+        }
+      ],
+      "items": [
+        {
+          "id": "culture-title",
+          "displayOnly": true,
+          "displayStyle": "heading",
+          "prompt": "TRAVELLERS’ TIPS\n\nculture vultures"
+        },
+        {
+          "id": "1a",
+          "number": "",
+          "input": "gaps",
+          "segments": [
+            "THIS SUMMER the royal 1 palace is open to the public for the first time with exhibitions of paintings from across the centuries. There is also a private 2 ",
+            " in the city with paintings for sale."
+          ],
+          "answers": [
+            [
+              "gallery"
+            ]
+          ],
+          "scoreEachResponse": true
+        },
+        {
+          "id": "1b",
+          "number": "",
+          "input": "gaps",
+          "segments": [
+            "FOR LOVERS of architecture, head to the 3 ",
+            " with its interesting mix of historic buildings. 4 ",
+            " in the east of the city, is the site of the old Jewish district. It also has a number of beautiful churches and the city 5 ",
+            "."
+          ],
+          "answers": [
+            [
+              "old town"
+            ],
+            [
+              "Out"
+            ],
+            [
+              "mosque"
+            ]
+          ],
+          "scoreEachResponse": true
+        },
+        {
+          "id": "1c",
+          "number": "",
+          "input": "gaps",
+          "segments": [
+            "TAKE A TRIP out to the Roman 6 ",
+            " and learn about some of the first people to live in the area. Local archaeologists give talks at the weekends."
+          ],
+          "answers": [
+            [
+              "ruins"
+            ]
+          ],
+          "scoreEachResponse": true
+        },
+        {
+          "id": "active-title",
+          "displayOnly": true,
+          "displayStyle": "heading",
+          "prompt": "get active"
+        },
+        {
+          "id": "1d",
+          "number": "",
+          "input": "gaps",
+          "segments": [
+            "CHECK OUT SkyFlyer, the tallest roller coaster in the country, at the new 7 ",
+            ". It’s 8 ",
+            " 45 minutes 9 ",
+            " the city but it’s well worth the trip."
+          ],
+          "answers": [
+            [
+              "theme park"
+            ],
+            [
+              "about"
+            ],
+            [
+              "outside"
+            ]
+          ],
+          "scoreEachResponse": true
+        },
+        {
+          "id": "1e",
+          "number": "",
+          "input": "gaps",
+          "segments": [
+            "ENJOY the 10 ",
+            " — there are lots of bars and restaurants and it’s always very lively."
+          ],
+          "answers": [
+            [
+              "nightlife"
+            ]
+          ],
+          "scoreEachResponse": true
+        },
+        {
+          "id": "1f",
+          "number": "",
+          "input": "gaps",
+          "segments": [
+            "For a MORE RELAXING time, take a boat out on the 11 ",
+            ". Swimming isn’t allowed but you can enjoy a picnic down 12 ",
+            " the water."
+          ],
+          "answers": [
+            [
+              "lake"
+            ],
+            [
+              "by"
+            ]
+          ],
+          "scoreEachResponse": true
+        },
+        {
+          "id": "budget-title",
+          "displayOnly": true,
+          "displayStyle": "heading",
+          "prompt": "fun on a budget"
+        },
+        {
+          "id": "1g",
+          "number": "",
+          "input": "gaps",
+          "segments": [
+            "IF MONEY IS A BIT TIGHT, join a free walking tour. Local residents act as guides and give an insider view of the city. All tours start inside the city 13 ",
+            " under the clock tower."
+          ],
+          "answers": [
+            [
+              "walls"
+            ]
+          ],
+          "scoreEachResponse": true
+        },
+        {
+          "id": "1h",
+          "number": "",
+          "input": "gaps",
+          "segments": [
+            "DON’T MISS the market on Fridays and Saturdays with 14 ",
+            " all 15 ",
+            " the High Street. You’ll find everything from cheap and tasty snacks to local souvenirs at bargain prices."
+          ],
+          "answers": [
+            [
+              "stalls"
+            ],
+            [
+              "along"
+            ]
+          ],
+          "scoreEachResponse": true
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "eyebrow": "Exercise 2",
+      "title": "DEVELOPING CONVERSATIONS · Giving and responding to suggestions",
+      "text": "Kim is talking to her Mexican friend, Felix, about a possible holiday. Write the correct letters for the missing lines in the conversation. There is one line that you do not need."
+    },
+    {
+      "type": "exercise",
+      "id": "lesson6-ex2",
+      "title": "Kim is talking to her Mexican friend, Felix, about a possible holiday.",
+      "instructions": "Write the correct letters for the missing lines in the conversation. There is one line that you do not need.",
+      "wordBank": [
+        "a Oh, I’d love to but I can’t.",
+        "b Jo isn’t really a big fan of sunbathing, to be honest.",
+        "c OK, well in that case, how about something more cultural?",
+        "d That would be great, thanks.",
+        "e It depends on what you like.",
+        "f And you could always have a go at some water sports.",
+        "g My boyfriend Jo and I are thinking of going to Mexico this year."
+      ],
+      "items": [
+        {
+          "id": "2",
+          "number": "",
+          "input": "gaps",
+          "layout": "dialogue",
+          "segments": [
+            "Kim 1 g. Can you recommend anywhere good to go?\nFelix Well, Mexico is a big country and there are lots of places to choose from. 2 ",
+            " If you want a relaxing holiday, there are some fantastic beaches all along the Caribbean coast.\nKim 3 ",
+            " And I’m not really into it either.\nFelix 4 ",
+            " There are amazing Mayan ruins throughout the area.\nKim That sounds interesting. I think I saw a documentary about them on TV. They look like pyramids but with steps. Is that right?\nFelix Well, some of them are pyramids. Others are more like houses, or even palaces.\nKim Wow! That sounds amazing.\nFelix 5 ",
+            " There are lots of places for diving or snorkelling. You could also try kayaking if you like.\nKim Oh, that’s my idea of heaven!\nFelix OK, I can do an online check for the best places for doing that, if you want.\nKim 6 ",
+            ""
+          ],
+          "answers": [
+            [
+              "e"
+            ],
+            [
+              "b"
+            ],
+            [
+              "c"
+            ],
+            [
+              "f"
+            ],
+            [
+              "d"
+            ]
+          ],
+          "scoreEachResponse": true
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "eyebrow": "Exercise 3",
+      "title": "DEVELOPING WRITING · An email — giving advice",
+      "text": "Dan has emailed his friend, Yuko, with some advice about his hometown. Number the content of his message in order."
+    },
+    {
+      "type": "exercise",
+      "id": "lesson6-ex3",
+      "title": "Dan has emailed his friend, Yuko, with some advice about his hometown.",
+      "instructions": "Number the content of his message in order.",
+      "items": [
+        {
+          "id": "3a",
+          "number": "",
+          "prompt": "suggestions of other things to do",
+          "input": "select",
+          "options": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6"
+          ],
+          "answer": 3
+        },
+        {
+          "id": "3b",
+          "number": "",
+          "prompt": "ending",
+          "input": "select",
+          "options": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6"
+          ],
+          "answer": 5
+        },
+        {
+          "id": "3c",
+          "number": "",
+          "prompt": "reason for writing",
+          "input": "select",
+          "options": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6"
+          ],
+          "answer": 1
+        },
+        {
+          "id": "3d",
+          "number": "",
+          "prompt": "practical advice",
+          "input": "select",
+          "options": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6"
+          ],
+          "answer": 4
+        },
+        {
+          "id": "3e",
+          "number": "",
+          "prompt": "greeting",
+          "input": "select",
+          "options": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6"
+          ],
+          "answer": 0
+        },
+        {
+          "id": "3f",
+          "number": "",
+          "prompt": "where to go first",
+          "input": "select",
+          "options": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6"
+          ],
+          "answer": 2
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "eyebrow": "Exercise 4",
+      "title": "Complete the email with the words in the box.",
+      "text": "Complete the email with the words in the box."
+    },
+    {
+      "type": "exercise",
+      "id": "lesson6-ex4",
+      "title": "Complete the email with the words in the box.",
+      "wordBank": [
+        "time",
+        "quick",
+        "at",
+        "take",
+        "anyway",
+        "straight",
+        "during",
+        "down"
+      ],
+      "items": [
+        {
+          "id": "4",
+          "number": "",
+          "input": "gaps",
+          "layout": "letter",
+          "segments": [
+            "Hi Yuko,\n\nJust a 1 quick note to say I’m sorry I can’t see you next week. I’m on a training course, but here are a few ideas of things to do 2 ",
+            " your stay.\n\nThe old town is a good place to start. You can just wander round and soak up the atmosphere. If you want to 3 ",
+            " photos, head to the castle ruins and you’ll find some amazing views.\n\nDon’t miss the parade on Saturday. It’s a great laugh. They have decorated floats, people in fancy dress, and bands playing music. It starts 4 ",
+            " midday in the main square.\n\nI know you’re a fan of roller coasters, so check out the new theme park, Adventure Zone. It’s about an hour outside of town, but you can get a bus 5 ",
+            " there.\n\nDon’t forget to buy a travel card. It’s the cheapest way to get around the area. The best places to eat are 6 ",
+            " by the old canal. They’re pretty cheap but the food is good.\n\n7 ",
+            ", I hope this information helps. Have a great 8 ",
+            ".\n\nAll the best,\nDan"
+          ],
+          "answers": [
+            [
+              "during"
+            ],
+            [
+              "take"
+            ],
+            [
+              "at"
+            ],
+            [
+              "straight"
+            ],
+            [
+              "down"
+            ],
+            [
+              "Anyway"
+            ],
+            [
+              "time"
+            ]
+          ],
+          "scoreEachResponse": true
+        }
+      ]
+    }
+  ]
+}

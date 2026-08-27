@@ -920,6 +920,186 @@ window.VOCABULARY_DATA = [
           }
       ]
   },
+
+  {
+    "id": "vocab-lesson-6",
+    "title": "Time off · Places of interest",
+    "label": "Lesson 6 · Unit 3",
+    "icon": "🌍",
+    "type": "lesson",
+    "linkedLessonId": "lesson-6",
+    "page": "vocabulary.html?id=vocab-lesson-6",
+    "words": [
+      {
+        "id": "vocab-l6-1-palace",
+        "en": "palace",
+        "ru": "дворец",
+        "exampleEn": "The royal palace is open to the public this summer.",
+        "category": "PLACES"
+      },
+      {
+        "id": "vocab-l6-2-gallery",
+        "en": "gallery",
+        "ru": "галерея",
+        "exampleEn": "There is also a private gallery in the city with paintings for sale.",
+        "category": "PLACES"
+      },
+      {
+        "id": "vocab-l6-3-old-town",
+        "en": "old town",
+        "ru": "старый город",
+        "exampleEn": "Head to the old town with its historic buildings.",
+        "category": "PLACES"
+      },
+      {
+        "id": "vocab-l6-4-mosque",
+        "en": "mosque",
+        "ru": "мечеть",
+        "exampleEn": "The city has a number of beautiful churches and the city mosque.",
+        "category": "PLACES"
+      },
+      {
+        "id": "vocab-l6-5-ruins",
+        "en": "ruins",
+        "ru": "руины",
+        "exampleEn": "Take a trip out to the Roman ruins.",
+        "category": "PLACES"
+      },
+      {
+        "id": "vocab-l6-6-theme-park",
+        "en": "theme park",
+        "ru": "парк аттракционов",
+        "exampleEn": "SkyFlyer is at the new theme park.",
+        "category": "PLACES"
+      },
+      {
+        "id": "vocab-l6-7-nightlife",
+        "en": "nightlife",
+        "ru": "ночная жизнь",
+        "exampleEn": "Enjoy the nightlife — there are lots of bars and restaurants.",
+        "category": "PLACES"
+      },
+      {
+        "id": "vocab-l6-8-lake",
+        "en": "lake",
+        "ru": "озеро",
+        "exampleEn": "Take a boat out on the lake.",
+        "category": "PLACES"
+      },
+      {
+        "id": "vocab-l6-9-city-walls",
+        "en": "city walls",
+        "ru": "городские стены",
+        "exampleEn": "All tours start inside the city walls under the clock tower.",
+        "category": "PLACES"
+      },
+      {
+        "id": "vocab-l6-10-stalls",
+        "en": "stalls",
+        "ru": "рыночные палатки, лотки",
+        "exampleEn": "Don’t miss the market with stalls all along the High Street.",
+        "category": "PLACES"
+      },
+      {
+        "id": "vocab-l6-11-head-to",
+        "en": "head to",
+        "ru": "направиться в / к",
+        "exampleEn": "For lovers of architecture, head to the old town.",
+        "category": "PHRASE"
+      },
+      {
+        "id": "vocab-l6-12-insider-view",
+        "en": "an insider view",
+        "ru": "взгляд изнутри",
+        "exampleEn": "Local residents give an insider view of the city.",
+        "category": "PHRASE"
+      },
+      {
+        "id": "vocab-l6-13-bargain-prices",
+        "en": "bargain prices",
+        "ru": "выгодные цены",
+        "exampleEn": "You’ll find souvenirs at bargain prices.",
+        "category": "PHRASE"
+      },
+      {
+        "id": "vocab-l6-14-be-a-fan-of",
+        "en": "be a fan of",
+        "ru": "любить что-то, быть поклонником чего-то",
+        "exampleEn": "Jo isn’t really a big fan of sunbathing.",
+        "category": "PHRASE"
+      },
+      {
+        "id": "vocab-l6-15-sunbathing",
+        "en": "sunbathing",
+        "ru": "загорание, принятие солнечных ванн",
+        "exampleEn": "I’m not really into sunbathing.",
+        "category": "VOCAB"
+      },
+      {
+        "id": "vocab-l6-16-cultural",
+        "en": "cultural",
+        "ru": "культурный, связанный с культурой",
+        "exampleEn": "How about something more cultural?",
+        "category": "VOCAB"
+      },
+      {
+        "id": "vocab-l6-17-snorkelling",
+        "en": "snorkelling",
+        "ru": "плавание с маской и трубкой",
+        "exampleEn": "There are lots of places for diving or snorkelling.",
+        "category": "ACTIVITIES"
+      },
+      {
+        "id": "vocab-l6-18-kayaking",
+        "en": "kayaking",
+        "ru": "каякинг, плавание на каяке",
+        "exampleEn": "You could also try kayaking if you like.",
+        "category": "ACTIVITIES"
+      },
+      {
+        "id": "vocab-l6-19-my-idea-of-heaven",
+        "en": "my idea of heaven",
+        "ru": "именно то, что мне очень нравится",
+        "exampleEn": "Oh, that’s my idea of heaven!",
+        "category": "PHRASE"
+      },
+      {
+        "id": "vocab-l6-20-wander-round",
+        "en": "wander round",
+        "ru": "бродить, гулять без конкретной цели",
+        "exampleEn": "You can just wander round and soak up the atmosphere.",
+        "category": "PHRASAL VERB"
+      },
+      {
+        "id": "vocab-l6-21-soak-up-the-atmosphere",
+        "en": "soak up the atmosphere",
+        "ru": "прочувствовать атмосферу",
+        "exampleEn": "The old town is a good place to soak up the atmosphere.",
+        "category": "PHRASE"
+      },
+      {
+        "id": "vocab-l6-22-a-great-laugh",
+        "en": "a great laugh",
+        "ru": "очень весёлое событие / занятие",
+        "exampleEn": "Don’t miss the parade on Saturday. It’s a great laugh.",
+        "category": "PHRASE"
+      },
+      {
+        "id": "vocab-l6-23-fancy-dress",
+        "en": "fancy dress",
+        "ru": "маскарадный костюм",
+        "exampleEn": "There are decorated floats and people in fancy dress.",
+        "category": "VOCAB"
+      },
+      {
+        "id": "vocab-l6-24-get-around",
+        "en": "get around",
+        "ru": "передвигаться по городу / местности",
+        "exampleEn": "A travel card is the cheapest way to get around the area.",
+        "category": "PHRASAL VERB"
+      }
+    ]
+  },
   {
     "id": "vocab-irregular-verbs",
     "title": "Irregular Verbs · A2–B1",
