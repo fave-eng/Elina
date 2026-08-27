@@ -1595,5 +1595,205 @@ window.VOCABULARY_DATA = [
         "category": "VOCAB"
       }
     ]
+  },
+  {
+    "id": "vocab-lesson-8",
+    "title": "Time off · Weather and holiday problems",
+    "label": "Lesson 8 · Unit 3",
+    "icon": "🌦️",
+    "type": "lesson",
+    "linkedLessonId": "lesson-8",
+    "page": "vocabulary.html?id=vocab-lesson-8",
+    "words": [
+      {
+        "id": "vocab-l8-1-freezing",
+        "en": "freezing",
+        "ru": "морозный, очень холодный",
+        "exampleEn": "It is freezing outside.",
+        "category": "WEATHER"
+      },
+      {
+        "id": "vocab-l8-2-boiling-hot",
+        "en": "boiling hot",
+        "ru": "очень жаркий",
+        "exampleEn": "It was boiling hot on holiday.",
+        "category": "WEATHER"
+      },
+      {
+        "id": "vocab-l8-3-a-bit-chilly",
+        "en": "a bit chilly",
+        "ru": "довольно прохладно",
+        "exampleEn": "It is a bit chilly this morning.",
+        "category": "WEATHER"
+      },
+      {
+        "id": "vocab-l8-4-humid",
+        "en": "humid",
+        "ru": "влажный и душный",
+        "exampleEn": "It was hot and humid.",
+        "category": "WEATHER"
+      },
+      {
+        "id": "vocab-l8-5-pour-down",
+        "en": "pour down",
+        "ru": "лить как из ведра",
+        "exampleEn": "It poured down all weekend.",
+        "category": "WEATHER"
+      },
+      {
+        "id": "vocab-l8-6-clear-up",
+        "en": "clear up",
+        "ru": "проясняться о погоде",
+        "exampleEn": "The weather should clear up in the afternoon.",
+        "category": "WEATHER"
+      },
+      {
+        "id": "vocab-l8-7-keep-out-of",
+        "en": "keep out of",
+        "ru": "держаться подальше от",
+        "exampleEn": "Keep out of the rain.",
+        "category": "PHRASE"
+      },
+      {
+        "id": "vocab-l8-8-remote",
+        "en": "remote",
+        "ru": "удалённый",
+        "exampleEn": "There are surfers in remote locations.",
+        "category": "TRAVEL"
+      },
+      {
+        "id": "vocab-l8-9-accommodation",
+        "en": "accommodation",
+        "ru": "жильё, размещение",
+        "exampleEn": "They offer accommodation to travellers.",
+        "category": "TRAVEL"
+      },
+      {
+        "id": "vocab-l8-10-stranger",
+        "en": "stranger",
+        "ru": "незнакомец",
+        "exampleEn": "They offer accommodation to strangers.",
+        "category": "PEOPLE"
+      },
+      {
+        "id": "vocab-l8-11-host",
+        "en": "host",
+        "ru": "хозяин, принимающая сторона",
+        "exampleEn": "Your host can tell you about the area.",
+        "category": "PEOPLE"
+      },
+      {
+        "id": "vocab-l8-12-network",
+        "en": "network",
+        "ru": "сеть",
+        "exampleEn": "Couch-surfing is a network of travellers.",
+        "category": "TRAVEL"
+      },
+      {
+        "id": "vocab-l8-13-common-sense",
+        "en": "common sense",
+        "ru": "здравый смысл",
+        "exampleEn": "Use common sense when choosing a host.",
+        "category": "PHRASE"
+      },
+      {
+        "id": "vocab-l8-14-a-good-track-record",
+        "en": "a good track record",
+        "ru": "хорошая репутация / история отзывов",
+        "exampleEn": "Choose a host with a good track record.",
+        "category": "PHRASE"
+      },
+      {
+        "id": "vocab-l8-15-outstay-your-welcome",
+        "en": "outstay your welcome",
+        "ru": "засидеться в гостях",
+        "exampleEn": "Do not outstay your welcome.",
+        "category": "PHRASE"
+      },
+      {
+        "id": "vocab-l8-16-get-ripped-off",
+        "en": "get ripped off",
+        "ru": "быть обманутым / переплатить",
+        "exampleEn": "Tourists sometimes get ripped off.",
+        "category": "TRAVEL"
+      },
+      {
+        "id": "vocab-l8-17-be-stuck",
+        "en": "be stuck",
+        "ru": "застрять",
+        "exampleEn": "We were stuck at the airport.",
+        "category": "HOLIDAY PROBLEMS"
+      },
+      {
+        "id": "vocab-l8-18-be-delayed",
+        "en": "be delayed",
+        "ru": "быть задержанным",
+        "exampleEn": "Our flight was delayed.",
+        "category": "HOLIDAY PROBLEMS"
+      },
+      {
+        "id": "vocab-l8-19-argue",
+        "en": "argue",
+        "ru": "спорить, ругаться",
+        "exampleEn": "They argued all week.",
+        "category": "HOLIDAY PROBLEMS"
+      },
+      {
+        "id": "vocab-l8-20-crowded",
+        "en": "crowded",
+        "ru": "переполненный",
+        "exampleEn": "The beach was crowded.",
+        "category": "HOLIDAY PROBLEMS"
+      },
+      {
+        "id": "vocab-l8-21-throw-up",
+        "en": "throw up",
+        "ru": "тошнить, вырвать",
+        "exampleEn": "Jodi threw up on the plane.",
+        "category": "HOLIDAY PROBLEMS"
+      },
+      {
+        "id": "vocab-l8-22-miss-a-flight",
+        "en": "miss a flight",
+        "ru": "опоздать на рейс",
+        "exampleEn": "We missed our flight.",
+        "category": "HOLIDAY PROBLEMS"
+      },
+      {
+        "id": "vocab-l8-23-charge-a-fortune",
+        "en": "charge a fortune",
+        "ru": "запросить огромную сумму",
+        "exampleEn": "The taxi driver charged us a fortune.",
+        "category": "HOLIDAY PROBLEMS"
+      },
+      {
+        "id": "vocab-l8-24-lose-a-camera",
+        "en": "lose a camera",
+        "ru": "потерять фотоаппарат",
+        "exampleEn": "I lost my camera on the last day.",
+        "category": "HOLIDAY PROBLEMS"
+      },
+      {
+        "id": "vocab-l8-25-steal-a-passport",
+        "en": "steal a passport",
+        "ru": "украсть паспорт",
+        "exampleEn": "Someone stole my passport.",
+        "category": "HOLIDAY PROBLEMS"
+      },
+      {
+        "id": "vocab-l8-26-spoil-a-trip",
+        "en": "spoil a trip",
+        "ru": "испортить поездку",
+        "exampleEn": "The illness spoiled the trip.",
+        "category": "HOLIDAY PROBLEMS"
+      },
+      {
+        "id": "vocab-l8-27-have-an-upset-stomach",
+        "en": "have an upset stomach",
+        "ru": "иметь расстройство желудка",
+        "exampleEn": "We had an upset stomach.",
+        "category": "HOLIDAY PROBLEMS"
+      }
+    ]
   }
 ];

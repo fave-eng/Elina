@@ -1,0 +1,503 @@
+{
+  "id": "lesson-8",
+  "number": 8,
+  "title": "Time off · Reading, weather and holiday problems",
+  "subtitle": "Couch-surfing, weather vocabulary, present perfect questions, and holiday problems.",
+  "status": "available",
+  "vocabularyId": "vocab-lesson-8",
+  "grammarIds": [
+    "grammar-present-perfect-past-simple"
+  ],
+  "totalPoints": 72,
+  "blocks": [
+    {
+      "type": "section",
+      "title": "READING",
+      "text": "Read the webpage and work with the vocabulary from the text."
+    },
+    {
+      "type": "reading",
+      "id": "lesson8-reading-text",
+      "title": "Love to travel but hate paying for hotels? Too old for a youth hostel? Then couch-surfing might be right up your street. Check out these FAQs:",
+      "sections": [
+        {
+          "number": "1",
+          "heading": "",
+          "text": "Couch-surfing is a network of people who offer accommodation to strangers travelling in their area. It’s simple. When you ‘surf a couch’, you are a guest in someone’s house and they are your host. You don’t pay for the room or couch, and your hosts will often get the same favour back when they travel. They may stay with you or with another person in the network."
+        },
+        {
+          "number": "2",
+          "heading": "",
+          "text": "Of course, there are smaller numbers of surfers in remote locations, but the network covers every continent (including Antarctica). The top five couch-surfing nations are the United States, Germany, France, Canada and the United Kingdom. The average surfer is 27 years old and just over half the surfers are male."
+        },
+        {
+          "number": "3",
+          "heading": "",
+          "text": "Couch-surfing was created so that everyone can travel the world and make meaningful connections, but staying with your host is always free. Many surfers like to take their hosts a gift or treat them to a meal to say thank you. They also thank people in small ways like doing the washing-up or sending a postcard from their next destination.",
+          "boldPhrases": [
+            "treat them to a meal"
+          ]
+        },
+        {
+          "number": "4",
+          "heading": "",
+          "text": "Surfers get the advantage of staying with someone who knows the area like the back of their hand. They can tell how not to get ripped off, or what to do when it’s pouring with rain. And when people of different cultures meet, who better than a local to help with social skills? Knowing whether to shake hands, bow, or kiss a person on the cheek can be very confusing!",
+          "boldPhrases": [
+            "like the back of their hand"
+          ]
+        },
+        {
+          "number": "5",
+          "heading": "",
+          "text": "It’s entirely up to the host. Some surfers come for a single night, or even just for dinner. The important thing is not to outstay your welcome, so surfers usually check with the host first. In the words of one host, “We want surfers to be comfortable, but not too comfortable. Staying two or three nights is cool; longer gets a bit awkward.” And remember that in Germany they say “Guests are like fish — after three days they start to smell …”",
+          "boldPhrases": [
+            "It’s entirely up to",
+            "outstay your welcome",
+            "bit awkward"
+          ]
+        },
+        {
+          "number": "6",
+          "heading": "",
+          "text": "Well, there are always risks in life, but the majority of surfers never have any problems. Most travel networking sites have their own security systems. Hosts and surfers have to be registered and prove they are who they say they are. There are reviews posted on the Internet and so surfers can select hosts with a good track record. Mostly, it’s a question of common sense and avoiding anyone who sounds odd.",
+          "boldPhrases": [
+            "a good track record",
+            "common sense"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "exercise",
+      "id": "lesson8-reading-ex4",
+      "title": "Read the webpage quickly and match the headings to the paragraphs. There is one heading that you don’t need.",
+      "wordBank": [
+        "a But is it safe?",
+        "b How much does it cost?",
+        "c How long do people stay?",
+        "d Who are these couch-surfers?",
+        "e So what is couch-surfing exactly?",
+        "f What are the disadvantages?",
+        "g What are the benefits?"
+      ],
+      "items": [
+        {
+          "id": "1",
+          "number": 1,
+          "prompt": "Paragraph 1",
+          "input": "select",
+          "options": [
+            "But is it safe?",
+            "How much does it cost?",
+            "How long do people stay?",
+            "Who are these couch-surfers?",
+            "So what is couch-surfing exactly?",
+            "What are the disadvantages?",
+            "What are the benefits?"
+          ],
+          "answer": 4
+        },
+        {
+          "id": "2",
+          "number": 2,
+          "prompt": "Paragraph 2",
+          "input": "select",
+          "options": [
+            "But is it safe?",
+            "How much does it cost?",
+            "How long do people stay?",
+            "Who are these couch-surfers?",
+            "So what is couch-surfing exactly?",
+            "What are the disadvantages?",
+            "What are the benefits?"
+          ],
+          "answer": 3
+        },
+        {
+          "id": "3",
+          "number": 3,
+          "prompt": "Paragraph 3",
+          "input": "select",
+          "options": [
+            "But is it safe?",
+            "How much does it cost?",
+            "How long do people stay?",
+            "Who are these couch-surfers?",
+            "So what is couch-surfing exactly?",
+            "What are the disadvantages?",
+            "What are the benefits?"
+          ],
+          "answer": 1
+        },
+        {
+          "id": "4",
+          "number": 4,
+          "prompt": "Paragraph 4",
+          "input": "select",
+          "options": [
+            "But is it safe?",
+            "How much does it cost?",
+            "How long do people stay?",
+            "Who are these couch-surfers?",
+            "So what is couch-surfing exactly?",
+            "What are the disadvantages?",
+            "What are the benefits?"
+          ],
+          "answer": 6
+        },
+        {
+          "id": "5",
+          "number": 5,
+          "prompt": "Paragraph 5",
+          "input": "select",
+          "options": [
+            "But is it safe?",
+            "How much does it cost?",
+            "How long do people stay?",
+            "Who are these couch-surfers?",
+            "So what is couch-surfing exactly?",
+            "What are the disadvantages?",
+            "What are the benefits?"
+          ],
+          "answer": 2
+        },
+        {
+          "id": "6",
+          "number": 6,
+          "prompt": "Paragraph 6",
+          "input": "select",
+          "options": [
+            "But is it safe?",
+            "How much does it cost?",
+            "How long do people stay?",
+            "Who are these couch-surfers?",
+            "So what is couch-surfing exactly?",
+            "What are the disadvantages?",
+            "What are the benefits?"
+          ],
+          "answer": 0
+        }
+      ]
+    },
+    {
+      "type": "exercise",
+      "id": "lesson8-reading-ex5",
+      "title": "Complete the sentences with the words and phrases in bold in the webpage.",
+      "items": [
+        {
+          "id": "1",
+          "number": 1,
+          "prompt": "Ask Anna and Paolo for advice about Rome. They know the city __________ you.",
+          "input": "text",
+          "answer": "like the back of their hand"
+        },
+        {
+          "id": "2",
+          "number": 2,
+          "prompt": "I don’t mind where we go for the weekend. __________ you.",
+          "input": "text",
+          "answer": [
+            "It’s entirely up to",
+            "It is entirely up to",
+            "It's entirely up to"
+          ]
+        },
+        {
+          "id": "3",
+          "number": 3,
+          "prompt": "Don’t __________ when you go to see grandma and granddad.",
+          "input": "text",
+          "answer": "outstay your welcome"
+        },
+        {
+          "id": "4",
+          "number": 4,
+          "prompt": "It was a __________ when I first met my mother-in-law. I didn’t speak Spanish and she didn’t speak English.",
+          "input": "text",
+          "answer": "bit awkward"
+        },
+        {
+          "id": "5",
+          "number": 5,
+          "prompt": "I looked at the reviews of a lot of holiday companies. Adventure Tours have __________.",
+          "input": "text",
+          "answer": "a good track record"
+        },
+        {
+          "id": "6",
+          "number": 6,
+          "prompt": "My teachers were so helpful that I decided to __________ at the end of the course.",
+          "input": "text",
+          "answer": "treat them to a meal"
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "title": "VOCABULARY · Weather",
+      "text": "Practise weather adjectives and weather phrases."
+    },
+    {
+      "type": "exercise",
+      "id": "lesson8-weather-ex1",
+      "title": "Write the words and phrases that describe temperature in the correct place on the diagram.",
+      "wordBank": [
+        "freezing",
+        "cold",
+        "boiling hot",
+        "a bit chilly",
+        "quite warm",
+        "hot"
+      ],
+      "items": [
+        {
+          "id": "scale",
+          "number": "",
+          "prompt": "0°C → 100°C",
+          "input": "gaps",
+          "layout": "temperature-scale",
+          "scoreEachResponse": true,
+          "segments": [
+            "0°C",
+            "",
+            "",
+            "",
+            "",
+            "100°C",
+            ""
+          ],
+          "answers": [
+            "freezing",
+            "cold",
+            "a bit chilly",
+            "quite warm",
+            "hot",
+            "boiling hot"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "exercise",
+      "id": "lesson8-weather-ex2",
+      "title": "Replace the underlined words in the conversations with the words in the box.",
+      "wordBank": [
+        "wet",
+        "pour down",
+        "drop",
+        "heat",
+        "reached",
+        "clear up",
+        "keep out of",
+        "humid"
+      ],
+      "items": [
+        {
+          "id": "dialogues",
+          "number": "",
+          "input": "gaps",
+          "layout": "dialogue",
+          "scoreEachResponse": true,
+          "segments": [
+            "1 A: Have you heard the weather forecast?\nB: Yes, apparently it’s going to _rain a lot_ all weekend.\nB: ",
+            "\nA: Oh, no, what a pain. I was thinking of going to the beach.\nB: I’d stay at home if I were you and _avoid_ the rain.\nB: ",
+            "\n\n2 A: What’s the forecast for the weekend?\nB: Er, Saturday morning is supposed to be rainy, but then it should _improve_ in the afternoon.\nA: Phew! That’s a relief. I’m going to a _wedding_ at 2.30.\nA: ",
+            ", ",
+            "\n\n3 A: I can’t stand this _hot weather_.\nA: ",
+            "\nB: I know what you mean. The air conditioning isn’t working in my office. The temperature went up to 40° yesterday.\nA: ",
+            "\nA: Poor you! It’s so _hot and wet_ that I can’t sleep.\nA: ",
+            "\nB: Yeah, we need a storm to clear the air.\n\n4 A: What are you up to at the weekend?\nB: It depends on the weather.\nA: Apparently, it’s going to be freezing. They say it could fall to minus 5°.\nB: Time to stay in with a good book, I think.\nA: ",
+            ""
+          ],
+          "answers": [
+            "pour down",
+            "keep out of",
+            "wet",
+            "clear up",
+            "heat",
+            "reached",
+            "humid",
+            "drop"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "title": "GRAMMAR · Present perfect questions",
+      "text": "Complete the questions and choose the correct words in the answers."
+    },
+    {
+      "type": "exercise",
+      "id": "lesson8-grammar-ex6",
+      "title": "Complete the questions with the correct form of the verbs in brackets. Then choose the correct words in the answers.",
+      "items": [
+        {
+          "id": "dialogues",
+          "number": "",
+          "input": "gaps",
+          "layout": "dialogue",
+          "scoreEachResponse": true,
+          "segments": [
+            "1 A: ",
+            " you ever ",
+            " the pyramids? (see)\nB: No, never. I love / I’d love to, though.\nB: ",
+            "\n\n2 A: ",
+            " you ever ",
+            " on holiday by yourself? (go)\nB: No, I’ve ever / never really fancied it.\nB: ",
+            "\n\n3 A: ",
+            " you ever ",
+            " camping? (try)\nB: Yes, lots / several times.\nB: ",
+            "\n\n4 A: ",
+            " you ever ",
+            " Japanese food? (eat)\nB: No, never. It’s supposed be / to be delicious.\nB: ",
+            "\n\n5 A: ",
+            " you ever ",
+            " a camel? (ride)\nB: No, never. Have you? / Did you? I’ve heard it’s quite difficult.\nB: ",
+            "\n\n6 A: ",
+            " you ever ",
+            " Disneyland with your kids? (visit)\nB: Yes, but I wouldn’t go there if I were you. It’s not worth it / of it.\nB: ",
+            "\n\n7 A: ",
+            " you ever ",
+            " in a helicopter? (fly)\nB: No, never. What does / is it like?\nB: ",
+            "\n\n8 A: ",
+            " you ever ",
+            " to Singapore? (go)\nB: Yes, it’s wonderful. You should go / go.\nB: ",
+            ""
+          ],
+          "answers": [
+            "Have",
+            "seen",
+            "I’d love to",
+            "Have",
+            [
+              "gone",
+              "been"
+            ],
+            "never",
+            "Have",
+            "tried",
+            "several times",
+            "Have",
+            "eaten",
+            "to be",
+            "Have",
+            "ridden",
+            "Have you?",
+            "Have",
+            "visited",
+            "it",
+            "Have",
+            "flown",
+            "is",
+            "Have",
+            [
+              "gone",
+              "been"
+            ],
+            "go"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "title": "VOCABULARY · Holiday problems",
+      "text": "Correct travel-problem phrases and complete short conversations."
+    },
+    {
+      "type": "exercise",
+      "id": "lesson8-holiday-problems-ex7",
+      "title": "Correct the underlined mistakes.",
+      "items": [
+        {
+          "id": "corrections",
+          "number": "",
+          "input": "gaps",
+          "layout": "dialogue",
+          "scoreEachResponse": true,
+          "segments": [
+            "1 What a nightmare! Our flight was _delay_ and we were _stuck at_ the airport for hours.\nCorrections: ",
+            ", ",
+            "\n2 I’m never going on holiday with my family again. My brother and sister didn’t stop _argue_ all week.\nCorrection: ",
+            "\n3 We must go somewhere warm next year. It poured _of_ rain and it was so _wind_ all week.\nCorrections: ",
+            ", ",
+            "\n4 I must look like a tourist. Everywhere we went we got ripped _up_. I paid €15 for a beer!\nCorrection: ",
+            "\n5 A couple took our _part_ on the beach and Jim got really _anger_ with them. It was so embarrassing!\nCorrections: ",
+            ", ",
+            "\n6 Never again! The beach was so _crowd_ you couldn’t even see the sand.\nCorrection: ",
+            "\n7 The kids were ill on the plane. Jodi threw _off_ three times. Poor thing!\nCorrection: ",
+            ""
+          ],
+          "answers": [
+            "delayed",
+            "stuck",
+            "arguing",
+            "with",
+            "windy",
+            "off",
+            "place",
+            "angry",
+            "crowded",
+            "up"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "exercise",
+      "id": "lesson8-holiday-problems-ex8",
+      "title": "Complete the conversations with the pairs of words in the box. Put the verbs in the past simple.",
+      "wordBank": [
+        "steal / passport",
+        "spoil / trip",
+        "miss / flight",
+        "lose / camera",
+        "charge / a fortune",
+        "have / upset stomach"
+      ],
+      "items": [
+        {
+          "id": "conversations",
+          "number": "",
+          "input": "gaps",
+          "layout": "dialogue",
+          "scoreEachResponse": true,
+          "segments": [
+            "1 A: Did you have a good holiday?\nB: Not really. We came home early.\nA: How come?\nB: We all ",
+            " an ",
+            " and couldn’t eat anything. That was our only holiday this year and it really ",
+            " the ",
+            ".\n\n2 A: I’m exhausted. The journey back was a nightmare.\nB: How come?\nA: Well we ",
+            " our ",
+            " to Heathrow and the next plane landed at 3 a.m. The taxi driver ",
+            " us ",
+            " to take us home — over €100.\nB: Oh no, what a pain!\n\n3 A: You seem a bit fed up.\nB: Yeah well, I’ve just had the holiday from hell.\nA: What happened?\nB: Well, I expected a nice relaxing week, but I spent the first night at the police station because someone ",
+            " my ",
+            ". I took loads of photos but then I ",
+            " my ",
+            " on the last day. It’s just so disappointing.\nA: Oh, what a shame!"
+          ],
+          "answers": [
+            "had",
+            "upset stomach",
+            "spoiled",
+            "trip",
+            "missed",
+            "flight",
+            "charged",
+            "a fortune",
+            "stole",
+            "passport",
+            "lost",
+            "camera"
+          ]
+        }
+      ]
+    }
+  ],
+  "notification": {
+    "enabled": true,
+    "version": 1
+  }
+}

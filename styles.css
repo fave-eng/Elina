@@ -2130,3 +2130,6 @@ label.odd-option {
   .inline-choice-radio-group { display: inline-flex; width: 100%; margin: 6px 0; border-radius: 18px; }
   .inline-choice-radio-option { flex: 1 1 45%; justify-content: center; border-radius: 14px; }
 }
+
+
+.reading-section-copy strong{font-weight:800;color:#111827;background:#eef2ff;border-radius:7px;padding:0 4px}.temperature-scale-gaps{display:grid;grid-template-columns:repeat(6,minmax(110px,1fr));gap:12px;align-items:end;padding:20px 4px 8px;position:relative}.temperature-scale-gaps::before{content:'';position:absolute;left:4px;right:4px;top:42px;height:4px;border-radius:999px;background:linear-gradient(90deg,#dbeafe,#fee2e2)}.temperature-scale-gaps>span{display:flex;flex-direction:column-reverse;gap:8px;font-size:13px;font-weight:800;color:#64748b;text-align:center;min-height:54px}.temperature-scale-gaps .gap-input{width:100%;min-width:0;text-align:center;position:relative;z-index:1}@media(max-width:760px){.temperature-scale-gaps{grid-template-columns:1fr 1fr}.temperature-scale-gaps::before{display:none}}

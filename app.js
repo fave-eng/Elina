@@ -1090,14 +1090,23 @@
   }
 
   function renderReadingSections(block) {
+    const highlightPhrases = (text, phrases) => {
+      let html = formatExerciseText(text || '');
+      (Array.isArray(phrases) ? phrases : []).forEach((phrase) => {
+        const escapedPhrase = escapeHtml(phrase || '');
+        if (!escapedPhrase) return;
+        html = html.replaceAll(escapedPhrase, `<strong>${escapedPhrase}</strong>`);
+      });
+      return html;
+    };
     const sections = Array.isArray(block.sections) ? block.sections : [];
     if (!sections.length) {
-      const text = escapeHtml(block.text || '').replaceAll('\n', '<br>');
+      const text = highlightPhrases(block.text || '', block.boldPhrases);
       return `<div class="reading-copy-wrap"><p class="reading-copy">${text}</p></div>`;
     }
     return `<div class="reading-sections">${sections.map((section) => `<section class="reading-section">
       <div class="reading-section-heading"><span class="reading-number">${escapeHtml(section.number || '')}</span><h4>${escapeHtml(section.heading || '')}</h4></div>
-      <p class="reading-section-copy">${escapeHtml(section.text || '')}</p>
+      <p class="reading-section-copy">${highlightPhrases(section.text || '', section.boldPhrases)}</p>
     </section>`).join('')}</div>`;
   }
 
@@ -1176,7 +1185,9 @@
         ? ' dialogue-gaps'
         : item.layout === 'question-pair'
           ? ' question-pair-gaps'
-          : '';
+          : item.layout === 'temperature-scale'
+            ? ' temperature-scale-gaps'
+            : '';
       control = `<div class="sentence-gaps${layoutClass}" aria-label="${escapeHtml(item.prompt || '')}">${answers.map((answer, gapIndex) => `${gapIndex < segments.length ? `<span>${formatExerciseText(segments[gapIndex])}</span>` : ''}<input class="gap-input" data-gap-index="${gapIndex}" aria-label="Gap ${gapIndex + 1}" autocomplete="off">`).join('')}${segments.length > answers.length ? `<span>${formatExerciseText(segments[segments.length - 1])}</span>` : ''}</div>`;
     } else {
       control = `<input class="text-field" id="${escapeHtml(inputId)}" autocomplete="off" placeholder="${escapeHtml(item.placeholder || '')}">`;
